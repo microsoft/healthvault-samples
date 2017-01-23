@@ -1,20 +1,33 @@
-#Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Introduction 
+Microsoft HealthVault is a cloud-based platform designed to put people in control of their health data. This repository hosts samples of apps and sites which allow developers to provide additional value on the HealthVault platform. 
 
-#Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+For more information on HealthVault for developers, please see our comprehensive [developer documentation](https://go.microsoft.com/fwlink/?linkid=838955). 
 
-#Build and Test
-TODO: Describe and show how to build your code and run the tests. 
 
-#Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+# Getting Started
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## SDKs
+HealthVault offers SDKs for many platforms. 
+* .NET
+  * [Nuget package](https://www.nuget.org/packages/HealthVault.NET/) - Easily stay up-to-date with the latest HealthVault SDK by leveraging the .NET SDK published via Nuget.
+  * [MSI download](https://www.microsoft.com/downloads/details.aspx?FamilyID=95e14343-fb98-4549-bd29-225a59423cc9) - Optional. Offers some additional tools, including the HealthVault Application Manager.  
+* [Java/Android](http://healthvaultjavalib.codeplex.com/) - Maven-enabled SDK for Java and Android app development. 
+* [iOS](https://github.com/microsoft-hsg/HVMobile_VNext) - Objective-C SDK for iOS app development
+* [HealthVault Device Driver Development Kit](https://www.microsoft.com/en-us/download/details.aspx?id=26801) - A DDK for device manufacturers developing HealthVault-enabled devices for Windows. 
+
+* Third-party libraries
+  * [Drupal](https://www.drupal.org/project/healthvault_connect) - A Drupal connector for HealthVault
+  * [PHP](http://mkalkbrenner.github.io/HVClientLibPHP/) - An open-source library for developing HealthVault-enabled applications in PHP. 
+  * [Python](https://github.com/orcasgit/python-healthvault) - An open-source library for developing HealthVault-enabled applications in Python.
+  * [Ruby](http://healthvaultrubylib.codeplex.com/) - An open-source library for developing HealthVault-enabled applications in Ruby. 
+
+## Registering your applications
+All applications must be registered with the [HealthVault Application Configuration Center](https://go.microsoft.com/fwlink/?linkid=838954) before they can connect to the service. During registration, the ACC will request that you upload an appropriate certificate which will be used subsequently to secure communications between your app and the service. For more information on how to obtain an appropriate certificate, please see [MSDN](https://msdn.microsoft.com/en-us/healthvault/dn781357). 
+
+# Contribute
+Contributions to healthvault-samples are welcome.  Here is how you can contribute:
+
+* [Submit bugs](https://github.com/Microsoft/healthvault-samples/issues) and help us verify fixes
+* [Submit pull requests](https://github.com/Microsoft/healthvault-samples/pulls) for bug fixes and features
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.

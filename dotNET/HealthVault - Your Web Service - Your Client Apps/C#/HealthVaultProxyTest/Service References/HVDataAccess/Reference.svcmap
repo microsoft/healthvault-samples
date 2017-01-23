@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f3ccbe58-6551-4726-81f6-1e48fd8d3fce" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:29182/HVDataAccess.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="HVDataAccess.xsd" MetadataType="Schema" ID="c63ef173-c142-4692-a899-2419167d0571" SourceId="1" SourceUrl="http://localhost:29182/HVDataAccess.svc?xsd=xsd2" />
+    <MetadataFile FileName="HVDataAccess.wsdl" MetadataType="Wsdl" ID="f6490726-9eac-4f65-9f77-156827d6ad60" SourceId="1" SourceUrl="http://localhost:29182/HVDataAccess.svc?wsdl" />
+    <MetadataFile FileName="HVDataAccess.disco" MetadataType="Disco" ID="9fdc819d-6d55-459e-a0b6-252d5de91520" SourceId="1" SourceUrl="http://localhost:29182/HVDataAccess.svc?disco" />
+    <MetadataFile FileName="HVDataAccess1.xsd" MetadataType="Schema" ID="dccd14f3-bbf1-4f3b-b0ef-32eaac70f9c2" SourceId="1" SourceUrl="http://localhost:29182/HVDataAccess.svc?xsd=xsd1" />
+    <MetadataFile FileName="HVDataAccess2.xsd" MetadataType="Schema" ID="eeec6522-c2b4-4df5-b731-4445747a4a67" SourceId="1" SourceUrl="http://localhost:29182/HVDataAccess.svc?xsd=xsd3" />
+    <MetadataFile FileName="HVDataAccess3.xsd" MetadataType="Schema" ID="20660c45-f855-4a21-aaf3-63a792bd9e96" SourceId="1" SourceUrl="http://localhost:29182/HVDataAccess.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

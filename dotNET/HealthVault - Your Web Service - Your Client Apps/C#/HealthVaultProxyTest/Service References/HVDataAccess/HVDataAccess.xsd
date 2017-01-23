@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/HealthVaultProxy" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/HealthVaultProxy" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:29182/HVDataAccess.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:29182/HVDataAccess.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="GetUpdatedRecordsRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SinceDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetUpdatedRecordsRequest" nillable="true" type="tns:GetUpdatedRecordsRequest" />
+  <xs:complexType name="GetUpdatedRecordsResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:HVProxyResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="UpdatedRecords" nillable="true" type="tns:ArrayOfRecordUpdateInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetUpdatedRecordsResponse" nillable="true" type="tns:GetUpdatedRecordsResponse" />
+  <xs:complexType name="HVProxyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Stack" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Success" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HVProxyResponse" nillable="true" type="tns:HVProxyResponse" />
+  <xs:complexType name="ArrayOfRecordUpdateInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RecordUpdateInfo" nillable="true" type="tns:RecordUpdateInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRecordUpdateInfo" nillable="true" type="tns:ArrayOfRecordUpdateInfo" />
+  <xs:complexType name="RecordUpdateInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LastUpdateDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PersonId" type="ser:guid" />
+      <xs:element minOccurs="0" name="RecordId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RecordUpdateInfo" nillable="true" type="tns:RecordUpdateInfo" />
+  <xs:complexType name="GetThingsRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PersonId" type="ser:guid" />
+      <xs:element minOccurs="0" name="RecordId" type="ser:guid" />
+      <xs:element minOccurs="0" name="SinceDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TypeIds" nillable="true" type="q1:ArrayOfguid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GetThingsRequest" nillable="true" type="tns:GetThingsRequest" />
+  <xs:complexType name="GetThingsResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:HVProxyResponse">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Things" nillable="true" type="q2:ArrayOfstring" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetThingsResponse" nillable="true" type="tns:GetThingsResponse" />
+  <xs:complexType name="PutThingRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PersonId" type="ser:guid" />
+      <xs:element minOccurs="0" name="RecordId" type="ser:guid" />
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeId" type="ser:guid" />
+      <xs:element minOccurs="0" name="TypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="XmlItem" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PutThingRequest" nillable="true" type="tns:PutThingRequest" />
+  <xs:complexType name="PutThingResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:HVProxyResponse">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PutThingResponse" nillable="true" type="tns:PutThingResponse" />
+  <xs:complexType name="PutThingsRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PersonId" type="ser:guid" />
+      <xs:element minOccurs="0" name="RecordId" type="ser:guid" />
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="XmlInputs" nillable="true" type="q3:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PutThingsRequest" nillable="true" type="tns:PutThingsRequest" />
+  <xs:complexType name="PutThingsResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:HVProxyResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CountReceived" type="xs:int" />
+          <xs:element minOccurs="0" name="CountSucceeded" type="xs:int" />
+          <xs:element minOccurs="0" name="IndexOnError" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PutThingsResponse" nillable="true" type="tns:PutThingsResponse" />
+</xs:schema>

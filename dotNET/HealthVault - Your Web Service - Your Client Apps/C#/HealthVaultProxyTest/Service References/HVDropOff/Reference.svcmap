@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d18b333b-7f40-488b-ab1c-59503ca7f325" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:29182/HVDropOff.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="HVDropOff.xsd" MetadataType="Schema" ID="814fd08b-0e08-4617-9ec3-fc64b8e9ca3a" SourceId="1" SourceUrl="http://localhost:29182/HVDropOff.svc?xsd=xsd1" />
+    <MetadataFile FileName="HVDropOff1.xsd" MetadataType="Schema" ID="080eb421-f1fb-4ada-be09-110dd84c3813" SourceId="1" SourceUrl="http://localhost:29182/HVDropOff.svc?xsd=xsd0" />
+    <MetadataFile FileName="HVDropOff2.xsd" MetadataType="Schema" ID="66fa97f0-8e03-403a-bc95-9415099eda43" SourceId="1" SourceUrl="http://localhost:29182/HVDropOff.svc?xsd=xsd3" />
+    <MetadataFile FileName="HVDropOff3.xsd" MetadataType="Schema" ID="255a2b8b-c7ec-4464-93b3-312f88e9c73f" SourceId="1" SourceUrl="http://localhost:29182/HVDropOff.svc?xsd=xsd2" />
+    <MetadataFile FileName="HVDropOff.wsdl" MetadataType="Wsdl" ID="9c4a728a-613f-4008-8c11-9cec808c3584" SourceId="1" SourceUrl="http://localhost:29182/HVDropOff.svc?wsdl" />
+    <MetadataFile FileName="HVDropOff.disco" MetadataType="Disco" ID="5315c599-c866-4228-acb1-0cdee806acea" SourceId="1" SourceUrl="http://localhost:29182/HVDropOff.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
