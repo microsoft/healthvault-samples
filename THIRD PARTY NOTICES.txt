@@ -1,6 +1,6 @@
 HealthVault Samples THIRD PARTY NOTICES
 
-HEALTHVAULT PROVIDER MANAGMENT PORTAL
+HEALTHVAULT PROVIDER MANAGEMENT PORTAL
 
 HealthVault Provider Management Portal project is bundled with the following third party components and were acquired from the applicable sources noted below and were licensed as follows:
 *Component:  Bootstrap 3.0 
