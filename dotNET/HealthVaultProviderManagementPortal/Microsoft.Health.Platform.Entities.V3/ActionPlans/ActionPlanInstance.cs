@@ -20,7 +20,7 @@ namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
         /// <summary>
         /// The ID of the plan
         /// </summary>
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The status of the plan

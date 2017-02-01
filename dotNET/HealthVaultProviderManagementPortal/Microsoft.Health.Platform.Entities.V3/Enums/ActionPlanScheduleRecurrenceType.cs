@@ -24,16 +24,6 @@ namespace Microsoft.Health.Platform.Entities.V3.Enums
         None = 1,
 
         /// <summary>
-        /// Reminder recurs on a minute basis
-        /// </summary>
-        Minute = 2,
-
-        /// <summary>
-        /// Reminder recurs on an hourly basis
-        /// </summary>
-        Hourly = 3,
-
-        /// <summary>
         /// Reminder recurs on a daily basis
         /// </summary>
         Daily = 4,
@@ -42,45 +32,5 @@ namespace Microsoft.Health.Platform.Entities.V3.Enums
         /// Reminder recurs on a weekly basis
         /// </summary>
         Weekly = 5,
-
-        /// <summary>
-        /// Reminder recurs on a monthly basis
-        /// </summary>
-        Monthly = 6,
-
-        /// <summary>
-        /// Reminder recurs on a yearly basis
-        /// </summary>
-        Annually = 7,
-
-        /// <summary>
-        /// Reminder recurs on a minute basis, since the last occurence
-        /// </summary>
-        MinutelySinceLast = 8,
-
-        /// <summary>
-        /// Reminder recurs on an hourly basis, since the last occurence
-        /// </summary>
-        HourlySinceLast = 9,
-
-        /// <summary>
-        /// Reminder recurs on a daily basis, since the last occurence
-        /// </summary>
-        DailySinceLast = 10,
-
-        /// <summary>
-        /// Reminder recurs on a weekly basis, since the last occurence
-        /// </summary>
-        WeeklySinceLast = 11,
-
-        /// <summary>
-        /// Reminder recurs on a monthly basis, since the last occurence
-        /// </summary>
-        MonthlySinceLast = 12,
-
-        /// <summary>
-        /// Reminder recurs on a yearly basis, since the last occurence
-        /// </summary>
-        AnnuallySinceLast = 13
     }
 }

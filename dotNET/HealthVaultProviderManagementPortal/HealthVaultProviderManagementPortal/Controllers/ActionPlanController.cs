@@ -93,9 +93,21 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateTask(string planId, string objectiveId)
+        public ActionResult CreateScheduledTask(Guid planId, Guid objectiveId)
         {
-            var task = CreateDefaultActionPlanTask(objectiveId, planId);
+            var task = CreateDefaultScheduledActionPlanTask(objectiveId, planId);
+            var response = CreateTask(task);
+            return HandleRestResponse(response, HttpStatusCode.Created, "EditPlan", new { id = planId });
+        }
+
+        /// <summary>
+        /// Create a sample task for the signed-in user.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateFrequencyTask(Guid planId, Guid objectiveId)
+        {
+            var task = CreateDefaultFrequencyActionPlanTask(objectiveId, planId);
             var response = CreateTask(task);
             return HandleRestResponse(response, HttpStatusCode.Created, "EditPlan", new { id = planId });
         }
@@ -163,19 +175,20 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
             // Use this if you want to create the task with the plan in one call.
             // You can also create tasks in a separate call after the action plan is created.
-            var task = CreateDefaultActionPlanTask(objective.Id);
+            var scheduledTask = CreateDefaultScheduledActionPlanTask(objective.Id);
+            var frequencyTask = CreateDefaultFrequencyActionPlanTask(objective.Id);
 
             plan.Name = "Sleep better";
             plan.Description = "Improve the quantity and quality of your sleep.";
-            plan.ImageUrl = new Uri("http://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE10omP?ver=59cf");
-            plan.ThumbnailImageUrl = new Uri("http://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE10omP?ver=59cf");
+            plan.ImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE10omP?ver=59cf");
+            plan.ThumbnailImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE10omP?ver=59cf");
             plan.OrganizationId = "CONTOSO";
             plan.OrganizationName = "Contoso";
-            plan.OrganizationLogoUri = new Uri("http://www.example.com");
-            plan.OrganizationLongFormImageUri = new Uri("http://www.example.com");
+            plan.OrganizationLogoUrl = new Uri("https://www.example.com");
+            plan.OrganizationLongFormImageUrl = new Uri("https://www.example.com");
             plan.Category = ActionPlanCategory.Sleep;
             plan.Objectives = new Collection<Objective> { objective };
-            plan.AssociatedTasks = new Collection<ActionPlanTask> { task };
+            plan.AssociatedTasks = new Collection<ActionPlanTask> { scheduledTask, frequencyTask };
 
             return plan;
         }
@@ -187,7 +200,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         {
             var objective = new Objective
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid(),
                 Name = "Get more sleep",
                 Description = "Work on habits that help you maximize how much you sleep you get.",
                 State = ActionPlanObjectiveStatus.Active,
@@ -199,22 +212,22 @@ namespace HealthVaultProviderManagementPortal.Controllers
         }
 
         /// <summary>
-        /// Creates a sample task associated with the specified objective.
+        /// Creates a sample schedule based task associated with the specified objective.
         /// </summary>
-        private ActionPlanTask CreateDefaultActionPlanTask(string objectiveId, string planId = null)
+        private ActionPlanTask CreateDefaultScheduledActionPlanTask(Guid objectiveId, Guid planId = default(Guid))
         {
             var task = new ActionPlanTask
             {
                 Name = "Time to wake up",
                 ShortDescription = "Set a consistent wake time to help regulate your body's internal clock.",
                 LongDescription = "Studies show that waking up at a consistent time every day, even on weekends, is one of the best ways to ensure a good night's sleep.",
-                ImageUrl = new Uri("http://www.example.com"),
-                ThumbnailImageUrl = new Uri("http://www.example.com"),
+                ImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1rXx2?ver=d68e"),
+                ThumbnailImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1s2KS?ver=0ad8"),
                 OrganizationId = "CONTOSO",
                 OrganizationName = "Contoso",
                 TaskType = ActionPlanTaskType.Unknown,
                 SignupName = "Set a consistent wake time",
-                AssociatedObjectiveIds = new Collection<string> { objectiveId },
+                AssociatedObjectiveIds = new Collection<Guid> { objectiveId },
                 AssociatedPlanId = planId, // Only needs to be set if adding as task after the plan
                 TrackingPolicy = new ActionPlanTrackingPolicy(),
                 CompletionType = ActionPlanTaskCompletionType.Scheduled,
@@ -227,6 +240,38 @@ namespace HealthVaultProviderManagementPortal.Controllers
                         Hours = 6,
                         Minutes = 30
                     }
+                }
+            };
+
+            return task;
+        }
+
+        /// <summary>
+        /// Creates a sample frequency based task associated with the specified objective.
+        /// </summary>
+        private ActionPlanTask CreateDefaultFrequencyActionPlanTask(Guid objectiveId, Guid planId = default(Guid))
+        {
+            var task = new ActionPlanTask
+            {
+                Name = "Start my pre-sleep ritual",
+                ShortDescription = "Develop a short pre-sleep ritual to break the connection between the day's stress and bedtime.",
+                LongDescription = "Develop a 10-minute pre-sleep ritual to break the connection between the day's stress and bedtime.",
+                ImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1rXx2?ver=d68e"),
+                ThumbnailImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1s2KS?ver=0ad8"),
+                OrganizationId = "CONTOSO",
+                OrganizationName = "Contoso",
+                TaskType = ActionPlanTaskType.Unknown,
+                SignupName = "Establish a relaxing bedtime ritual",
+                AssociatedObjectiveIds = new Collection<Guid> { objectiveId },
+                AssociatedPlanId = planId, // Only needs to be set if adding as task after the plan
+                TrackingPolicy = new ActionPlanTrackingPolicy(),
+                CompletionType = ActionPlanTaskCompletionType.Frequency,
+                FrequencyTaskCompletionMetrics = new ActionPlanFrequencyTaskCompletionMetrics()
+                {
+                    ReminderState = ActionPlanReminderState.Off,
+                    ScheduledDays = new Collection<ActionPlanScheduleDay> { ActionPlanScheduleDay.Everyday },
+                    OccurrenceCount = 1,
+                    WindowType = ActionPlanScheduleRecurrenceType.Daily
                 }
             };
 

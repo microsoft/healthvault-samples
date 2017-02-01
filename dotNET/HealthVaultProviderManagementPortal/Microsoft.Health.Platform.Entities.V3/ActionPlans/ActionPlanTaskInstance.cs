@@ -8,6 +8,7 @@
 
 namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
 {
+    using System;
     using Microsoft.Health.Platform.Entities.V3.Enums;
 
     /// <summary>
@@ -17,13 +18,23 @@ namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
     public class ActionPlanTaskInstance : ActionPlanTask
     {
         /// <summary>
-        /// Gets or sets the Id of the task
+        /// The Id of the task instance
         /// </summary>
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The status of the task
         /// </summary>
         public ActionPlanTaskStatus Status { get; set; }
+
+        /// <summary>
+        /// The date that the task was started. Read-only
+        /// </summary>
+        public DateTimeOffset StartDate { get; set; }
+
+        /// <summary>
+        /// The date that the task was ended. Read-only
+        /// </summary>
+        public DateTimeOffset? EndDate { get; set; }
     }
 }

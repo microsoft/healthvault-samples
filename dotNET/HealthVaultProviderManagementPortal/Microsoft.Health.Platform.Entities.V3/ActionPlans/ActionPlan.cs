@@ -28,12 +28,12 @@ namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
         public string Description { get; set; }
 
         /// <summary>
-        /// a URL to an image for the plan
+        /// A URL to an image for the plan. Suggested resolution is 212 x 212. URLs should be HTTPS.
         /// </summary>
         public Uri ImageUrl { get; set; }
 
         /// <summary>
-        /// A URL to a thumbnail image for the plan.
+        /// A URL to a thumbnail image for the plan. Suggested resolution is 212 x 212. URLs should be HTTPS.
         /// </summary>
         public Uri ThumbnailImageUrl { get; set; }
 
@@ -48,14 +48,14 @@ namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
         public string OrganizationName { get; set; }
 
         /// <summary>
-        /// The logo of the organization that manages this plan
+        /// A URL to the logo of the organization that manages this plan. URLs should be HTTPS.
         /// </summary>
-        public Uri OrganizationLogoUri { get; set; }
+        public Uri OrganizationLogoUrl { get; set; }
 
         /// <summary>
-        /// A larger image for the organization logo that may include the wordmark
+        /// A URL to a larger image for the organization logo that may include the wordmark. URLs should be HTTPS.
         /// </summary>
-        public Uri OrganizationLongFormImageUri { get; set; }
+        public Uri OrganizationLongFormImageUrl { get; set; }
 
         /// <summary>
         /// The category of the plan

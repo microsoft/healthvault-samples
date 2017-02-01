@@ -8,7 +8,7 @@
 
 namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
 {
-    using System.Collections.ObjectModel;
+    using System;
     using Microsoft.Health.Platform.Entities.V3.Enums;
 
     /// <summary>
@@ -22,7 +22,7 @@ namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
         /// <summary>
         /// The unique identifier of the instance of the objective
         /// </summary>
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The name of the objective

@@ -19,47 +19,47 @@ namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
     public class ActionPlanTask
     {
         /// <summary>
-        /// Gets or sets the friendly name of the task
+        /// The friendly name of the task
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the short description of the task
+        /// The short description of the task
         /// </summary>
         public string ShortDescription { get; set; }
 
         /// <summary>
-        /// Gets or sets the detailed description of the task
+        /// The detailed description of the task
         /// </summary>
         public string LongDescription { get; set; }
 
         /// <summary>
-        /// Gets or sets the image url of the task
+        /// The image URL of the task. Suggested resolution is 200 x 200. URLs should be HTTPS.
         /// </summary>
         public Uri ImageUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the thumbnail image url of the task
+        /// The thumbnail image URL of the task. Suggested resolution is 90 x 90. URLs should be HTTPS.
         /// </summary>
         public Uri ThumbnailImageUrl { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the organization that owns this task
+        /// The ID of the organization that owns this task
         /// </summary>
         public string OrganizationId { get; set; }
 
         /// <summary>
-        /// Gets or sets the organization name that owns this task
+        /// The name of the organization that owns this task
         /// </summary>
         public string OrganizationName { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of the task
+        /// The type of the task, used to choose the UI editor for the task
         /// </summary>
         public ActionPlanTaskType TaskType { get; set; }
 
         /// <summary>
-        /// Gets or sets the tracking policy
+        /// The tracking policy
         /// </summary>
         public ActionPlanTrackingPolicy TrackingPolicy { get; set; }
 
@@ -69,15 +69,15 @@ namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
         public string SignupName { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the associated plan
+        /// The ID of the associated plan. This is not needed when adding a task as part of a new plan
         /// </summary>
-        public string AssociatedPlanId { get; set; }
+        public Guid AssociatedPlanId { get; set; }
 
         /// <summary>
-        ///  Gets or sets the list of objective IDs the task is associated with
+        /// The list of objective IDs the task is associated with
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Setter needed for serialization")]
-        public Collection<string> AssociatedObjectiveIds { get; set; }
+        public Collection<Guid> AssociatedObjectiveIds { get; set; }
 
         /// <summary>
         /// The Completion Type of the Task

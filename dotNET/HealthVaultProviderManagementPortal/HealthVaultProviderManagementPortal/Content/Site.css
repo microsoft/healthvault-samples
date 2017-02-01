@@ -26,3 +26,8 @@ textarea {
 .response-data-label {
     font-weight: bold;
 }
+
+.time {
+    display: inline-block;
+    max-width: 60px;
+}

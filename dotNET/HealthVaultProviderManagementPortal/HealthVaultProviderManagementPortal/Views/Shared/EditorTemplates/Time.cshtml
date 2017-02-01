@@ -1,0 +1,5 @@
+﻿@model Microsoft.Health.Platform.Entities.V3.Time
+
+@Html.EditorFor(model => model.Hours, new { htmlAttributes = new { @class = "form-control time" } })
+:
+@Html.EditorFor(model => model.Minutes, new { htmlAttributes = new { @class = "form-control time" } })
