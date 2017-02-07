@@ -89,89 +89,105 @@
             </div>
         </div>
 
-        <div class="form-group" style="background-color: #eeeeee">
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    @Html.RadioButtonFor(model => model.CompletionType, ActionPlanTaskCompletionType.Frequency.ToString(), htmlAttributes: new { @class = "radio-inline" }) @Html.LabelFor(model => model.CompletionType, ActionPlanTaskCompletionType.Frequency.ToString(), htmlAttributes: new { @class = "control-label" })
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="radio-inline">
+                            <label>
+                                @Html.RadioButtonFor(model => model.CompletionType, ActionPlanTaskCompletionType.Frequency.ToString()) @ActionPlanTaskCompletionType.Frequency.ToString()
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.FrequencyTaskCompletionMetrics.OccurrenceCount, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FrequencyTaskCompletionMetrics.OccurrenceCount, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FrequencyTaskCompletionMetrics.OccurrenceCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FrequencyTaskCompletionMetrics.OccurrenceCount, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.FrequencyTaskCompletionMetrics.WindowType, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.FrequencyTaskCompletionMetrics.WindowType, htmlAttributes: new { @class = "form-control" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FrequencyTaskCompletionMetrics.WindowType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.FrequencyTaskCompletionMetrics.WindowType, htmlAttributes: new { @class = "form-control" })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.FrequencyTaskCompletionMetrics.ScheduledDays, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Everyday)
-                    @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Sunday)
-                    @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Monday)
-                    @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Tuesday)
-                    @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Wednesday)
-                    @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Thursday)
-                    @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Friday)
-                    @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Saturday)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FrequencyTaskCompletionMetrics.ScheduledDays, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Everyday)
+                        @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Sunday)
+                        @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Monday)
+                        @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Tuesday)
+                        @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Wednesday)
+                        @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Thursday)
+                        @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Friday)
+                        @ScheduleDayCheckbox(Model.FrequencyTaskCompletionMetrics, "FrequencyTaskCompletionMetrics.ScheduledDays", "ftcm_sd", ActionPlanScheduleDay.Saturday)
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.FrequencyTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.FrequencyTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "form-control" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FrequencyTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.FrequencyTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "form-control" })
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="form-group" style="background-color: #eeeeee">
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    @Html.RadioButtonFor(model => model.CompletionType, ActionPlanTaskCompletionType.Scheduled.ToString(), htmlAttributes: new { @class = "radio-inline" }) @Html.LabelFor(model => model.CompletionType, ActionPlanTaskCompletionType.Scheduled.ToString(), htmlAttributes: new { @class = "control-label" })
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="radio-inline">
+                            <label>
+                                @Html.RadioButtonFor(model => model.CompletionType, ActionPlanTaskCompletionType.Scheduled.ToString()) @ActionPlanTaskCompletionType.Scheduled.ToString()
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.ScheduledTaskCompletionMetrics.ScheduledTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ScheduledTaskCompletionMetrics.ScheduledTime, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ScheduledTaskCompletionMetrics.ScheduledTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ScheduledTaskCompletionMetrics.ScheduledTime, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.ScheduledTaskCompletionMetrics.ScheduledDays, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Everyday)
-                    @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Sunday)
-                    @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Monday)
-                    @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Tuesday)
-                    @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Wednesday)
-                    @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Thursday)
-                    @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Friday)
-                    @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Saturday)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ScheduledTaskCompletionMetrics.ScheduledDays, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Everyday)
+                        @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Sunday)
+                        @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Monday)
+                        @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Tuesday)
+                        @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Wednesday)
+                        @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Thursday)
+                        @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Friday)
+                        @ScheduleDayCheckbox(Model.ScheduledTaskCompletionMetrics, "ScheduledTaskCompletionMetrics.ScheduledDays", "stcm_sd", ActionPlanScheduleDay.Saturday)
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.ScheduledTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.ScheduledTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "form-control" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ScheduledTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.ScheduledTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "form-control" })
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-                <input type="submit" value="Delete" formaction="@Url.Action("RemoveTask", new { id = Model.Id, planID = Model.AssociatedPlanId })" class="btn btn-default" />
+            <div class="col-md-12 text-center">
+                <input type="submit" value="Save" class="btn btn-success" />
+                <input type="submit" value="Delete" formaction="@Url.Action("RemoveTask", new { id = Model.Id, planID = Model.AssociatedPlanId })" class="btn btn-danger" />
             </div>
         </div>
     </div>
@@ -179,7 +195,11 @@
 
 @helper ScheduleDayCheckbox(BaseActionPlanTaskCompletionMetrics completionMetrics, string name, string idBase, ActionPlanScheduleDay day)
 {
-    <input type="checkbox" name="@name" id="@(idBase + "_" + day)" value="@day" class="checkbox-inline" 
-           checked="@(completionMetrics != null && completionMetrics.ScheduledDays != null &&  completionMetrics.ScheduledDays.Contains(day))" /> 
-           <label for="@(idBase + "_" + day)" class="control-label">@day</label><br />
+    <div class="checkbox-inline no-padding-top">
+        <label for="@(idBase + "_" + day)" class="control-label">
+            <input type="checkbox" name="@name" id="@(idBase + "_" + day)" value="@day"
+                   checked="@(completionMetrics != null && completionMetrics.ScheduledDays != null &&  completionMetrics.ScheduledDays.Contains(day))" />
+            @day
+        </label>
+    </div>
 }

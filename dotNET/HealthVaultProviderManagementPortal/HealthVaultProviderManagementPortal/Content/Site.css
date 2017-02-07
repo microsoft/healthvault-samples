@@ -16,13 +16,6 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    /*max-width: 280px;*/
-}
-
 .response-data-label {
     font-weight: bold;
 }
@@ -30,4 +23,12 @@ textarea {
 .time {
     display: inline-block;
     max-width: 60px;
+}
+
+.form-horizontal .checkbox-inline.no-padding-top {
+    padding-top: 0;
+}
+
+.panel-heading .form-group {
+    margin-bottom: 0;
 }

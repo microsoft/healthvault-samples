@@ -20,6 +20,7 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.Id)
 
+    <h3>Plan</h3>
     <div class="form-horizontal">
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -48,7 +49,7 @@
                 @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.ImageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -63,29 +64,40 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-                <input type="submit" value="Delete" formaction="@Url.Action("RemovePlan", new { id = Model.Id })" class="btn btn-default" />
-            </div>
-        </div>
-        
         <h3>Objectives</h3>
-        <table class="form-horizontal">
-            @foreach (var objective in Model.Objectives)
+        <div class="form-horizontal">
+            @for (int i = 0; i < Model.Objectives.Count; i++)
             {
-                <tr class="form-group">
-                    <td class="col-md-4">@objective.Id</td>
-                    <td class="col-md-3">@objective.Name</td>
-                    <td class="col-md-5">
-                        <input type="submit" value="Add Scheduled Task" formaction="@Url.Action("CreateScheduledTask", new {planId = Model.Id, objectiveId = objective.Id})" class="btn btn-default"/>
-                        <input type="submit" value="Add Frequency Task" formaction="@Url.Action("CreateFrequencyTask", new {planId = Model.Id, objectiveId = objective.Id})" class="btn btn-default" />
-                        <input type="submit" value="Delete" formaction="@Url.Action("RemoveObjective", new {planId = Model.Id, id = objective.Id})" class="btn btn-default"/>
-                    </td>
-                </tr>
+                <hr />
+                <div class="form-group">
+                    @Html.HiddenFor(model => Model.Objectives[i].Id)
+                    @Html.LabelFor(model => Model.Objectives[i].Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => Model.Objectives[i].Name, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Objectives[i].OutcomeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => Model.Objectives[i].OutcomeName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => Model.Objectives[i].OutcomeType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => Model.Objectives[i].OutcomeType, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <input type="submit" value="Add Scheduled Task" formaction="@Url.Action("CreateScheduledTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id})" class="btn btn-primary" />
+                        <input type="submit" value="Add Frequency Task" formaction="@Url.Action("CreateFrequencyTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id})" class="btn btn-primary" />
+                        <input type="submit" value="Delete" formaction="@Url.Action("RemoveObjective", new {planId = Model.Id, id = Model.Objectives[i].Id})" class="btn btn-danger" />
+                    </div>
+                </div>
             }
-        </table>
-        
+        </div>
+
         <h3>Tasks</h3>
         <table class="form-horizontal">
             @foreach (var task in Model.AssociatedTasks)
@@ -98,5 +110,14 @@
                 </tr>
             }
         </table>
+
+        <hr />
+
+        <div class="form-group">
+            <div class="col-md-12 text-center">
+                <input type="submit" value="Save Action Plan" class="btn btn-success" />
+                <input type="submit" value="Delete Action Plan" formaction="@Url.Action("RemovePlan", new { id = Model.Id })" class="btn btn-danger" />
+            </div>
+        </div>
     </div>
 }
