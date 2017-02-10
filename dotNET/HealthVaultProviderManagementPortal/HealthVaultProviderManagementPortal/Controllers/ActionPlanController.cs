@@ -7,15 +7,21 @@
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.Health;
 using Microsoft.Health.Platform.Entities.V3;
 using Microsoft.Health.Platform.Entities.V3.ActionPlans;
 using Microsoft.Health.Platform.Entities.V3.Enums;
 using Microsoft.Health.Platform.Entities.V3.Responses;
 using Microsoft.Health.Rest;
+using Microsoft.Health.Web;
 using Microsoft.Health.Web.Mvc;
 using Newtonsoft.Json;
 
@@ -29,140 +35,196 @@ namespace HealthVaultProviderManagementPortal.Controllers
     {
         public ActionResult Index()
         {
-            var response = GetPlans();
+            return View();
+        }
+
+        /// <summary>
+        /// Get the list of plans for a user.
+        /// </summary>
+        [HttpGet]
+        public ActionResult Plans(Guid? personId = null, Guid? recordId = null)
+        {
+            var response = GetPlans(personId, recordId);
             return HandleRestResponse<ActionPlansResponse<ActionPlanInstance>>(response, HttpStatusCode.OK);
         }
 
         /// <summary>
-        /// Create a sample plan for the signed-in user.
+        /// Create a sample plan for a user.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreatePlan()
+        public ActionResult CreatePlan(Guid? personId = null, Guid? recordId = null)
         {
             var plan = CreateDefaultActionPlan();
-            var response = CreatePlan(plan);
-            return HandleRestResponse(response, HttpStatusCode.Created);
+            var response = CreatePlan(plan, personId, recordId);
+            return HandleRestResponse(response, HttpStatusCode.Created, personId, recordId);
         }
 
         /// <summary>
-        /// Get a plan for the signed-in user.
+        /// Get a plan for a user.
         /// </summary>
         [HttpGet]
-        public ActionResult EditPlan(string id)
+        public ActionResult Plan(string id, Guid? personId = null, Guid? recordId = null)
         {
-            var response = GetPlan(id);
+            var response = GetPlan(id, personId, recordId);
             return HandleRestResponse<ActionPlanInstance>(response, HttpStatusCode.OK);
         }
 
         /// <summary>
-        /// Edit a plan for the signed-in user.
+        /// Edit a plan for a user.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPlan(string id, ActionPlanInstance plan)
+        public ActionResult Plan(string id, ActionPlanInstance plan, Guid? personId = null, Guid? recordId = null)
         {
-            var response = PatchPlan(plan);
-            return HandleRestResponse(response, HttpStatusCode.OK);
+            var response = PatchPlan(plan, personId, recordId);
+            return HandleRestResponse(response, HttpStatusCode.OK, personId, recordId);
         }
 
         /// <summary>
-        /// Delete a plan for the signed-in user.
+        /// Delete a plan for a user.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RemovePlan(string id)
+        public ActionResult RemovePlan(string id, Guid? personId = null, Guid? recordId = null)
         {
-            var response = DeletePlan(id);
-            return HandleRestResponse(response, HttpStatusCode.NoContent);
+            var response = DeletePlan(id, personId, recordId);
+            return HandleRestResponse(response, HttpStatusCode.NoContent, personId, recordId);
         }
 
         /// <summary>
-        /// Delete an objective for the signed-in user.
+        /// Delete an objective for a user.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RemoveObjective(string planId, string id)
+        public ActionResult RemoveObjective(string planId, string id, Guid? personId = null, Guid? recordId = null)
         {
-            var response = DeleteObjective(planId, id);
-            return HandleRestResponse(response, HttpStatusCode.NoContent, "EditPlan", new { id = planId });
+            var response = DeleteObjective(planId, id, personId, recordId);
+            return HandleRestResponse(response, HttpStatusCode.NoContent, personId, recordId, "Plan", new RouteValueDictionary { { "id", planId } });
         }
 
         /// <summary>
-        /// Create a sample task for the signed-in user.
+        /// Create a sample task for a user.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateScheduledTask(Guid planId, Guid objectiveId)
+        public ActionResult CreateScheduledTask(Guid planId, Guid objectiveId, Guid? personId = null, Guid? recordId = null)
         {
             var task = CreateDefaultScheduledActionPlanTask(objectiveId, planId);
-            var response = CreateTask(task);
-            return HandleRestResponse(response, HttpStatusCode.Created, "EditPlan", new { id = planId });
+            var response = CreateTask(task, personId, recordId);
+            return HandleRestResponse(response, HttpStatusCode.Created, personId, recordId, "Plan", new RouteValueDictionary { { "id", planId } });
         }
 
         /// <summary>
-        /// Create a sample task for the signed-in user.
+        /// Create a sample task for a user.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateFrequencyTask(Guid planId, Guid objectiveId)
+        public ActionResult CreateFrequencyTask(Guid planId, Guid objectiveId, Guid? personId = null, Guid? recordId = null)
         {
             var task = CreateDefaultFrequencyActionPlanTask(objectiveId, planId);
-            var response = CreateTask(task);
-            return HandleRestResponse(response, HttpStatusCode.Created, "EditPlan", new { id = planId });
+            var response = CreateTask(task, personId, recordId);
+            return HandleRestResponse(response, HttpStatusCode.Created, personId, recordId, "Plan", new RouteValueDictionary { { "id", planId } });
         }
 
         /// <summary>
-        /// Get a task for the signed-in user.
+        /// Get a task for a user.
         /// </summary>
         [HttpGet]
-        public ActionResult EditTask(string id)
+        public ActionResult Task(string id, Guid? personId = null, Guid? recordId = null)
         {
-            var response = GetTask(id);
+            var response = GetTask(id, personId, recordId);
             return HandleRestResponse<ActionPlanTaskInstance>(response, HttpStatusCode.OK);
         }
 
         /// <summary>
-        /// Edit a task for the signed-in user.
+        /// Edit a task for a user.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditTask(string id, ActionPlanTaskInstance task)
+        public ActionResult Task(string id, ActionPlanTaskInstance task, Guid? personId = null, Guid? recordId = null)
         {
-            var response = PatchTask(task);
-            return HandleRestResponse(response, HttpStatusCode.OK, "EditPlan", new { id = task.AssociatedPlanId });
+            var response = PatchTask(task, personId, recordId);
+            return HandleRestResponse(response, HttpStatusCode.OK, personId, recordId, "Plan", new RouteValueDictionary { { "id", task.AssociatedPlanId } });
         }
 
         /// <summary>
-        /// Delete a task for the signed-in user.
+        /// Delete a task for a user.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RemoveTask(string planId, string id)
+        public ActionResult RemoveTask(string planId, string id, Guid? personId = null, Guid? recordId = null)
         {
-            var response = DeleteTask(id);
-            return HandleRestResponse(response, HttpStatusCode.NoContent, "EditPlan", new { id = planId });
+            var response = DeleteTask(id, personId, recordId);
+            return HandleRestResponse(response, HttpStatusCode.NoContent, personId, recordId, "Plan", new RouteValueDictionary { { "id", planId } });
         }
 
-        private ActionResult HandleRestResponse(HealthServiceRestResponseData response, HttpStatusCode expectedStatusCode, string action = "Index", object routeValues = null)
+        /// <summary>
+        /// Get plan adherence for a user.
+        /// </summary>
+        [HttpGet]
+        public ActionResult Adherence(string id, Guid? personId = null, Guid? recordId = null)
         {
-            if (response.StatusCode == expectedStatusCode)
+            var now = DateTimeOffset.UtcNow;
+            var response = GetPlanAdherence(id, now.AddDays(-14), now, personId, recordId);
+            return HandleRestResponse<ActionPlanAdherenceSummary>(response, HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Get users that have authorized this application
+        /// </summary>
+        [HttpGet]
+        public ActionResult Users()
+        {
+            var response = GetAuthorizedPeople();
+            return View(response);
+        }
+
+        /// <summary>
+        /// Handles the rest response. If it is the expected status code, it redirects to the given action
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <param name="expectedStatusCode">The expected status code.</param>
+        /// <param name="personId">The person identifier.</param>
+        /// <param name="recordId">The record identifier.</param>
+        /// <param name="action">The action.</param>
+        /// <param name="routeValues">The route values.</param>
+        private ActionResult HandleRestResponse(HealthServiceRestResponseData response, HttpStatusCode expectedStatusCode, Guid? personId, Guid? recordId, string action = "Plans", RouteValueDictionary routeValues = null)
+        {
+            if (response.StatusCode != expectedStatusCode)
             {
-                return RedirectToAction(action, routeValues);
+                return View("RestError", response);
             }
 
-            return View("RestError", response);
+            if (personId.HasValue && recordId.HasValue)
+            {
+                if (routeValues == null)
+                {
+                    routeValues = new RouteValueDictionary();
+                }
+
+                routeValues.Add("personId", personId);
+                routeValues.Add("recordId", recordId);
+            }
+
+            return RedirectToAction(action, routeValues);
         }
 
+        /// <summary>
+        /// Handles the rest response. If it is the expected status code, it deserializes the view model and loads the view.
+        /// </summary>
+        /// <typeparam name="T">The view model type</typeparam>
+        /// <param name="response">The response.</param>
+        /// <param name="expectedStatusCode">The expected status code.</param>
         private ActionResult HandleRestResponse<T>(HealthServiceRestResponseData response, HttpStatusCode expectedStatusCode)
         {
-            if (response.StatusCode == expectedStatusCode)
+            if (response.StatusCode != expectedStatusCode)
             {
-                var model = JsonConvert.DeserializeObject<T>(response.ResponseBody);
-                return View(model);
+                return View("RestError", response);
             }
 
-            return View("RestError", response);
+            var model = JsonConvert.DeserializeObject<T>(response.ResponseBody);
+            return View(model);
         }
 
         /// <summary>
@@ -280,227 +342,249 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
         /// <summary>
         /// Call the HV REST API to add the action plan to a user's HealthVault record.
-        /// Currently this assigns the action plan to the user who is actively signed into the application ("online" scenario).
-        /// TODO: add example of a provider assigning the action plan to a patient who is not signed in ("offline" scenario).
+        /// Assigns an action plan to a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
+        /// Otherwise, this assigns the action plan to the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData CreatePlan(ActionPlan plan)
+        private HealthServiceRestResponseData CreatePlan(ActionPlan plan, Guid? personId, Guid? recordId)
         {
-            // 2. Using the HealthVault SDK, make a HTTP POST call to create the action plan.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                User.PersonInfo().Connection,
+            return CallHeathServiceRest(
+                personId,
+                recordId,
                 "POST",
                 "v3/actionplans",
                 null,
                 JsonConvert.SerializeObject(plan));
-
-            // Person and record ID identify the patient who is being assigned the plan.
-            request.RecordId = User.PersonInfo().SelectedRecord.Id;
-            request.Execute();
-
-            return request.Response;
         }
 
         /// <summary>
         /// Call the HV REST API to partially edit the action plan in a user's HealthVault record.
-        /// Currently this edits the action plan of the user who is actively signed into the application ("online" scenario).
-        /// TODO: add example of a provider assigning the action plan to a patient who is not signed in ("offline" scenario).
+        /// Edits an action plan of a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
+        /// Otherwise, this edits the action plan of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData PatchPlan(ActionPlanInstance plan)
+        private HealthServiceRestResponseData PatchPlan(ActionPlanInstance plan, Guid? personId, Guid? recordId)
         {
-            // 2. Using the HealthVault SDK, make a HTTP POST call to partially edit the action plan.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                User.PersonInfo().Connection,
+            return CallHeathServiceRest(
+                personId,
+                recordId,
                 "PATCH",
                 "v3/actionplans",
                 null,
                 JsonConvert.SerializeObject(plan));
-
-            // Person and record ID identify the patient who is being assigned the plan.
-            request.RecordId = User.PersonInfo().SelectedRecord.Id;
-            request.Execute();
-
-            return request.Response;
         }
 
         /// <summary>
         /// Call the HV REST API to get the list of plans the user is currently assigned.
-        /// Currently this gets the action plans of the user who is actively signed into the application ("online" scenario).
-        /// TODO: add example of a provider getting the action plans of a patient who is not signed in ("offline" scenario).
+        /// Gets the action plans of a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
+        /// Otherwise, this gets the action plans of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData GetPlans()
+        private HealthServiceRestResponseData GetPlans(Guid? personId, Guid? recordId)
         {
-            // 2. Using the HealthVault SDK, make a HTTP GET call to get the action plans.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                User.PersonInfo().Connection,
+            return CallHeathServiceRest(
+                personId,
+                recordId,
                 "GET",
                 "v3/actionplans");
-
-            // Person and record ID identify the patient for whom to retrieve the plans.
-            request.RecordId = User.PersonInfo().SelectedRecord.Id;
-            request.Execute();
-
-            return request.Response;
         }
 
         /// <summary>
         /// Call the HV REST API to get the a plan for the user.
-        /// Currently this gets an action plan of the user who is actively signed into the application ("online" scenario).
-        /// TODO: add example of a provider getting an action plan of a patient who is not signed in ("offline" scenario).
+        /// Gets an action plan of a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
+        /// Otherwise, this gets an action plan of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData GetPlan(string id)
+        private HealthServiceRestResponseData GetPlan(string id, Guid? personId, Guid? recordId)
         {
-            // 2. Using the HealthVault SDK, make a HTTP GET call to get the action plan.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                User.PersonInfo().Connection,
+            return CallHeathServiceRest(
+                personId,
+                recordId,
                 "GET",
                 "v3/actionplans/" + id);
-
-            // Person and record ID identify the patient for whom to retrieve the plan.
-            request.RecordId = User.PersonInfo().SelectedRecord.Id;
-            request.Execute();
-
-            return request.Response;
         }
 
         /// <summary>
         /// Call the HV REST API to delete a plan for the user.
-        /// Currently this delete an action plan of the user who is actively signed into the application ("online" scenario).
-        /// TODO: add example of a provider deleting an action plan of a patient who is not signed in ("offline" scenario).
+        /// Deletes an action plan of a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
+        /// Otherwise, this deletes an action plan of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData DeletePlan(string id)
+        private HealthServiceRestResponseData DeletePlan(string id, Guid? personId, Guid? recordId)
         {
-            // 2. Using the HealthVault SDK, make a HTTP DELETE call to delete the action plan.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                User.PersonInfo().Connection,
+            return CallHeathServiceRest(
+                personId,
+                recordId,
                 "DELETE",
                 "v3/actionplans/" + id);
-
-            // Person and record ID identify the patient for whom to delete the plan.
-            request.RecordId = User.PersonInfo().SelectedRecord.Id;
-            request.Execute();
-
-            return request.Response;
         }
 
         /// <summary>
         /// Call the HV REST API to delete an objective for the user.
-        /// Currently this delete an action plan objective of the user who is actively signed into the application ("online" scenario).
-        /// TODO: add example of a provider deleting an action plan objective of a patient who is not signed in ("offline" scenario).
+        /// Deletes an action plan objective of a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
+        /// Otherwise, this deletes an action plan objective of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData DeleteObjective(string planId, string id)
+        private HealthServiceRestResponseData DeleteObjective(string planId, string id, Guid? personId, Guid? recordId)
         {
-            // 2. Using the HealthVault SDK, make a HTTP DELETE call to delete the action plan objective.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                User.PersonInfo().Connection,
+            return CallHeathServiceRest(
+                personId,
+                recordId,
                 "DELETE",
                 "v3/actionplans/" + planId + "/objectives/" + id);
-
-            // Person and record ID identify the patient for whom to delete the objective.
-            request.RecordId = User.PersonInfo().SelectedRecord.Id;
-            request.Execute();
-
-            return request.Response;
         }
 
         /// <summary>
         /// Call the HV REST API to add the action plan task to a user's HealthVault record.
-        /// Currently this assigns the action plan task to the user who is actively signed into the application ("online" scenario).
-        /// TODO: add example of a provider assigning the action plan task to a patient who is not signed in ("offline" scenario).
+        /// Assigns an action plan task to a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
+        /// Otherwise, this assigns the action plan task to the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData CreateTask(ActionPlanTask task)
+        private HealthServiceRestResponseData CreateTask(ActionPlanTask task, Guid? personId, Guid? recordId)
         {
-            // 2. Using the HealthVault SDK, make a HTTP POST call to create the action plan task.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                User.PersonInfo().Connection,
+            return CallHeathServiceRest(
+                personId,
+                recordId,
                 "POST",
                 "v3/actionplantasks",
                 null,
                 JsonConvert.SerializeObject(task));
-
-            // Person and record ID identify the patient who is being assigned the task.
-            request.RecordId = User.PersonInfo().SelectedRecord.Id;
-            request.Execute();
-
-            return request.Response;
         }
 
         /// <summary>
         /// Call the HV REST API to get the a task for the user.
-        /// Currently this gets an action plan task of the user who is actively signed into the application ("online" scenario).
-        /// TODO: add example of a provider getting an action plan task of a patient who is not signed in ("offline" scenario).
+        /// Gets an action plan task of a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
+        /// Otherwise, this gets an action plan task of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData GetTask(string id)
+        private HealthServiceRestResponseData GetTask(string id, Guid? personId, Guid? recordId)
         {
-            // 2. Using the HealthVault SDK, make a HTTP GET call to get the action plan task.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                User.PersonInfo().Connection,
+            return CallHeathServiceRest(
+                personId,
+                recordId,
                 "GET",
                 "v3/actionplantasks/" + id);
-
-            // Person and record ID identify the patient for whom to retrieve the task.
-            request.RecordId = User.PersonInfo().SelectedRecord.Id;
-            request.Execute();
-
-            return request.Response;
         }
 
         /// <summary>
         /// Call the HV REST API to partially edit the action plan task in a user's HealthVault record.
-        /// Currently this edits the action plan task of the user who is actively signed into the application ("online" scenario).
-        /// TODO: add example of a provider assigning the action plan task to a patient who is not signed in ("offline" scenario).
+        /// Edits an action plan task of a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
+        /// Otherwise, this edits the action plan task of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData PatchTask(ActionPlanTaskInstance task)
+        private HealthServiceRestResponseData PatchTask(ActionPlanTaskInstance task, Guid? personId, Guid? recordId)
         {
-            // 2. Using the HealthVault SDK, make a HTTP POST call to partially edit the action plan task.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                User.PersonInfo().Connection,
+            return CallHeathServiceRest(
+                personId,
+                recordId,
                 "PATCH",
                 "v3/actionplantasks",
                 null,
                 JsonConvert.SerializeObject(task));
+        }
 
-            // Person and record ID identify the patient who is being assigned the task.
-            request.RecordId = User.PersonInfo().SelectedRecord.Id;
+        /// <summary>
+        /// Call the HV REST API to delete a task for the user.
+        /// Deletes an action plan task of a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
+        /// Otherwise, this deletes an action plan task of the user who is actively signed into the application ("online" scenario).
+        /// See Getting Started doc for more information on offline scenarios.
+        /// </summary>
+        private HealthServiceRestResponseData DeleteTask(string id, Guid? personId, Guid? recordId)
+        {
+            return CallHeathServiceRest(
+                personId,
+                recordId,
+                "DELETE",
+                "v3/actionplantasks/" + id);
+        }
+
+        private List<PersonInfo> GetAuthorizedPeople()
+        {
+            var connection = new OfflineWebApplicationConnection(
+                HealthWebApplicationConfiguration.Current.ApplicationId,
+                HealthWebApplicationConfiguration.Current.HealthVaultMethodUrl,
+                Guid.Empty);
+
+            // Authenticate with HealthVault using the certificate generated above
+            connection.Authenticate();
+
+            // Iterate through all authorized users
+            var people = connection.GetAuthorizedPeople().ToList();
+
+            return people;
+        }
+
+        /// <summary>
+        /// Call the HV REST API to get the plan adherence for the user.
+        /// Gets the adherence of a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
+        /// Otherwise, this gets action plan adherence of the user who is actively signed into the application ("online" scenario).
+        /// See Getting Started doc for more information on offline scenarios.
+        /// </summary>
+        private HealthServiceRestResponseData GetPlanAdherence(string id, DateTimeOffset startTime, DateTimeOffset endTime, Guid? personId, Guid? recordId)
+        {
+            var queryParameters = new NameValueCollection
+            {
+                {nameof(startTime), startTime.ToString("o", CultureInfo.InvariantCulture)},
+                {nameof(endTime), endTime.ToString("o", CultureInfo.InvariantCulture)}
+            };
+
+            return CallHeathServiceRest(
+                personId,
+                recordId,
+                "GET",
+                "v3/actionplans/" + id + "/Adherence",
+                queryParameters);
+        }
+
+        private HealthServiceRestResponseData CallHeathServiceRest(Guid? personId, Guid? recordId, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null)
+        {
+            return personId.HasValue && recordId.HasValue ? CallHeathServiceRestOffline(personId.Value, recordId.Value, httpVerb, path, queryStringParameters, requestBody) : CallHeathServiceRestOnline(httpVerb, path, queryStringParameters, requestBody);
+        }
+
+        private HealthServiceRestResponseData CallHeathServiceRestOnline(string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null)
+        {
+            // Using the HealthVault SDK, make a HTTP call.
+            // The root URL comes from the web.config (RestHealthServiceUrl).
+            var request = new HealthServiceRestRequest(
+                User.PersonInfo().Connection,
+                httpVerb,
+                path,
+                queryStringParameters,
+                requestBody)
+            {
+                // Person and record ID identify the patient for whom to retrieve the plan.
+                RecordId = User.PersonInfo().SelectedRecord.Id
+            };
+            
             request.Execute();
 
             return request.Response;
         }
 
-        /// <summary>
-        /// Call the HV REST API to delete a task for the user.
-        /// Currently this delete an action plan task of the user who is actively signed into the application ("online" scenario).
-        /// TODO: add example of a provider deleting an action plan task of a patient who is not signed in ("offline" scenario).
-        /// See Getting Started doc for more information on offline scenarios.
-        /// </summary>
-        private HealthServiceRestResponseData DeleteTask(string id)
+        private HealthServiceRestResponseData CallHeathServiceRestOffline(Guid personId, Guid recordId, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null)
         {
-            // 2. Using the HealthVault SDK, make a HTTP DELETE call to delete the action plan task.
+            // Person and record ID identify the patient for whom to retrieve the plans.
+            var connection = new OfflineWebApplicationConnection(
+                HealthWebApplicationConfiguration.Current.ApplicationId,
+                HealthWebApplicationConfiguration.Current.HealthVaultMethodUrl,
+                personId);
+
+            // Authenticate with HealthVault using the connection generated above
+            connection.Authenticate();
+
+            // Using the HealthVault SDK, make a HTTP call.
             // The root URL comes from the web.config (RestHealthServiceUrl).
             var request = new HealthServiceRestRequest(
-                User.PersonInfo().Connection,
-                "DELETE",
-                "v3/actionplantasks/" + id);
-
-            // Person and record ID identify the patient for whom to delete the task.
-            request.RecordId = User.PersonInfo().SelectedRecord.Id;
+                connection,
+                httpVerb,
+                path,
+                queryStringParameters,
+                requestBody)
+            {
+                // Person and record ID identify the patient for whom to retrieve the plans.
+                RecordId = recordId
+            };
+            
             request.Execute();
 
             return request.Response;

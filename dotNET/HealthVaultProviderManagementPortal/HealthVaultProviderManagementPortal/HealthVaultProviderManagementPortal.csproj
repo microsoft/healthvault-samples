@@ -156,9 +156,14 @@
     <Content Include="Views\Onboarding\InviteSuccess.cshtml" />
     <Content Include="Views\Shared\RestError.cshtml" />
     <Content Include="Views\Onboarding\Index.cshtml" />
+    <Content Include="Views\ActionPlan\Plans.cshtml" />
+    <Content Include="Views\ActionPlan\Plan.cshtml" />
+    <Content Include="Views\ActionPlan\Task.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
+    <Content Include="Views\ActionPlan\Adherence.cshtml" />
     <Content Include="Views\ActionPlan\Index.cshtml" />
-    <Content Include="Views\ActionPlan\EditPlan.cshtml" />
-    <Content Include="Views\ActionPlan\EditTask.cshtml" />
+    <Content Include="Views\ActionPlan\Users.cshtml" />
+    <Content Include="Views\ActionPlan\UserInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -174,9 +179,6 @@
       <Project>{E5B30C57-260A-4C08-B289-711DF646ADC9}</Project>
       <Name>Microsoft.Health.Platform.Entities.V3</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\EditorTemplates\Time.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

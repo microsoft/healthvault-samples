@@ -14,14 +14,17 @@
 @{
     ViewBag.Title = "Edit Task";
 }
+@Html.Partial("UserInfo")
 
-<p>@Html.ActionLink("<< Back to plan", "EditPlan", new { id = Model.AssociatedPlanId }, new { cssClass = "btn btn-default" })</p>
+<p>@Html.ActionLink("<< Back to plan", "Plan", new { id = Model.AssociatedPlanId, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { cssClass = "btn btn-default" })</p>
 
-<h2>Edit Action Plan Task</h2>
+<h1>Edit Action Plan Task</h1>
 
-@using (Html.BeginForm("EditTask", "ActionPlan"))
+@using (Html.BeginForm("Task", "ActionPlan"))
 {
     @Html.AntiForgeryToken()
+    @Html.Hidden("personID", Request.Params["personId"])
+    @Html.Hidden("recordId", Request.Params["recordId"])
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.AssociatedPlanId)
 
@@ -187,7 +190,7 @@
         <div class="form-group">
             <div class="col-md-12 text-center">
                 <input type="submit" value="Save" class="btn btn-success" />
-                <input type="submit" value="Delete" formaction="@Url.Action("RemoveTask", new { id = Model.Id, planID = Model.AssociatedPlanId })" class="btn btn-danger" />
+                <input type="submit" value="Delete" formaction="@Url.Action("RemoveTask", new { id = Model.Id, planID = Model.AssociatedPlanId, personId = Request.Params["personId"], recordId = Request.Params["recordId"] })" class="btn btn-danger" />
             </div>
         </div>
     </div>

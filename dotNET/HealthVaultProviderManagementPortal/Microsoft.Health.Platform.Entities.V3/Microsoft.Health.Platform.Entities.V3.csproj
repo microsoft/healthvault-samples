@@ -41,17 +41,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionPlans\ActionPlan.cs" />
+    <Compile Include="ActionPlans\ActionPlanAdherenceSummary.cs" />
     <Compile Include="ActionPlans\ActionPlanFrequencyTaskCompletionMetrics.cs" />
     <Compile Include="ActionPlans\ActionPlanInstance.cs" />
     <Compile Include="ActionPlans\ActionPlanRangeMetric.cs" />
     <Compile Include="ActionPlans\ActionPlanScheduledTaskCompletionMetrics.cs" />
     <Compile Include="ActionPlans\ActionPlanTask.cs" />
+    <Compile Include="ActionPlans\ActionPlanTaskAdherenceSummary.cs" />
     <Compile Include="ActionPlans\ActionPlanTaskInstance.cs" />
     <Compile Include="ActionPlans\ActionPlanTaskOccurrenceMetrics.cs" />
     <Compile Include="ActionPlans\ActionPlanTaskTargetEvent.cs" />
     <Compile Include="ActionPlans\ActionPlanTrackingPolicy.cs" />
     <Compile Include="ActionPlans\BaseActionPlanTaskCompletionMetrics.cs" />
     <Compile Include="ActionPlans\Objective.cs" />
+    <Compile Include="ActionPlans\ObjectiveAdherenceSummary.cs" />
+    <Compile Include="ActionPlans\WeeklyAdherenceSummary.cs" />
     <Compile Include="Enums\ActionPlanCategory.cs" />
     <Compile Include="Enums\ActionPlanMetricValueType.cs" />
     <Compile Include="Enums\ActionPlanObjectiveStatus.cs" />

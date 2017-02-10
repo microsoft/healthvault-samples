@@ -12,14 +12,19 @@
 @{
     ViewBag.Title = "Edit plan";
 }
+@Html.Partial("UserInfo")
 
-<h2>Edit Action Plan</h2>
+<p>@Html.ActionLink("<< Back to plan list", "Plans", new { personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { cssClass = "btn btn-default" })</p>
 
-@using (Html.BeginForm("EditPlan", "ActionPlan"))
+<h1>Edit Action Plan</h1>
+
+@using (Html.BeginForm("Plan", "ActionPlan"))
 {
     @Html.AntiForgeryToken()
+    @Html.Hidden("personID", Request.Params["personId"])
+    @Html.Hidden("recordID", Request.Params["recordID"])
     @Html.HiddenFor(model => model.Id)
-
+    
     <h3>Plan</h3>
     <div class="form-horizontal">
         <div class="form-group">
@@ -90,23 +95,23 @@
                 </div>
                 <div class="col-md-12 text-center">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <input type="submit" value="Add Scheduled Task" formaction="@Url.Action("CreateScheduledTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id})" class="btn btn-primary" />
-                        <input type="submit" value="Add Frequency Task" formaction="@Url.Action("CreateFrequencyTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id})" class="btn btn-primary" />
-                        <input type="submit" value="Delete" formaction="@Url.Action("RemoveObjective", new {planId = Model.Id, id = Model.Objectives[i].Id})" class="btn btn-danger" />
+                        <input type="submit" value="Add Scheduled Task" formaction="@Url.Action("CreateScheduledTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] })" class="btn btn-primary" />
+                        <input type="submit" value="Add Frequency Task" formaction="@Url.Action("CreateFrequencyTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] })" class="btn btn-primary" />
+                        <input type="submit" value="Delete" formaction="@Url.Action("RemoveObjective", new {planId = Model.Id, id = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] })" class="btn btn-danger" />
                     </div>
                 </div>
             }
         </div>
 
         <h3>Tasks</h3>
-        <table class="form-horizontal">
+        <table class="table table-striped">
             @foreach (var task in Model.AssociatedTasks)
             {
-                <tr class="form-group">
-                    <td class="col-md-4">@task.Id</td>
-                    <td class="col-md-5">@task.Name</td>
-                    <td class="col-md-2">@task.Status</td>
-                    <td class="col-md-1">@Html.ActionLink("Edit", "EditTask", new { planId = task.AssociatedPlanId, id = task.Id }, new { cssClass = "btn btn-default" })</td>
+                <tr>
+                    <td>@task.Id</td>
+                    <td>@task.Name</td>
+                    <td>@task.Status</td>
+                    <td>@Html.ActionLink("Edit", "Task", new { planId = task.AssociatedPlanId, id = task.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { cssClass = "btn btn-default" })</td>
                 </tr>
             }
         </table>
@@ -116,7 +121,7 @@
         <div class="form-group">
             <div class="col-md-12 text-center">
                 <input type="submit" value="Save Action Plan" class="btn btn-success" />
-                <input type="submit" value="Delete Action Plan" formaction="@Url.Action("RemovePlan", new { id = Model.Id })" class="btn btn-danger" />
+                <input type="submit" value="Delete Action Plan" formaction="@Url.Action("RemovePlan", new { id = Model.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] })" class="btn btn-danger" />
             </div>
         </div>
     </div>
