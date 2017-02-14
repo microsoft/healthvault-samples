@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/HealthVaultProxy" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/HealthVaultProxy" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:29182/HVDropOff.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="PreAllocatePackageIdResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:HVProxyResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DopuPackageId" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PreAllocatePackageIdResponse" nillable="true" type="tns:PreAllocatePackageIdResponse" />
+  <xs:complexType name="HVProxyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Stack" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Success" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HVProxyResponse" nillable="true" type="tns:HVProxyResponse" />
+  <xs:complexType name="DropOffRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DopuPackageId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmailFrom" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmailSubject" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EmailTo" nillable="true" type="q1:ArrayOfstring" />
+      <xs:element minOccurs="0" name="FromName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocalPatientId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecretAnswer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecretQuestion" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Things" nillable="true" type="q2:ArrayOfstring" />
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DropOffRequest" nillable="true" type="tns:DropOffRequest" />
+  <xs:complexType name="DropOffResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:HVProxyResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PickupUrl" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SecretCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DropOffResponse" nillable="true" type="tns:DropOffResponse" />
+</xs:schema>

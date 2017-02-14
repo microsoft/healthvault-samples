@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="HVDropOff" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:29182/HVDropOff.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:29182/HVDropOff.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:29182/HVDropOff.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/HealthVaultProxy" />
+      <xsd:import schemaLocation="http://localhost:29182/HVDropOff.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IHVDropOff_PreAllocatePackageId_InputMessage">
+    <wsdl:part name="parameters" element="tns:PreAllocatePackageId" />
+  </wsdl:message>
+  <wsdl:message name="IHVDropOff_PreAllocatePackageId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PreAllocatePackageIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHVDropOff_DropOffForPatient_InputMessage">
+    <wsdl:part name="parameters" element="tns:DropOffForPatient" />
+  </wsdl:message>
+  <wsdl:message name="IHVDropOff_DropOffForPatient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DropOffForPatientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHVDropOff_DropOffForPackageId_InputMessage">
+    <wsdl:part name="parameters" element="tns:DropOffForPackageId" />
+  </wsdl:message>
+  <wsdl:message name="IHVDropOff_DropOffForPackageId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DropOffForPackageIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHVDropOff_DeletePendingForPatient_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePendingForPatient" />
+  </wsdl:message>
+  <wsdl:message name="IHVDropOff_DeletePendingForPatient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePendingForPatientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHVDropOff_DeletePendingForPackageId_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePendingForPackageId" />
+  </wsdl:message>
+  <wsdl:message name="IHVDropOff_DeletePendingForPackageId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePendingForPackageIdResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IHVDropOff">
+    <wsdl:operation name="PreAllocatePackageId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHVDropOff/PreAllocatePackageId" message="tns:IHVDropOff_PreAllocatePackageId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHVDropOff/PreAllocatePackageIdResponse" message="tns:IHVDropOff_PreAllocatePackageId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DropOffForPatient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHVDropOff/DropOffForPatient" message="tns:IHVDropOff_DropOffForPatient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHVDropOff/DropOffForPatientResponse" message="tns:IHVDropOff_DropOffForPatient_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DropOffForPackageId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHVDropOff/DropOffForPackageId" message="tns:IHVDropOff_DropOffForPackageId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHVDropOff/DropOffForPackageIdResponse" message="tns:IHVDropOff_DropOffForPackageId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePendingForPatient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHVDropOff/DeletePendingForPatient" message="tns:IHVDropOff_DeletePendingForPatient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHVDropOff/DeletePendingForPatientResponse" message="tns:IHVDropOff_DeletePendingForPatient_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePendingForPackageId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHVDropOff/DeletePendingForPackageId" message="tns:IHVDropOff_DeletePendingForPackageId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHVDropOff/DeletePendingForPackageIdResponse" message="tns:IHVDropOff_DeletePendingForPackageId_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IHVDropOff" type="tns:IHVDropOff">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PreAllocatePackageId">
+      <soap:operation soapAction="http://tempuri.org/IHVDropOff/PreAllocatePackageId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DropOffForPatient">
+      <soap:operation soapAction="http://tempuri.org/IHVDropOff/DropOffForPatient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DropOffForPackageId">
+      <soap:operation soapAction="http://tempuri.org/IHVDropOff/DropOffForPackageId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePendingForPatient">
+      <soap:operation soapAction="http://tempuri.org/IHVDropOff/DeletePendingForPatient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePendingForPackageId">
+      <soap:operation soapAction="http://tempuri.org/IHVDropOff/DeletePendingForPackageId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HVDropOff">
+    <wsdl:port name="BasicHttpBinding_IHVDropOff" binding="tns:BasicHttpBinding_IHVDropOff">
+      <soap:address location="http://localhost:29182/HVDropOff.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

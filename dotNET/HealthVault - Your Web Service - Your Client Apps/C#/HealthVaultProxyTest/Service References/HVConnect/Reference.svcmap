@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d38a8883-66ca-4fb4-b97c-e4dfd46a673b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:29182/HVConnect.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="HVConnect.xsd" MetadataType="Schema" ID="b6315992-b24a-4d22-9aad-7b9973939e0c" SourceId="1" SourceUrl="http://localhost:29182/HVConnect.svc?xsd=xsd0" />
+    <MetadataFile FileName="HVConnect1.xsd" MetadataType="Schema" ID="5e397510-6e11-416b-b1a3-d30598e728e8" SourceId="1" SourceUrl="http://localhost:29182/HVConnect.svc?xsd=xsd1" />
+    <MetadataFile FileName="HVConnect2.xsd" MetadataType="Schema" ID="0499f190-060e-4d19-a0b1-6bbe1081c064" SourceId="1" SourceUrl="http://localhost:29182/HVConnect.svc?xsd=xsd2" />
+    <MetadataFile FileName="HVConnect.wsdl" MetadataType="Wsdl" ID="689b0a2f-7434-496f-8f8b-7aea7d07a1ed" SourceId="1" SourceUrl="http://localhost:29182/HVConnect.svc?wsdl" />
+    <MetadataFile FileName="HVConnect.disco" MetadataType="Disco" ID="f3cf0d30-68e8-4d03-8566-1c5dbc2acfd7" SourceId="1" SourceUrl="http://localhost:29182/HVConnect.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

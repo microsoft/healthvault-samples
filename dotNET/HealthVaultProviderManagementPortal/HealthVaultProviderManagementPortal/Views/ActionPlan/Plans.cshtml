@@ -1,0 +1,49 @@
+﻿@*
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+    MIT License
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*@
+@model Microsoft.Health.Platform.Entities.V3.Responses.ActionPlansResponse<Microsoft.Health.Platform.Entities.V3.ActionPlans.ActionPlanInstance>
+
+@{
+    ViewBag.Title = "Action plans";
+}
+@Html.Partial("UserInfo")
+
+<h1>Action plans</h1>
+
+@using (Html.BeginForm("CreatePlan", "ActionPlan"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.Hidden("personId", Request.Params["personId"])
+                @Html.Hidden("recordId", Request.Params["recordId"])
+                <input type="submit" value="Create new default plan" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+
+    <h3>Existing plans</h3>
+    <table class="table table-striped">
+        @foreach (var plan in Model.Plans)
+        {
+            <tr>
+                <td>@plan.Id</td>
+                <td>@plan.Name</td>
+                <td>
+                    @Html.ActionLink("Edit", "Plan", new { id = plan.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { cssClass = "btn btn-default" })
+                </td>
+                <td>
+                    @Html.ActionLink("Adherence", "Adherence", new { id = plan.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { cssClass = "btn btn-default" })
+                </td>
+            </tr>
+        }
+    </table>
+}

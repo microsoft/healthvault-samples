@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="HVConnect" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:29182/HVConnect.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:29182/HVConnect.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:29182/HVConnect.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/HealthVaultProxy" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IHVConnect_CreateConnection_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateConnection" />
+  </wsdl:message>
+  <wsdl:message name="IHVConnect_CreateConnection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateConnectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHVConnect_GetValidatedConnections_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidatedConnections" />
+  </wsdl:message>
+  <wsdl:message name="IHVConnect_GetValidatedConnections_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidatedConnectionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHVConnect_DeletePendingConnection_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePendingConnection" />
+  </wsdl:message>
+  <wsdl:message name="IHVConnect_DeletePendingConnection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeletePendingConnectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IHVConnect_RevokeApplicationConnection_InputMessage">
+    <wsdl:part name="parameters" element="tns:RevokeApplicationConnection" />
+  </wsdl:message>
+  <wsdl:message name="IHVConnect_RevokeApplicationConnection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RevokeApplicationConnectionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IHVConnect">
+    <wsdl:operation name="CreateConnection">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHVConnect/CreateConnection" message="tns:IHVConnect_CreateConnection_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHVConnect/CreateConnectionResponse" message="tns:IHVConnect_CreateConnection_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetValidatedConnections">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHVConnect/GetValidatedConnections" message="tns:IHVConnect_GetValidatedConnections_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHVConnect/GetValidatedConnectionsResponse" message="tns:IHVConnect_GetValidatedConnections_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePendingConnection">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHVConnect/DeletePendingConnection" message="tns:IHVConnect_DeletePendingConnection_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHVConnect/DeletePendingConnectionResponse" message="tns:IHVConnect_DeletePendingConnection_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RevokeApplicationConnection">
+      <wsdl:input wsaw:Action="http://tempuri.org/IHVConnect/RevokeApplicationConnection" message="tns:IHVConnect_RevokeApplicationConnection_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IHVConnect/RevokeApplicationConnectionResponse" message="tns:IHVConnect_RevokeApplicationConnection_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IHVConnect" type="tns:IHVConnect">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateConnection">
+      <soap:operation soapAction="http://tempuri.org/IHVConnect/CreateConnection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValidatedConnections">
+      <soap:operation soapAction="http://tempuri.org/IHVConnect/GetValidatedConnections" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePendingConnection">
+      <soap:operation soapAction="http://tempuri.org/IHVConnect/DeletePendingConnection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RevokeApplicationConnection">
+      <soap:operation soapAction="http://tempuri.org/IHVConnect/RevokeApplicationConnection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HVConnect">
+    <wsdl:port name="BasicHttpBinding_IHVConnect" binding="tns:BasicHttpBinding_IHVConnect">
+      <soap:address location="http://localhost:29182/HVConnect.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

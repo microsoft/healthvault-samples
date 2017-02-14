@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/HealthVaultProxy" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/HealthVaultProxy" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:29182/HVConnect.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ConnectRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LocalPersonName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LocalRecordId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecretAnswer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecretQuestion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ConnectRequest" nillable="true" type="tns:ConnectRequest" />
+  <xs:complexType name="ConnectResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:HVProxyResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ConnectionCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PickupUrl" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ConnectResponse" nillable="true" type="tns:ConnectResponse" />
+  <xs:complexType name="HVProxyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Stack" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Success" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HVProxyResponse" nillable="true" type="tns:HVProxyResponse" />
+  <xs:complexType name="ValidatedConnectionsRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="SinceDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ValidatedConnectionsRequest" nillable="true" type="tns:ValidatedConnectionsRequest" />
+  <xs:complexType name="ValidatedConnectionsResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:HVProxyResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Connections" nillable="true" type="tns:ArrayOfValidatedConnection" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ValidatedConnectionsResponse" nillable="true" type="tns:ValidatedConnectionsResponse" />
+  <xs:complexType name="ArrayOfValidatedConnection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ValidatedConnection" nillable="true" type="tns:ValidatedConnection" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfValidatedConnection" nillable="true" type="tns:ArrayOfValidatedConnection" />
+  <xs:complexType name="ValidatedConnection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApplicationId" type="ser:guid" />
+      <xs:element minOccurs="0" name="ApplicationPatientId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ApplicationSpecificRecordId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonId" type="ser:guid" />
+      <xs:element minOccurs="0" name="RecordId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ValidatedConnection" nillable="true" type="tns:ValidatedConnection" />
+  <xs:complexType name="DeletePendingConnectionRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LocalRecordId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DeletePendingConnectionRequest" nillable="true" type="tns:DeletePendingConnectionRequest" />
+  <xs:complexType name="DeletePendingConnectionResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:HVProxyResponse">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DeletePendingConnectionResponse" nillable="true" type="tns:DeletePendingConnectionResponse" />
+  <xs:complexType name="RevokeApplicationConnectionRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PersonId" type="ser:guid" />
+      <xs:element minOccurs="0" name="RecordId" type="ser:guid" />
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RevokeApplicationConnectionRequest" nillable="true" type="tns:RevokeApplicationConnectionRequest" />
+  <xs:complexType name="RevokeApplicationConnectionResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:HVProxyResponse">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RevokeApplicationConnectionResponse" nillable="true" type="tns:RevokeApplicationConnectionResponse" />
+</xs:schema>
