@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -500,6 +501,8 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
         private List<PersonInfo> GetAuthorizedPeople()
         {
+            CheckOfflineAuthorization();
+
             var connection = new OfflineWebApplicationConnection(
                 HealthWebApplicationConfiguration.Current.ApplicationId,
                 HealthWebApplicationConfiguration.Current.HealthVaultMethodUrl,
@@ -563,6 +566,8 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
         private HealthServiceRestResponseData CallHeathServiceRestOffline(Guid personId, Guid recordId, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null)
         {
+            CheckOfflineAuthorization();
+
             // Person and record ID identify the patient for whom to retrieve the plans.
             var connection = new OfflineWebApplicationConnection(
                 HealthWebApplicationConfiguration.Current.ApplicationId,
@@ -588,6 +593,19 @@ namespace HealthVaultProviderManagementPortal.Controllers
             request.Execute();
 
             return request.Response;
+        }
+
+        private void CheckOfflineAuthorization()
+        {
+            var authorizedPersonIds = ConfigurationManager.AppSettings["OfflineAuthorizedPersonIDs"];
+            if (!string.IsNullOrWhiteSpace(authorizedPersonIds))
+            {
+                var personIds = authorizedPersonIds.Split(',');
+                if (!personIds.Contains(User?.PersonInfo()?.PersonId.ToString()))
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
         }
     }
 }
