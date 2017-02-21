@@ -44,21 +44,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Health, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\HealthVault.NET.2.1.0.4\lib\net40\Microsoft.Health.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Health, Version=2.60.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\HealthVault.NET.2.60.20205.1\lib\net45\Microsoft.Health.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Health.ItemTypes, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\HealthVault.NET.2.1.0.4\lib\net40\Microsoft.Health.ItemTypes.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Health.Directory, Version=2.60.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\HealthVault.NET.2.60.20205.1\lib\net45\Microsoft.Health.Directory.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Health.ItemTypes.Old, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\HealthVault.NET.2.1.0.4\lib\net40\Microsoft.Health.ItemTypes.Old.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Health.ItemTypes, Version=2.60.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\HealthVault.NET.2.60.20205.1\lib\net45\Microsoft.Health.ItemTypes.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Health.Web, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\HealthVault.NET.2.1.0.4\lib\net40\Microsoft.Health.Web.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Health.ItemTypes.Old, Version=2.60.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\HealthVault.NET.2.60.20205.1\lib\net45\Microsoft.Health.ItemTypes.Old.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Health.Web, Version=2.60.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\HealthVault.NET.2.60.20205.1\lib\net45\Microsoft.Health.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Health.Web.Mvc, Version=2.60.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\HealthVault.NET.2.60.20205.1\lib\net45\Microsoft.Health.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
@@ -120,9 +122,6 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="App_Data\HealthVaultCrmProxy.pfx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\HealthVaultProxy5.pfx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="packages.config" />

@@ -26,14 +26,7 @@
     <div class="col-md-4">
         <h2>View and update health measurements</h2>
         <p>Examples of reading and writing patients' health data stored in HealthVault. </p>
-        @if (Request.IsAuthenticated)
-        {
-            <p><a class="btn btn-default" href="@Url.Action("Index", "HealthData")">Go &raquo;</a></p>
-        }
-        else
-        {
-            <p>@Html.ActionLink("Log On", "LogOn", "Account")</p>
-        }
+        <p><a class="btn btn-default" href="@Url.Action("Index", "HealthData")">Go &raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>Manage action plans</h2>
