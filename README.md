@@ -26,6 +26,7 @@ HealthVault offers SDKs for many platforms.
   * **HealthVault - Your Web Service - Your Client apps** - The HealthVault Proxy Service exposes three primary service-interfaces for client apps. These interfaces correspond to HealthVault feature areas. Specifically, Patient Connect, Get/Put Things, and DOPU. Learn more about HealthVault solution architectures at the Health Team Blog.
   * **HealthVault Meaningful Use Reporting** - This sample serves as a demonstration of HealthVault capabilities in support of Meaningful Use Stage 2 (2014 Edition) patient engagement objectives. Refer to Meaningful Use with HealthVault for an overview and technical description of the HealthVault capabilities that support Meaningful Use 2. 
   * **HealthVaultProviderManagementPortal** - This sample demonstrates how a provider could invite patients and manage ActionPlans. 
+  * **HVClientSample** - This sample demonstrates how to use SODA authentication to access data on HealthVault. 
 
 ## Registering your applications
 All applications must be registered with the [HealthVault Application Configuration Center](https://go.microsoft.com/fwlink/?linkid=838954) before they can connect to the service. During registration, the ACC will request that you upload an appropriate certificate which will be used subsequently to secure communications between your app and the service. For more information on how to obtain an appropriate certificate, please see [MSDN](https://msdn.microsoft.com/en-us/healthvault/dn781357). 
