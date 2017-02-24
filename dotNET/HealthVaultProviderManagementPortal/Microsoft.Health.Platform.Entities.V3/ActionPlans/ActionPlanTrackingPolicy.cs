@@ -19,7 +19,7 @@ namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
         /// <summary>
         /// Gets or sets an indicator as to whether or not the Tracking Policy is AutoTrackable
         /// </summary>
-        public bool IsAutoTrackable { get; set; }
+        public bool? IsAutoTrackable { get; set; }
 
         /// <summary>
         /// Gets or sets the Occurrence Metrics for the tracking policy

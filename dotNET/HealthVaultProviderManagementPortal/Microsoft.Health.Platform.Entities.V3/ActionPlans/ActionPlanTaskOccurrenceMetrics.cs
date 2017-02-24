@@ -18,7 +18,7 @@ namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
         /// <summary>
         /// Gets or sets a value indicating whether or not to evaluate the targets
         /// </summary>
-        public bool EvaluateTargets { get; set; }
+        public bool? EvaluateTargets { get; set; }
 
         /// <summary>
         /// Gets or sets the targets to evaluate
