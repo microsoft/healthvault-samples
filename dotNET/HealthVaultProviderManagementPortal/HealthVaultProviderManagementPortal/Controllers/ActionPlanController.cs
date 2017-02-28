@@ -327,11 +327,14 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 ThumbnailImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1s2KS?ver=0ad8"),
                 OrganizationId = "CONTOSO",
                 OrganizationName = "Contoso",
-                TaskType = ActionPlanTaskType.Unknown,
+                TaskType = ActionPlanTaskType.Other,
                 SignupName = "Set a consistent wake time",
                 AssociatedObjectiveIds = new Collection<Guid> { objectiveId },
                 AssociatedPlanId = planId, // Only needs to be set if adding as task after the plan
-                TrackingPolicy = new ActionPlanTrackingPolicy(),
+                TrackingPolicy = new ActionPlanTrackingPolicy
+                {
+                    IsAutoTrackable = false
+                },
                 CompletionType = ActionPlanTaskCompletionType.Scheduled,
                 ScheduledTaskCompletionMetrics = new ActionPlanScheduledTaskCompletionMetrics
                 {
