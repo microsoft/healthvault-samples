@@ -132,10 +132,27 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get a task for a user.
         /// </summary>
         [HttpGet]
-        public ActionResult Task(Guid id, Guid? personId = null, Guid? recordId = null)
+        public ActionResult Task(Guid? id, Guid? planId, Guid? objectiveId, Guid? personId = null, Guid? recordId = null)
         {
-            var response = GetTask(id, personId, recordId);
-            return HandleRestResponse<ActionPlanTaskInstance>(response, HttpStatusCode.OK);
+            if (id.HasValue)
+            {
+                var response = GetTask(id.Value, personId, recordId);
+                return HandleRestResponse<ActionPlanTaskInstance>(response, HttpStatusCode.OK);
+            }
+
+            var task = new ActionPlanTaskInstance();
+
+            if (planId.HasValue)
+            {
+                task.AssociatedPlanId = planId.Value;
+            }
+
+            if (objectiveId.HasValue)
+            {
+                task.AssociatedObjectiveIds = new Collection<Guid> {objectiveId.Value};
+            }
+
+            return View(task);
         }
 
         /// <summary>
@@ -143,9 +160,27 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Task(Guid id, ActionPlanTaskInstance task, Guid? personId = null, Guid? recordId = null)
+        public ActionResult Task(Guid? id, ActionPlanTaskInstance task, Guid? personId = null, Guid? recordId = null)
         {
-            var response = PatchTask(task, personId, recordId);
+            HealthServiceRestResponseData response;
+
+            if (id.HasValue && id.Value != Guid.Empty)
+            {
+                response = PatchTask(task, personId, recordId);
+            }
+            else
+            {
+                // TODO: Add these fields to the UX
+                task.OrganizationId = "CONTOSO";
+                task.OrganizationName = "Contoso";
+                task.TrackingPolicy = new ActionPlanTrackingPolicy
+                {
+                    IsAutoTrackable = false
+                };
+
+                response = CreateTask(task, personId, recordId);
+            }
+
             return HandleRestResponse(response, HttpStatusCode.OK, personId, recordId, "Plan", new RouteValueDictionary { { "id", task.AssociatedPlanId } });
         }
 
