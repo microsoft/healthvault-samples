@@ -34,6 +34,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
     [RequireSignIn]
     public class ActionPlanController : Controller
     {
+        #region Controller Actions
         public ActionResult Index()
         {
             return View();
@@ -149,7 +150,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
             if (objectiveId.HasValue)
             {
-                task.AssociatedObjectiveIds = new Collection<Guid> {objectiveId.Value};
+                task.AssociatedObjectiveIds = new Collection<Guid> { objectiveId.Value };
             }
 
             return View(task);
@@ -170,9 +171,6 @@ namespace HealthVaultProviderManagementPortal.Controllers
             }
             else
             {
-                // TODO: Add these fields to the UX
-                task.OrganizationId = "CONTOSO";
-                task.OrganizationName = "Contoso";
                 task.TrackingPolicy = new ActionPlanTrackingPolicy
                 {
                     IsAutoTrackable = false
@@ -254,6 +252,10 @@ namespace HealthVaultProviderManagementPortal.Controllers
             var response = GetAuthorizedPeople();
             return View(response);
         }
+
+        #endregion
+
+        #region Helpers
 
         /// <summary>
         /// Handles the rest response. If it is the expected status code, it redirects to the given action
@@ -433,6 +435,33 @@ namespace HealthVaultProviderManagementPortal.Controllers
         }
 
         /// <summary>
+        /// Checks that the logged in user is authorized to edit other users data
+        /// If the config setting is empty, all users will be able to do this.
+        /// </summary>
+        private void CheckOfflineAuthorization()
+        {
+            var loggedInPersonId = User?.PersonInfo()?.PersonId;
+            if (!loggedInPersonId.HasValue)
+            {
+                throw new UnauthorizedAccessException();
+            }
+
+            var authorizedPersonIds = ConfigurationManager.AppSettings["OfflineAuthorizedPersonIDs"];
+            if (!string.IsNullOrWhiteSpace(authorizedPersonIds))
+            {
+                var personIds = authorizedPersonIds.Split(',');
+                if (!personIds.Contains(loggedInPersonId.Value.ToString(), StringComparer.OrdinalIgnoreCase))
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Data Access Wrappers
+
+        /// <summary>
         /// Call the HV REST API to add the action plan to a user's HealthVault record.
         /// Assigns an action plan to a user who is not signed in ("offline" scenario) if both personId and recordId are provided.
         /// Otherwise, this assigns the action plan to the user who is actively signed into the application ("online" scenario).
@@ -605,6 +634,9 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 JsonConvert.SerializeObject(trackingValidation));
         }
 
+        /// <summary>
+        /// Gets a list of people who have authorized this application to access their data.
+        /// </summary>
         private List<PersonInfo> GetAuthorizedPeople()
         {
             CheckOfflineAuthorization();
@@ -645,11 +677,23 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 queryParameters);
         }
 
+        #endregion
+
+        #region Data Access
+
+        /// <summary>
+        /// Calls the Health REST service. 
+        /// Abstracts away whether it's an online or offline call, depending on whether person and record IDs are passed in.
+        /// </summary>
         private HealthServiceRestResponseData CallHeathServiceRest(Guid? personId, Guid? recordId, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null)
         {
             return personId.HasValue && recordId.HasValue ? CallHeathServiceRestOffline(personId.Value, recordId.Value, httpVerb, path, queryStringParameters, requestBody) : CallHeathServiceRestOnline(httpVerb, path, queryStringParameters, requestBody);
         }
 
+        /// <summary>
+        /// Makes a call to the Health REST service to edit data for the logged in user.
+        /// This is the type of call that an interactive patient application would use.
+        /// </summary>
         private HealthServiceRestResponseData CallHeathServiceRestOnline(string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null)
         {
             // Using the HealthVault SDK, make a HTTP call.
@@ -670,6 +714,10 @@ namespace HealthVaultProviderManagementPortal.Controllers
             return request.Response;
         }
 
+        /// <summary>
+        /// Makes a call to the Health REST service to edit another user who has authorized this application.
+        /// This is the type of call that a hospital would make on the behalf of a patient.
+        /// </summary>
         private HealthServiceRestResponseData CallHeathServiceRestOffline(Guid personId, Guid recordId, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null)
         {
             CheckOfflineAuthorization();
@@ -701,17 +749,6 @@ namespace HealthVaultProviderManagementPortal.Controllers
             return request.Response;
         }
 
-        private void CheckOfflineAuthorization()
-        {
-            var authorizedPersonIds = ConfigurationManager.AppSettings["OfflineAuthorizedPersonIDs"];
-            if (!string.IsNullOrWhiteSpace(authorizedPersonIds))
-            {
-                var personIds = authorizedPersonIds.Split(',');
-                if (!personIds.Contains(User?.PersonInfo()?.PersonId.ToString()))
-                {
-                    throw new UnauthorizedAccessException();
-                }
-            }
-        }
+        #endregion
     }
 }
