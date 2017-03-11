@@ -10,12 +10,13 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using HealthVaultProviderManagementPortal.Helpers;
 using Microsoft.Health;
 using Microsoft.Health.Platform.Entities.V3;
 using Microsoft.Health.Platform.Entities.V3.ActionPlans;
@@ -34,6 +35,9 @@ namespace HealthVaultProviderManagementPortal.Controllers
     [RequireSignIn]
     public class ActionPlanController : Controller
     {
+        private string basePlanRestUrl = "v3/actionplans/";
+        private string baseTaskRestUrl = "v3/actionplantasks/";
+
         #region Controller Actions
         public ActionResult Index()
         {
@@ -434,29 +438,6 @@ namespace HealthVaultProviderManagementPortal.Controllers
             return task;
         }
 
-        /// <summary>
-        /// Checks that the logged in user is authorized to edit other users data
-        /// If the config setting is empty, all users will be able to do this.
-        /// </summary>
-        private void CheckOfflineAuthorization()
-        {
-            var loggedInPersonId = User?.PersonInfo()?.PersonId;
-            if (!loggedInPersonId.HasValue)
-            {
-                throw new UnauthorizedAccessException();
-            }
-
-            var authorizedPersonIds = ConfigurationManager.AppSettings["OfflineAuthorizedPersonIDs"];
-            if (!string.IsNullOrWhiteSpace(authorizedPersonIds))
-            {
-                var personIds = authorizedPersonIds.Split(',');
-                if (!personIds.Contains(loggedInPersonId.Value.ToString(), StringComparer.OrdinalIgnoreCase))
-                {
-                    throw new UnauthorizedAccessException();
-                }
-            }
-        }
-
         #endregion
 
         #region Data Access Wrappers
@@ -469,11 +450,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData CreatePlan(ActionPlan plan, Guid? personId, Guid? recordId)
         {
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 personId,
                 recordId,
-                "POST",
-                "v3/actionplans",
+                User.PersonInfo(),
+                HttpMethod.Post.ToString(),
+                basePlanRestUrl,
                 null,
                 JsonConvert.SerializeObject(plan));
         }
@@ -486,11 +468,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData PatchPlan(ActionPlanInstance plan, Guid? personId, Guid? recordId)
         {
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 personId,
                 recordId,
+                User.PersonInfo(),
                 "PATCH",
-                "v3/actionplans",
+                basePlanRestUrl,
                 null,
                 JsonConvert.SerializeObject(plan));
         }
@@ -503,11 +486,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData GetPlans(Guid? personId, Guid? recordId)
         {
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 personId,
                 recordId,
-                "GET",
-                "v3/actionplans");
+                User.PersonInfo(),
+                HttpMethod.Get.ToString(),
+                basePlanRestUrl);
         }
 
         /// <summary>
@@ -518,11 +502,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData GetPlan(Guid id, Guid? personId, Guid? recordId)
         {
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 personId,
                 recordId,
-                "GET",
-                "v3/actionplans/" + id);
+                User.PersonInfo(),
+                HttpMethod.Get.ToString(),
+                basePlanRestUrl + id);
         }
 
         /// <summary>
@@ -533,11 +518,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData DeletePlan(Guid id, Guid? personId, Guid? recordId)
         {
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 personId,
                 recordId,
-                "DELETE",
-                "v3/actionplans/" + id);
+                User.PersonInfo(),
+                HttpMethod.Delete.ToString(),
+                basePlanRestUrl + id);
         }
 
         /// <summary>
@@ -548,11 +534,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData DeleteObjective(Guid planId, Guid id, Guid? personId, Guid? recordId)
         {
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 personId,
                 recordId,
-                "DELETE",
-                "v3/actionplans/" + planId + "/objectives/" + id);
+                User.PersonInfo(),
+                HttpMethod.Delete.ToString(),
+                basePlanRestUrl + planId + "/objectives/" + id);
         }
 
         /// <summary>
@@ -563,11 +550,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData CreateTask(ActionPlanTask task, Guid? personId, Guid? recordId)
         {
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 personId,
                 recordId,
-                "POST",
-                "v3/actionplantasks",
+                User.PersonInfo(),
+                HttpMethod.Post.ToString(),
+                baseTaskRestUrl,
                 null,
                 JsonConvert.SerializeObject(task));
         }
@@ -580,11 +568,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData GetTask(Guid id, Guid? personId, Guid? recordId)
         {
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 personId,
                 recordId,
-                "GET",
-                "v3/actionplantasks/" + id);
+                User.PersonInfo(),
+                HttpMethod.Get.ToString(),
+                baseTaskRestUrl + id);
         }
 
         /// <summary>
@@ -595,11 +584,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData PatchTask(ActionPlanTaskInstance task, Guid? personId, Guid? recordId)
         {
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 personId,
                 recordId,
+                User.PersonInfo(),
                 "PATCH",
-                "v3/actionplantasks",
+                baseTaskRestUrl,
                 null,
                 JsonConvert.SerializeObject(task));
         }
@@ -612,11 +602,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData DeleteTask(Guid id, Guid? personId, Guid? recordId)
         {
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 personId,
                 recordId,
-                "DELETE",
-                "v3/actionplantasks/" + id);
+                User.PersonInfo(),
+                HttpMethod.Delete.ToString(),
+                baseTaskRestUrl + id);
         }
 
         /// <summary>
@@ -625,11 +616,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData ValidateTaskAutoTracking(TrackingValidation trackingValidation)
         {
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 null,
                 null,
-                "POST",
-                "v3/actionplantasks/ValidateTracking",
+                User.PersonInfo(),
+                HttpMethod.Post.ToString(),
+                baseTaskRestUrl + "ValidateTracking",
                 null,
                 JsonConvert.SerializeObject(trackingValidation));
         }
@@ -639,7 +631,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private List<PersonInfo> GetAuthorizedPeople()
         {
-            CheckOfflineAuthorization();
+            HealthServiceRestHelper.CheckOfflineAuthorization(User.PersonInfo());
 
             var connection = new OfflineWebApplicationConnection(
                 HealthWebApplicationConfiguration.Current.ApplicationId,
@@ -669,86 +661,16 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 {nameof(endTime), endTime.ToString("o", CultureInfo.InvariantCulture)}
             };
 
-            return CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHeathServiceRest(
                 personId,
                 recordId,
-                "GET",
-                "v3/actionplans/" + id + "/Adherence",
+                User.PersonInfo(),
+                HttpMethod.Get.ToString(),
+                basePlanRestUrl + id + "/Adherence",
                 queryParameters);
         }
 
         #endregion
-
-        #region Data Access
-
-        /// <summary>
-        /// Calls the Health REST service. 
-        /// Abstracts away whether it's an online or offline call, depending on whether person and record IDs are passed in.
-        /// </summary>
-        private HealthServiceRestResponseData CallHeathServiceRest(Guid? personId, Guid? recordId, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null)
-        {
-            return personId.HasValue && recordId.HasValue ? CallHeathServiceRestOffline(personId.Value, recordId.Value, httpVerb, path, queryStringParameters, requestBody) : CallHeathServiceRestOnline(httpVerb, path, queryStringParameters, requestBody);
-        }
-
-        /// <summary>
-        /// Makes a call to the Health REST service to edit data for the logged in user.
-        /// This is the type of call that an interactive patient application would use.
-        /// </summary>
-        private HealthServiceRestResponseData CallHeathServiceRestOnline(string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null)
-        {
-            // Using the HealthVault SDK, make a HTTP call.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                User.PersonInfo().Connection,
-                httpVerb,
-                path,
-                queryStringParameters,
-                requestBody)
-            {
-                // Person and record ID identify the patient for whom to retrieve the plan.
-                RecordId = User.PersonInfo().SelectedRecord.Id
-            };
-
-            request.Execute();
-
-            return request.Response;
-        }
-
-        /// <summary>
-        /// Makes a call to the Health REST service to edit another user who has authorized this application.
-        /// This is the type of call that a hospital would make on the behalf of a patient.
-        /// </summary>
-        private HealthServiceRestResponseData CallHeathServiceRestOffline(Guid personId, Guid recordId, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null)
-        {
-            CheckOfflineAuthorization();
-
-            // Person and record ID identify the patient for whom to retrieve the plans.
-            var connection = new OfflineWebApplicationConnection(
-                HealthWebApplicationConfiguration.Current.ApplicationId,
-                HealthWebApplicationConfiguration.Current.HealthVaultMethodUrl,
-                personId);
-
-            // Authenticate with HealthVault using the connection generated above
-            connection.Authenticate();
-
-            // Using the HealthVault SDK, make a HTTP call.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                connection,
-                httpVerb,
-                path,
-                queryStringParameters,
-                requestBody)
-            {
-                // Person and record ID identify the patient for whom to retrieve the plans.
-                RecordId = recordId
-            };
-
-            request.Execute();
-
-            return request.Response;
-        }
-
-        #endregion
+        
     }
 }

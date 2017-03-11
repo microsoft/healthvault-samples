@@ -6,12 +6,31 @@
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace HealthVaultProviderManagementPortal.Models.Onboarding
+namespace Microsoft.Health.Platform.Entities.V3.Enums
 {
-    public enum Gender
+    /// <summary>
+    /// The goal range units.
+    /// </summary>
+    public enum GoalRangeUnit
     {
+        /// <summary>
+        /// Unknown Value
+        /// </summary>
         Unknown = 0,
-        Male = 1,
-        Female = 2
+
+        /// <summary>
+        /// Kilograms Value
+        /// </summary>
+        Kilograms = 1,
+
+        /// <summary>
+        /// Count Value
+        /// </summary>
+        Count = 2,
+
+        /// <summary>
+        /// Calories Value
+        /// </summary>
+        Calories = 3
     }
 }

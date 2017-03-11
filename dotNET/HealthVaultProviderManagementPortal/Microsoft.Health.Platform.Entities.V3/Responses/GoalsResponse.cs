@@ -6,12 +6,20 @@
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace HealthVaultProviderManagementPortal.Models.Onboarding
+namespace Microsoft.Health.Platform.Entities.V3.Responses
 {
-    public enum Gender
+    using System.Collections.ObjectModel;
+
+    /// <summary>
+    /// The goal response.
+    /// </summary>
+    /// <typeparam name="T">The type of goal to wrap</typeparam>
+    public class GoalsResponse<T> : ResponseBase
     {
-        Unknown = 0,
-        Male = 1,
-        Female = 2
+        /// <summary>
+        /// The collection of goals
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Set needed for deserialization")]
+        public Collection<T> Goals { get; set; }
     }
 }

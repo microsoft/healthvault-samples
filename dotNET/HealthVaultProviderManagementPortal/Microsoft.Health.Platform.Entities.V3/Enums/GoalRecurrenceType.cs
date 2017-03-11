@@ -6,12 +6,31 @@
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace HealthVaultProviderManagementPortal.Models.Onboarding
+namespace Microsoft.Health.Platform.Entities.V3.Enums
 {
-    public enum Gender
+    /// <summary>
+    /// The goal recurrence type.
+    /// </summary>
+    public enum GoalRecurrenceType
     {
+        /// <summary>
+        /// Unknown Value (should never be associated with an actual event. For deserialization only
+        /// </summary>
         Unknown = 0,
-        Male = 1,
-        Female = 2
+
+        /// <summary>
+        /// A goal with a daily recurrence type.
+        /// </summary>
+        Daily = 1,
+
+        /// <summary>
+        /// A goal with a weekly recurrence type.
+        /// </summary>
+        Weekly = 2,
+
+        /// <summary>
+        /// A goal with a monthly recurrence type.
+        /// </summary>
+        Monthly = 3
     }
 }

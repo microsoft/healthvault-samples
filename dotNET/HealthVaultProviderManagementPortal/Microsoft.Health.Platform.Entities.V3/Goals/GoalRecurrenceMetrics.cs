@@ -1,4 +1,5 @@
-﻿// Copyright (c) Microsoft Corporation.  All rights reserved. 
+﻿// --------------------------------------------------------------------------------------------------------------------
+// Copyright (c) Microsoft Corporation.  All rights reserved. 
 // MIT License
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // 
@@ -6,12 +7,28 @@
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace HealthVaultProviderManagementPortal.Models.Onboarding
+namespace Microsoft.Health.Platform.Entities.V3.Goals
 {
-    public enum Gender
+    using Microsoft.Health.Platform.Entities.V3.Enums;
+
+    /// <summary>
+    /// The recurrence metrics for a goal.
+    /// </summary>
+    public class GoalRecurrenceMetrics
     {
-        Unknown = 0,
-        Male = 1,
-        Female = 2
+        /// <summary>
+        /// The name of the recurrence metric
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// How often the goal reoccurs. = ['Unknown', 'Daily', 'Weekly', 'Monthly']
+        /// </summary>
+        public GoalRecurrenceType WindowType { get; set; }
+
+        /// <summary>
+        /// Number of times the goals target is intended to be achieved in given window
+        /// </summary>
+        public int? OccurrenceCount { get; set; }
     }
 }
