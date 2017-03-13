@@ -14,6 +14,7 @@
 }
 
 <h2>Create and send an invitation</h2>
+<p>This page can be used to create user-specific invitations for your organization's remote monitoring solution. The next page will provide an invitation URL that you can provide your patient directly. </p>
 
 @using (Html.BeginForm("CreateInvite", "Onboarding")) 
 {
@@ -58,7 +59,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Birthday, "Birthday (" + System.Globalization.DateTimeFormatInfo.CurrentInfo.ShortDatePattern + ")", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })

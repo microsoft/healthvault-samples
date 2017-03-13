@@ -112,6 +112,7 @@
                     <td>@task.Name</td>
                     <td>@task.Status</td>
                     <td>@Html.ActionLink("Edit", "Task", new { planId = task.AssociatedPlanId, id = task.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { cssClass = "btn btn-default" })</td>
+                    <td>@Html.ActionLink("Validate auto tracking", "ValidateTracking", new { planId = task.AssociatedPlanId, id = task.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { cssClass = "btn btn-default" })</td>
                 </tr>
             }
         </table>

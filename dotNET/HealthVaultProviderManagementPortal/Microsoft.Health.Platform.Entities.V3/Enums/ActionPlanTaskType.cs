@@ -22,5 +22,10 @@ namespace Microsoft.Health.Platform.Entities.V3.Enums
         /// The task is related to bloodpressure
         /// </summary>
         BloodPressure = 1,
+
+        /// <summary>
+        /// The task is another type
+        /// </summary>
+        Other = 2,
     }
 }
