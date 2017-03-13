@@ -9,13 +9,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Security.Cryptography.X509Certificates;
-using System.Linq;
-using System.Web;
 using Microsoft.Health;
 using Microsoft.Health.PatientConnect;
 using Microsoft.Health.Web;
-using Microsoft.Health.Web.Authentication;  
 
 namespace HVAppCode
 {
