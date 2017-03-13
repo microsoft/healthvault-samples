@@ -8,28 +8,19 @@
 
 namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
 {
-    using System.Collections.ObjectModel;
-    using Microsoft.Health.Platform.Entities.V3.Enums;
-
     /// <summary>
-    /// The tracking policy to apply to the Action Plan Task
+    /// class for Tracking Validation
     /// </summary>
-    public class ActionPlanTrackingPolicy
+    public class TrackingValidation
     {
         /// <summary>
-        /// Gets or sets an indicator as to whether or not the Tracking Policy is AutoTrackable
+        /// Gets or sets the action plan task.
         /// </summary>
-        public bool? IsAutoTrackable { get; set; }
-
+        public ActionPlanTask ActionPlanTask { get; set; }
+        
         /// <summary>
-        /// Gets or sets the Occurrence Metrics for the tracking policy
+        /// Gets or sets the XML thing document.
         /// </summary>
-        public ActionPlanTaskOccurrenceMetrics OccurrenceMetrics { get; set; }
-
-        /// <summary>
-        /// The target events to track against
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "Set needed for serialization.")]
-        public Collection<ActionPlanTaskTargetEvent> TargetEvents { get; set; }
+        public string XmlThingDocument { get; set; }
     }
 }

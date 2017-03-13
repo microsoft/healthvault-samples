@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HealthVaultProviderManagementPortal.Models.Onboarding
 {
@@ -76,6 +77,7 @@ namespace HealthVaultProviderManagementPortal.Models.Onboarding
         /// <summary>
         /// Gets and sets the user's birthday
         /// </summary>
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime Birthday { get; set; }
 
         /// <summary>

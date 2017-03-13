@@ -67,7 +67,11 @@ namespace HealthVaultProviderManagementPortal.Controllers
             onboardingRequest.FriendlyName = "John";
             onboardingRequest.ApplicationPatientId = "johndoe-" + Guid.NewGuid();  // Must be unique
             onboardingRequest.Email = "john@contoso.com";
-            onboardingRequest.Birthday = new DateTime(1989, 8, 11);
+            onboardingRequest.Birthday = new DateTime(1955, 10, 28);
+
+            // This is a workaround for bug#48405. TODO: Remove once S61 is available.
+            onboardingRequest.Height = 155; //In cm
+            onboardingRequest.Weight = 50000; //In g
 
             // 1a. Specify a patient/provider secret question & answer to validate the identity of the invitee
             onboardingRequest.SecretQuestion = "What color is the sky?";

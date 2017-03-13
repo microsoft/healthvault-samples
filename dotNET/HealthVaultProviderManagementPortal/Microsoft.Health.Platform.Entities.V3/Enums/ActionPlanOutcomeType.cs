@@ -42,5 +42,10 @@ namespace Microsoft.Health.Platform.Entities.V3.Enums
         /// The outcome type is "minutes to fall asleep per night"
         /// </summary>
         MinutesToFallAsleepPerNight = 5,
+
+        /// <summary>
+        /// The outcome is some other type
+        /// </summary>
+        Other = 6,
     }
 }

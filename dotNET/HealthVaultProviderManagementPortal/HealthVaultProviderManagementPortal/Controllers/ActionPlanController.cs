@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -64,7 +65,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get a plan for a user.
         /// </summary>
         [HttpGet]
-        public ActionResult Plan(string id, Guid? personId = null, Guid? recordId = null)
+        public ActionResult Plan(Guid id, Guid? personId = null, Guid? recordId = null)
         {
             var response = GetPlan(id, personId, recordId);
             return HandleRestResponse<ActionPlanInstance>(response, HttpStatusCode.OK);
@@ -75,7 +76,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Plan(string id, ActionPlanInstance plan, Guid? personId = null, Guid? recordId = null)
+        public ActionResult Plan(Guid id, ActionPlanInstance plan, Guid? personId = null, Guid? recordId = null)
         {
             var response = PatchPlan(plan, personId, recordId);
             return HandleRestResponse(response, HttpStatusCode.OK, personId, recordId);
@@ -86,7 +87,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RemovePlan(string id, Guid? personId = null, Guid? recordId = null)
+        public ActionResult RemovePlan(Guid id, Guid? personId = null, Guid? recordId = null)
         {
             var response = DeletePlan(id, personId, recordId);
             return HandleRestResponse(response, HttpStatusCode.NoContent, personId, recordId);
@@ -97,7 +98,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RemoveObjective(string planId, string id, Guid? personId = null, Guid? recordId = null)
+        public ActionResult RemoveObjective(Guid planId, Guid id, Guid? personId = null, Guid? recordId = null)
         {
             var response = DeleteObjective(planId, id, personId, recordId);
             return HandleRestResponse(response, HttpStatusCode.NoContent, personId, recordId, "Plan", new RouteValueDictionary { { "id", planId } });
@@ -131,7 +132,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get a task for a user.
         /// </summary>
         [HttpGet]
-        public ActionResult Task(string id, Guid? personId = null, Guid? recordId = null)
+        public ActionResult Task(Guid id, Guid? personId = null, Guid? recordId = null)
         {
             var response = GetTask(id, personId, recordId);
             return HandleRestResponse<ActionPlanTaskInstance>(response, HttpStatusCode.OK);
@@ -142,7 +143,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Task(string id, ActionPlanTaskInstance task, Guid? personId = null, Guid? recordId = null)
+        public ActionResult Task(Guid id, ActionPlanTaskInstance task, Guid? personId = null, Guid? recordId = null)
         {
             var response = PatchTask(task, personId, recordId);
             return HandleRestResponse(response, HttpStatusCode.OK, personId, recordId, "Plan", new RouteValueDictionary { { "id", task.AssociatedPlanId } });
@@ -153,7 +154,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RemoveTask(string planId, string id, Guid? personId = null, Guid? recordId = null)
+        public ActionResult RemoveTask(Guid planId, Guid id, Guid? personId = null, Guid? recordId = null)
         {
             var response = DeleteTask(id, personId, recordId);
             return HandleRestResponse(response, HttpStatusCode.NoContent, personId, recordId, "Plan", new RouteValueDictionary { { "id", planId } });
@@ -163,11 +164,50 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get plan adherence for a user.
         /// </summary>
         [HttpGet]
-        public ActionResult Adherence(string id, Guid? personId = null, Guid? recordId = null)
+        public ActionResult Adherence(Guid id, Guid? personId = null, Guid? recordId = null)
         {
             var now = DateTimeOffset.UtcNow;
             var response = GetPlanAdherence(id, now.AddDays(-14), now, personId, recordId);
             return HandleRestResponse<ActionPlanAdherenceSummary>(response, HttpStatusCode.OK);
+        }
+
+        /// <summary>
+        /// Get a task for a user.
+        /// </summary>
+        [HttpGet]
+        public ActionResult ValidateTracking(Guid id, Guid planId, Guid? personId = null, Guid? recordId = null)
+        {
+            return View("TrackingValidationEntry", new ActionPlanTaskInstance()
+            {
+                Id = id,
+                AssociatedPlanId = planId
+            });
+        }
+
+        /// <summary>
+        /// Edit a task for a user.
+        /// </summary>
+        [HttpPost]
+        [ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        public ActionResult ValidateTracking(Guid id, string thing, Guid? personId = null, Guid? recordId = null)
+        {
+            var taskResponse = GetTask(id, personId, recordId);
+            if (taskResponse.StatusCode != HttpStatusCode.OK)
+            {
+                return View("RestError", taskResponse);
+            }
+
+            var task = JsonConvert.DeserializeObject<ActionPlanTask>(taskResponse.ResponseBody);
+
+            var trackingValidation = new TrackingValidation
+            {
+                ActionPlanTask = task,
+                XmlThingDocument = thing
+            };
+
+            var response = ValidateTaskAutoTracking(trackingValidation);
+            return HandleRestResponse<ActionPlanTaskTrackingResponse<ActionPlanTaskTracking>>(response, HttpStatusCode.OK);
         }
 
         /// <summary>
@@ -287,11 +327,14 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 ThumbnailImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1s2KS?ver=0ad8"),
                 OrganizationId = "CONTOSO",
                 OrganizationName = "Contoso",
-                TaskType = ActionPlanTaskType.Unknown,
+                TaskType = ActionPlanTaskType.Other,
                 SignupName = "Set a consistent wake time",
                 AssociatedObjectiveIds = new Collection<Guid> { objectiveId },
                 AssociatedPlanId = planId, // Only needs to be set if adding as task after the plan
-                TrackingPolicy = new ActionPlanTrackingPolicy(),
+                TrackingPolicy = new ActionPlanTrackingPolicy
+                {
+                    IsAutoTrackable = false
+                },
                 CompletionType = ActionPlanTaskCompletionType.Scheduled,
                 ScheduledTaskCompletionMetrics = new ActionPlanScheduledTaskCompletionMetrics
                 {
@@ -315,18 +358,32 @@ namespace HealthVaultProviderManagementPortal.Controllers
         {
             var task = new ActionPlanTask
             {
-                Name = "Start my pre-sleep ritual",
-                ShortDescription = "Develop a short pre-sleep ritual to break the connection between the day's stress and bedtime.",
-                LongDescription = "Develop a 10-minute pre-sleep ritual to break the connection between the day's stress and bedtime.",
+                Name = "Measure your blood pressure",
+                ShortDescription = "Measure your blood pressure - the goal is to have your systolic between 80-120 and diastolic between 60-80 mmHg",
+                LongDescription = "Measure your blood pressure - the goal is to have your systolic between 80-120 and diastolic between 60-80 mmHg",
                 ImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1rXx2?ver=d68e"),
                 ThumbnailImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1s2KS?ver=0ad8"),
                 OrganizationId = "CONTOSO",
                 OrganizationName = "Contoso",
-                TaskType = ActionPlanTaskType.Unknown,
-                SignupName = "Establish a relaxing bedtime ritual",
+                TaskType = ActionPlanTaskType.BloodPressure,
+                SignupName = "Measure your blood pressure",
                 AssociatedObjectiveIds = new Collection<Guid> { objectiveId },
                 AssociatedPlanId = planId, // Only needs to be set if adding as task after the plan
-                TrackingPolicy = new ActionPlanTrackingPolicy(),
+                TrackingPolicy = new ActionPlanTrackingPolicy
+                {
+                    IsAutoTrackable = true,
+                    OccurrenceMetrics = new ActionPlanTaskOccurrenceMetrics
+                    {
+                        EvaluateTargets = false
+                    },
+                    TargetEvents = new Collection<ActionPlanTaskTargetEvent>
+                    {
+                        new ActionPlanTaskTargetEvent
+                        {
+                            ElementXPath = "thing/data-xml/blood-pressure"
+                        }
+                    }
+                },
                 CompletionType = ActionPlanTaskCompletionType.Frequency,
                 FrequencyTaskCompletionMetrics = new ActionPlanFrequencyTaskCompletionMetrics()
                 {
@@ -395,7 +452,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Otherwise, this gets an action plan of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData GetPlan(string id, Guid? personId, Guid? recordId)
+        private HealthServiceRestResponseData GetPlan(Guid id, Guid? personId, Guid? recordId)
         {
             return CallHeathServiceRest(
                 personId,
@@ -410,7 +467,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Otherwise, this deletes an action plan of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData DeletePlan(string id, Guid? personId, Guid? recordId)
+        private HealthServiceRestResponseData DeletePlan(Guid id, Guid? personId, Guid? recordId)
         {
             return CallHeathServiceRest(
                 personId,
@@ -425,7 +482,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Otherwise, this deletes an action plan objective of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData DeleteObjective(string planId, string id, Guid? personId, Guid? recordId)
+        private HealthServiceRestResponseData DeleteObjective(Guid planId, Guid id, Guid? personId, Guid? recordId)
         {
             return CallHeathServiceRest(
                 personId,
@@ -457,7 +514,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Otherwise, this gets an action plan task of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData GetTask(string id, Guid? personId, Guid? recordId)
+        private HealthServiceRestResponseData GetTask(Guid id, Guid? personId, Guid? recordId)
         {
             return CallHeathServiceRest(
                 personId,
@@ -489,7 +546,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Otherwise, this deletes an action plan task of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData DeleteTask(string id, Guid? personId, Guid? recordId)
+        private HealthServiceRestResponseData DeleteTask(Guid id, Guid? personId, Guid? recordId)
         {
             return CallHeathServiceRest(
                 personId,
@@ -498,8 +555,25 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 "v3/actionplantasks/" + id);
         }
 
+        /// <summary>
+        /// Call the HV REST API to check how auto tracking matches a task against a HealthVault XML thing.
+        /// As this API doesn't actually access HealthVault (all data is being passed in), we've only done this in an online manner.
+        /// </summary>
+        private HealthServiceRestResponseData ValidateTaskAutoTracking(TrackingValidation trackingValidation)
+        {
+            return CallHeathServiceRest(
+                null,
+                null,
+                "POST",
+                "v3/actionplantasks/ValidateTracking",
+                null,
+                JsonConvert.SerializeObject(trackingValidation));
+        }
+
         private List<PersonInfo> GetAuthorizedPeople()
         {
+            CheckOfflineAuthorization();
+
             var connection = new OfflineWebApplicationConnection(
                 HealthWebApplicationConfiguration.Current.ApplicationId,
                 HealthWebApplicationConfiguration.Current.HealthVaultMethodUrl,
@@ -520,7 +594,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Otherwise, this gets action plan adherence of the user who is actively signed into the application ("online" scenario).
         /// See Getting Started doc for more information on offline scenarios.
         /// </summary>
-        private HealthServiceRestResponseData GetPlanAdherence(string id, DateTimeOffset startTime, DateTimeOffset endTime, Guid? personId, Guid? recordId)
+        private HealthServiceRestResponseData GetPlanAdherence(Guid id, DateTimeOffset startTime, DateTimeOffset endTime, Guid? personId, Guid? recordId)
         {
             var queryParameters = new NameValueCollection
             {
@@ -555,7 +629,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 // Person and record ID identify the patient for whom to retrieve the plan.
                 RecordId = User.PersonInfo().SelectedRecord.Id
             };
-            
+
             request.Execute();
 
             return request.Response;
@@ -563,6 +637,8 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
         private HealthServiceRestResponseData CallHeathServiceRestOffline(Guid personId, Guid recordId, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null)
         {
+            CheckOfflineAuthorization();
+
             // Person and record ID identify the patient for whom to retrieve the plans.
             var connection = new OfflineWebApplicationConnection(
                 HealthWebApplicationConfiguration.Current.ApplicationId,
@@ -584,10 +660,23 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 // Person and record ID identify the patient for whom to retrieve the plans.
                 RecordId = recordId
             };
-            
+
             request.Execute();
 
             return request.Response;
+        }
+
+        private void CheckOfflineAuthorization()
+        {
+            var authorizedPersonIds = ConfigurationManager.AppSettings["OfflineAuthorizedPersonIDs"];
+            if (!string.IsNullOrWhiteSpace(authorizedPersonIds))
+            {
+                var personIds = authorizedPersonIds.Split(',');
+                if (!personIds.Contains(User?.PersonInfo()?.PersonId.ToString()))
+                {
+                    throw new UnauthorizedAccessException();
+                }
+            }
         }
     }
 }

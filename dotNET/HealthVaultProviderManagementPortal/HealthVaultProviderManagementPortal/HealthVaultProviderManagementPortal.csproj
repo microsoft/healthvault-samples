@@ -133,6 +133,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="buildInfo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Global.asax" />
@@ -179,6 +182,12 @@
       <Project>{E5B30C57-260A-4C08-B289-711DF646ADC9}</Project>
       <Name>Microsoft.Health.Platform.Entities.V3</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ActionPlan\TrackingValidationEntry.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ActionPlan\ValidateTracking.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
