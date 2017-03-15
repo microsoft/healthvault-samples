@@ -17,17 +17,13 @@ namespace Microsoft.Health.Platform.Entities.V3.Goals
     public class GoalRecurrenceMetrics
     {
         /// <summary>
-        /// The name of the recurrence metric
-        /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        /// How often the goal reoccurs. = ['Unknown', 'Daily', 'Weekly', 'Monthly']
+        /// Specifies the recurrence window of the goal
         /// </summary>
         public GoalRecurrenceType WindowType { get; set; }
 
         /// <summary>
-        /// Number of times the goals target is intended to be achieved in given window
+        /// Specifies the number of times the goal's target is intended to be achieved in given window
+        /// For example, the goal "walk 5000 steps, 4 times per week" would be represented as: a window of a "week", an occurrence count of 4, and a goal target of 5000.
         /// </summary>
         public int? OccurrenceCount { get; set; }
     }

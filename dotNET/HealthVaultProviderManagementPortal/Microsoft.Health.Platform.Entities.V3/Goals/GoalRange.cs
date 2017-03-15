@@ -22,17 +22,19 @@ namespace Microsoft.Health.Platform.Entities.V3.Goals
         public string Name { get; set; }
 
         /// <summary>
-        /// The description of the range.
+        /// The description of the range. Allows more detailed information about the range.
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
         /// The minimum value for the range.
+        /// For ranges greater than a specified value with no maximum, specify a minimum but no maximum.
         /// </summary>
         public double? Minimum { get; set; }
 
         /// <summary>
         /// The maximum value for the range.
+        /// For ranges less than a specified value with no minimum, specify a maximum but no minimum.
         /// </summary>
         public double? Maximum { get; set; }
 

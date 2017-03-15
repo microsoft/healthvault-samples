@@ -13,7 +13,8 @@ namespace Microsoft.Health.Platform.Entities.V3.Goals
     using Microsoft.Health.Platform.Entities.V3.Enums;
 
     /// <summary>
-    /// The information contained in all goals.
+    /// A goal defines a target for a measurement or action to be performed by a user.
+    /// For example, walk 5000 steps per day, burn 1500 calories per day
     /// </summary>
     public class Goal
     {
@@ -24,6 +25,7 @@ namespace Microsoft.Health.Platform.Entities.V3.Goals
 
         /// <summary>
         /// The name of the goal.
+        /// For example, Daily walk goal
         /// </summary>
         public string Name { get; set; }
 
@@ -33,14 +35,15 @@ namespace Microsoft.Health.Platform.Entities.V3.Goals
         public string Description { get; set; }
 
         /// <summary>
-        /// The start date of the goal.
+        /// The start date of the goal in Universal Time Zone(UTC).
         /// </summary>
-        public DateTime? StartDate { get; set; }
+        public DateTimeOffset? StartDate { get; set; }
 
         /// <summary>
-        /// The end date of the goal. If the end date is in the future, this is the target date.
+        /// The end date of the goal in Universal Time Zone(UTC). 
+        /// If the end date is in the future, this is the target date.
         /// </summary>
-        public DateTime? EndDate { get; set; }
+        public DateTimeOffset? EndDate { get; set; }
 
         /// <summary>
         /// Specifies the type of data related to this goal.
@@ -49,11 +52,13 @@ namespace Microsoft.Health.Platform.Entities.V3.Goals
 
         /// <summary>
         /// The goal recurrence metrics.
+        /// For example, A goal can be defined on a weekly interval, meaning the target is intended to be achieved every week. Walking 50000 steps in a week. 
         /// </summary>
         public GoalRecurrenceMetrics RecurrenceMetrics { get; set; }
 
         /// <summary>
-        /// The primary range of achievement for the goal.
+        /// The primary range of achievement for the goal. 
+        /// For example, the ideal weight or daily steps target. 
         /// </summary>
         public GoalRange Range { get; set; }
 
