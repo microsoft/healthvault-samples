@@ -37,3 +37,7 @@
     display: inline-block;
     max-width: 200px;
 }
+
+.display {
+    padding-top: 7px;
+}

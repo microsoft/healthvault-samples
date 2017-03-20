@@ -48,16 +48,6 @@ namespace Microsoft.Health.Platform.Entities.V3.ActionPlans
         public string OrganizationName { get; set; }
 
         /// <summary>
-        /// A URL to the logo of the organization that manages this plan. URLs should be HTTPS.
-        /// </summary>
-        public Uri OrganizationLogoUrl { get; set; }
-
-        /// <summary>
-        /// A URL to a larger image for the organization logo that may include the wordmark. URLs should be HTTPS.
-        /// </summary>
-        public Uri OrganizationLongFormImageUrl { get; set; }
-
-        /// <summary>
         /// The category of the plan
         /// </summary>
         public ActionPlanCategory Category { get; set; }

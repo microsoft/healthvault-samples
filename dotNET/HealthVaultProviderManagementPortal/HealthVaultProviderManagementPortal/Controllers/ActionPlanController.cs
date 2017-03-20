@@ -325,10 +325,6 @@ namespace HealthVaultProviderManagementPortal.Controllers
             plan.Description = "Improve the quantity and quality of your sleep.";
             plan.ImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE10omP?ver=59cf");
             plan.ThumbnailImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE10omP?ver=59cf");
-            plan.OrganizationId = "CONTOSO";
-            plan.OrganizationName = "Contoso";
-            plan.OrganizationLogoUrl = new Uri("https://www.example.com");
-            plan.OrganizationLongFormImageUrl = new Uri("https://www.example.com");
             plan.Category = ActionPlanCategory.Sleep;
             plan.Objectives = new Collection<Objective> { objective };
             plan.AssociatedTasks = new Collection<ActionPlanTask> { scheduledTask, frequencyTask };
@@ -366,8 +362,6 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 LongDescription = "Studies show that waking up at a consistent time every day, even on weekends, is one of the best ways to ensure a good night's sleep.",
                 ImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1rXx2?ver=d68e"),
                 ThumbnailImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1s2KS?ver=0ad8"),
-                OrganizationId = "CONTOSO",
-                OrganizationName = "Contoso",
                 TaskType = ActionPlanTaskType.Other,
                 SignupName = "Set a consistent wake time",
                 AssociatedObjectiveIds = new Collection<Guid> { objectiveId },
@@ -404,8 +398,6 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 LongDescription = "Measure your blood pressure - the goal is to have your systolic between 80-120 and diastolic between 60-80 mmHg",
                 ImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1rXx2?ver=d68e"),
                 ThumbnailImageUrl = new Uri("https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1s2KS?ver=0ad8"),
-                OrganizationId = "CONTOSO",
-                OrganizationName = "Contoso",
                 TaskType = ActionPlanTaskType.BloodPressure,
                 SignupName = "Measure your blood pressure",
                 AssociatedObjectiveIds = new Collection<Guid> { objectiveId },
