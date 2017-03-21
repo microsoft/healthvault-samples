@@ -7,7 +7,7 @@ This script can be used to build a HealthVault-compatible X509 certificate and a
 ./Create-HealthVaultCert.ps1 -ApplicationId "00000000-0000-0000-0000-000000000000" 
 
 .PARAMETER ApplicationId
-The ApplicationId parameter allows you to specify the GUID value (without braces) which is registed in HealthVault for your app.
+The ApplicationId parameter allows you to specify the GUID value (without braces) which is registered in HealthVault for your app.
 
 #>
 
