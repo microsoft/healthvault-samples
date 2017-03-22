@@ -66,7 +66,6 @@ namespace HealthVaultProviderManagementPortal.Controllers
             onboardingRequest.LastName = "Doe";
             onboardingRequest.FriendlyName = "John";
             onboardingRequest.ApplicationPatientId = "johndoe-" + Guid.NewGuid();  // Must be unique
-            onboardingRequest.Email = "john@contoso.com";
             onboardingRequest.Birthday = new DateTime(1955, 10, 28);
 
             // This is a workaround for bug#48405. TODO: Remove once S61 is available.

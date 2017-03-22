@@ -55,11 +55,6 @@ namespace HealthVaultProviderManagementPortal.Models.Onboarding
         public string LastName { get; set; }
 
         /// <summary>
-        /// Gets or sets the user's email address
-        /// </summary>
-        public string Email { get; set; }
-
-        /// <summary>
         /// Gets and sets the user zip code/postal code
         /// </summary>
         public string ZipCode { get; set; }
