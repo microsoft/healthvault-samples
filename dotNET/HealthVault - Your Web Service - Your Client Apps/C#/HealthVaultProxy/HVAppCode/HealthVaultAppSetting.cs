@@ -22,10 +22,6 @@ namespace HVAppCode
     {
         static readonly Guid[] myValidTokens = null;
 
-        public static Guid ApplicationId() { return (new Guid("<GET APPID FROM THE HEALTHVAULT APP CONFIG CENTER")); }   // Your AppID here!
-
-        public static string PfxFileName() { return ("HealthVaultProxy.pfx"); }    // Your PrivateKey Certificate file name here!
-
         static AppSettings()   // constructor
         {                                                                                       // ASSIGNED TO  //
             myValidTokens = new Guid[]{  (new Guid("A245FDA7-8D3B-4ACA-8A73-A4A2AC8001D9")),    // My CRM System #1  

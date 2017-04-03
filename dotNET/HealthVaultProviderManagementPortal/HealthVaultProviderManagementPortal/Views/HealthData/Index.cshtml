@@ -14,8 +14,8 @@
 @{
     ViewBag.Title = "Health information";
     var addWeightUrl = HealthVault.Shell.Url(
-        ViewContext, 
-        "VIEWITEMS", 
+        ViewContext,
+        "VIEWITEMS",
         new { typeid = Weight.TypeId, additem = true });
 }
 
@@ -24,12 +24,30 @@
 @if (Model == null)
 {
     <p>
-        No weight values found. Confirm that weight values are available in <a href="@addWeightUrl">HealthVault</a>.  Note: This operation requires that the app has been authorized for Online access to the weight data type.  
+        No weight values found. Confirm that weight values are available in <a href="@addWeightUrl">HealthVault</a>.  Note: This operation requires that the app has been authorized for Online access to the weight data type.
     </p>
 }
 else
-{ 
+{
     <p>
         Your current weight is @Model.Value.Kilograms kg.
     </p>
+
+    using (Html.BeginForm("Index"))
+    {
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.Label("Weight in kg", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBox("weight", "", new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </div>
+        </div>
+    }
 }

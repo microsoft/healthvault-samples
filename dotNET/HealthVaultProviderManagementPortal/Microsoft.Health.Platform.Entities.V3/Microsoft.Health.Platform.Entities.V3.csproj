@@ -70,12 +70,20 @@
     <Compile Include="Enums\ActionPlanTaskCompletionType.cs" />
     <Compile Include="Enums\ActionPlanTaskStatus.cs" />
     <Compile Include="Enums\ActionPlanTaskType.cs" />
+    <Compile Include="Enums\GoalRangeUnit.cs" />
+    <Compile Include="Enums\GoalRecurrenceType.cs" />
+    <Compile Include="Enums\GoalType.cs" />
     <Compile Include="Enums\TaskTrackingStatus.cs" />
     <Compile Include="Enums\TrackingType.cs" />
+    <Compile Include="Goals\Goal.cs" />
+    <Compile Include="Goals\GoalRange.cs" />
+    <Compile Include="Goals\GoalRecurrenceMetrics.cs" />
+    <Compile Include="Goals\GoalsWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\ActionPlansResponse.cs" />
     <Compile Include="Responses\ActionPlanTasksResponse.cs" />
     <Compile Include="Responses\ActionPlanTaskTrackingResponse.cs" />
+    <Compile Include="Responses\GoalsResponse.cs" />
     <Compile Include="Responses\ResponseBase.cs" />
     <Compile Include="Time.cs" />
   </ItemGroup>

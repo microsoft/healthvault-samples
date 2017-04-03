@@ -2,4 +2,4 @@
 
 @Html.EditorFor(model => model.Hours, new { htmlAttributes = new { @class = "form-control time" } })
 :
-@Html.EditorFor(model => model.Minutes, new { htmlAttributes = new { @class = "form-control time" } })
+@Html.TextBox("Minutes", Model == null ? null : Model.Minutes.ToString("00") , new { @class = "form-control time text-box single-line" })

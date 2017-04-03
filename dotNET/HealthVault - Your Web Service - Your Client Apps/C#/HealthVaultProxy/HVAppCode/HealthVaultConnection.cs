@@ -9,13 +9,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Security.Cryptography.X509Certificates;
-using System.Linq;
-using System.Web;
 using Microsoft.Health;
 using Microsoft.Health.PatientConnect;
 using Microsoft.Health.Web;
-using Microsoft.Health.Web.Authentication;  
 
 namespace HVAppCode
 {
@@ -27,12 +23,10 @@ namespace HVAppCode
         {
             if (AppSettings.IsValidToken(token))
             {
-
-                string certFilePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~\App_Data\" + AppSettings.PfxFileName());
-                X509Certificate2 cert = new X509Certificate2(certFilePath, String.Empty, X509KeyStorageFlags.MachineKeySet);
-                WebApplicationCredential cred = new WebApplicationCredential(AppSettings.ApplicationId(), "x" /*hack*/, cert);
-                cred.SubCredential = null; /* more hack */
-                m_connection = new OfflineWebApplicationConnection(cred, AppSettings.ApplicationId(), AppSettings.PlatformUrl(), personId);
+                m_connection = new OfflineWebApplicationConnection(HealthWebApplicationConfiguration.Current.ApplicationId,
+                    HealthWebApplicationConfiguration.Current.HealthVaultMethodUrl,
+                    personId);
+                m_connection.Authenticate();
             }
             else
                 throw (new ArgumentException("Your application token is invalid.", "token"));
