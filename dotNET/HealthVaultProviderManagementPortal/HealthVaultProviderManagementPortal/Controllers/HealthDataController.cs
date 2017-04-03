@@ -6,7 +6,9 @@
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System;
 using System.Web.Mvc;
+using Microsoft.Health;
 using Microsoft.Health.ItemTypes;
 using Microsoft.Health.Web.Mvc;
 
@@ -15,11 +17,12 @@ namespace HealthVaultProviderManagementPortal.Controllers
     /// <summary>
     /// Controller for viewing and updating health measurements stored in HealthVault.
     /// </summary>
+    // The [RequireSignIn] attribute redirects the user to sign into HealthVault and/or authorize the
+    // application if needed.
+    [RequireSignIn]
     public class HealthDataController : Controller
     {
-        // The [RequireSignIn] attribute redirects the user to sign into HealthVault and/or authorize the
-        // application if needed.
-        [RequireSignIn]
+        [HttpGet]
         public ActionResult Index()
         {
             var record = User.PersonInfo().SelectedRecord;
@@ -30,6 +33,20 @@ namespace HealthVaultProviderManagementPortal.Controllers
             }
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(double weight)
+        {
+            var item = new Weight(
+                new HealthServiceDateTime(DateTime.Now), 
+                new WeightValue(weight)
+                );
+
+            var record = User.PersonInfo().SelectedRecord;
+            record.NewItem(item);
+
+            return RedirectToAction("Index");
         }
     }
 }

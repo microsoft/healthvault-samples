@@ -119,11 +119,10 @@
     <Compile Include="IHVEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="App_Data\HealthVaultCrmProxy.pfx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\HealthVaultCRMdemo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\HealthVaultCRMdemo - Web Deploy.pubxml" />

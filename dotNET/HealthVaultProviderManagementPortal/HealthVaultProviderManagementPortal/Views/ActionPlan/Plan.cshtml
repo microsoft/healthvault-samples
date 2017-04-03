@@ -24,7 +24,7 @@
     @Html.Hidden("personID", Request.Params["personId"])
     @Html.Hidden("recordID", Request.Params["recordID"])
     @Html.HiddenFor(model => model.Id)
-    
+
     <h3>Plan</h3>
     <div class="form-horizontal">
         <div class="form-group">
@@ -75,7 +75,12 @@
             {
                 <hr />
                 <div class="form-group">
-                    @Html.HiddenFor(model => Model.Objectives[i].Id)
+                    @Html.LabelFor(model => Model.Objectives[i].Id, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => Model.Objectives[i].Id, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                    </div>
+                </div>
+                <div class="form-group">
                     @Html.LabelFor(model => Model.Objectives[i].Name, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => Model.Objectives[i].Name, new { htmlAttributes = new { @class = "form-control" } })
@@ -95,9 +100,10 @@
                 </div>
                 <div class="col-md-12 text-center">
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <input type="submit" value="Add Scheduled Task" formaction="@Url.Action("CreateScheduledTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] })" class="btn btn-primary" />
-                        <input type="submit" value="Add Frequency Task" formaction="@Url.Action("CreateFrequencyTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] })" class="btn btn-primary" />
-                        <input type="submit" value="Delete" formaction="@Url.Action("RemoveObjective", new {planId = Model.Id, id = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] })" class="btn btn-danger" />
+                        @Html.ActionLink("Add Blank Task", "Task", new { planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { @class = "btn btn-primary" })
+                        <input type="submit" value="Add Scheduled Task" formaction="@Url.Action("CreateScheduledTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})" class="btn btn-primary"/>
+                        <input type="submit" value="Add Frequency Task" formaction="@Url.Action("CreateFrequencyTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})" class="btn btn-primary"/>
+                        <input type="submit" value="Delete" formaction="@Url.Action("RemoveObjective", new {planId = Model.Id, id = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})" class="btn btn-danger"/>
                     </div>
                 </div>
             }
@@ -105,16 +111,33 @@
 
         <h3>Tasks</h3>
         <table class="table table-striped">
-            @foreach (var task in Model.AssociatedTasks)
-            {
-                <tr>
-                    <td>@task.Id</td>
-                    <td>@task.Name</td>
-                    <td>@task.Status</td>
-                    <td>@Html.ActionLink("Edit", "Task", new { planId = task.AssociatedPlanId, id = task.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { cssClass = "btn btn-default" })</td>
-                    <td>@Html.ActionLink("Validate auto tracking", "ValidateTracking", new { planId = task.AssociatedPlanId, id = task.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { cssClass = "btn btn-default" })</td>
-                </tr>
-            }
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Objectives</th>
+                <th>Status</th>
+                <th colspan="2"></th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model.AssociatedTasks)
+                {
+                    <tr>
+                        <td>@task.Id</td>
+                        <td>@task.Name</td>
+                        <td>
+                            @foreach (var objective in task.AssociatedObjectiveIds)
+                            {
+                                <p>@objective</p>
+                            }
+                        </td>
+                        <td>@task.Status</td>
+                        <td>@Html.ActionLink("Edit", "Task", new { planId = task.AssociatedPlanId, id = task.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { @class = "btn btn-default" })</td>
+                        <td>@Html.ActionLink("Validate auto tracking", "ValidateTracking", new { planId = task.AssociatedPlanId, id = task.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { @class = "btn btn-default" })</td>
+                    </tr>
+                }
+            </tbody>
         </table>
 
         <hr />

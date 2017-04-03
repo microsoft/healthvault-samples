@@ -32,3 +32,8 @@
 .panel-heading .form-group {
     margin-bottom: 0;
 }
+
+.goal-range {
+    display: inline-block;
+    max-width: 200px;
+}

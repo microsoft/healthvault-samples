@@ -123,10 +123,12 @@
     <Compile Include="Controllers\ActionPlanController.cs" />
     <Compile Include="Controllers\HealthDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\GoalsController.cs" />
     <Compile Include="Controllers\OnboardingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HealthServiceRestHelper.cs" />
     <Compile Include="Models\Onboarding\Gender.cs" />
     <Compile Include="Models\Onboarding\OnboardingRequest.cs" />
     <Compile Include="Models\Onboarding\OnboardingResponse.cs" />
@@ -167,6 +169,11 @@
     <Content Include="Views\ActionPlan\Index.cshtml" />
     <Content Include="Views\ActionPlan\Users.cshtml" />
     <Content Include="Views\ActionPlan\UserInfo.cshtml" />
+    <Content Include="Views\ActionPlan\TrackingValidationEntry.cshtml" />
+    <Content Include="Views\ActionPlan\ValidateTracking.cshtml" />
+    <Content Include="Views\Goals\Index.cshtml" />
+    <Content Include="Views\Goals\Goal.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\GoalRange.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -182,12 +189,6 @@
       <Project>{E5B30C57-260A-4C08-B289-711DF646ADC9}</Project>
       <Name>Microsoft.Health.Platform.Entities.V3</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\ActionPlan\TrackingValidationEntry.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\ActionPlan\ValidateTracking.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
