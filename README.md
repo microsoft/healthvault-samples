@@ -22,6 +22,8 @@ HealthVault offers SDKs for many platforms.
   * [Ruby](http://healthvaultrubylib.codeplex.com/) - An open-source library for developing HealthVault-enabled applications in Ruby. 
 
 ## Samples
+* .NET Standard (Preview)
+  * **HealthVault-uwp** - The HealthVault-uwp sample demonstrates the basics of accessing and modifying several kinds of HealthVault data types using the .NET Standard SDK. 
 * .NET
   * **HealthVault - Your Web Service - Your Client apps** - The HealthVault Proxy Service exposes three primary service-interfaces for client apps. These interfaces correspond to HealthVault feature areas. Specifically, Patient Connect, Get/Put Things, and DOPU. Learn more about HealthVault solution architectures at the Health Team Blog.
   * **HealthVault Meaningful Use Reporting** - This sample serves as a demonstration of HealthVault capabilities in support of Meaningful Use Stage 2 (2014 Edition) patient engagement objectives. Refer to Meaningful Use with HealthVault for an overview and technical description of the HealthVault capabilities that support Meaningful Use 2. 
