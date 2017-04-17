@@ -13,7 +13,10 @@
     ViewBag.Title = "Invite a remote patient";
 }
 
-<h2>Create and send an invitation</h2>
+<h1>
+    <img src="/Images/invite_icon.png" />
+    Create and send an invitation
+</h1>
 <p>This page can be used to create user-specific invitations for your organization's remote monitoring solution. The next page will provide an invitation URL that you can provide your patient directly. </p>
 
 @using (Html.BeginForm("CreateInvite", "Onboarding")) 
@@ -22,60 +25,48 @@
     
     <div class="form-horizontal">
         <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.FriendlyName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.FriendlyName, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.FriendlyName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.FriendlyName, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.ApplicationPatientId, "ApplicationPatientId (must be unique)", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-6">
+                @Html.LabelFor(model => model.ApplicationPatientId, "ApplicationPatientId (must be unique)", htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.ApplicationPatientId, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.Birthday, "Birthday (" + System.Globalization.DateTimeFormatInfo.CurrentInfo.ShortDatePattern + ")", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Birthday, "Birthday (" + System.Globalization.DateTimeFormatInfo.CurrentInfo.ShortDatePattern + ")", htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SecretQuestion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.SecretQuestion, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.SecretQuestion, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SecretQuestion, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SecretAnswer, "SecretAnswer (minimum 6 characters)", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.SecretAnswer, "SecretAnswer (minimum 6 characters)", htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.SecretAnswer, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SecretAnswer, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-9">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>

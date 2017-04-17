@@ -142,6 +142,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\hv_full_white.png" />
+    <Content Include="Images\invite_icon.png" />
+    <Content Include="Images\measurements_icon.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
