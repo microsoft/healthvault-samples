@@ -1,17 +1,18 @@
 ﻿using HealthVault.Sample.Xamarin.ViewModels;
+using Microsoft.HealthVault.Client;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin
 {
     public partial class App : Application
     {
-        public App()
+        public App(IHealthVaultSodaConnection connection)
         {
             InitializeComponent();
 
             var mainPage = new MainPage()
             {
-                BindingContext = new MainPageViewModel(),
+                BindingContext = new MainPageViewModel(connection),
             };
 
             MainPage = mainPage;

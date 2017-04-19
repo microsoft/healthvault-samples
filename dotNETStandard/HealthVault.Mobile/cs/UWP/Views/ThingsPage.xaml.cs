@@ -33,7 +33,7 @@ namespace HealthVaultMobileSample.UWP.Views
         public override async Task Initialize(Microsoft.HealthVault.Connection.IHealthVaultConnection connection)
         {
             HealthRecordInfo recordInfo = (await connection.GetPersonInfoAsync()).SelectedRecord;
-            IThingClient thingClient = ClientHealthVaultFactory.GetThingClient(connection);
+            IThingClient thingClient = connection.CreateThingClient();
 
             var query = new ThingQuery(new Guid[]{ BloodGlucose.TypeId, Weight.TypeId, BloodPressure.TypeId, CholesterolProfile.TypeId,
                 LabTestResults.TypeId, Immunization.TypeId, Procedure.TypeId, Allergy.TypeId, Condition.TypeId });

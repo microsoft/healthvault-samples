@@ -26,6 +26,11 @@ namespace HealthVault.Sample.Xamarin.Android
 		
 		public static void UpdateIdValues()
 		{
+			global::Microsoft.HealthVault.Client.Resource.Id.SignInWebView = global::HealthVault.Sample.Xamarin.Android.Resource.Id.SignInWebView;
+			global::Microsoft.HealthVault.Client.Resource.Layout.SignInActivity = global::HealthVault.Sample.Xamarin.Android.Resource.Layout.SignInActivity;
+			global::Microsoft.HealthVault.Client.Resource.String.ApplicationName = global::HealthVault.Sample.Xamarin.Android.Resource.String.ApplicationName;
+			global::Microsoft.HealthVault.Client.Resource.String.library_name = global::HealthVault.Sample.Xamarin.Android.Resource.String.library_name;
+			global::ModernHttpClient.Resource.String.library_name = global::HealthVault.Sample.Xamarin.Android.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::HealthVault.Sample.Xamarin.Android.Resource.Attribute.actionBarSize;
 		}
 		
@@ -2216,6 +2221,9 @@ namespace HealthVault.Sample.Xamarin.Android
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f070098
+			public const int SignInWebView = 2131165336;
+			
 			// aapt resource value: 0x7f07008b
 			public const int action0 = 2131165323;
 			
@@ -2591,8 +2599,8 @@ namespace HealthVault.Sample.Xamarin.Android
 			// aapt resource value: 0x7f070013
 			public const int showTitle = 2131165203;
 			
-			// aapt resource value: 0x7f070098
-			public const int sliding_tabs = 2131165336;
+			// aapt resource value: 0x7f070099
+			public const int sliding_tabs = 2131165337;
 			
 			// aapt resource value: 0x7f07006c
 			public const int snackbar_action = 2131165292;
@@ -2648,8 +2656,8 @@ namespace HealthVault.Sample.Xamarin.Android
 			// aapt resource value: 0x7f070048
 			public const int title_template = 2131165256;
 			
-			// aapt resource value: 0x7f070099
-			public const int toolbar = 2131165337;
+			// aapt resource value: 0x7f07009a
+			public const int toolbar = 2131165338;
 			
 			// aapt resource value: 0x7f070032
 			public const int top = 2131165234;
@@ -2916,13 +2924,16 @@ namespace HealthVault.Sample.Xamarin.Android
 			public const int select_dialog_singlechoice_material = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int support_simple_spinner_dropdown_item = 2130903094;
+			public const int SignInActivity = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int Tabbar = 2130903095;
+			public const int support_simple_spinner_dropdown_item = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int Toolbar = 2130903096;
+			public const int Tabbar = 2130903096;
+			
+			// aapt resource value: 0x7f030039
+			public const int Toolbar = 2130903097;
 			
 			static Layout()
 			{
@@ -2936,6 +2947,9 @@ namespace HealthVault.Sample.Xamarin.Android
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f080027
+			public const int ApplicationName = 2131230759;
 			
 			// aapt resource value: 0x7f08000f
 			public const int abc_action_bar_home_description = 2131230735;
@@ -3002,6 +3016,9 @@ namespace HealthVault.Sample.Xamarin.Android
 			
 			// aapt resource value: 0x7f080025
 			public const int character_counter_pattern = 2131230757;
+			
+			// aapt resource value: 0x7f080026
+			public const int library_name = 2131230758;
 			
 			// aapt resource value: 0x7f080000
 			public const int mr_button_content_description = 2131230720;

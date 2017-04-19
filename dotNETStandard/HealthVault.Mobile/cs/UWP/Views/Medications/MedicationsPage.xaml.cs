@@ -41,7 +41,7 @@ namespace HealthVaultMobileSample.UWP.Views.Medications
             this.connection = connection;
 
             HealthRecordInfo recordInfo = (await connection.GetPersonInfoAsync()).SelectedRecord;
-            IThingClient thingClient = ClientHealthVaultFactory.GetThingClient(connection);
+            IThingClient thingClient = connection.CreateThingClient();
 
             var items = await thingClient.GetThingsAsync<Medication>(recordInfo.Id);
 

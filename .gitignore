@@ -240,6 +240,9 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 
+# Xamarin files
+*.bak
+
 # Paket dependency manager
 .paket/paket.exe
 paket-files/

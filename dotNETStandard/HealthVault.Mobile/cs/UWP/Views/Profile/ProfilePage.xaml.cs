@@ -45,7 +45,7 @@ namespace HealthVaultMobileSample.UWP.Views.Profile
             this.connection = connection;
 
             HealthRecordInfo recordInfo = (await connection.GetPersonInfoAsync()).SelectedRecord;
-            IThingClient thingClient = ClientHealthVaultFactory.GetThingClient(connection);
+            IThingClient thingClient = connection.CreateThingClient();
 
             GetProfileAsync(recordInfo, thingClient);
             
@@ -129,7 +129,7 @@ namespace HealthVaultMobileSample.UWP.Views.Profile
         private async void UpdateThing()
         {
             HealthRecordInfo recordInfo = (await this.connection.GetPersonInfoAsync()).SelectedRecord;
-            IThingClient thingClient = ClientHealthVaultFactory.GetThingClient(this.connection);
+            IThingClient thingClient = connection.CreateThingClient();
 
             List<ThingBase> things = new List<ThingBase>();
             things.Add(this.BasicInformation);

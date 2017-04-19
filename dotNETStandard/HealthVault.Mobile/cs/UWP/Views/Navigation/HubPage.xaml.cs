@@ -48,7 +48,7 @@ namespace HealthVaultMobileSample.UWP.Views.Navigation
         {
             this.connection = connection; 
             HealthRecordInfo recordInfo = (await this.connection.GetPersonInfoAsync()).SelectedRecord;
-            IThingClient thingClient = ClientHealthVaultFactory.GetThingClient(this.connection);
+            IThingClient thingClient = connection.CreateThingClient();
 
             //Set person name for UX
             this.PersonName = recordInfo.Name;

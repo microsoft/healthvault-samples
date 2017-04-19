@@ -58,7 +58,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
             this.connection = connection;
 
             HealthRecordInfo recordInfo = (await connection.GetPersonInfoAsync()).SelectedRecord;
-            IThingClient thingClient = ClientHealthVaultFactory.GetThingClient(connection);
+            IThingClient thingClient = connection.CreateThingClient();
 
             if (this.QueryTimeframe.SelectedIndex == (int)QueryTimeframeEnum.Default)
             {
@@ -112,7 +112,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
                     new WeightValue(kg, new DisplayValue(value, (this.Units.SelectedValue as ComboBoxItem).Content.ToString()))));
 
                 HealthRecordInfo recordInfo = (await this.connection.GetPersonInfoAsync()).SelectedRecord;
-                IThingClient thingClient = ClientHealthVaultFactory.GetThingClient(this.connection);
+                IThingClient thingClient = connection.CreateThingClient();
                 thingClient.CreateNewThingsAsync<Weight>(recordInfo.Id, list);
 
                 Initialize(this.connection);

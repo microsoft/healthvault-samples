@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
 using Foundation;
+using HealthVault.Sample.Xamarin;
+using Microsoft.HealthVault.Client;
+using Microsoft.HealthVault.Configuration;
 using UIKit;
 
 namespace Xamarin.iOS
@@ -22,10 +22,23 @@ namespace Xamarin.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new HealthVault.Sample.Xamarin.App());
+            Forms.Forms.Init();
+
+            var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(GetAppAuthConfiguration());
+            LoadApplication(new App(connection));
 
             return base.FinishedLaunching(app, options);
+        }
+
+        private static HealthVaultConfiguration GetAppAuthConfiguration()
+        {
+            var appAuthConfiguration = new HealthVaultConfiguration
+            {
+                HealthVaultShellUrl = new Uri("https://account.healthvault-ppe.com/"),
+                HealthVaultUrl = new Uri("https://platform.healthvault-ppe.com/platform/"),
+                MasterApplicationId = Guid.Parse("<YOUR-APP-ID>"),
+            };
+            return appAuthConfiguration;
         }
     }
 }

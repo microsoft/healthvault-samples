@@ -52,8 +52,8 @@ namespace HealthVaultMobileSample.UWP.Views.Medications
                 this.Item = navParams[1] as Medication;
                 OnPropertyChanged("Item");
 
-                this.vocabularyClient = Microsoft.HealthVault.Clients.ClientHealthVaultFactory.GetVocabularyClient(connection);
-                this.thingClient = Microsoft.HealthVault.Clients.ClientHealthVaultFactory.GetThingClient(connection);
+                this.vocabularyClient = connection.CreateVocabularyClient();
+                thingClient = connection.CreateThingClient();
                 this.personInfo = await connection.GetPersonInfoAsync();
             }
         }
