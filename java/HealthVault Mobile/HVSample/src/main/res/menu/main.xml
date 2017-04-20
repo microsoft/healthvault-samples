@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:hvSample="http://schemas.android.com/apk/res-auto" >
+    
+
+    <item android:id="@+id/record_name_layout"
+       	android:actionLayout="@layout/current_record_item"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="RecordName">
+    </item>
+    
+    <item android:id="@+id/action_connect"
+          android:orderInCategory="100"
+          android:showAsAction="never"
+          android:title="Connect">
+    </item>
+
+</menu>
