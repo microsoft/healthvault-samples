@@ -101,6 +101,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PlatformResourceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +110,69 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Images\ap_icon-2x.png">
+      <Link>Assets\Health\ap_icon-2x.png</Link>
+    </Content>
+    <Content Include="..\Images\ap_icon-3x.png">
+      <Link>Assets\Health\ap_icon-3x.png</Link>
+    </Content>
+    <Content Include="..\Images\ap_icon.png">
+      <Link>Assets\Health\ap_icon.png</Link>
+    </Content>
+    <Content Include="..\Images\disclosure_icon-2x.png">
+      <Link>Assets\Health\disclosure_icon-2x.png</Link>
+    </Content>
+    <Content Include="..\Images\disclosure_icon-3x.png">
+      <Link>Assets\Health\disclosure_icon-3x.png</Link>
+    </Content>
+    <Content Include="..\Images\disclosure_icon.png">
+      <Link>Assets\Health\disclosure_icon.png</Link>
+    </Content>
+    <Content Include="..\Images\meds_icon-2x.png">
+      <Link>Assets\Health\meds_icon-2x.png</Link>
+    </Content>
+    <Content Include="..\Images\meds_icon-3x.png">
+      <Link>Assets\Health\meds_icon-3x.png</Link>
+    </Content>
+    <Content Include="..\Images\meds_icon.png">
+      <Link>Assets\Health\meds_icon.png</Link>
+    </Content>
+    <Content Include="..\Images\toolbar_ap_icon-2x.png">
+      <Link>Assets\Health\toolbar_ap_icon-2x.png</Link>
+    </Content>
+    <Content Include="..\Images\toolbar_ap_icon-3x.png">
+      <Link>Assets\Health\toolbar_ap_icon-3x.png</Link>
+    </Content>
+    <Content Include="..\Images\toolbar_ap_icon.png">
+      <Link>Assets\Health\toolbar_ap_icon.png</Link>
+    </Content>
+    <Content Include="..\Images\toolbar_meds_icon-2x.png">
+      <Link>Assets\Health\toolbar_meds_icon-2x.png</Link>
+    </Content>
+    <Content Include="..\Images\toolbar_meds_icon-3x.png">
+      <Link>Assets\Health\toolbar_meds_icon-3x.png</Link>
+    </Content>
+    <Content Include="..\Images\toolbar_meds_icon.png">
+      <Link>Assets\Health\toolbar_meds_icon.png</Link>
+    </Content>
+    <Content Include="..\Images\toolbar_weight_icon-2x.png">
+      <Link>Assets\Health\toolbar_weight_icon-2x.png</Link>
+    </Content>
+    <Content Include="..\Images\toolbar_weight_icon-3x.png">
+      <Link>Assets\Health\toolbar_weight_icon-3x.png</Link>
+    </Content>
+    <Content Include="..\Images\toolbar_weight_icon.png">
+      <Link>Assets\Health\toolbar_weight_icon.png</Link>
+    </Content>
+    <Content Include="..\Images\weight_icon-2x.png">
+      <Link>Assets\Health\weight_icon-2x.png</Link>
+    </Content>
+    <Content Include="..\Images\weight_icon-3x.png">
+      <Link>Assets\Health\weight_icon-3x.png</Link>
+    </Content>
+    <Content Include="..\Images\weight_icon.png">
+      <Link>Assets\Health\weight_icon.png</Link>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />
     <Content Include="Assets\LockScreenLogo.scale-125.png" />
@@ -155,7 +219,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.Core\HealthVault.Sample.Xamarin.Core.csproj">
       <Project>{95CFFD4D-6A45-4348-8B9B-209A8BF0B5BD}</Project>
-      <Name>HealthVault.Sample.Xamarin</Name>
+      <Name>HealthVault.Sample.Xamarin.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

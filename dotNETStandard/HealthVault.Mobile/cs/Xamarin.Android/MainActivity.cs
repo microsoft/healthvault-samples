@@ -2,6 +2,8 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using HealthVault.Sample.Xamarin.Core;
+using HealthVault.Sample.Xamarin.Core.Services;
 using Microsoft.HealthVault.Client;
 using Microsoft.HealthVault.Configuration;
 
@@ -19,9 +21,10 @@ namespace HealthVault.Sample.Xamarin.Android
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(GetAppAuthConfiguration());
-            LoadApplication(new App(connection));
+            LoadApplication(new App(connection, new NavigationService(), new PlatformResourceProvider()));
         }
 
+        // TODO: Move to config
         private static HealthVaultConfiguration GetAppAuthConfiguration()
         {
             var appAuthConfiguration = new HealthVaultConfiguration

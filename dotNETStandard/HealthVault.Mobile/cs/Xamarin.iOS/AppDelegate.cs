@@ -1,9 +1,11 @@
 ﻿using System;
 using Foundation;
 using HealthVault.Sample.Xamarin;
+using HealthVault.Sample.Xamarin.Core.Services;
 using Microsoft.HealthVault.Client;
 using Microsoft.HealthVault.Configuration;
 using UIKit;
+using App = HealthVault.Sample.Xamarin.Core.App;
 
 namespace Xamarin.iOS
 {
@@ -25,11 +27,12 @@ namespace Xamarin.iOS
             Forms.Forms.Init();
 
             var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(GetAppAuthConfiguration());
-            LoadApplication(new App(connection));
+            LoadApplication(new App(connection, new NavigationService()));
 
             return base.FinishedLaunching(app, options);
         }
 
+        // TODO: Move to config
         private static HealthVaultConfiguration GetAppAuthConfiguration()
         {
             var appAuthConfiguration = new HealthVaultConfiguration

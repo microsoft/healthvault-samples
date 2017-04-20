@@ -13,6 +13,36 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthVault.Sample.Xamarin.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthVault.Sample.Xamarin.iOS", "Xamarin.iOS\HealthVault.Sample.Xamarin.iOS.csproj", "{6CD6D04F-BE98-4F5D-A413-4A48B023AF4F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Soulution files", "Soulution files", "{06AAE3F0-77AD-4BDA-8387-425E1B1EF205}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\.gitignore = ..\..\..\.gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{66F7945E-A55E-4E12-87E9-079D3207B082}"
+	ProjectSection(SolutionItems) = preProject
+		Images\ap_icon-2x.png = Images\ap_icon-2x.png
+		Images\ap_icon-3x.png = Images\ap_icon-3x.png
+		Images\ap_icon.png = Images\ap_icon.png
+		Images\disclosure_icon-2x.png = Images\disclosure_icon-2x.png
+		Images\disclosure_icon-3x.png = Images\disclosure_icon-3x.png
+		Images\disclosure_icon.png = Images\disclosure_icon.png
+		Images\meds_icon-2x.png = Images\meds_icon-2x.png
+		Images\meds_icon-3x.png = Images\meds_icon-3x.png
+		Images\meds_icon.png = Images\meds_icon.png
+		Images\toolbar_ap_icon-2x.png = Images\toolbar_ap_icon-2x.png
+		Images\toolbar_ap_icon-3x.png = Images\toolbar_ap_icon-3x.png
+		Images\toolbar_ap_icon.png = Images\toolbar_ap_icon.png
+		Images\toolbar_meds_icon-2x.png = Images\toolbar_meds_icon-2x.png
+		Images\toolbar_meds_icon-3x.png = Images\toolbar_meds_icon-3x.png
+		Images\toolbar_meds_icon.png = Images\toolbar_meds_icon.png
+		Images\toolbar_weight_icon-2x.png = Images\toolbar_weight_icon-2x.png
+		Images\toolbar_weight_icon-3x.png = Images\toolbar_weight_icon-3x.png
+		Images\toolbar_weight_icon.png = Images\toolbar_weight_icon.png
+		Images\weight_icon-2x.png = Images\weight_icon-2x.png
+		Images\weight_icon-3x.png = Images\weight_icon-3x.png
+		Images\weight_icon.png = Images\weight_icon.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU

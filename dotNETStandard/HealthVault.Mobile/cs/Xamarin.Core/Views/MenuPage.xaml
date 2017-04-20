@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HealthVault.Sample.Xamarin.Core.Views.MenuPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ListView 
+            Grid.Row="0"
+            ItemsSource="{Binding MenuViewRows}"
+            SeparatorVisibility="None"
+            VerticalOptions="StartAndExpand"
+            Margin="0,5,0,0"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout
+                            Orientation="Horizontal"
+                            >
+                            <Image 
+                                Source="{Binding ImageSource}"
+                                Aspect="AspectFit"
+                                WidthRequest="22"
+                                HeightRequest="22"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                            <Label
+                                Text="{Binding Title}" 
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                            </Label>
+                            <Label
+                                Text="{Binding Description}" 
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                            </Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+    </Grid>
+</ContentPage>

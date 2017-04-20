@@ -107,7 +107,9 @@ namespace HealthVaultMobileSample.UWP.Views.Profile
             var file = await Windows.Storage.ApplicationData.Current.LocalCacheFolder.CreateFileAsync(recordInfo.DisplayName, Windows.Storage.CreationCollisionOption.OpenIfExists);
             if (things.Count > 0 && things.First().Count > 0)
             {
-                using (Stream currentImage = ((things.First().First()) as PersonalImage).ReadImage())
+                var personalImage = (PersonalImage) things.First().First();
+
+                using (Stream currentImage = personalImage.ReadImage())
                 {
                     if (currentImage != null)
                     {

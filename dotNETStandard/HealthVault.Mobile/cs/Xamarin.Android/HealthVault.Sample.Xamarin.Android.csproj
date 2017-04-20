@@ -26,7 +26,7 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
@@ -35,7 +35,15 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
+    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <Debugger>.Net (Xamarin)</Debugger>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -56,13 +64,13 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.HealthVault, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20418.3\lib\monoandroid\Microsoft.HealthVault.dll</HintPath>
+      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20419.1\lib\monoandroid\Microsoft.HealthVault.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.HealthVault.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20418.3\lib\monoandroid\Microsoft.HealthVault.Client.dll</HintPath>
+      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20419.1\lib\monoandroid\Microsoft.HealthVault.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.HealthVault.Client.Core, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20418.3\lib\monoandroid\Microsoft.HealthVault.Client.Core.dll</HintPath>
+      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20419.1\lib\monoandroid\Microsoft.HealthVault.Client.Core.dll</HintPath>
     </Reference>
     <Reference Include="ModernHttpClient, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\ModernHttpClient.dll</HintPath>
@@ -121,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
+    <Compile Include="PlatformResourceProvider.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -149,7 +158,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.Core\HealthVault.Sample.Xamarin.Core.csproj">
       <Project>{95CFFD4D-6A45-4348-8B9B-209A8BF0B5BD}</Project>
-      <Name>HealthVault.Sample.Xamarin</Name>
+      <Name>HealthVault.Sample.Xamarin.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
