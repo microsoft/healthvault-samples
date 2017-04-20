@@ -50,7 +50,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [HttpGet]
         public ActionResult Plans(Guid? personId = null, Guid? recordId = null)
         {
-            var response = GetPlans(personId, recordId);
+            var response = GetPlans(personId, recordId);            
             return HandleRestResponse<ActionPlansResponse<ActionPlanInstance>>(response, HttpStatusCode.OK);
         }
 
@@ -103,9 +103,9 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RemoveObjective(Guid planId, Guid id, Guid? personId = null, Guid? recordId = null)
+        public ActionResult RemoveObjective(Guid planId, Guid? objectiveId, Guid? personId = null, Guid? recordId = null)
         {
-            var response = DeleteObjective(planId, id, personId, recordId);
+            var response = DeleteObjective(planId, objectiveId.Value, personId, recordId);
             return HandleRestResponse(response, HttpStatusCode.NoContent, personId, recordId, "Plan", new RouteValueDictionary { { "id", planId } });
         }
 
@@ -114,9 +114,9 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateScheduledTask(Guid planId, Guid objectiveId, Guid? personId = null, Guid? recordId = null)
+        public ActionResult CreateScheduledTask(Guid planId, Guid? objectiveId, Guid? personId = null, Guid? recordId = null)
         {
-            var task = CreateDefaultScheduledActionPlanTask(objectiveId, planId);
+            var task = CreateDefaultScheduledActionPlanTask(objectiveId.Value, planId);
             var response = CreateTask(task, personId, recordId);
             return HandleRestResponse(response, HttpStatusCode.Created, personId, recordId, "Plan", new RouteValueDictionary { { "id", planId } });
         }
@@ -126,9 +126,9 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateFrequencyTask(Guid planId, Guid objectiveId, Guid? personId = null, Guid? recordId = null)
+        public ActionResult CreateFrequencyTask(Guid planId, Guid? objectiveId, Guid? personId = null, Guid? recordId = null)
         {
-            var task = CreateDefaultFrequencyActionPlanTask(objectiveId, planId);
+            var task = CreateDefaultFrequencyActionPlanTask(objectiveId.Value, planId);
             var response = CreateTask(task, personId, recordId);
             return HandleRestResponse(response, HttpStatusCode.Created, personId, recordId, "Plan", new RouteValueDictionary { { "id", planId } });
         }
@@ -380,7 +380,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                         Hours = 6,
                         Minutes = 30
                     }
-                }
+                },
             };
 
             return task;
@@ -424,7 +424,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                     ScheduledDays = new Collection<ActionPlanScheduleDay> { ActionPlanScheduleDay.Everyday },
                     OccurrenceCount = 1,
                     WindowType = ActionPlanScheduleRecurrenceType.Daily
-                }
+                },
             };
 
             return task;
@@ -442,7 +442,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData CreatePlan(ActionPlan plan, Guid? personId, Guid? recordId)
         {
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 personId,
                 recordId,
                 User.PersonInfo(),
@@ -460,7 +460,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData PatchPlan(ActionPlanInstance plan, Guid? personId, Guid? recordId)
         {
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 personId,
                 recordId,
                 User.PersonInfo(),
@@ -478,7 +478,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData GetPlans(Guid? personId, Guid? recordId)
         {
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 personId,
                 recordId,
                 User.PersonInfo(),
@@ -494,7 +494,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData GetPlan(Guid id, Guid? personId, Guid? recordId)
         {
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 personId,
                 recordId,
                 User.PersonInfo(),
@@ -510,7 +510,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData DeletePlan(Guid id, Guid? personId, Guid? recordId)
         {
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 personId,
                 recordId,
                 User.PersonInfo(),
@@ -526,7 +526,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData DeleteObjective(Guid planId, Guid id, Guid? personId, Guid? recordId)
         {
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 personId,
                 recordId,
                 User.PersonInfo(),
@@ -542,7 +542,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData CreateTask(ActionPlanTask task, Guid? personId, Guid? recordId)
         {
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 personId,
                 recordId,
                 User.PersonInfo(),
@@ -560,7 +560,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData GetTask(Guid id, Guid? personId, Guid? recordId)
         {
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 personId,
                 recordId,
                 User.PersonInfo(),
@@ -576,7 +576,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData PatchTask(ActionPlanTaskInstance task, Guid? personId, Guid? recordId)
         {
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 personId,
                 recordId,
                 User.PersonInfo(),
@@ -594,7 +594,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData DeleteTask(Guid id, Guid? personId, Guid? recordId)
         {
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 personId,
                 recordId,
                 User.PersonInfo(),
@@ -608,7 +608,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData ValidateTaskAutoTracking(TrackingValidation trackingValidation)
         {
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 null,
                 null,
                 User.PersonInfo(),
@@ -653,7 +653,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 {nameof(endTime), endTime.ToString("o", CultureInfo.InvariantCulture)}
             };
 
-            return HealthServiceRestHelper.CallHeathServiceRest(
+            return HealthServiceRestHelper.CallHealthServiceRest(
                 personId,
                 recordId,
                 User.PersonInfo(),

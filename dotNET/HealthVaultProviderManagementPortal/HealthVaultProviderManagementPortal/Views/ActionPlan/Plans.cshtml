@@ -12,7 +12,6 @@
 @{
     ViewBag.Title = "Action plans";
 }
-@Html.Partial("UserInfo")
 
 <h1>Action plans</h1>
 
@@ -22,15 +21,15 @@
 
     <div class="form-horizontal">
         <div class="form-group">
-            <div class="col-md-12">
+            <div class="col-md-12 slim-col">
                 @Html.Hidden("personId", Request.Params["personId"])
                 @Html.Hidden("recordId", Request.Params["recordId"])
-                <input type="submit" value="Create new default plan" class="btn btn-primary" />
+                <input type="submit" value="+ New default plan" class="btn btn-default" />
             </div>
         </div>
     </div>
 
-    <h3>Existing plans</h3>
+    <h2>Existing plans</h2>
     <table class="table table-striped">
         @foreach (var plan in Model.Plans)
         {

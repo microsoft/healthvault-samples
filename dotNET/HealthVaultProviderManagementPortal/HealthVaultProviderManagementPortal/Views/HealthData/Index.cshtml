@@ -19,35 +19,43 @@
         new { typeid = Weight.TypeId, additem = true });
 }
 
-<h2>Latest measurements</h2>
-<h3>Weight</h3>
-@if (Model == null)
-{
-    <p>
-        No weight values found. Confirm that weight values are available in <a href="@addWeightUrl">HealthVault</a>.  Note: This operation requires that the app has been authorized for Online access to the weight data type.
-    </p>
-}
-else
-{
-    <p>
-        Your current weight is @Model.Value.Kilograms kg.
-    </p>
+<h1 class="page-title">Latest measurements</h1>
 
-    using (Html.BeginForm("Index"))
+<div>
+    <h2>Current weight</h2>
+    @if (Model == null)
+    {
+        <p>
+            No weight values found.
+        </p>
+    }
+    else
+    {
+        <p>
+            Your current weight is <span class="emphasis">@Model.Value.Kilograms kg</span>.
+        </p>
+    }
+</div>
+<hr />
+<div>
+    <h2>Enter weight</h2>
+    @using (Html.BeginForm("Index"))
     {
         <div class="form-horizontal">
             <div class="form-group">
-                @Html.Label("Weight in kg", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-4 slim-col">
+                    @Html.Label("Weight in kg", htmlAttributes: new { @class = "control-label" })
                     @Html.TextBox("weight", "", new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="col-md-12 text-center">
-                    <input type="submit" value="Save" class="btn btn-success" />
+                <div class="col-md-4 slim-col">
+                    @Html.Hidden("personId", Request.Params["personId"])
+                    @Html.Hidden("recordId", Request.Params["recordId"])
+                    <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
         </div>
-    }
-}
+    }    
+</div>

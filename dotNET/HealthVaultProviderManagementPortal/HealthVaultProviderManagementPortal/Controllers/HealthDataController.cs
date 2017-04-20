@@ -6,12 +6,14 @@
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
 using System;
 using System.Web.Mvc;
+using HealthVaultProviderManagementPortal.Helpers;
 using Microsoft.Health;
 using Microsoft.Health.ItemTypes;
+using Microsoft.Health.Web;
 using Microsoft.Health.Web.Mvc;
-
 namespace HealthVaultProviderManagementPortal.Controllers
 {
     /// <summary>
@@ -23,9 +25,10 @@ namespace HealthVaultProviderManagementPortal.Controllers
     public class HealthDataController : Controller
     {
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(Guid? personId, Guid? recordId)
         {
-            var record = User.PersonInfo().SelectedRecord;
+            var record = GetRecord(personId, recordId);
+
             var weights = record.GetItemsByType(Weight.TypeId);
             if (weights.Count > 0)
             {
@@ -36,17 +39,32 @@ namespace HealthVaultProviderManagementPortal.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(double weight)
+        public ActionResult Index(Guid? personId, Guid? recordId, double weight)
         {
             var item = new Weight(
-                new HealthServiceDateTime(DateTime.Now), 
+                new HealthServiceDateTime(DateTime.UtcNow), 
                 new WeightValue(weight)
                 );
 
-            var record = User.PersonInfo().SelectedRecord;
+            var record = GetRecord(personId, recordId);
             record.NewItem(item);
+            
+            return RedirectToAction("Index", new { personId = personId.Value, recordId = recordId.Value });
+        }
 
-            return RedirectToAction("Index");
+        private HealthRecordInfo GetRecord(Guid? personId, Guid? recordId)
+        {
+            HealthServiceRestHelper.CheckOfflineAuthorization(User.PersonInfo());
+
+            var connection = new OfflineWebApplicationConnection(
+                HealthWebApplicationConfiguration.Current.ApplicationId,
+                HealthWebApplicationConfiguration.Current.HealthVaultMethodUrl,
+                personId.Value);
+
+            // Authenticate with HealthVault using the certificate generated above
+            connection.Authenticate();
+
+            return recordId.HasValue ? new HealthRecordInfo(connection, recordId.Value) : User.PersonInfo().SelectedRecord;
         }
     }
 }

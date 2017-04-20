@@ -22,18 +22,18 @@ namespace HealthVaultProviderManagementPortal.Helpers
         /// Calls the Health REST service. 
         /// Abstracts away whether it's an online or offline call, depending on whether person and record IDs are passed in.
         /// </summary>
-        public static HealthServiceRestResponseData CallHeathServiceRest(Guid? personId, Guid? recordId, PersonInfo loggedInPersonInfo, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null, NameValueCollection optionalHeaders = null)
+        public static HealthServiceRestResponseData CallHealthServiceRest(Guid? personId, Guid? recordId, PersonInfo loggedInPersonInfo, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null, NameValueCollection optionalHeaders = null)
         {
             return personId.HasValue && recordId.HasValue
                     ? CallHeathServiceRestOffline(personId.Value, recordId.Value, loggedInPersonInfo, httpVerb, path, queryStringParameters, requestBody, optionalHeaders)
-                    : CallHeathServiceRestOnline(loggedInPersonInfo, httpVerb, path, queryStringParameters, requestBody, optionalHeaders);
+                    : CallHealthServiceRestOnline(loggedInPersonInfo, httpVerb, path, queryStringParameters, requestBody, optionalHeaders);
         }
 
         /// <summary>
         /// Makes a call to the Health REST service to edit data for the logged in user.
         /// This is the type of call that an interactive patient application would use.
         /// </summary>
-        public static HealthServiceRestResponseData CallHeathServiceRestOnline(PersonInfo loggedInPersonInfo, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null, NameValueCollection optionalHeaders = null)
+        public static HealthServiceRestResponseData CallHealthServiceRestOnline(PersonInfo loggedInPersonInfo, string httpVerb, string path, NameValueCollection queryStringParameters = null, string requestBody = null, NameValueCollection optionalHeaders = null)
         {
             // Using the HealthVault SDK, make a HTTP call.
             // The root URL comes from the web.config (RestHealthServiceUrl).

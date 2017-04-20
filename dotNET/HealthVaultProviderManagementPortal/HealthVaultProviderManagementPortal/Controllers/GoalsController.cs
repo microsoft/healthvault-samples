@@ -32,9 +32,9 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// <summary>
         /// Gets a list of goals
         /// </summary>
-        public ActionResult Index()
+        public ActionResult Index(Guid? personId = null, Guid? recordId = null)
         {
-            var response = GetGoals();
+            var response = GetGoals(personId, recordId);
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var model = JsonConvert.DeserializeObject<GoalsResponse<Goal>>(response.ResponseBody);
@@ -160,12 +160,14 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Call the HV REST API to get a list of goals in a user's HealthVault record.
         /// This gets goals of the user who is actively signed into the application ("online" scenario).
         /// </summary>
-        private HealthServiceRestResponseData GetGoals()
+        private HealthServiceRestResponseData GetGoals(Guid? personId, Guid? recordId)
         {
-            return HealthServiceRestHelper.CallHeathServiceRestOnline(
-               User.PersonInfo(),
-               HttpMethod.Get.ToString(),
-               baseRestUrl);
+            return HealthServiceRestHelper.CallHealthServiceRest(
+                personId,
+                recordId,
+                User.PersonInfo(),
+                HttpMethod.Get.ToString(),
+                baseRestUrl);
         }
 
         /// <summary>
@@ -174,7 +176,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData GetGoal(Guid id)
         {
-            return HealthServiceRestHelper.CallHeathServiceRestOnline(
+            return HealthServiceRestHelper.CallHealthServiceRestOnline(
                 User.PersonInfo(),
                 HttpMethod.Get.ToString(),
                 baseRestUrl + id);
@@ -186,7 +188,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData CreateGoals(GoalsWrapper goals)
         {
-            return HealthServiceRestHelper.CallHeathServiceRestOnline(
+            return HealthServiceRestHelper.CallHealthServiceRestOnline(
                 User.PersonInfo(),
                 HttpMethod.Post.ToString(),
                 baseRestUrl,
@@ -199,7 +201,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData UpdateGoals(GoalsWrapper goals)
         {
-            return HealthServiceRestHelper.CallHeathServiceRestOnline(
+            return HealthServiceRestHelper.CallHealthServiceRestOnline(
                 User.PersonInfo(),
                 "PATCH",
                 baseRestUrl,
@@ -212,7 +214,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         private HealthServiceRestResponseData DeleteGoal(Guid id)
         {
-            return HealthServiceRestHelper.CallHeathServiceRestOnline(
+            return HealthServiceRestHelper.CallHealthServiceRestOnline(
                 User.PersonInfo(),
                 HttpMethod.Delete.ToString(),
                 baseRestUrl + id);

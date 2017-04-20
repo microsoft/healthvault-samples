@@ -311,8 +311,8 @@ html {
 }
 
 body {
-  font-family: 'Segoe UI', sans-serif;  
-  font-size: 16px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
   line-height: 1.428571429;
   color: #333333;
   background-color: #ffffff;
@@ -473,7 +473,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Segoe UI Semilight", "Segoe UI", sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
 }
@@ -858,8 +858,8 @@ pre code {
 .col-lg-12 {
   position: relative;
   min-height: 1px;
-  padding-right: 6px;
-  padding-left: 6px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
 .col-xs-1,
@@ -1654,6 +1654,7 @@ legend {
 label {
   display: inline-block;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 
 input[type="search"] {
@@ -1721,10 +1722,12 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
-  line-height: 1.428571429;  
+  line-height: 1.428571429;
+  color: #555555;
   vertical-align: middle;
-  background-color: rgba(238, 238, 238, 1);
-  border: 0px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
@@ -1963,13 +1966,9 @@ textarea.input-lg {
   margin-bottom: 0;
 }
 
-.form-horizontal .control-label {
-    padding-bottom: 11px;    
-}
-
 .form-horizontal .form-group {
-  margin-right: -6px;
-  margin-left: -6px;
+  margin-right: -15px;
+  margin-left: -15px;
 }
 
 .form-horizontal .form-group:before,
@@ -2000,9 +1999,7 @@ textarea.input-lg {
 
 .btn {
   display: inline-block;
-  padding: 10px 20px;
-  min-height: 40px;
-  min-width: 120px;
+  padding: 6px 12px;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: normal;
@@ -2012,6 +2009,7 @@ textarea.input-lg {
   vertical-align: middle;
   cursor: pointer;
   border: 1px solid transparent;
+  border-radius: 4px;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -2051,11 +2049,9 @@ fieldset[disabled] .btn {
 }
 
 .btn-default {
-  color: rgba(255, 255, 255, 1);
-  font-family: "Segoe UI Semilight";
-  font-size: 16px;
-  background-color: rgba(0, 130, 114, 1);
-  border: none;
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
 }
 
 .btn-default:hover,
@@ -2063,9 +2059,9 @@ fieldset[disabled] .btn {
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: rgba(255, 255, 255, 1);
-  background-color: rgba(0, 130, 114, 0.75);
-  border: none;  
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
 }
 
 .btn-default:active,
@@ -4197,10 +4193,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-brand {
   float: left;
-  margin: 13px 22px;
-  width: 150px;
-  min-height: 23px;
-  background: url("/Images/hv_full_white.png") no-repeat center;
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
 }
 
 .navbar-brand:hover,
@@ -4210,7 +4205,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand {
-    margin-left: 0px;
+    margin-left: -15px;
   }
 }
 
@@ -4244,11 +4239,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-nav {
-  margin: 7.5px -15px;      
-  font-size: 18px;
-  color: rgba(255, 255, 255, 1);
-  text-align: left;  
-  font-family: "Segoe UI Semibold", "Segoe UI", sans-serif;  
+  margin: 7.5px -15px;
 }
 
 .navbar-nav > li > a {
@@ -4510,12 +4501,12 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse {
-  background-color: rgba(0, 130, 114, 1);
-  border-color: rgba(0, 130, 114, 1);
+  background-color: #222222;
+  border-color: #080808;
 }
 
 .navbar-inverse .navbar-brand {
-  color: rgba(255, 255, 255, 1);
+  color: #999999;
 }
 
 .navbar-inverse .navbar-brand:hover,
@@ -4529,7 +4520,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-inverse .navbar-nav > li > a {
-  color: #ffffff;
+  color: #999999;
 }
 
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -4820,13 +4811,14 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .label {
   display: inline;
   padding: .2em .6em .3em;
-  font-size: 15px;
-  font-weight: normal;
+  font-size: 75%;
+  font-weight: bold;
   line-height: 1;
   color: #ffffff;
   text-align: center;
   white-space: nowrap;
-  vertical-align: baseline;  
+  vertical-align: baseline;
+  border-radius: .25em;
 }
 
 .label[href]:hover,

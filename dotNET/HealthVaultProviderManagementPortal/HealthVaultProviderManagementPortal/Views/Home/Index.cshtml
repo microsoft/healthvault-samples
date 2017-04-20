@@ -11,31 +11,23 @@
     ViewBag.Title = "Home";
 }
 
-<div class="jumbotron">
-    <h1>HealthVault Provider Management Portal</h1>
-</div>
-
-<div class="row">
-    <div class="col-md-3">
-        <h2>Invite remote patients</h2>
-        <p>
+<div class="row cards">
+    <div class="card">
+        <div class="card-logo"><img src="~/Images/invite_icon.png" /></div>
+        <h2 class="card-title">Invite remote patients</h2>
+        <div class="card-description">
             Examples of generating and sending invitations for your application to remote patients.
-        </p>
-        <p><a class="btn btn-default" href="@Url.Action("Index", "Onboarding")">Go &raquo;</a></p>
+        </div>
+        <div class="card-button">
+            <a class="btn btn-default" href="@Url.Action("Index", "Onboarding")">Go &raquo;</a>
+        </div>
     </div>
-    <div class="col-md-3">
-        <h2>View and update health measurements</h2>
-        <p>Examples of reading and writing patients' health data stored in HealthVault. </p>
-        <p><a class="btn btn-default" href="@Url.Action("Index", "HealthData")">Go &raquo;</a></p>
-    </div>
-    <div class="col-md-3">
-        <h2>Manage action plans</h2>
-        <p>Examples of creating, assigning, and updating action plans.</p>
-        <p><a class="btn btn-default" href="@Url.Action("Index", "ActionPlan")">Go &raquo;</a></p>
-    </div>
-    <div class="col-md-3">
-        <h2>Manage goals</h2>
-        <p>Examples of creating and updating goals.</p>
-        <p><a class="btn btn-default" href="@Url.Action("Index", "Goals")">Go &raquo;</a></p>
+    <div class="card">
+        <div class="card-logo"><img src="~/Images/measurements_icon.png" /></div>
+        <h2 class="card-title">Remote monitoring</h2>
+        <div class="card-description">Examples of reading and writing patients' health data stored in HealthVault. </div>
+        <div class="card-button">
+            <a class="btn btn-default" href="@Url.Action("Users", "ActionPlan")">Go &raquo;</a>
+        </div>
     </div>
 </div>
