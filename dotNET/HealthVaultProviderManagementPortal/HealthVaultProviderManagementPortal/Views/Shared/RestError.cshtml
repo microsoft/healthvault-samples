@@ -7,7 +7,10 @@
 
     THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@
-@model Microsoft.Health.Rest.HealthServiceRestResponseData
+@using HealthVaultProviderManagementPortal.Models
+@using Microsoft.HealthVault.RestApi.Generated.Models
+@using Newtonsoft.Json
+@model HandleErrorInfo
 
 @{
     ViewBag.Title = "REST call failed";
@@ -15,6 +18,26 @@
 
 <h2>API call failed</h2>
 
-<p><span class="response-data-label">Response status code:</span> @Model.StatusCode</p>
+@ErrorMessage(Model.Exception)
 
-<p><span class="response-data-label">Response body:</span> @Model.ResponseBody</p>
+@helper ErrorMessage(Exception ex)
+{
+    <p>
+        <span class="response-data-label">Response body:</span> @ex.Message</p>
+
+    MicrosoftKhronosCloudCommonErrorsErrorResponseException commonError = ex as MicrosoftKhronosCloudCommonErrorsErrorResponseException;
+    if (commonError != null)
+    {
+        ErrorModel deserializeObject = JsonConvert.DeserializeObject<ErrorModel>(commonError.Response.Content);
+        <p>@deserializeObject.Error.Message</p>
+        if (deserializeObject.Error.Details != null)
+        {
+            <p>@deserializeObject.Error.Details</p>
+        }
+    }
+
+    if (ex.InnerException != null)
+    {
+        @ErrorMessage(ex.InnerException)
+    }
+}

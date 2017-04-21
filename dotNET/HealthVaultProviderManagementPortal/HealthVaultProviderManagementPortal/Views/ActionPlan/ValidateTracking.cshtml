@@ -7,7 +7,7 @@
 
     THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@
-@model Microsoft.Health.Platform.Entities.V3.Responses.ActionPlanTaskTrackingResponse<Microsoft.Health.Platform.Entities.V3.ActionPlans.ActionPlanTaskTracking>
+@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanTaskTrackingResponseActionPlanTaskTracking
 
 @{
     ViewBag.Title = "Task Auto Tracking Validation Results";
@@ -42,9 +42,9 @@ else
                     <td>
                         @if (instance.Evidence != null)
                     {
-                        if (instance.Evidence.HVThings != null)
+                        if (instance.Evidence.HvThings != null)
                         {
-                            foreach (var evidence in instance.Evidence.HVThings)
+                            foreach (var evidence in instance.Evidence.HvThings)
                             {
                                     <p>@evidence</p>
                                 }

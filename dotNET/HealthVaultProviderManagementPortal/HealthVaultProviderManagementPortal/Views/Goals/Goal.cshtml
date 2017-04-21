@@ -7,9 +7,11 @@
 
     THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@
-@using Microsoft.Health.Platform.Entities.V3.Goals
-@using Microsoft.Health.Platform.Entities.V3.Enums
-@model Goal
+
+@using System.Security.Principal
+@using HealthVaultProviderManagementPortal.Helpers
+@using HealthVaultProviderManagementPortal.Models.Enums
+@model Microsoft.HealthVault.RestApi.Generated.Models.Goal
 
 @{
     ViewBag.Title = "Edit Goal";
@@ -56,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.GoalType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.GoalType, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.GoalType, SelectListHelper.FromEnum<GoalType>(Model.GoalType), htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
 
@@ -77,7 +79,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RecurrenceMetrics.WindowType, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.RecurrenceMetrics.WindowType, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.RecurrenceMetrics.WindowType, SelectListHelper.FromEnum<ActionPlanScheduleRecurrenceType>(Model.RecurrenceMetrics.WindowType), htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
 

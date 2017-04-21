@@ -7,7 +7,9 @@
 
     THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@
-@model Microsoft.Health.Platform.Entities.V3.ActionPlans.ActionPlanInstance
+@using HealthVaultProviderManagementPortal.Helpers
+@using HealthVaultProviderManagementPortal.Models.Enums
+@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanInstance
 
 @{
     ViewBag.Title = "Edit plan";
@@ -37,11 +39,11 @@
         <div class="form-group">
             <div class="col-md-3 slim-col">
                 @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label" })                
-                @Html.EnumDropDownListFor(model => model.Category, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Category, SelectListHelper.FromEnum<ActionPlanCategory>(Model.Category), htmlAttributes: new { @class = "form-control" })
             </div>
             <div class="col-md-3 slim-col">
                 @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })
-                @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Status, SelectListHelper.FromEnum<ActionPlanStatus>(Model.Status), htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
 
@@ -80,7 +82,7 @@
                             <td>@Html.EditorFor(model => Model.Objectives[i].Id, new { htmlAttributes = new { @class = "form-control", @readonly = true } })</td>
                             <td>@Html.EditorFor(model => Model.Objectives[i].Name, new { htmlAttributes = new { @class = "form-control" } })</td>
                             <td>@Html.EditorFor(model => Model.Objectives[i].OutcomeName, new { htmlAttributes = new { @class = "form-control" } })</td>
-                            <td>@Html.EnumDropDownListFor(model => Model.Objectives[i].OutcomeType, htmlAttributes: new { @class = "form-control" })</td>
+                            <td>@Html.DropDownListFor(model => Model.Objectives[i].OutcomeType, SelectListHelper.FromEnum<ActionPlanOutcomeType>(Model.Objectives[i].OutcomeType), htmlAttributes: new { @class = "form-control" })</td>
                             <td><input type="submit" value="Delete" formaction="@Url.Action("RemoveObjective", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})" class="btn btn-link delete-table-button" onclick="return confirm('Do you want to delete this objective? This action is irreversible.');" /></td>
                         </tr>
                     }
@@ -88,14 +90,6 @@
             </table>
         </div>
     </div>
-}
-
-@using (Html.BeginForm("Plan", "ActionPlan"))
-{
-    @Html.AntiForgeryToken()
-    @Html.Hidden("personID", Request.Params["personId"])
-    @Html.Hidden("recordID", Request.Params["recordID"])
-    @Html.HiddenFor(model => model.Id)
     <div class="form-horizontal">
         <h3>Tasks</h3>
         <div class="form-group">

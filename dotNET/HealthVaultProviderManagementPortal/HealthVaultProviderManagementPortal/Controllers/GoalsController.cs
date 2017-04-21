@@ -9,15 +9,13 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Web.Mvc;
-using System.Net;
-using System.Net.Http;
+using System.Threading.Tasks;
 using HealthVaultProviderManagementPortal.Helpers;
-using Microsoft.Health.Platform.Entities.V3.Enums;
-using Microsoft.Health.Rest;
-using Newtonsoft.Json;
-using Microsoft.Health.Platform.Entities.V3.Goals;
-using Microsoft.Health.Platform.Entities.V3.Responses;
-using Microsoft.Health.Web.Mvc;
+using HealthVaultProviderManagementPortal.Models.Enums;
+using Microsoft.HealthVault.RestApi.Generated;
+using Microsoft.HealthVault.RestApi.Generated.Models;
+using Microsoft.HealthVault.Web.Attributes;
+using static HealthVaultProviderManagementPortal.Helpers.RestClientFactory;
 
 namespace HealthVaultProviderManagementPortal.Controllers
 {
@@ -27,41 +25,23 @@ namespace HealthVaultProviderManagementPortal.Controllers
     [RequireSignIn]
     public class GoalsController : Controller
     {
-        private string baseRestUrl = "v3/goals/";
-
         /// <summary>
         /// Gets a list of goals
         /// </summary>
-        public ActionResult Index(Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> Index(Guid? personId = null, Guid? recordId = null)
         {
-            var response = GetGoals(personId, recordId);
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                var model = JsonConvert.DeserializeObject<GoalsResponse<Goal>>(response.ResponseBody);
-                return View(model);
-            }
-            else
-            {
-                return View("RestError", response);
-            }
+            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetGoalsAsync(), personId, recordId);
+            return this.View(response);
         }
 
         /// <summary>
         /// Get a goal for the logged in user
         /// </summary>
         [HttpGet]
-        public ActionResult Goal(Guid id)
+        public async Task<ActionResult> Goal(Guid id)
         {
-            var response = GetGoal(id);
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                var model = JsonConvert.DeserializeObject<Goal>(response.ResponseBody);
-                return View(model);
-            }
-            else
-            {
-                return View("RestError", response);
-            }
+            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetGoalByIdAsync(id.ToString()));
+            return this.View(response);
         }
 
         /// <summary>
@@ -69,9 +49,9 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Goal(Goal goal)
+        public async Task<ActionResult> Goal(Goal goal)
         {
-            if (goal?.RecurrenceMetrics?.OccurrenceCount == null && goal?.RecurrenceMetrics?.WindowType == GoalRecurrenceType.Unknown)
+            if (goal?.RecurrenceMetrics?.OccurrenceCount == null && goal?.RecurrenceMetrics?.WindowType == GoalRecurrenceType.Unknown.ToString())
             {
                 goal.RecurrenceMetrics = null;
             }
@@ -81,15 +61,9 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 Goals = new Collection<Goal> { goal }
             };
 
-            var response = UpdateGoals(goalWrapper);
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View("RestError", response);
-            }
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.PatchGoalsAsync(goalWrapper));
+            return RedirectToAction("Index");
+            
         }
 
         /// <summary>
@@ -97,22 +71,15 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateGoal()
+        public async Task<ActionResult> CreateGoal()
         {
-            var goal = CreateDefaultGoal();
             var goalWrapper = new GoalsWrapper
             {
-                Goals = new Collection<Goal> { goal }
+                Goals = new Collection<Goal> { Builder.CreateDefaultGoal() }
             };
-            var response = CreateGoals(goalWrapper);
-            if (response.StatusCode == HttpStatusCode.Created)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View("RestError", response);
-            }
+
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.CreateGoalsAsync(goalWrapper));
+            return RedirectToAction("Index");
         }
 
         /// <summary>
@@ -120,104 +87,10 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RemoveGoal(Guid id)
+        public async Task<ActionResult> RemoveGoal(Guid id)
         {
-            var response = DeleteGoal(id);
-            if (response.StatusCode == HttpStatusCode.NoContent)
-            {
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View("RestError", response);
-            }
-        }
-
-        /// <summary>
-        /// Creates a sample goal object.
-        /// </summary>
-        private static Goal CreateDefaultGoal()
-        {
-            return new Goal
-            {
-                Name = "Steps",
-                Description = "This is a test steps goal",
-                GoalType = GoalType.Steps,
-                Range = new GoalRange
-                {
-                    Minimum = 5000,
-                    Units = GoalRangeUnit.Count
-                },
-                RecurrenceMetrics = new GoalRecurrenceMetrics
-                {
-                    OccurrenceCount = 1,
-                    WindowType = GoalRecurrenceType.Daily
-                }
-            };
-        }
-
-        /// <summary>
-        /// Call the HV REST API to get a list of goals in a user's HealthVault record.
-        /// This gets goals of the user who is actively signed into the application ("online" scenario).
-        /// </summary>
-        private HealthServiceRestResponseData GetGoals(Guid? personId, Guid? recordId)
-        {
-            return HealthServiceRestHelper.CallHealthServiceRest(
-                personId,
-                recordId,
-                User.PersonInfo(),
-                HttpMethod.Get.ToString(),
-                baseRestUrl);
-        }
-
-        /// <summary>
-        /// Call the HV REST API to get a goal in a user's HealthVault record.
-        /// This gets a goal of the user who is actively signed into the application ("online" scenario).
-        /// </summary>
-        private HealthServiceRestResponseData GetGoal(Guid id)
-        {
-            return HealthServiceRestHelper.CallHealthServiceRestOnline(
-                User.PersonInfo(),
-                HttpMethod.Get.ToString(),
-                baseRestUrl + id);
-        }
-
-        /// <summary>
-        /// Call the HV REST API to create goals in a user's HealthVault record.
-        /// This creates goals for the user who is actively signed into the application ("online" scenario).
-        /// </summary>
-        private HealthServiceRestResponseData CreateGoals(GoalsWrapper goals)
-        {
-            return HealthServiceRestHelper.CallHealthServiceRestOnline(
-                User.PersonInfo(),
-                HttpMethod.Post.ToString(),
-                baseRestUrl,
-                requestBody: JsonConvert.SerializeObject(goals));
-        }
-
-        /// <summary>
-        /// Call the HV REST API to update goals in a user's HealthVault record.
-        /// This updates goals for the user who is actively signed into the application ("online" scenario).
-        /// </summary>
-        private HealthServiceRestResponseData UpdateGoals(GoalsWrapper goals)
-        {
-            return HealthServiceRestHelper.CallHealthServiceRestOnline(
-                User.PersonInfo(),
-                "PATCH",
-                baseRestUrl,
-                requestBody: JsonConvert.SerializeObject(goals));
-        }
-
-        /// <summary>
-        /// Call the HV REST API to delete a goal in a user's HealthVault record.
-        /// This deletes a goal of the user who is actively signed into the application ("online" scenario).
-        /// </summary>
-        private HealthServiceRestResponseData DeleteGoal(Guid id)
-        {
-            return HealthServiceRestHelper.CallHealthServiceRestOnline(
-                User.PersonInfo(),
-                HttpMethod.Delete.ToString(),
-                baseRestUrl + id);
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.DeleteGoalAsync(id.ToString()));
+            return RedirectToAction("Index");
         }
     }
 }

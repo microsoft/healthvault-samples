@@ -8,12 +8,11 @@
 
 using System;
 using System.Web.Mvc;
-using System.Net;
-
-using Microsoft.Health.Rest;
-using Microsoft.Health.Web;
-using Newtonsoft.Json;
-using HealthVaultProviderManagementPortal.Models.Onboarding;
+using System.Threading.Tasks;
+using Microsoft.HealthVault.Exceptions;
+using Microsoft.HealthVault.RestApi.Generated;
+using Microsoft.HealthVault.RestApi.Generated.Models;
+using static HealthVaultProviderManagementPortal.Helpers.RestClientFactory;
 
 namespace HealthVaultProviderManagementPortal.Controllers
 {
@@ -39,17 +38,17 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// <param name="onboardingRequest">The request to upload.</param>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateInvite(OnboardingRequest onboardingRequest)
+        public async Task<ActionResult> CreateInvite(OnboardingRequest onboardingRequest)
         {
-            var response = GenerateInviteCode(onboardingRequest);
-            if (response.StatusCode == HttpStatusCode.OK)
+            try
             {
-                var model = JsonConvert.DeserializeObject<OnboardingResponse>(response.ResponseBody);
-                return View("InviteSuccess", model);
+                var client = await CreateMicrosoftHealthVaultRestApiAsync();
+                var response = await client.GenerateInviteCodeAsync(onboardingRequest);
+                return View("InviteSuccess", response);
             }
-            else
+            catch (HealthVaultException ex)
             {
-                return View("RestError", response);
+                return View("RestError", ex.Message);
             }
         }
 
@@ -77,26 +76,6 @@ namespace HealthVaultProviderManagementPortal.Controllers
             onboardingRequest.SecretAnswer = "The sky is blue";  // Must be at least six characters
 
             return onboardingRequest;
-        }
-
-        /// <summary>
-        /// Call the HV REST API to generate the invitation code.
-        /// </summary>
-        /// <param name="onboardingRequest"></param>
-        private static HealthServiceRestResponseData GenerateInviteCode(OnboardingRequest onboardingRequest)
-        {
-            // 2. Using the HealthVault SDK, make a HTTP POST call to get an invitation code for participant.
-            // The root URL comes from the web.config (RestHealthServiceUrl).
-            var request = new HealthServiceRestRequest(
-                WebApplicationUtilities.ApplicationConnection,
-                "POST",
-                "v3/onboarding/generateinvitecode",
-                null,
-                JsonConvert.SerializeObject(onboardingRequest));
-
-            request.Execute();
-
-            return request.Response;
         }
     }
 }

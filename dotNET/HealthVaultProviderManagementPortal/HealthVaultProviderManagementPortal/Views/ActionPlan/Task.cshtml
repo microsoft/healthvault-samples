@@ -7,9 +7,10 @@
 
     THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@
-@using Microsoft.Health.Platform.Entities.V3.ActionPlans
-@using Microsoft.Health.Platform.Entities.V3.Enums
-@model Microsoft.Health.Platform.Entities.V3.ActionPlans.ActionPlanTaskInstance
+@using HealthVaultProviderManagementPortal.Helpers
+@using HealthVaultProviderManagementPortal.Models.Enums
+@using Microsoft.HealthVault.RestApi.Generated.Models
+@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanTaskInstance
 
 @{
     ViewBag.Title = "Edit Task";
@@ -50,12 +51,12 @@
         <div class="form-group">
             <div class="col-md-3 slim-col">
                 @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label" })
-                @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Status, SelectListHelper.FromEnum<ActionPlanTaskStatus>(Model.Status), htmlAttributes: new { @class = "form-control" })
             </div>
 
             <div class="col-md-3 slim-col">
                 @Html.LabelFor(model => model.TaskType, htmlAttributes: new { @class = "control-label" })
-                @Html.EnumDropDownListFor(model => model.TaskType, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.TaskType, SelectListHelper.FromEnum<ActionPlanTaskType>(Model.TaskType), htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
 
@@ -116,7 +117,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.FrequencyTaskCompletionMetrics.WindowType, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10 slim-col">
-                        @Html.EnumDropDownListFor(model => model.FrequencyTaskCompletionMetrics.WindowType, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.FrequencyTaskCompletionMetrics.WindowType, SelectListHelper.FromEnum<ActionPlanScheduleRecurrenceType>(Model.FrequencyTaskCompletionMetrics?.WindowType), htmlAttributes: new { @class = "form-control" })
                     </div>
                 </div>
 
@@ -137,7 +138,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.FrequencyTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10 slim-col">
-                        @Html.EnumDropDownListFor(model => model.FrequencyTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.FrequencyTaskCompletionMetrics.ReminderState, SelectListHelper.FromEnum<ActionPlanReminderState>(Model.FrequencyTaskCompletionMetrics?.ReminderState), htmlAttributes: new { @class = "form-control" })
                     </div>
                 </div>
             </div>
@@ -181,7 +182,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.ScheduledTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10 slim-col">
-                        @Html.EnumDropDownListFor(model => model.ScheduledTaskCompletionMetrics.ReminderState, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.ScheduledTaskCompletionMetrics.ReminderState, SelectListHelper.FromEnum<ActionPlanReminderState>(Model.ScheduledTaskCompletionMetrics?.ReminderState), htmlAttributes: new { @class = "form-control" })
                     </div>
                 </div>
             </div>
@@ -197,12 +198,22 @@
     </div>
 }
 
-@helper ScheduleDayCheckbox(BaseActionPlanTaskCompletionMetrics completionMetrics, string name, string idBase, ActionPlanScheduleDay day)
+@helper ScheduleDayCheckbox(ActionPlanFrequencyTaskCompletionMetrics completionMetrics, string name, string idBase, ActionPlanScheduleDay day)
 {
     <div class="checkbox-inline no-padding-top">
         <label for="@(idBase + "_" + day)" class="control-label">
             <input type="checkbox" name="@name" id="@(idBase + "_" + day)" value="@day"
-                   checked="@(completionMetrics != null && completionMetrics.ScheduledDays != null &&  completionMetrics.ScheduledDays.Contains(day))" />
+                   checked="@(completionMetrics != null && completionMetrics.ScheduledDays != null &&  completionMetrics.ScheduledDays.Contains(day.ToString()))" />
+            @day
+        </label>
+    </div>
+}
+@helper ScheduleDayCheckbox(ActionPlanScheduledTaskCompletionMetrics completionMetrics, string name, string idBase, ActionPlanScheduleDay day)
+{
+    <div class="checkbox-inline no-padding-top">
+        <label for="@(idBase + "_" + day)" class="control-label">
+            <input type="checkbox" name="@name" id="@(idBase + "_" + day)" value="@day"
+                   checked="@(completionMetrics != null && completionMetrics.ScheduledDays != null &&  completionMetrics.ScheduledDays.Contains(day.ToString()))" />
             @day
         </label>
     </div>

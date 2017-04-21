@@ -8,12 +8,14 @@
 
 
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using HealthVaultProviderManagementPortal.Helpers;
-using Microsoft.Health;
-using Microsoft.Health.ItemTypes;
-using Microsoft.Health.Web;
-using Microsoft.Health.Web.Mvc;
+using Microsoft.HealthVault.ItemTypes;
+using Microsoft.HealthVault.Record;
+using Microsoft.HealthVault.Web.Attributes;
+using static HealthVaultProviderManagementPortal.Helpers.RestClientFactory;
+
 namespace HealthVaultProviderManagementPortal.Controllers
 {
     /// <summary>
@@ -25,46 +27,40 @@ namespace HealthVaultProviderManagementPortal.Controllers
     public class HealthDataController : Controller
     {
         [HttpGet]
-        public ActionResult Index(Guid? personId, Guid? recordId)
+        public async Task<ActionResult> Index(Guid personId, Guid? recordId)
         {
-            var record = GetRecord(personId, recordId);
+            var connection = await GetConnectionAsync(personId);
 
-            var weights = record.GetItemsByType(Weight.TypeId);
+            var record = await connection.CreatePersonClient().GetPersonInfoAsync();
+            var thingClient = connection.CreateThingClient();
+
+            recordId = recordId ?? record.GetSelfRecord().Id;
+            var weights = await thingClient.GetThingsAsync<Weight>(recordId.GetValueOrDefault());
             if (weights.Count > 0)
             {
-                return View(weights[0]);
+                return View(weights.First());
             }
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(Guid? personId, Guid? recordId, double weight)
+        public async Task<ActionResult> Index(Guid personId, Guid? recordId, double weight)
         {
             var item = new Weight(
                 new HealthServiceDateTime(DateTime.UtcNow), 
                 new WeightValue(weight)
                 );
 
-            var record = GetRecord(personId, recordId);
-            record.NewItem(item);
+            var connection = await GetConnectionAsync(personId);
+            var record = await connection.CreatePersonClient().GetPersonInfoAsync();
+
+            var thingClient = connection.CreateThingClient();
+
+            recordId = recordId ?? record.GetSelfRecord().Id;
+            await thingClient.CreateNewThingsAsync(recordId.GetValueOrDefault(), new []{ item });
             
-            return RedirectToAction("Index", new { personId = personId.Value, recordId = recordId.Value });
-        }
-
-        private HealthRecordInfo GetRecord(Guid? personId, Guid? recordId)
-        {
-            HealthServiceRestHelper.CheckOfflineAuthorization(User.PersonInfo());
-
-            var connection = new OfflineWebApplicationConnection(
-                HealthWebApplicationConfiguration.Current.ApplicationId,
-                HealthWebApplicationConfiguration.Current.HealthVaultMethodUrl,
-                personId.Value);
-
-            // Authenticate with HealthVault using the certificate generated above
-            connection.Authenticate();
-
-            return recordId.HasValue ? new HealthRecordInfo(connection, recordId.Value) : User.PersonInfo().SelectedRecord;
+            return RedirectToAction("Index", new { personId, recordId });
         }
     }
 }

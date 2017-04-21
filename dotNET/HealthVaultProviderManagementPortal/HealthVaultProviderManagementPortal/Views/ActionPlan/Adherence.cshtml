@@ -7,7 +7,7 @@
 
     THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@
-@model Microsoft.Health.Platform.Entities.V3.ActionPlans.ActionPlanAdherenceSummary
+@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanAdherenceSummary
 
 @{
     ViewBag.Title = "Action plan adherence";
@@ -30,8 +30,8 @@
         <tr class="alert-info">
             <td>@Model.Id</td>
             <td>@Model.Name</td>
-            <td>@Model.StartDate.ToString("d")</td>
-            <td colspan="2">@Model.EndDate.ToString("d")</td>
+            <td>@Model.StartDate.GetValueOrDefault().ToString("d")</td>
+            <td colspan="2">@Model.EndDate.GetValueOrDefault().ToString("d")</td>
         </tr>
     </tbody>
 </table>
@@ -74,8 +74,8 @@
                     <td>@task.Id</td>
                     <td>@task.Name</td>
                     <td>@task.WindowType</td>
-                    <td>@task.StartDate.ToString("d")</td>
-                    <td>@task.EndDate.ToString("d")</td>
+                    <td>@task.StartDate.GetValueOrDefault().ToString("d")</td>
+                    <td>@task.EndDate.GetValueOrDefault().ToString("d")</td>
                 </tr>
             </tbody>
         </table>
@@ -96,7 +96,7 @@
                 @foreach (var week in task.WeeklyAdherence)
                 {
                     <tr>
-                        <td>@week.WeekStart.ToString("d")</td>
+                        <td>@week.WeekStart.GetValueOrDefault().ToString("d")</td>
                         <td>@week.IntendedCompletions</td>
                         <td>@week.Completions</td>
                         <td>@week.IntendedOccurrences</td>

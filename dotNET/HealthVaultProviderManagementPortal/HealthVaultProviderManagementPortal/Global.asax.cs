@@ -8,11 +8,9 @@
 
 using System;
 using System.Configuration;
-using Microsoft.Health.Web.Mvc;
 using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
-using Microsoft.Health.Web;
+using HealthVaultProviderManagementPortal.Helpers;
 
 namespace HealthVaultProviderManagementPortal
 {
@@ -27,7 +25,7 @@ namespace HealthVaultProviderManagementPortal
             try
             {
                 // Try accessing the ApplicationId to see if it fails
-                var appId = HealthWebApplicationConfiguration.Current.ApplicationId;
+                Guid.Parse(ConfigurationManager.AppSettings["HV_ApplicationId"]);
             }
             catch (FormatException)
             {
@@ -37,14 +35,19 @@ namespace HealthVaultProviderManagementPortal
 
         private static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new HandleErrorAttribute{ View = KnownViews.RestError });
         }
 
         private static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            HealthVault.RegisterRoutes(routes);
+            routes.MapRoute(
+                "Redirect",
+                "Redirect",
+                new { controller = "HealthVaultActionRedirect", action = "Index" },
+                new[] { "Microsoft.HealthVault.Web.Controllers" });
+
 
             routes.MapRoute(
                 name: "Default",
