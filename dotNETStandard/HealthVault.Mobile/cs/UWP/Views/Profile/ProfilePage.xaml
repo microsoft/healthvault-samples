@@ -22,7 +22,7 @@
                 Width="76"
                 Height="76"
                 Background="{ThemeResource HighlightColor}">
-            <Image Source="{Binding ImageSource}"
+            <Image Source="{Binding ImageSource, ElementName=healthVaultBasePage}"
                    Width="76"
                    Height="76"/>
         </Border>

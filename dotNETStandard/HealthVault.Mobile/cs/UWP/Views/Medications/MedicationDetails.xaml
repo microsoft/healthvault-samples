@@ -59,6 +59,7 @@
         <Button x:Uid="EditDetails" 
                 x:Name="Edit"
                 Style="{StaticResource ModernButtonStyle}"
+                IsEnabled="False"
                 Click="Edit_Click"
                 />
     </StackPanel>

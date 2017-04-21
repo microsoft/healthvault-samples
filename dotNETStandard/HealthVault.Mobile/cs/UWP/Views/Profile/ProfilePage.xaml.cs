@@ -104,7 +104,10 @@ namespace HealthVaultMobileSample.UWP.Views.Profile
         /// <returns></returns>
         private static async Task<Windows.Storage.StorageFile> GetAndSavePersonalImage(HealthRecordInfo recordInfo, IReadOnlyCollection<ThingCollection> things)
         {
-            var file = await Windows.Storage.ApplicationData.Current.LocalCacheFolder.CreateFileAsync(recordInfo.DisplayName, Windows.Storage.CreationCollisionOption.OpenIfExists);
+            var fileName = recordInfo.DisplayName + ".jpg";
+            var file = await Windows.Storage.ApplicationData.Current.LocalCacheFolder.CreateFileAsync(fileName, Windows.Storage.CreationCollisionOption.OpenIfExists);
+
+
             if (things.Count > 0 && things.First().Count > 0)
             {
                 var personalImage = (PersonalImage) things.First().First();
@@ -114,11 +117,13 @@ namespace HealthVaultMobileSample.UWP.Views.Profile
                     if (currentImage != null)
                     {
                         byte[] imageBytes = new byte[currentImage.Length];
-                        currentImage.Read(imageBytes, 0, (int)currentImage.Length);
+                        await currentImage.ReadAsync(imageBytes, 0, (int)currentImage.Length);
 
 
-                        var writeStream = await file.OpenStreamForWriteAsync();
-                        await writeStream.WriteAsync(imageBytes, 0, (int)currentImage.Length);
+                        using (var writeStream = await file.OpenStreamForWriteAsync())
+                        {
+                            await writeStream.WriteAsync(imageBytes, 0, (int)currentImage.Length);
+                        }
                     }
                 }
             }
