@@ -33,25 +33,25 @@ import com.microsoft.hsg.android.simplexml.things.types.types.Record;
 
 public class PersonalImageLoader implements ComponentCallbacks2 {
 
-	private ImageLruCache cache;
-	private HealthVaultClient hvClient;
-	private Activity context;
+	private ImageLruCache mCache;
+	private HealthVaultClient mHVClient;
+	private Activity mContext;
 	
 	private ImageView imageView;
 	
 	public PersonalImageLoader(Activity context,
 			HealthVaultClient client) {
-		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        int memSize = am.getMemoryClass() * 1024 * 1024;
-        
-        cache = new ImageLruCache(memSize);
-        hvClient = client;
-        this.context = context;
+		ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        int memSize = activityManager.getMemoryClass() * 1024 * 1024;
+
+		mCache = new ImageLruCache(memSize);
+		mHVClient = client;
+        this.mContext = context;
 	}
 
-	public void load(String id, ImageView imageView, int defaultresource) {
-		imageView.setImageResource(defaultresource);
-        Bitmap image = cache.get(id);
+	public void load(String id, ImageView imageView, int defaultResource) {
+		imageView.setImageResource(defaultResource);
+        Bitmap image = mCache.get(id);
         if (image != null) {
             imageView.setImageBitmap(image);
         }
@@ -65,8 +65,8 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
         			break;
         		}
         	}
-        	
-        	hvClient.asyncRequest(getImageAsync(record), new PersonalImageCallback(id, imageView));
+
+			mHVClient.asyncRequest(getImageAsync(record), new PersonalImageCallback(id, imageView));
         }
 	}
 	
@@ -74,7 +74,7 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 		return new Callable<Bitmap>() {
     		public Bitmap call() throws URISyntaxException, IOException {
     			// check if it exist in file
-    			File cacheDir = context.getCacheDir();
+    			File cacheDir = mContext.getCacheDir();
     			
     			if(!cacheDir.exists()) {
     				cacheDir.mkdirs();
@@ -83,8 +83,9 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
     			File file = new File(cacheDir, "personalimage" + record.getId());
     			
     			if(file.exists()) {
-    				FileInputStream in = new FileInputStream(file);
-    				return BitmapFactory.decodeStream(in);
+    				try(FileInputStream in = new FileInputStream(file)) {
+						return BitmapFactory.decodeStream(in);
+					}
     			}
     			
     			// try to get from web
@@ -101,7 +102,9 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 					destination.close();
 					
 					FileInputStream is = new FileInputStream(file);
-					return BitmapFactory.decodeStream(is);
+					Bitmap bitmap = BitmapFactory.decodeStream(is);
+					is.close();
+					return bitmap;
     			}
     			
     			return null;
@@ -124,10 +127,10 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 	@Override
 	public void onTrimMemory(int level) {
 		 if (level >= TRIM_MEMORY_MODERATE) {
-	        cache.evictAll();
+			 mCache.evictAll();
 		 }
 	    else if (level >= TRIM_MEMORY_BACKGROUND) {
-	        cache.trimToSize(cache.size() / 2);
+			 mCache.trimToSize(mCache.size() / 2);
 	    }	
 	}
 	
@@ -150,7 +153,7 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
     	@Override
         public void onError(HVException exception) {
             Toast.makeText(
-                context, 
+					mContext,
                 "An error occurred.  " + exception.getMessage(), 
                 Toast.LENGTH_LONG).show();
         }
@@ -158,7 +161,7 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 		@Override
 		public void onSuccess(Bitmap image) {
 			if(image != null) {
-				cache.put(id, image);
+				mCache.put(id, image);
 				imageView.setImageBitmap(image);
 			}
         }

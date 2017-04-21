@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/ActionPlanTile"
+        android:id="@+id/actionPlanTile"
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_marginTop="10dp"
@@ -60,7 +60,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/MedicationTile"
+        android:id="@+id/medicationTile"
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_marginTop="10dp"
@@ -112,7 +112,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/WeightTile"
+        android:id="@+id/weightTile"
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_marginTop="10dp"

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/LastWeightContainer"
@@ -23,12 +22,12 @@
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/lasWeight"
-                android:layout_width="65dp"
+                android:layout_width="80dp"
                 android:layout_height="62dp"
                 android:textColor="#009688"
-                android:textSize="60px"/>
+                android:textSize="30sp"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="292dp"
                 android:layout_height="wrap_content"
                 android:text="lbs"
                 android:textColor="#009688"/>
@@ -62,7 +61,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/Labels"
+        android:id="@+id/labels"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
@@ -89,7 +88,7 @@
     </LinearLayout>
 
     <HorizontalScrollView
-        android:layout_below="@id/Labels"
+        android:layout_below="@id/labels"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
@@ -99,4 +98,4 @@
             android:layout_height="300dp"
             android:id="@+id/weightList"/>
     </HorizontalScrollView>
-    </RelativeLayout>
+</RelativeLayout>

@@ -18,9 +18,9 @@ import android.widget.TextView;
 
 public class RecordPickerArrayAdapter extends BaseAdapter {
 	
-    private List<Record> records;
-    private HashMap<String, String> recordImages;
-    private LayoutInflater layoutInflater;
+    private List<Record> mRecords;
+    private HashMap<String, String> mRecordImages;
+    private LayoutInflater mLayoutInflater;
     
     private PersonalImageLoader imageLoader;
 
@@ -28,19 +28,19 @@ public class RecordPickerArrayAdapter extends BaseAdapter {
     		List<Record> records,
     		HealthVaultClient hvClient) 
     {
-        this.records = records;
-        layoutInflater = LayoutInflater.from(context);
+        this.mRecords = records;
+        mLayoutInflater = LayoutInflater.from(context);
         imageLoader = new PersonalImageLoader(context, hvClient);
     }
     
     @Override
     public int getCount() {
-        return records == null ? 0 : records.size();
+        return mRecords == null ? 0 : mRecords.size();
     }
 
     @Override
     public Record getItem(int position) {
-        return records.get(position);
+        return mRecords.get(position);
     }
 
     @Override
@@ -49,14 +49,30 @@ public class RecordPickerArrayAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        View rowView= layoutInflater.inflate(R.layout.record_picker_item, null, true);
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.txtrecordName);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.recordIcon);
-        txtTitle.setText(records.get(position).getName());
-        
-        imageLoader.load(records.get(position).getId(), imageView, R.drawable.ic_launcher);
-        
-        return rowView;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolderItem viewHolder;
+        if(convertView == null) {
+            viewHolder = new ViewHolderItem();
+            convertView = mLayoutInflater.inflate(R.layout.record_picker_item, null, true);
+
+            viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.txtrecordName);
+            viewHolder.ImageViewItem = (ImageView) convertView.findViewById(R.id.recordIcon);
+
+            convertView.setTag(viewHolder);
+
+        } else {
+            viewHolder = (ViewHolderItem) convertView.getTag();
+        }
+
+        viewHolder.textViewItem.setText(mRecords.get(position).getName());
+
+        imageLoader.load(mRecords.get(position).getId(), viewHolder.ImageViewItem, R.drawable.ic_launcher);
+
+        return convertView;
+    }
+
+    static class ViewHolderItem {
+        TextView textViewItem;
+        ImageView ImageViewItem;
     }
 }

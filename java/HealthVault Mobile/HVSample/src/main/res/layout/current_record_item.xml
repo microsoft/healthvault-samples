@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@android:style/Widget.ActionButton"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:clickable="true" >
+    android:clickable="true"
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/current_record_name"
@@ -13,4 +14,4 @@
         android:textColor="#0072C6"
         android:textSize="14sp" />
 
-</RelativeLayout>
+</LinearLayout>

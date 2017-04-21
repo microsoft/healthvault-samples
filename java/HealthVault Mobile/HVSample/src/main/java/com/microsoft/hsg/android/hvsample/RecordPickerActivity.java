@@ -14,37 +14,32 @@ import android.widget.ListView;
 
 public class RecordPickerActivity extends ListActivity {
 	
-	private HealthVaultClient hvclient;
+	private HealthVaultClient mHVClient;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recordpicker);
-        
-        hvclient = new HealthVaultClient();
+        setContentView(R.layout.record_picker);
+
+		mHVClient = new HealthVaultClient();
         
         RecordPickerArrayAdapter adapter = 
 	            new RecordPickerArrayAdapter(this, 
 	            		HealthVaultApp.getInstance().getRecordList(),
-	            		hvclient);
+						mHVClient);
         
 		setListAdapter(adapter);
     }
 	
 	@Override
-	protected void onStart() {
-		super.onStart();
-		hvclient.start();
-	}
-	
-	@Override
 	protected void onResume() {
 		super.onResume();
+		mHVClient.start();
 	}
 
 	@Override
-	protected void onStop() {
-		hvclient.stop();
-		super.onStop();
+	protected void onPause() {
+		mHVClient.stop();
+		super.onPause();
 	}
 }
