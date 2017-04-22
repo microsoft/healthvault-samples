@@ -37,133 +37,136 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 	private HealthVaultClient mHVClient;
 	private Activity mContext;
 	
-	private ImageView imageView;
-	
 	public PersonalImageLoader(Activity context,
-			HealthVaultClient client) {
+		HealthVaultClient client) {
 		ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         int memSize = activityManager.getMemoryClass() * 1024 * 1024;
 
 		mCache = new ImageLruCache(memSize);
 		mHVClient = client;
-        this.mContext = context;
+		mContext = context;
 	}
 
 	public void load(String id, ImageView imageView, int defaultResource) {
 		imageView.setImageResource(defaultResource);
-        Bitmap image = mCache.get(id);
-        if (image != null) {
-            imageView.setImageBitmap(image);
-        }
-        else {
-        	List<Record> records = HealthVaultApp.getInstance().getRecordList();
-        	Record record = null;
-        	
-        	for(Record rcd : records) {
-        		if(id == rcd.getId()) {
-        			record = rcd;
-        			break;
-        		}
-        	}
+		Bitmap image = mCache.get(id);
+		if (image != null) {
+			imageView.setImageBitmap(image);
+		} else {
+			List<Record> records = HealthVaultApp.getInstance().getRecordList();
+			Record record = null;
+
+			for(Record rcd : records) {
+				if(id == rcd.getId()) {
+					record = rcd;
+					break;
+				}
+			}
 
 			mHVClient.asyncRequest(getImageAsync(record), new PersonalImageCallback(id, imageView));
-        }
+		}
 	}
-	
+
 	private Callable<Bitmap> getImageAsync(final Record record) {
 		return new Callable<Bitmap>() {
-    		public Bitmap call() throws URISyntaxException, IOException {
-    			// check if it exist in file
-    			File cacheDir = mContext.getCacheDir();
-    			
-    			if(!cacheDir.exists()) {
-    				cacheDir.mkdirs();
-    			}
-    			
-    			File file = new File(cacheDir, "personalimage" + record.getId());
-    			
-    			if(file.exists()) {
-    				try(FileInputStream in = new FileInputStream(file)) {
+			public Bitmap call() throws URISyntaxException, IOException {
+				// check if it exist in file
+				File cacheDir = mContext.getCacheDir();
+
+				if(!cacheDir.exists()) {
+					cacheDir.mkdirs();
+				}
+
+				File file = new File(cacheDir, "personalimage" + record.getId());
+
+				if(file.exists()) {
+					try(FileInputStream in = new FileInputStream(file)) {
 						return BitmapFactory.decodeStream(in);
 					}
-    			}
-    			
-    			// try to get from web
-    			ThingResponseGroup2 response = record.getThings(ThingRequestGroup2.thingTypeQuery(PersonalImage.ThingType));
-    			List<Thing2> things = response.getThing();
-    			
-    			if(things != null && !things.isEmpty()) {
-    				Thing2 thing = things.get(0);
+				}
+
+				// try to get from web
+				ThingResponseGroup2 response = record.getThings(ThingRequestGroup2.thingTypeQuery(PersonalImage.ThingType));
+				List<Thing2> things = response.getThing();
+
+				if(things != null && !things.isEmpty()) {
+					Thing2 thing = things.get(0);
 					PersonalImage image = (PersonalImage)thing.getData();
-					
-					FileOutputStream destination = new FileOutputStream(file);
-					image.download(record, destination);
-					destination.flush();
-					destination.close();
-					
-					FileInputStream is = new FileInputStream(file);
-					Bitmap bitmap = BitmapFactory.decodeStream(is);
-					is.close();
-					return bitmap;
-    			}
-    			
-    			return null;
-    		}
-    	};
+					FileOutputStream destination = null;
+					FileInputStream inputStream = null;
+					Bitmap bitmap = null;
+
+					try {
+						destination = new FileOutputStream(file);
+						image.download(record, destination);
+
+						inputStream = new FileInputStream(file);
+						bitmap = BitmapFactory.decodeStream(inputStream);
+						return bitmap;
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						if (destination != null) {
+							destination.close();
+						}
+						if (inputStream != null) {
+							inputStream.close();
+						}
+					}
+				}
+
+				return null;
+			}
+		};
 	}
 
 	@Override
 	public void onConfigurationChanged(Configuration arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onLowMemory() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onTrimMemory(int level) {
 		 if (level >= TRIM_MEMORY_MODERATE) {
 			 mCache.evictAll();
-		 }
-	    else if (level >= TRIM_MEMORY_BACKGROUND) {
+		 } else if (level >= TRIM_MEMORY_BACKGROUND) {
 			 mCache.trimToSize(mCache.size() / 2);
-	    }	
+		}
 	}
 	
 	private class ImageLruCache extends LruCache<String, Bitmap> {
-        public ImageLruCache(int maxSize) {
+		public ImageLruCache(int maxSize) {
 			super(maxSize);
 		}
-    }
-	
+	}
+
 	private class PersonalImageCallback implements RequestCallback<Bitmap> {
-		
-		private ImageView imageView;
-		private String id;
+		private ImageView mImageView;
+		private String mId;
 		
     	public PersonalImageCallback(String id, ImageView imageView) {
-    		this.id = id;
-    		this.imageView = imageView;
-    	}
-    	
-    	@Override
-        public void onError(HVException exception) {
-            Toast.makeText(
-					mContext,
-                "An error occurred.  " + exception.getMessage(), 
-                Toast.LENGTH_LONG).show();
-        }
+			mId = id;
+			mImageView = imageView;
+		}
+
+		@Override
+		public void onError(HVException exception) {
+			Toast.makeText(
+					mContext, "An error occurred.  " + exception.getMessage(), Toast.LENGTH_LONG).show();
+		}
 
 		@Override
 		public void onSuccess(Bitmap image) {
 			if(image != null) {
-				mCache.put(id, image);
-				imageView.setImageBitmap(image);
+				mCache.put(mId, image);
+				mImageView.setImageBitmap(image);
 			}
-        }
+		}
 	}
 }

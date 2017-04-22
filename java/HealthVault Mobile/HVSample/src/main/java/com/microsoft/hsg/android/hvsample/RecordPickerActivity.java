@@ -15,22 +15,21 @@ import android.widget.ListView;
 public class RecordPickerActivity extends ListActivity {
 	
 	private HealthVaultClient mHVClient;
-	
+
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.record_picker);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.record_picker);
 
 		mHVClient = new HealthVaultClient();
-        
-        RecordPickerArrayAdapter adapter = 
-	            new RecordPickerArrayAdapter(this, 
-	            		HealthVaultApp.getInstance().getRecordList(),
+
+		RecordPickerArrayAdapter adapter =
+			new RecordPickerArrayAdapter(this,
+					HealthVaultApp.getInstance().getRecordList(),
 						mHVClient);
-        
 		setListAdapter(adapter);
-    }
-	
+	}
+
 	@Override
 	protected void onResume() {
 		super.onResume();

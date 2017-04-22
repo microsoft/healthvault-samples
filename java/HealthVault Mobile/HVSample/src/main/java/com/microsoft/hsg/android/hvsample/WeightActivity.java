@@ -34,130 +34,117 @@ import android.widget.AdapterView.OnItemSelectedListener;
 public class WeightActivity extends Activity {
 
 	private HealthVaultApp mService;
-    private HealthVaultClient mHVClient;
-    private Record mCurrentRecord;
-    
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.weight);
-        mService = HealthVaultApp.getInstance();
-        mHVClient = new HealthVaultClient();
-        
-        Button weightsBtn = (Button) findViewById(R.id.addWeight);
-        final EditText editText = (EditText) findViewById(R.id.weightInput);
-		
-        weightsBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-            	if (mService.isAppConnected()) {
-                    try {
-                        putWeight(editText.getText().toString());
-                        editText.setText("");
-                    }
-                    catch (Exception e) {
-                        Toast.makeText(WeightActivity.this, "Please enter a weight!", Toast.LENGTH_SHORT).show();
-                    }
-            	}
-            }
-        });
+	private HealthVaultClient mHVClient;
+	private Record mCurrentRecord;
+	private ListView mWeightList;
+	private List<String> mWeights;
+	private ArrayAdapter<String> mAdapter;
 
-        setTitle("Weight Sample");
-    }
-    
 	@Override
-	protected void onStart() {
-		super.onStart();
-        mHVClient.start();
-	}
-    
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
-        getWeights();
-    }
-    
-    @Override
-	protected void onStop() {
-        mHVClient.stop();
-		super.onStop();
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.weight);
+		mService = HealthVaultApp.getInstance();
+		mHVClient = new HealthVaultClient();
+
+		Button weightsBtn = (Button) findViewById(R.id.addWeight);
+		final EditText editText = (EditText) findViewById(R.id.weightInput);
+
+		mWeights = new ArrayList<String>();
+		mWeightList = (ListView)findViewById(R.id.weightList);
+		mAdapter = new ArrayAdapter<String>(WeightActivity.this, android.R.layout.simple_list_item_1, mWeights);
+		mWeightList.setAdapter(mAdapter);
+
+		weightsBtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				if (mService.isAppConnected()) {
+					try {
+						putWeight(editText.getText().toString());
+						editText.setText("");
+					} catch (Exception e) {
+						Toast.makeText(WeightActivity.this, "Please enter a weight!", Toast.LENGTH_SHORT).show();
+					}
+				}
+			}
+		});
+
+		setTitle("Weight Sample");
 	}
 
-    @SuppressWarnings("unchecked")
-    private void getWeights()
-    {
-        mHVClient.asyncRequest(
-                mCurrentRecord.getThingsAsync(ThingRequestGroup2.thingTypeQuery(Weight.ThingType)),
-    			new WeightCallback(WeightCallback.RenderWeights));
-    }
-    
-    private void putWeight(String value) {
-        final Thing2 thing = new Thing2();
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mHVClient.start();
+		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
+		getWeights();
+	}
+
+	@Override
+	protected void onPause() {
+		mHVClient.stop();
+		super.onPause();
+	}
+
+	@SuppressWarnings("unchecked")
+	private void getWeights() {
+		mHVClient.asyncRequest(mCurrentRecord.getThingsAsync(ThingRequestGroup2.thingTypeQuery(Weight.ThingType)),
+				new WeightCallback(WeightCallback.RenderWeights));
+	}
+
+	private void putWeight(String value) {
+		final Thing2 thing = new Thing2();
 		thing.setData(new Weight(Double.parseDouble(value)));
-        // thing.setData(new Weight(-10));
-        mHVClient.asyncRequest(
-                mCurrentRecord.putThingAsync(thing),
-				new WeightCallback(WeightCallback.PutWeights));
-    }
-    
-    private void renderWeights(List<Thing2> things) {
-    	List<String> weights = new ArrayList<String>();
-        int count = 0;
+		// thing.setData(new Weight(-10));
+		mHVClient.asyncRequest(mCurrentRecord.putThingAsync(thing),
+			new WeightCallback(WeightCallback.PutWeights));
+	}
 
-        for(Thing2 thing : things) {
-        	Weight w = (Weight)thing.getData();
-            if (count < 1)
-            {
-                TextView lastWeight = (TextView) findViewById(R.id.lasWeight);
-                lastWeight.setText(String.valueOf(w.getValue().getKg()));
-                count++;
-            }
-        	weights.add(String.valueOf(w.getWhen().getDate().getM() + "/" +
-                            w.getWhen().getDate().getD() + "/" +
-                            w.getWhen().getDate().getY()) + "               " +
-                            "                    " +
-                    String.valueOf(w.getValue().getKg()
-                    ));
-        }
-        ListView lv = (ListView)findViewById(R.id.weightList);
-        lv.setAdapter(new ArrayAdapter<String>(
-            WeightActivity.this,
-            android.R.layout.simple_list_item_1,
-            weights));
-    }
-    
-    public class WeightCallback<Object> implements RequestCallback {
-    	public final static int RenderWeights = 0;
-    	public final static int PutWeights = 1;
-    
-    	private int mEvent;
-    	
-    	public WeightCallback(int event) {
-            WeightActivity.this.setProgressBarIndeterminateVisibility(true);
-            mEvent = event;
-    	}
+	private void renderWeights(List<Thing2> things) {
+		int count = 0;
+		for(Thing2 thing : things) {
+			Weight w = (Weight)thing.getData();
+		if (count < 1) {
+			TextView lastWeight = (TextView) findViewById(R.id.lasWeight);
+			lastWeight.setText(String.valueOf(w.getValue().getKg()));
+			count++;
+		}
 
-        @Override
-        public void onError(HVException exception) {
-            WeightActivity.this.setProgressBarIndeterminateVisibility(false);
-            Toast.makeText(
-                WeightActivity.this, 
-                "An error occurred.  " + exception.getMessage(), 
-                Toast.LENGTH_LONG).show();
-        }
+			mAdapter.add(String.valueOf(w.getWhen().getDate().getM() + "/" +
+			w.getWhen().getDate().getD() + "/" +
+				w.getWhen().getDate().getY()) + "               " + "                    " +
+					String.valueOf(w.getValue().getKg()));
+			mAdapter.notifyDataSetChanged();
+		}
+	}
+
+	public class WeightCallback<Object> implements RequestCallback {
+		public final static int RenderWeights = 0;
+		public final static int PutWeights = 1;
+
+		private int mEvent;
+
+		public WeightCallback(int event) {
+			WeightActivity.this.setProgressBarIndeterminateVisibility(true);
+			mEvent = event;
+		}
+
+		@Override
+		public void onError(HVException exception) {
+			WeightActivity.this.setProgressBarIndeterminateVisibility(false);
+			Toast.makeText(WeightActivity.this, "An error occurred.  " + exception.getMessage(), Toast.LENGTH_LONG).show();
+		}
 
 		@Override
 		public void onSuccess(java.lang.Object obj) {
-            WeightActivity.this.setProgressBarIndeterminateVisibility(false);
-            switch(mEvent) {
-            case PutWeights:
-            	getWeights();
-            	break;
-            case RenderWeights:
-                renderWeights(((ThingResponseGroup2)obj).getThing());
-                break;
-            }
-        }
-    }
+			WeightActivity.this.setProgressBarIndeterminateVisibility(false);
+			switch(mEvent) {
+				case PutWeights:
+					getWeights();
+					break;
+				case RenderWeights:
+					renderWeights(((ThingResponseGroup2)obj).getThing());
+					break;
+			}
+		}
+	}
 }

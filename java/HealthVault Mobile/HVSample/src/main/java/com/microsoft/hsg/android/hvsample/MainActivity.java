@@ -39,9 +39,8 @@ public class MainActivity
 	private HealthVaultApp mService;
 	private HealthVaultClient mHVClient;
 	private BottomNavigationView mBottomNav;
-	private LinearLayout mWeightTile;
 
-	private ProgressDialog connectProgressDialog;
+	private ProgressDialog mConnectProgressDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +66,14 @@ public class MainActivity
 			}
 		});
 
-		mWeightTile = (LinearLayout) findViewById(R.id.weightTile);
-		mWeightTile.setOnClickListener(new View.OnClickListener() {
+		LinearLayout weightTile = (LinearLayout) findViewById(R.id.weightTile);
+		weightTile.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Intent intent = null;
 				if (mService.isAppConnected()) {
 					intent = new Intent(MainActivity.this, WeightActivity.class);
-				}
-				else {
+				} else {
 					Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
 				}
 				if(intent != null) {
@@ -84,49 +82,42 @@ public class MainActivity
 			}
 		});
 	}
-	
+
 	@Override
-	protected void onStart() {
-		super.onStart();
+	protected void onResume() {
+		super.onResume();
 		mHVClient.start();
 	}
-	
+
 	@Override
-    protected void onResume() {
-		super.onResume();
-    }
-	
-    @Override
-	protected void onStop() {
-		super.onStop();
-		if(connectProgressDialog != null) {
-			connectProgressDialog.dismiss();
+	protected void onPause(){
+		super.onPause();
+		if(mConnectProgressDialog != null) {
+			mConnectProgressDialog.dismiss();
 		}
 
 		mHVClient.stop();
 	}
-    
-    @Override
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
-		LinearLayout recordNameLayout = (LinearLayout) menu.findItem(R.id.record_name_layout).getActionView();
-        TextView tv = (TextView) recordNameLayout.findViewById(R.id.current_record_name);
+		LinearLayout recordNameLayout = (LinearLayout) menu.findItem(R.id.recordNameLayout).getActionView();
+		TextView textView = (TextView) recordNameLayout.findViewById(R.id.currentRecordName);
 
-        HealthVaultApp application = HealthVaultApp.getInstance();
+		HealthVaultApp application = HealthVaultApp.getInstance();
 		if(mService.isAppConnected() && application.getCurrentRecord() != null) {
-	       tv.setText(application.getCurrentRecord().getName());
+			textView.setText(application.getCurrentRecord().getName());
 
-	       recordNameLayout.setOnClickListener(new OnClickListener() {
+			recordNameLayout.setOnClickListener(new OnClickListener() {
 
 				@Override
-				public void onClick(View arg0) {
-					Intent intent = new Intent(MainActivity.this, RecordPickerActivity.class);
+				public void onClick(View arg0) { Intent intent = new Intent(MainActivity.this, RecordPickerActivity.class);
 					startActivity(intent);
 				}
 			});
-		}
-		else {
-			tv.setVisibility(View.GONE);
+		} else {
+			textView.setVisibility(View.GONE);
 		}
 
 		return true;
@@ -136,30 +127,24 @@ public class MainActivity
 	}
 
 	public void onError(Exception e) {
-		Toast.makeText(
-                MainActivity.this, 
-                e.getMessage(), 
-                Toast.LENGTH_LONG).show();
+		Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case R.id.action_connect:
-	            doConnect();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		switch (item.getItemId()) {
+			case R.id.actionConnect:
+				doConnect();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
 	}
 	
 	private void doConnect() {
 		if (!mService.isAppConnected()) {
-			connectProgressDialog = ProgressDialog.show(
-                    MainActivity.this,
-                    "",
-                    "Please wait...", 
-                    true);
+			mConnectProgressDialog = ProgressDialog.show(
+				MainActivity.this, "", "Please wait...", true);
 			
 			HealthVaultSettings settings = mService.getSettings();
 			settings.setMasterAppId("c6ba979f-c342-4408-a2bc-0dfb43b2bf8d");
@@ -168,43 +153,44 @@ public class MainActivity
 			settings.setIsMultiInstanceAware(true);
 			settings.setIsMRA(true);
 			mService.start(MainActivity.this, MainActivity.this);
-    	}
-		else {
+    	} else {
 			Toast.makeText(MainActivity.this, "App is already connected", Toast.LENGTH_LONG).show();
 		}
 	}
 	
 	public void onListItemClick(ListView parent, View v, int position, long id) {
-        TextView item = (TextView) v;
-        Intent intent = null;
-        if (mService.isAppConnected()) {
-	        switch(position) {
-	        case 0: 
-        		intent = new Intent(MainActivity.this, WeightActivity.class);
-	        }
-        }
-        
-        if(intent != null) {
-        	startActivity(intent);
-        }
-    }
+		TextView item = (TextView) v;
+		Intent intent = null;
+		if (mService.isAppConnected()) {
+			switch(position) {
+				case 0:
+					intent = new Intent(MainActivity.this, WeightActivity.class);
+			}
+		}
+		if(intent != null) {
+			startActivity(intent);
+		}
+	}
 	
 	private String writeFile() {
 		String filename = "writefile" + (int)(Math.random() * 100)  + ".txt";
-		String string = "This is from file upload";
+		String fileUpload = "This is from file upload";
 		FileOutputStream outputStream = null;
 
 		try {
-		  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-		  outputStream.write(string.getBytes());
+			outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+			outputStream.write(fileUpload.getBytes());
 
-		  return filename;
+			return filename;
 		} catch (Exception e) {
 		  e.printStackTrace();
 		} finally {
 			try {
-				outputStream.close();
+				if(outputStream != null) {
+					outputStream.close();
+				}
 			} catch (Exception e){
+				e.printStackTrace();
 			}
 		}
 
@@ -212,20 +198,13 @@ public class MainActivity
 	}
 	
 	private class HVConnect extends AsyncTask<Void, Void, Void> {
-		
-		private ProgressDialog progressDialog;
-        
+		private ProgressDialog mProgressDialog;
         public HVConnect() {
-            progressDialog = ProgressDialog.show(
-                    MainActivity.this,
-                    "",
-                    "Please wait...", 
-                    true);
-        }
+			mProgressDialog = ProgressDialog.show(MainActivity.this, "", "Please wait...", true);
+		}
 
 		@Override
 		protected Void doInBackground(Void... arg0) {
-			
 			HealthVaultSettings settings = mService.getSettings();
 			settings.setMasterAppId("c6ba979f-c342-4408-a2bc-0dfb43b2bf8d");
 			settings.setServiceUrl("https://platform.healthvault-ppe.com/platform/wildcat.ashx");
@@ -238,37 +217,34 @@ public class MainActivity
 		}
 		
 		@Override
-        protected void onPostExecute(Void result) {
-            progressDialog.dismiss();
+		protected void onPostExecute(Void result) {
+			mProgressDialog.dismiss();
         }
 	}
 	
 	public class MainActivityCallback<Object> implements RequestCallback {
-    	public final static int UpdateRecords = 0;
-    
-    	private int mEvent;
-    	
-    	public MainActivityCallback(int event) {
-    		MainActivity.this.setProgressBarIndeterminateVisibility(true);
-			mEvent = event;
-    	}
+		public final static int UpdateRecords = 0;
 
-        @Override
-        public void onError(HVException exception) {
-        	MainActivity.this.setProgressBarIndeterminateVisibility(false);
-            Toast.makeText(
-    		MainActivity.this, 
-                "An error occurred.  " + exception.getMessage(), 
-                Toast.LENGTH_LONG).show();
-        }
+		private int mEvent;
+
+		public MainActivityCallback(int event) {
+			MainActivity.this.setProgressBarIndeterminateVisibility(true);
+			mEvent = event;
+		}
+
+		@Override
+		public void onError(HVException exception) {
+			MainActivity.this.setProgressBarIndeterminateVisibility(false);
+			Toast.makeText(MainActivity.this, "An error occurred.  " + exception.getMessage(), Toast.LENGTH_LONG).show();
+		}
 
 		@Override
 		public void onSuccess(java.lang.Object obj) {
 			MainActivity.this.setProgressBarIndeterminateVisibility(false);
-            switch(mEvent) {
-            case UpdateRecords:
-                break;
-            }
-        }
-    }
+			switch(mEvent) {
+				case UpdateRecords:
+				break;
+			}
+		}
+	}
 }
