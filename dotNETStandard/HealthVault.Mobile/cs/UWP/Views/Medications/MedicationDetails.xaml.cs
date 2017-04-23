@@ -1,4 +1,5 @@
-﻿using Microsoft.HealthVault.Connection;
+﻿using HealthVaultMobileSample.UWP.Helpers;
+using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
 using System;
 using System.Collections.Generic;
@@ -23,11 +24,11 @@ namespace HealthVaultMobileSample.UWP.Views.Medications
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MedicationDetails : Page, INotifyPropertyChanged
+    public sealed partial class MedicationDetailsPage : Page, INotifyPropertyChanged
     {
         private IHealthVaultConnection connection;
         public Medication Item { get; set; }
-        public MedicationDetails()
+        public MedicationDetailsPage()
         {
             this.InitializeComponent();
         }
@@ -47,21 +48,23 @@ namespace HealthVaultMobileSample.UWP.Views.Medications
         {
             base.OnNavigatedTo(e);
 
-            var navParams = ((object[])e.Parameter);
-            if (navParams != null && navParams.Length > 1)
+            var navParams = ((NavigationParams)e.Parameter);
+            if (navParams != null)
             {
-                this.connection = navParams[0] as IHealthVaultConnection;
+                this.connection = navParams.Connection;
 
-                this.Item = navParams[1] as Medication;
+                this.Item = navParams.Context as Medication;
                 OnPropertyChanged("Item");
             }
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            var navParams = new object[2];
-            navParams[0] = connection;
-            navParams[1] = this.Item;
+            var navParams = new NavigationParams()
+            {
+                Connection = connection,
+                Context = this.Item
+            };
 
             this.Frame.Navigate(typeof(EditMedication), navParams);
         }

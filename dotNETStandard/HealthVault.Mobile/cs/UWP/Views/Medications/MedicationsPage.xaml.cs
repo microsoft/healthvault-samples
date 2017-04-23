@@ -1,4 +1,5 @@
-﻿using Microsoft.HealthVault.Clients;
+﻿using HealthVaultMobileSample.UWP.Helpers;
+using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
@@ -36,9 +37,9 @@ namespace HealthVaultMobileSample.UWP.Views.Medications
             this.InitializeComponent();
         }
 
-        public override async Task Initialize(Microsoft.HealthVault.Connection.IHealthVaultConnection connection)
+        public override async Task Initialize(NavigationParams navParams)
         {
-            this.connection = connection;
+            this.connection = navParams.Connection;
 
             HealthRecordInfo recordInfo = (await connection.GetPersonInfoAsync()).SelectedRecord;
             IThingClient thingClient = connection.CreateThingClient();
@@ -60,11 +61,13 @@ namespace HealthVaultMobileSample.UWP.Views.Medications
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var navParams = new object[2];
-            navParams[0] = connection;
-            navParams[1] = e.ClickedItem;
+            NavigationParams navParams = new NavigationParams()
+            {
+                Connection = connection,
+                Context = e.ClickedItem
+            };
 
-            this.Frame.Navigate(typeof(MedicationDetails), navParams);
+            this.Frame.Navigate(typeof(MedicationDetailsPage), navParams);
         }
     }
 }

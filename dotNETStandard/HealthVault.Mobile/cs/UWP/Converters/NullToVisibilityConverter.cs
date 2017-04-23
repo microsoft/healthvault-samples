@@ -13,7 +13,7 @@ namespace HealthVaultMobileSample.UWP.Converters
     /// </summary>
     public class NullToVisibilityConverter: IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        public object Convert(object value, Type targetType, object areNullsVisible, string language)
         {
             return value == null ? Visibility.Collapsed : Visibility.Visible;
         }

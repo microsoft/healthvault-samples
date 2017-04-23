@@ -258,4 +258,10 @@
   <data name="Country.Text" xml:space="preserve">
     <value>Country</value>
   </data>
+  <data name="Objectives.Text" xml:space="preserve">
+    <value>Objectives</value>
+  </data>
+  <data name="Tasks.Text" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
 </root>

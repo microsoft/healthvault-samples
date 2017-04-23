@@ -18,6 +18,7 @@ using System.ComponentModel;
 using Microsoft.HealthVault.Configuration;
 using Windows.Data.Xml.Dom;
 using System.Threading.Tasks;
+using HealthVaultMobileSample.UWP.Helpers;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -49,7 +50,7 @@ namespace HealthVaultMobileSample.UWP.Views.Login
 
             await this.connection.AuthenticateAsync();
 
-            ((Frame)Window.Current.Content).Navigate(typeof(Views.Navigation.HubPage), this.connection);
+            ((Frame)Window.Current.Content).Navigate(typeof(Views.Navigation.HubPage), new NavigationParams() { Connection = this.connection });
         }
 
         private static async Task<HealthVaultConfiguration> GetHealthVaultConfiguration()

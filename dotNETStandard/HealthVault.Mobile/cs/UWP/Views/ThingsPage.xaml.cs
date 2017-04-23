@@ -1,4 +1,5 @@
-﻿using Microsoft.HealthVault.Client;
+﻿using HealthVaultMobileSample.UWP.Helpers;
+using Microsoft.HealthVault.Client;
 using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
@@ -30,10 +31,10 @@ namespace HealthVaultMobileSample.UWP.Views
     {
         public IEnumerable<IGrouping<string, IThing>> Groups { get; set; }
 
-        public override async Task Initialize(Microsoft.HealthVault.Connection.IHealthVaultConnection connection)
+        public override async Task Initialize(NavigationParams navParams)
         {
-            HealthRecordInfo recordInfo = (await connection.GetPersonInfoAsync()).SelectedRecord;
-            IThingClient thingClient = connection.CreateThingClient();
+            HealthRecordInfo recordInfo = (await navParams.Connection.GetPersonInfoAsync()).SelectedRecord;
+            IThingClient thingClient = navParams.Connection.CreateThingClient();
 
             var query = new ThingQuery(new Guid[]{ BloodGlucose.TypeId, Weight.TypeId, BloodPressure.TypeId, CholesterolProfile.TypeId,
                 LabTestResults.TypeId, Immunization.TypeId, Procedure.TypeId, Allergy.TypeId, Condition.TypeId });

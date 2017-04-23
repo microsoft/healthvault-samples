@@ -19,6 +19,7 @@
     <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     <converters:StructuredMeasurementConverter x:Key="StructuredMeasurementConverter"/>
     <converters:EnumToIntConverter x:Key="EnumToIntConverter"/>
+    <converters:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter"/>
 
     <Style x:Key="LabelTextBlock" TargetType="TextBlock">
         <Setter Property="Foreground" Value="DarkGray"/>
@@ -146,5 +147,23 @@
         <Setter Property="Margin" Value="20,10,20,0"/>
         <Setter Property="Foreground" Value="{ThemeResource HighlightColor}"/>
     </Style>
+    <Style x:Name="ItemHeaderStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="Foreground" Value="{ThemeResource HighlightColor}"/>
+    </Style>
 
+    <Style x:Name="ProgressRingStyle" TargetType="ProgressRing">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{ThemeResource HighlightColor}"/>
+        <Setter Property="IsActive" Value="True"/>
+        <Setter Property="Width" Value="76"/>
+        <Setter Property="Height" Value="76"/>
+    </Style>
+
+    <Style x:Name="ThumbnailSizeStyle" TargetType="FrameworkElement">
+        <Setter Property="Height" Value="76"/>
+        <Setter Property="Width" Value="76"/>
+    </Style>
 </ResourceDictionary>

@@ -1,4 +1,5 @@
-﻿using Microsoft.HealthVault.Clients;
+﻿using HealthVaultMobileSample.UWP.Helpers;
+using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
@@ -39,10 +40,10 @@ namespace HealthVaultMobileSample.UWP.Views.Profile
         /// Retrieves the data model for this page. 
         /// </summary>
         /// <returns></returns>
-        public override async Task Initialize(IHealthVaultConnection connection)
+        public override async Task Initialize(NavigationParams navParams)
         {
             //Save the connection so we can make updates later. 
-            this.connection = connection;
+            this.connection = navParams.Connection;
 
             HealthRecordInfo recordInfo = (await connection.GetPersonInfoAsync()).SelectedRecord;
             IThingClient thingClient = connection.CreateThingClient();

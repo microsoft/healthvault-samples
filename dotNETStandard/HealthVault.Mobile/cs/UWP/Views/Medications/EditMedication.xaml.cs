@@ -1,4 +1,5 @@
-﻿using Microsoft.HealthVault.Clients;
+﻿using HealthVaultMobileSample.UWP.Helpers;
+using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Person;
@@ -44,12 +45,12 @@ namespace HealthVaultMobileSample.UWP.Views.Medications
         {
             base.OnNavigatedTo(e);
             
-            var navParams = ((object[])e.Parameter);
-            if (navParams != null && navParams.Length > 1)
+            var navParams = ((NavigationParams)e.Parameter);
+            if (navParams != null )
             {
-                var connection = navParams[0] as IHealthVaultConnection;
+                var connection = navParams.Connection;
 
-                this.Item = navParams[1] as Medication;
+                this.Item = navParams.Context as Medication;
                 OnPropertyChanged("Item");
 
                 this.vocabularyClient = connection.CreateVocabularyClient();

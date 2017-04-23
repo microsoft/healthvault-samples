@@ -1,4 +1,5 @@
-﻿using Microsoft.HealthVault.Client;
+﻿using HealthVaultMobileSample.UWP.Helpers;
+using Microsoft.HealthVault.Client;
 using Microsoft.HealthVault.Connection;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace HealthVaultMobileSample.UWP.Views
         {
             base.OnNavigatedTo(e);
 
-            await Initialize(e.Parameter as IHealthVaultConnection);
+            await Initialize(e.Parameter as NavigationParams);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -48,6 +49,6 @@ namespace HealthVaultMobileSample.UWP.Views
             }
         }
 
-        public abstract Task Initialize(IHealthVaultConnection connection);
+        public abstract Task Initialize(NavigationParams navParams);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.HealthVault.Clients;
+﻿using HealthVaultMobileSample.UWP.Helpers;
+using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
@@ -52,10 +53,10 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
         /// Obtains Weight objects from HealthVault
         /// </summary>
         /// <returns></returns>
-        public override async Task Initialize(IHealthVaultConnection connection)
+        public override async Task Initialize(NavigationParams navParams)
         {
             //Save the connection so that we can reuse it for updates later
-            this.connection = connection;
+            this.connection = navParams.Connection;
 
             HealthRecordInfo recordInfo = (await connection.GetPersonInfoAsync()).SelectedRecord;
             IThingClient thingClient = connection.CreateThingClient();
@@ -115,7 +116,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
                 IThingClient thingClient = connection.CreateThingClient();
                 thingClient.CreateNewThingsAsync<Weight>(recordInfo.Id, list);
 
-                Initialize(this.connection);
+                Initialize(new NavigationParams() { Connection = connection });
                 this.AddWeightPopup.IsOpen = false;
             }
             else // Show an error message. 
@@ -171,7 +172,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
         /// <param name="e"></param>
         private void QueryTimeframe_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Initialize(this.connection);
+            Initialize(new NavigationParams() { Connection = connection });
         }
     }
 }
