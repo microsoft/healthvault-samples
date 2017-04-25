@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:HealthVault.Sample.Xamarin.Core.Converters;assembly=HealthVault.Sample.Xamarin.Core"
              x:Class="HealthVault.Sample.Xamarin.Core.App">
     <Application.Resources>
         <!-- Application resource dictionary -->
@@ -19,6 +20,12 @@
             <Color x:Key="ProfileGrayColor">#afb3be</Color>
             <Color x:Key="BlackColor">#000000</Color>
             <Color x:Key="GreenColor">#0aca91</Color>
+            <Color x:Key="HighlightColor">#008272</Color>e
+            <Color x:Key="ItemsBackground">#EEEEEE</Color>
+            <Color x:Key="ImageBackground">#e88829</Color>
+
+            <converters:ItemTappedEventArgsConverter x:Key="TappedItemConverter" />
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

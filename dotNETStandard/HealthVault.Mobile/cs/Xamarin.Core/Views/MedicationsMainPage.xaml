@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:HealthVault.Sample.Xamarin.Core.Behaviors;assembly=HealthVault.Sample.Xamarin.Core"
+             x:Class="HealthVault.Sample.Xamarin.Core.Views.MedicationsMainPage"
+             Title="Medications">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="MedicationItemTemplate">
+                <ViewCell >
+                    <Grid BackgroundColor="{StaticResource WhiteColor}" Padding="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="20" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0" Padding="5">
+                            <Label Text="{Binding Text}" 
+                                   Style="{DynamicResource ListItemTextStyle}" />
+                            <Label Text="{Binding Detail}" 
+                                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+                            <Label Text="{Binding Note}" 
+                                   Style="{DynamicResource ListItemDetailTextStyle}" 
+                                   TextColor="DarkGray"/>
+                        </StackLayout>
+                        <Image Grid.Column="1" Source="{Binding DisclosureImagePath}" Aspect="AspectFit" HeightRequest="19" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout Margin="5">
+        <StackLayout Padding="10" 
+                     HeightRequest="50"
+                     Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand"
+                     BackgroundColor="LightGray">
+            <Label Text="Current medications"
+                   FontSize="24"
+                   HorizontalTextAlignment="Start"
+                   VerticalTextAlignment="Center"
+                   HorizontalOptions="FillAndExpand"
+                   TextColor="DarkOliveGreen"/>
+        </StackLayout>
+        <ListView ItemsSource="{Binding CurrentMedications}"
+                  BackgroundColor="{StaticResource ItemsBackground}"
+                  HasUnevenRows="true"
+                  IsPullToRefreshEnabled="true"
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                  RefreshCommand="{Binding RefreshDataCommand}"
+                  ItemTemplate="{StaticResource MedicationItemTemplate}">
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
+            </ListView.Behaviors>
+        </ListView>
+        <StackLayout Padding="10" 
+                     HeightRequest="50"
+                     Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand"
+                     BackgroundColor="LightGray">
+            <Label Text="Past medications"
+                   FontSize="24"
+                   HorizontalTextAlignment="Start"
+                   VerticalTextAlignment="Center"
+                   HorizontalOptions="FillAndExpand"
+                   TextColor="DarkOliveGreen"/>
+        </StackLayout>
+        <ListView ItemsSource="{Binding PastMedications}"
+                  BackgroundColor="{StaticResource ItemsBackground}"
+                  HasUnevenRows="true"
+                  IsPullToRefreshEnabled="true"
+                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                  RefreshCommand="{Binding RefreshDataCommand}"
+                  ItemTemplate="{StaticResource MedicationItemTemplate}">
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
+            </ListView.Behaviors>
+        </ListView>
+    </StackLayout>
+</ContentPage>

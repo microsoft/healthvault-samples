@@ -21,19 +21,17 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             LoginCommand = new Command(async () => await LoginAsync());
         }
 
+        public ICommand LoginCommand { get; }
+
         private async Task LoginAsync()
         {
             await connection.AuthenticateAsync();
 
-            var personInfo = await connection.GetPersonInfoAsync();
-
             var menuPage = new MenuPage()
             {
-                BindingContext = new MenuViewModel(NavigationService, ResourceProvider)
+                BindingContext = new MenuViewModel(connection, NavigationService, ResourceProvider)
             };
-            NavigationService.Navigate(menuPage);
+            await NavigationService.NavigateAsync(menuPage);
         }
-
-        public ICommand LoginCommand { get; }
     }
 }

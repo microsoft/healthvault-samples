@@ -1,11 +1,9 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using HealthVault.Sample.Xamarin.Core;
-using HealthVault.Sample.Xamarin.Core.Services;
+using HealthVault.Sample.Xamarin.Core.Configuration;
 using Microsoft.HealthVault.Client;
-using Microsoft.HealthVault.Configuration;
 
 namespace HealthVault.Sample.Xamarin.Android
 {
@@ -20,20 +18,8 @@ namespace HealthVault.Sample.Xamarin.Android
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(GetAppAuthConfiguration());
-            LoadApplication(new App(connection, new NavigationService(), new PlatformResourceProvider()));
-        }
-
-        // TODO: Move to config
-        private static HealthVaultConfiguration GetAppAuthConfiguration()
-        {
-            var appAuthConfiguration = new HealthVaultConfiguration
-            {
-                HealthVaultShellUrl = new Uri("https://account.healthvault-ppe.com/"),
-                HealthVaultUrl = new Uri("https://platform.healthvault-ppe.com/platform/"),
-                MasterApplicationId = Guid.Parse("<YOUR-APP-ID>"),
-            };
-            return appAuthConfiguration;
+            var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(DefaultConfiguration.GetPpeDefaultConfiguration());
+            LoadApplication(new App(connection, new PlatformResourceProvider()));
         }
     }
 }

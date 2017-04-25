@@ -1,24 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HealthVault.Sample.Xamarin.Core.Views.MainPage">
-    <StackLayout BackgroundColor="{StaticResource BackgroundGrayColor}">
-        <Grid>
+             x:Class="HealthVault.Sample.Xamarin.Core.Views.MainPage"
+             Title="Login"
+             >
+    <Frame BackgroundColor="{StaticResource WhiteColor}">
+        <Grid Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="80" />
             </Grid.RowDefinitions>
-
             <Label 
                 Grid.Row="0"
-                Text="Welcome HealthVault Cross Platform" 
+                Text="Welcome to HealthVault Cross Platform Sample" 
+                Style="{DynamicResource TitleStyle}"
+                HorizontalTextAlignment="Center"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" />
-            <Button 
-                Grid.Row="1"
-                Text="Login" 
-                Command="{Binding LoginCommand}">
-            </Button>
+            <Grid
+                Grid.Row="1">
+                <Button 
+                    Text="Login" 
+                    Command="{Binding LoginCommand}"
+                    BorderRadius="5"
+                    WidthRequest="150"
+                    HeightRequest="30"
+                    HorizontalOptions="Center">
+                </Button>
+            </Grid>
         </Grid>
-    </StackLayout>
+    </Frame>
 </ContentPage>

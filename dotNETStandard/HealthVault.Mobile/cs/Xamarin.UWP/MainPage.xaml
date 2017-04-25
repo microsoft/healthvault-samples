@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,0,154,407">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     </Grid>
 </forms:WindowsPage>

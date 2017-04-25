@@ -1,4 +1,5 @@
-﻿using HealthVault.Sample.Xamarin.Core.Services;
+﻿using System.Security.Cryptography;
+using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.ViewModels;
 using HealthVault.Sample.Xamarin.Core.Views;
 using Microsoft.HealthVault.Client;
@@ -10,17 +11,18 @@ namespace HealthVault.Sample.Xamarin.Core
     {
         public App(
             IHealthVaultSodaConnection connection, 
-            INavigationService navigationService,
             IPlatformResourceProvider resourceProvider)
         {
             InitializeComponent();
 
+            var navigationService = new NavigationService();
             var mainPage = new MainPage()
             {
                 BindingContext = new MainPageViewModel(connection, navigationService, resourceProvider),
             };
 
-            MainPage = mainPage;
+            var navigationPage = new NavigationPage(mainPage);
+            MainPage = navigationPage;
         }
 
         protected override void OnStart()

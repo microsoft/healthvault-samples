@@ -1,47 +1,77 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="HealthVault.Sample.Xamarin.Core.Views.MenuPage">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
+             xmlns:behaviors="clr-namespace:HealthVault.Sample.Xamarin.Core.Behaviors;assembly=HealthVault.Sample.Xamarin.Core"
+             x:Class="HealthVault.Sample.Xamarin.Core.Views.MenuPage"
+             Title="HVI Sample"
+             >
+    <Frame BackgroundColor="{StaticResource ItemsBackground}">
         <ListView 
-            Grid.Row="0"
-            ItemsSource="{Binding MenuViewRows}"
-            SeparatorVisibility="None"
-            VerticalOptions="StartAndExpand"
-            Margin="0,5,0,0"
-            >
+            Margin="5" 
+            ItemsSource="{Binding MenuViewRows}" 
+            HasUnevenRows="true" >
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
+            </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout
-                            Orientation="Horizontal"
-                            >
-                            <Image 
-                                Source="{Binding ImageSource}"
-                                Aspect="AspectFit"
-                                WidthRequest="22"
-                                HeightRequest="22"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center" />
-                            <Label
-                                Text="{Binding Title}" 
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center">
-                            </Label>
-                            <Label
-                                Text="{Binding Description}" 
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center">
-                            </Label>
+                        <StackLayout Margin="3" BackgroundColor="{StaticResource WhiteColor}">
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="35" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="20" />
+                                </Grid.ColumnDefinitions>
+                                <Grid 
+                                    HorizontalOptions="Center" 
+                                    VerticalOptions="Center"
+                                    Grid.RowSpan="2">
+                                    <Button 
+                                        BackgroundColor="{Binding BackgroundColor}"
+                                        BorderRadius="32"
+                                        WidthRequest="64"
+                                        HeightRequest="64">
+                                    </Button>
+                                    <Image 
+                                        Source="{Binding ImageUrl}" 
+                                        Margin="18">
+                                    </Image>
+                                </Grid>
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    VerticalTextAlignment="Center"
+                                    FontSize="20"
+                                    FontAttributes="Bold"
+                                    Style="{DynamicResource TitleStyle}"
+                                    Text="{Binding Title}" />
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    VerticalTextAlignment="Center"
+                                    FontSize="15"
+                                    Text="{Binding Description}"
+                                    Style="{DynamicResource SubtitleStyle}"
+                                VerticalOptions="End" />
+                                <Image Grid.Column="2" 
+                                       Grid.RowSpan="2"
+                                       Grid.Row="0"
+                                       Source="{Binding DisclosureImagePath}" 
+                                       Aspect="AspectFit" 
+                                       HeightRequest="19" 
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center"/>
+                            </Grid>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
         </ListView>
-    </Grid>
+    </Frame>
+
 </ContentPage>

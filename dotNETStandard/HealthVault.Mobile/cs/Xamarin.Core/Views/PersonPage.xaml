@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HealthVault.Sample.Xamarin.Core.Views.PersonPage" 
+             Title="Profile Sample">
+    <Frame BackgroundColor="{StaticResource WhiteColor}">
+        <Grid Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="48"/>
+            </Grid.RowDefinitions>
+            <Grid 
+                HorizontalOptions="Center" 
+                VerticalOptions="Start"
+                Grid.Row="0"
+                Grid.ColumnSpan="2">
+                <Button 
+                    BackgroundColor="{StaticResource HighlightColor}"
+                    BorderRadius="32"
+                    WidthRequest="64"
+                    HeightRequest="64">
+                </Button>
+                <Image 
+                    Source="{Binding ImageUrl}" 
+                    Margin="18">
+                </Image>
+            </Grid>
+            <Label 
+                Grid.Row="1"
+                Grid.Column="0"
+                Text="{Binding FirstNameLabel}"
+                VerticalTextAlignment="Center">
+            </Label>
+            <Label 
+                Grid.Row="1"
+                Grid.Column="1"
+                Text="{Binding LastNameLabel}"
+                VerticalTextAlignment="Center">
+            </Label>
+            <Label 
+                Grid.Row="2"
+                Grid.Column="0"
+                Text="{Binding FirstName}"
+                BackgroundColor="DarkGray"
+                VerticalTextAlignment="Center">
+            </Label>
+            <Label 
+                Grid.Row="2"
+                Grid.Column="1"
+                Text="{Binding LastName}"
+                BackgroundColor="DarkGray"
+                VerticalTextAlignment="Center">
+            </Label>
+            <Label 
+                Grid.Row="3"
+                Grid.Column="0"
+                Text="{Binding BirthMonthLabel}"
+                VerticalTextAlignment="Center">
+            </Label>
+            <Label 
+                Grid.Row="3"
+                Grid.Column="1"
+                Text="{Binding BirthYearLabel}"
+                VerticalTextAlignment="Center">
+            </Label>
+            <Label 
+                Grid.Row="4"
+                Grid.Column="0"
+                Text="{Binding BirthMonth}"
+                VerticalTextAlignment="Center"
+                BackgroundColor="DarkGray">
+            </Label>
+            <Label 
+                Grid.Row="4"
+                Grid.Column="1"
+                Text="{Binding BirthYear}"
+                VerticalTextAlignment="Center"
+                BackgroundColor="DarkGray">
+            </Label>
+            <Label 
+                Grid.Row="5"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="{Binding GenderLabel}"
+                VerticalTextAlignment="Center">
+            </Label>
+            <Label 
+                Grid.Row="6"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="{Binding Gender}"
+                BackgroundColor="DarkGray"
+                VerticalTextAlignment="Center">
+            </Label>
+            <Label 
+                Grid.Row="7"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="{Binding WeightLabel}"
+                VerticalTextAlignment="Center">
+            </Label>
+            <Label 
+                Grid.Row="8"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="{Binding Weight}"
+                BackgroundColor="DarkGray"
+                VerticalTextAlignment="Center">
+            </Label>
+        </Grid>
+    </Frame>
+</ContentPage>
