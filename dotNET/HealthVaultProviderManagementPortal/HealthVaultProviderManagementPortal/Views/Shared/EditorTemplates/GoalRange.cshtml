@@ -2,5 +2,15 @@
 @using HealthVaultProviderManagementPortal.Models.Enums
 @model Microsoft.HealthVault.RestApi.Generated.Models.GoalRange
 
-@Html.EditorFor(model => model.Minimum, new { htmlAttributes = new { @class = "form-control goal-range" } }) - @Html.EditorFor(model => model.Maximum, new { htmlAttributes = new { @class = "form-control goal-range" } })
-@Html.DropDownListFor(model => model.Units, SelectListHelper.FromEnum<GoalRangeUnit>(Model.Units), htmlAttributes: new { @class = "form-control goal-range" })
+<div class="col-md-3 slim-col">
+    @Html.EditorFor(model => model.Minimum, new { htmlAttributes = new { @class = "form-control col-md-3 slim-col" } })
+</div>
+<div class="goal-range-separator">
+    -
+</div>
+<div class="col-md-3 slim-col">
+    @Html.EditorFor(model => model.Maximum, new { htmlAttributes = new { @class = "form-control col-md-3 slim-col" } })
+</div>
+<div class="col-md-3 slim-col">
+    @Html.DropDownListFor(model => model.Units, SelectListHelper.FromEnum<GoalRangeUnit>(Model.Units), htmlAttributes: new { @class = "form-control col-md-3 slim-col" })
+</div>

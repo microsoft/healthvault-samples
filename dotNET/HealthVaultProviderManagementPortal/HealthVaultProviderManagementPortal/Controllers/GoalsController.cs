@@ -28,7 +28,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// <summary>
         /// Gets a list of goals
         /// </summary>
-        public async Task<ActionResult> Index(Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> Index(Guid personId, Guid recordId)
         {
             var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetGoalsAsync(), personId, recordId);
             return this.View(response);
@@ -38,9 +38,9 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get a goal for the logged in user
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult> Goal(Guid id)
+        public async Task<ActionResult> Goal(Guid id, Guid personId, Guid recordId)
         {
-            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetGoalByIdAsync(id.ToString()));
+            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetGoalByIdAsync(id.ToString()), personId, recordId);
             return this.View(response);
         }
 
@@ -49,7 +49,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Goal(Goal goal)
+        public async Task<ActionResult> Goal(Goal goal, Guid personId, Guid recordId)
         {
             if (goal?.RecurrenceMetrics?.OccurrenceCount == null && goal?.RecurrenceMetrics?.WindowType == GoalRecurrenceType.Unknown.ToString())
             {
@@ -61,9 +61,8 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 Goals = new Collection<Goal> { goal }
             };
 
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.PatchGoalsAsync(goalWrapper));
-            return RedirectToAction("Index");
-            
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.PatchGoalsAsync(goalWrapper), personId, recordId);
+            return RedirectToAction("Index", new { personId = personId, recordId = recordId });
         }
 
         /// <summary>
@@ -71,15 +70,15 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateGoal()
+        public async Task<ActionResult> CreateGoal(Guid personId, Guid recordId)
         {
             var goalWrapper = new GoalsWrapper
             {
                 Goals = new Collection<Goal> { Builder.CreateDefaultGoal() }
             };
 
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.CreateGoalsAsync(goalWrapper));
-            return RedirectToAction("Index");
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.CreateGoalsAsync(goalWrapper), personId, recordId);
+            return RedirectToAction("Index", new { personId = personId, recordId = recordId });
         }
 
         /// <summary>
@@ -87,10 +86,10 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RemoveGoal(Guid id)
+        public async Task<ActionResult> RemoveGoal(Guid id, Guid personId, Guid recordId)
         {
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.DeleteGoalAsync(id.ToString()));
-            return RedirectToAction("Index");
-        }
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.DeleteGoalAsync(id.ToString()), personId, recordId);
+            return RedirectToAction("Index", new { personId = personId, recordId = recordId });
+        }        
     }
 }

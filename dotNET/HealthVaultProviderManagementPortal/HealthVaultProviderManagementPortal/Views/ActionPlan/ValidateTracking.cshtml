@@ -12,9 +12,8 @@
 @{
     ViewBag.Title = "Task Auto Tracking Validation Results";
 }
-@Html.Partial("UserInfo")
 
-<h1>Task Auto Tracking Validation Results</h1>
+<h1 class="page-title">Task Auto Tracking Validation Results</h1>
 @if (Model.TaskTrackingInstances == null || !Model.TaskTrackingInstances.Any())
 {
     <p class="danger">The entered Thing XML will not auto track against the given task</p>

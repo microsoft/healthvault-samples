@@ -46,7 +46,7 @@ namespace HealthVaultProviderManagementPortal.Helpers
             return connection.CreateMicrosoftHealthVaultRestApi(new Uri(ConfigurationManager.AppSettings["HV_RestHealthServiceUrl"]), recordId.Value);
         }
 
-        public static async Task<T> ExecuteMicrosoftHealthVaultRestApiAsync<T>(Func<IMicrosoftHealthVaultRestApi, Task<T>> restApiDelegate, Guid? personId = null, Guid? recordId = null)
+        public static async Task<T> ExecuteMicrosoftHealthVaultRestApiAsync<T>(Func<IMicrosoftHealthVaultRestApi, Task<T>> restApiDelegate, Guid personId, Guid recordId)
         {
             var restApi = await CreateMicrosoftHealthVaultRestApiAsync(personId, recordId);
             return await restApiDelegate(restApi);

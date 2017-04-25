@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.HealthVault.Exceptions;
 using Microsoft.HealthVault.RestApi.Generated;
 using Microsoft.HealthVault.RestApi.Generated.Models;
+using Microsoft.HealthVault.Web.Attributes;
 using static HealthVaultProviderManagementPortal.Helpers.RestClientFactory;
 
 namespace HealthVaultProviderManagementPortal.Controllers
@@ -19,6 +20,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
     /// <summary>
     /// Controller for creating and sending invitations to remote patients
     /// </summary>
+    [RequireSignIn]
     public class OnboardingController : Controller
     {
         /// <summary>

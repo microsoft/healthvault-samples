@@ -38,7 +38,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get the list of plans for a user.
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult> Plans(Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> Plans(Guid personId, Guid recordId)
         {
             var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetActionPlansAsync(), personId, recordId);
             return this.View(response);
@@ -49,7 +49,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreatePlan(Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> CreatePlan(Guid personId, Guid recordId)
         {
             var plan = Builder.CreateDefaultActionPlan();
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.CreateActionPlanAsync(plan), personId, recordId);
@@ -60,7 +60,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get a plan for a user.
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult> Plan(Guid id, Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> Plan(Guid id, Guid personId, Guid recordId)
         {
             var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetActionPlanByIdAsync(id.ToString()), personId, recordId);
             return this.View(response);
@@ -71,7 +71,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Plan(Guid id, ActionPlanInstance plan, Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> Plan(Guid id, ActionPlanInstance plan, Guid personId, Guid recordId)
         {
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.PatchActionPlanAsync(plan), personId, recordId);
             return RedirectToAction("Plan", new { id, personId, recordId });
@@ -82,7 +82,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RemovePlan(Guid id, Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> RemovePlan(Guid id, Guid personId, Guid recordId)
         {
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => 
                 api.DeleteActionPlanAsync(id.ToString()), personId, recordId);
@@ -95,7 +95,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RemoveObjective(Guid planId, Guid objectiveId, Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> RemoveObjective(Guid planId, Guid objectiveId, Guid personId, Guid recordId)
         {
             await ExecuteMicrosoftHealthVaultRestApiAsync(api =>
                 api.DeleteActionPlanObjectiveAsync(planId.ToString(), objectiveId.ToString()), personId, recordId);
@@ -108,7 +108,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateScheduledTask(Guid planId, Guid objectiveId, Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> CreateScheduledTask(Guid planId, Guid objectiveId, Guid personId, Guid recordId)
         {
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => 
                 api.PostActionPlanTasksAsync(Builder.CreateDefaultScheduledActionPlanTask(objectiveId.ToString(), planId)), personId, recordId);
@@ -121,7 +121,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateFrequencyTask(Guid planId, Guid objectiveId, Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> CreateFrequencyTask(Guid planId, Guid objectiveId, Guid personId, Guid recordId)
         {
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => 
                 api.PostActionPlanTasksAsync(Builder.CreateDefaultFrequencyActionPlanTask(objectiveId.ToString(), planId)), personId, recordId);
@@ -133,7 +133,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get a task for a user.
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult> Task(Guid? id, Guid? planId, Guid? objectiveId, Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> Task(Guid? id, Guid? planId, Guid? objectiveId, Guid personId, Guid recordId)
         {
             if (id.HasValue)
             {
@@ -161,7 +161,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Task(Guid? id, ActionPlanTaskInstance task, Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> Task(Guid? id, ActionPlanTaskInstance task, Guid personId, Guid recordId)
         {
             if (id.HasValue && id.Value != Guid.Empty)
             {
@@ -185,7 +185,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RemoveTask(Guid planId, Guid id, Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> RemoveTask(Guid planId, Guid id, Guid personId, Guid recordId)
         {
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.DeleteActionPlanTasksByIdAsync(id.ToString()), personId, recordId);
             return RedirectToAction("Plan", new { id = planId, personId, recordId });
@@ -195,7 +195,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get plan adherence for a user.
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult> Adherence(Guid id, Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> Adherence(Guid id, Guid personId, Guid recordId)
         {
             var now = DateTime.UtcNow;
             var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetActionPlanAdherenceAsync(now.AddDays(-14), now, id.ToString()), personId, recordId);
@@ -206,7 +206,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get a task for a user.
         /// </summary>
         [HttpGet]
-        public ActionResult ValidateTracking(Guid id, Guid planId, Guid? personId = null, Guid? recordId = null)
+        public ActionResult ValidateTracking(Guid id, Guid planId, Guid personId, Guid recordId)
         {
             return View("TrackingValidationEntry", new ActionPlanTaskInstance()
             {
@@ -221,7 +221,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ValidateTracking(Guid id, string thing, Guid? personId = null, Guid? recordId = null)
+        public async Task<ActionResult> ValidateTracking(Guid id, string thing, Guid personId, Guid recordId)
         {
             var restApi = await CreateMicrosoftHealthVaultRestApiAsync(personId, recordId);
             var taskInstance = await restApi.GetActionPlanTasksByIdAsync(id.ToString());
@@ -253,7 +253,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
             return (await personClient.GetAuthorizedPeopleAsync()).ToArray();
         }
 
-        private RedirectToRouteResult RedirectToRoutePlans(Guid? personId, Guid? recordId)
+        private RedirectToRouteResult RedirectToRoutePlans(Guid personId, Guid recordId)
         {
             return this.RedirectToAction("Plans", new { personId, recordId });
         }

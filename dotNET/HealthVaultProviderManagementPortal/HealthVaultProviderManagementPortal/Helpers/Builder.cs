@@ -156,7 +156,8 @@ namespace HealthVaultProviderManagementPortal.Helpers
                 {
                     OccurrenceCount = 1,
                     WindowType = GoalRecurrenceType.Daily.ToString()
-                }
+                },
+                StartDate = DateTime.UtcNow
             };
         }
     }

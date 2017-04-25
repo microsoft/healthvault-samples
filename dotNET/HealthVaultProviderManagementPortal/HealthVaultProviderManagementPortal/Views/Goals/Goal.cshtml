@@ -16,77 +16,66 @@
 @{
     ViewBag.Title = "Edit Goal";
 }
-
-<p>@Html.ActionLink("<< Back to goals", "Index")</p>
-
-<h1>Edit Action Plan Task</h1>
+<h1 class="page-title">Edit Goal</h1>
 
 @using (Html.BeginForm("Goal", "Goals"))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.Id)
+    @Html.Hidden("personId", Request.Params["personId"])
+    @Html.Hidden("recordId", Request.Params["recordId"])
 
     <div class="form-horizontal">
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3 slim-col">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-6 slim-col">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3 slim-col">
+                @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-3 slim-col">
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })            
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })        
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.GoalType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-6 slim-col">
+                @Html.LabelFor(model => model.GoalType, htmlAttributes: new { @class = "control-label" })
                 @Html.DropDownListFor(model => model.GoalType, SelectListHelper.FromEnum<GoalType>(Model.GoalType), htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.Range, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Range, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
+                <div class="col-md-9 slim-col">
+                    @Html.LabelFor(model => model.Range, htmlAttributes: new { @class = "control-label" })
+                </div>
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Range, new { htmlAttributes = new { @class = "form-control" } })
         </div>
         
         <div class="form-group">
-            @Html.LabelFor(model => model.RecurrenceMetrics.OccurrenceCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3 slim-col">
+                @Html.LabelFor(model => model.RecurrenceMetrics.OccurrenceCount, htmlAttributes: new { @class = "control-label" })
                 @Html.EditorFor(model => model.RecurrenceMetrics.OccurrenceCount, new { htmlAttributes = new { @class = "form-control" } })
             </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.RecurrenceMetrics.WindowType, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-3 slim-col">
+                @Html.LabelFor(model => model.RecurrenceMetrics.WindowType, htmlAttributes: new { @class = "control-label" })
                 @Html.DropDownListFor(model => model.RecurrenceMetrics.WindowType, SelectListHelper.FromEnum<ActionPlanScheduleRecurrenceType>(Model.RecurrenceMetrics.WindowType), htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
-
         <div class="form-group">
-            <div class="col-md-12 text-center">
-                <input type="submit" value="Save" class="btn btn-success" />
-                <input type="submit" value="Delete" formaction="@Url.Action("RemoveGoal", new {id = Model.Id})" class="btn btn-danger" />
+            <div class="col-md-12 slim-col">
+                @Html.ActionLink("Cancel", "Index", new { personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { @class = "btn btn-default" })
+                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Delete" formaction="@Url.Action("RemoveGoal", new {id = Model.Id})" class="btn btn-link delete" onclick="return confirm('Do you want to delete this goal? This action is irreversible.');" />
             </div>
         </div>
     </div>

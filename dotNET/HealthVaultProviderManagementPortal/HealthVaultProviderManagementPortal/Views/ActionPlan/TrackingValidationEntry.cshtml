@@ -12,36 +12,33 @@
 @{
     ViewBag.Title = "Validate Task Auto Tracking";
 }
-@Html.Partial("UserInfo")
 
-<p>@Html.ActionLink("<< Back to plan", "Plan", new { id = Model.AssociatedPlanId, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { cssClass = "btn btn-default" })</p>
-
-<h1>Validate Task Auto Tracking</h1>
+<h1 class="page-title">Validate Task Auto Tracking</h1>
 
 @using (Html.BeginForm("ValidateTracking", "ActionPlan"))
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("personID", Request.Params["personId"])
+    @Html.Hidden("personId", Request.Params["personId"])
     @Html.Hidden("recordId", Request.Params["recordId"])
 
     <div class="form-horizontal">
         <div class="form-group">
-            @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = true }})
+            <div class="col-md-6 slim-col">
+                @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.Label("HealthVault thing", htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.TextArea("thing", htmlAttributes: new {@class = "form-control", rows = 30})
+            <div class="col-md-12 slim-col"">
+                @Html.Label("HealthVault thing", htmlAttributes: new { @class = "control-label" })
+                @Html.TextArea("thing", htmlAttributes: new { @class = "form-control", rows = 25 })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-12 text-center">
-                <input type="submit" value="Validate" class="btn btn-success" />
+            <div class="col-md-12 slim-col">
+                <input type="submit" value="Validate" class="btn btn-default" />
             </div>
         </div>
     </div>

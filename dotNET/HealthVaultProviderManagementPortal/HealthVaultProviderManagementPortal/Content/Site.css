@@ -8,7 +8,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    margin-top:20px;
+    margin-top: 20px;
 }
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -80,7 +80,7 @@ label {
     background-color: rgba(0, 130, 114, 1);
     border: none;
 }
-.btn-default: hover, .btn-default: focus, .btn-default.active {
+.btn-default:hover, .btn-default:focus, .btn-default:active {
     color: rgba(255, 255, 255, 1);
     background-color: rgba(0, 130, 114, 0.75);
     border: none;
@@ -169,8 +169,7 @@ span.emphasis {
 .copyright {
     float: right;
 }
-td a,
-td a: visited, td a: hover, td a: active {
+td a, td a:visited, td a:hover, td a:active {
     color: rgba(0, 130, 114, 1);
 }
 .btn-link.delete {
@@ -185,9 +184,15 @@ td a: visited, td a: hover, td a: active {
     font-size: 16px;
 }
 td.ms-row {
-    vertical-align:middle !important;
+    vertical-align: middle !important;
 }
 .ms-thumbnail img{
     height: 50px;
 }
-
+.goal-range-separator {
+    max-width: 6px;
+    text-align: center;
+    float: left;
+    margin-left: -3px;
+    margin-right: -3px;
+}

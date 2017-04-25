@@ -13,16 +13,18 @@
     ViewBag.Title = "Goals";
 }
 
-<h1>Goals</h1>
+<h1 class="page-title">Goals</h1>
 
 @using (Html.BeginForm("CreateGoal", "Goals"))
 {
     @Html.AntiForgeryToken()
+    @Html.Hidden("personID", Request.Params["personId"])
+    @Html.Hidden("recordID", Request.Params["recordID"])
 
     <div class="form-horizontal">
         <div class="form-group">
             <div class="col-md-12">
-                <input type="submit" value="Create new default steps goal" class="btn btn-primary" />
+                <input type="submit" value="+ New default steps goal" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -45,7 +47,7 @@
                     <td>@goal.Name</td>
                     <td>@goal.GoalType</td>
                     <td>
-                        @Html.ActionLink("Edit", "Goal", new { id = goal.Id }, new { cssClass = "btn btn-default" })
+                        @Html.ActionLink("Edit", "Goal", new { id = goal.Id, personId = Request.Params["personId"], recordId = Request.Params["recordID"] }, new { cssClass = "btn btn-default" })
                     </td>
                 </tr>
             }
