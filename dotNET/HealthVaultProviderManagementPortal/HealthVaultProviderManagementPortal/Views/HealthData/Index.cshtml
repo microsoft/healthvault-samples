@@ -7,8 +7,13 @@
 
     THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@
+@using Microsoft.HealthVault.Web
 @using Microsoft.HealthVault.ItemTypes
-@model Microsoft.HealthVault.ItemTypes.Weight
+@using Microsoft.HealthVault
+@using System.Runtime
+@using System
+@using System.Globalization
+@model IReadOnlyCollection<Weight>
 
 @{
     ViewBag.Title = "Health information";
@@ -27,10 +32,35 @@
     else
     {
         <p>
-            Your current weight is <span class="emphasis">@Model.Value.Kilograms kg</span>.
+            Your current weight is <span class="emphasis">@(Model.First())</span>.
         </p>
     }
 </div>
+
+@if (Model != null)
+{
+    <div>
+        <h2>Weight history</h2>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Weight</th>
+                </tr>
+            </thead>
+            @foreach (var weight in Model)
+            {
+                <tr>
+                    <td>@(new DateTime(weight.When.Date.Year, weight.When.Date.Month, weight.When.Date.Day).ToString("d",
+                        CultureInfo.CreateSpecificCulture("en-US")))</td>
+                    <td>@(weight)</td>
+                </tr>
+            }
+        </table>
+</div>
+}
+
 <hr />
 <div>
     <h2>Enter weight</h2>

@@ -21,9 +21,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
     /// <summary>
     /// Controller for viewing and updating health measurements stored in HealthVault.
     /// </summary>
-    // The [RequireSignIn] attribute redirects the user to sign into HealthVault and/or authorize the
-    // application if needed.
-    [RequireSignIn]
+
     public class HealthDataController : Controller
     {
         [HttpGet]
@@ -38,7 +36,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
             var weights = await thingClient.GetThingsAsync<Weight>(recordId.GetValueOrDefault());
             if (weights.Count > 0)
             {
-                return View(weights.First());
+                return View(weights);
             }
 
             return View();

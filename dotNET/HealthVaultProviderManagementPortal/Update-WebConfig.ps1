@@ -35,24 +35,24 @@ $webConfigPath = $PSScriptRoot + "\HealthVaultProviderManagementPortal\Web.confi
 $defaultApplicationId = "your application ID here";
 
 if ($Reset) {
-    ($webConfigXml | Select-Xml -XPath "//add[@key='ApplicationId']/@value").Node.InnerText = $defaultApplicationId;
+    ($webConfigXml | Select-Xml -XPath "//add[@key='HV_ApplicationId']/@value").Node.InnerText = $defaultApplicationId;
 }
 elseif ($ApplicationId) {
-    ($webConfigXml | Select-Xml -XPath "//add[@key='ApplicationId']/@value").Node.InnerText = $ApplicationId
+    ($webConfigXml | Select-Xml -XPath "//add[@key='HV_ApplicationId']/@value").Node.InnerText = $ApplicationId
 }
 
 switch ($Instance) {
     
     'US' {
-        ($webConfigXml | Select-xml -XPath "//add[@key='ShellUrl']/@value").Node.InnerText = "https://account.healthvault-ppe.com/"
-        ($webConfigXml | Select-xml -XPath "//add[@key='HealthServiceUrl']/@value").Node.InnerText = "https://platform.healthvault-ppe.com/platform/"
-        ($webConfigXml | Select-xml -XPath "//add[@key='RestHealthServiceUrl']/@value").Node.InnerText = "https://data.ppe.microsofthealth.net"
+        ($webConfigXml | Select-xml -XPath "//add[@key='HV_ShellUrl']/@value").Node.InnerText = "https://account.healthvault-ppe.com/"
+        ($webConfigXml | Select-xml -XPath "//add[@key='HV_HealthServiceUrl']/@value").Node.InnerText = "https://platform.healthvault-ppe.com/platform/"
+        ($webConfigXml | Select-xml -XPath "//add[@key='HV_RestHealthServiceUrl']/@value").Node.InnerText = "https://data.ppe.microsofthealth.net"
     }
 
     'EU' {
-        ($webConfigXml | Select-xml -XPath "//add[@key='ShellUrl']/@value").Node.InnerText = "https://account.healthvault-ppe.co.uk/"
-        ($webConfigXml | Select-xml -XPath "//add[@key='HealthServiceUrl']/@value").Node.InnerText = "https://platform.healthvault-ppe.co.uk/platform/"
-        ($webConfigXml | Select-xml -XPath "//add[@key='RestHealthServiceUrl']/@value").Node.InnerText = "https://data.ppe.microsoft.health.co.uk"
+        ($webConfigXml | Select-xml -XPath "//add[@key='HV_ShellUrl']/@value").Node.InnerText = "https://account.healthvault-ppe.co.uk/"
+        ($webConfigXml | Select-xml -XPath "//add[@key='HV_HealthServiceUrl']/@value").Node.InnerText = "https://platform.healthvault-ppe.co.uk/platform/"
+        ($webConfigXml | Select-xml -XPath "//add[@key='HV_RestHealthServiceUrl']/@value").Node.InnerText = "https://data.ppe.microsoft.health.co.uk"
     }
 }
 

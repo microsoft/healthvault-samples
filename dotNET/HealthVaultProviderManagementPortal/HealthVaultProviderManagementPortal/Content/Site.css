@@ -8,6 +8,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    margin-top:20px;
 }
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -183,3 +184,10 @@ td a: visited, td a: hover, td a: active {
 .form-control {
     font-size: 16px;
 }
+td.ms-row {
+    vertical-align:middle !important;
+}
+.ms-thumbnail img{
+    height: 50px;
+}
+
