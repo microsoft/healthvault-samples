@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
-             x:Class="HealthVault.Sample.Xamarin.Core.Views.PersonPage" 
+             x:Class="HealthVault.Sample.Xamarin.Core.Views.MedicationEditPage" 
              Title="Profile Sample">
     <Frame BackgroundColor="{StaticResource WhiteColor}">
         <Grid Margin="5">
@@ -11,7 +11,6 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="48"/>
                 <RowDefinition Height="20"/>
@@ -19,106 +18,105 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="48"/>
                 <RowDefinition Height="20"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="48"/>
                 <RowDefinition Height="48"/>
             </Grid.RowDefinitions>
-            <Grid 
-                HorizontalOptions="Center" 
-                VerticalOptions="Start"
+            <Label 
                 Grid.Row="0"
-                Grid.ColumnSpan="2">
-                <Button 
-                    BackgroundColor="{StaticResource HighlightColor}"
-                    BorderRadius="32"
-                    WidthRequest="64"
-                    HeightRequest="64">
-                </Button>
-                <Image 
-                    Source="{Binding ImageUrl}" 
-                    Margin="18">
-                </Image>
-            </Grid>
-            <Label 
-                Grid.Row="1"
                 Grid.Column="0"
-                Text="{x:Static core:StringResource.FirstName}" 
-                VerticalTextAlignment="Center">
+                Grid.ColumnSpan="2"
+                Text="{x:Static core:StringResource.Name}" 
+                VerticalTextAlignment="Start">
             </Label>
             <Label 
                 Grid.Row="1"
-                Grid.Column="1"
-                Text="{x:Static core:StringResource.LastName}" 
-                VerticalTextAlignment="Center">
-            </Label>
-            <Label 
-                Grid.Row="2"
                 Grid.Column="0"
-                Text="{Binding FirstName}"
+                Grid.ColumnSpan="2"
+                Text="{Binding Name}"
                 BackgroundColor="DarkGray"
                 VerticalTextAlignment="Center">
             </Label>
             <Label 
                 Grid.Row="2"
+                Grid.Column="0"
+                Text="{x:Static core:StringResource.DosageType}" 
+                VerticalTextAlignment="Start">
+            </Label>
+            <Label 
+                Grid.Row="2"
                 Grid.Column="1"
-                Text="{Binding LastName}"
+                Text="{x:Static core:StringResource.Strength}" 
+                VerticalTextAlignment="Start">
+            </Label>
+            <Label 
+                Grid.Row="3"
+                Grid.Column="0"
+                Text="{Binding DosageType}"
                 BackgroundColor="DarkGray"
                 VerticalTextAlignment="Center">
             </Label>
             <Label 
                 Grid.Row="3"
-                Grid.Column="0"
-                Text="{x:Static core:StringResource.BirthMonth}" 
-                VerticalTextAlignment="Center">
-            </Label>
-            <Label 
-                Grid.Row="3"
                 Grid.Column="1"
-                Text="{x:Static core:StringResource.BirthYear}" 
+                Text="{Binding Strength}"
+                BackgroundColor="DarkGray"
                 VerticalTextAlignment="Center">
             </Label>
             <Label 
                 Grid.Row="4"
                 Grid.Column="0"
-                Text="{Binding BirthMonth}"
-                VerticalTextAlignment="Center"
-                BackgroundColor="DarkGray">
-            </Label>
-            <Label 
-                Grid.Row="4"
-                Grid.Column="1"
-                Text="{Binding BirthYear}"
-                VerticalTextAlignment="Center"
-                BackgroundColor="DarkGray">
+                Grid.ColumnSpan="2"
+                Text="{x:Static core:StringResource.TreatmentProvider}" 
+                VerticalTextAlignment="Start">
             </Label>
             <Label 
                 Grid.Row="5"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Text="{x:Static core:StringResource.Gender}" 
+                Text="{Binding TreatmentProvider}"
+                BackgroundColor="DarkGray"
                 VerticalTextAlignment="Center">
             </Label>
             <Label 
                 Grid.Row="6"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Text="{Binding Gender}"
-                BackgroundColor="DarkGray"
-                VerticalTextAlignment="Center">
+                Text="{x:Static core:StringResource.ReasonForTaking}" 
+                VerticalTextAlignment="Start">
             </Label>
             <Label 
                 Grid.Row="7"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Text="{x:Static core:StringResource.Weight}" 
+                Text="{Binding ReasonForTaking}"
+                BackgroundColor="DarkGray"
                 VerticalTextAlignment="Center">
             </Label>
             <Label 
                 Grid.Row="8"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Text="{Binding Weight}"
+                Text="{x:Static core:StringResource.DateStarted}" 
+                VerticalTextAlignment="Start">
+            </Label>
+            <Label 
+                Grid.Row="9"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="{Binding DateStarted}"
                 BackgroundColor="DarkGray"
                 VerticalTextAlignment="Center">
             </Label>
+            <Button 
+                Grid.Row="10"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Command="SaveCommand"
+                BackgroundColor="{StaticResource HighlightColor}"
+                Text="{x:Static core:StringResource.Save}">
+            </Button>
         </Grid>
     </Frame>
 </ContentPage>

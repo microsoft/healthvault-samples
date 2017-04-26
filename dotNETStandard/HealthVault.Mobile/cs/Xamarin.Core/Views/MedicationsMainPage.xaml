@@ -7,8 +7,8 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="MedicationItemTemplate">
-                <ViewCell >
-                    <Grid BackgroundColor="{StaticResource WhiteColor}" Padding="2">
+                <ViewCell>
+                    <Grid Padding="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="20" />
@@ -28,25 +28,21 @@
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout Margin="5">
+    <StackLayout Margin="5" BackgroundColor="LightGray">
         <StackLayout Padding="10" 
                      HeightRequest="50"
                      Orientation="Horizontal"
-                     HorizontalOptions="FillAndExpand"
-                     BackgroundColor="LightGray">
+                     HorizontalOptions="FillAndExpand">
             <Label Text="Current medications"
                    FontSize="24"
                    HorizontalTextAlignment="Start"
                    VerticalTextAlignment="Center"
                    HorizontalOptions="FillAndExpand"
-                   TextColor="DarkOliveGreen"/>
+                   TextColor="{StaticResource HighlightColor}"/>
         </StackLayout>
-        <ListView ItemsSource="{Binding CurrentMedications}"
-                  BackgroundColor="{StaticResource ItemsBackground}"
+        <ListView ItemsSource="{Binding CurrentMedications}" 
+                  BackgroundColor="{StaticResource WhiteColor}"
                   HasUnevenRows="true"
-                  IsPullToRefreshEnabled="true"
-                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                  RefreshCommand="{Binding RefreshDataCommand}"
                   ItemTemplate="{StaticResource MedicationItemTemplate}">
             <ListView.Behaviors>
                 <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
@@ -55,21 +51,17 @@
         <StackLayout Padding="10" 
                      HeightRequest="50"
                      Orientation="Horizontal"
-                     HorizontalOptions="FillAndExpand"
-                     BackgroundColor="LightGray">
+                     HorizontalOptions="FillAndExpand">
             <Label Text="Past medications"
                    FontSize="24"
                    HorizontalTextAlignment="Start"
                    VerticalTextAlignment="Center"
                    HorizontalOptions="FillAndExpand"
-                   TextColor="DarkOliveGreen"/>
+                   TextColor="{StaticResource HighlightColor}"/>
         </StackLayout>
         <ListView ItemsSource="{Binding PastMedications}"
-                  BackgroundColor="{StaticResource ItemsBackground}"
+                  BackgroundColor="{StaticResource WhiteColor}"
                   HasUnevenRows="true"
-                  IsPullToRefreshEnabled="true"
-                  IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                  RefreshCommand="{Binding RefreshDataCommand}"
                   ItemTemplate="{StaticResource MedicationItemTemplate}">
             <ListView.Behaviors>
                 <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />

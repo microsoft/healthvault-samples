@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HealthVault.Sample.Xamarin.Core.Views.MedicationPage"
+             Title="Medication detail sample">
+    <StackLayout Margin="10" BackgroundColor="{StaticResource WhiteColor}">
+        <ListView ItemsSource="{Binding Items}"
+                  SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="3" BackgroundColor="{StaticResource WhiteColor}">
+                            <Label Text="{Binding Title}" TextColor="{StaticResource HighlightColor}" FontSize="18"></Label>
+                            <Label Text="{Binding Value}" TextColor="{StaticResource ForegroundLight}" FontSize="15"></Label>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout Margin="20">
+            <Button 
+                BackgroundColor="{StaticResource WhiteColor}" 
+                BorderWidth="1" 
+                BorderColor="{StaticResource ForegroundLight}"
+                HeightRequest="48" 
+                Text="{Binding EditButtonLabel}" 
+                Command="{Binding EditCommand}">
+            </Button>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

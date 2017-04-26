@@ -44,7 +44,14 @@
     <Compile Include="Configuration\DefaultConfiguration.cs" />
     <Compile Include="Converters\ItemTappedEventArgsConverter.cs" />
     <Compile Include="Services\IPlatformResourceProvider.cs" />
-    <Compile Include="ViewModels\ViewRows\MedicationsItemViewRow.cs" />
+    <Compile Include="StringResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MedicationEditViewModel.cs" />
+    <Compile Include="ViewModels\MedicationViewModel.cs" />
+    <Compile Include="ViewModels\ViewRows\MedicationsSummaryViewRow.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\ViewRows\MenuItemViewRow.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
@@ -60,8 +67,14 @@
       <DependentUpon>MedicationsMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MedicationsMainViewModel.cs" />
+    <Compile Include="Views\MedicationPage.xaml.cs">
+      <DependentUpon>MedicationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MedicationEditPage.xaml.cs">
+      <DependentUpon>MedicationEditPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PersonPage.xaml.cs">
       <DependentUpon>PersonPage.xaml</DependentUpon>
@@ -69,6 +82,11 @@
     <Compile Include="ViewModels\PersonViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="StringResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
@@ -95,6 +113,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\MedicationsMainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\MedicationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\MedicationEditPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -1,6 +1,6 @@
 ﻿namespace HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows
 {
-    public class MedicationsItemViewRow
+    public class MedicationsSummaryViewRow
     {
         public string Text { get; set; }
         public string Detail { get; set; }

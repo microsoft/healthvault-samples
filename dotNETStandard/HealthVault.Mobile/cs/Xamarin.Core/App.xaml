@@ -20,7 +20,8 @@
             <Color x:Key="ProfileGrayColor">#afb3be</Color>
             <Color x:Key="BlackColor">#000000</Color>
             <Color x:Key="GreenColor">#0aca91</Color>
-            <Color x:Key="HighlightColor">#008272</Color>e
+            <Color x:Key="HighlightColor">#008272</Color>
+            <Color x:Key="ForegroundLight">#767676</Color>
             <Color x:Key="ItemsBackground">#EEEEEE</Color>
             <Color x:Key="ImageBackground">#e88829</Color>
 

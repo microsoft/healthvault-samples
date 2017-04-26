@@ -29,12 +29,12 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             : base(navigationService, resourceProvider)
         {
             this.connection = connection;
-            ItemSelectedCommand = new Command<MenuItemViewRow>(async o => await GoToPage(o));
+            ItemSelectedCommand = new Command<MenuItemViewRow>(async o => await GoToPageAsync(o));
 
             this.MenuViewRows.Add(new MenuItemViewRow()
             {
-                Title = "Action plans",
-                Description = "Get help accomplishing your goals in a structred way",
+                Title = StringResource.ActionPlans,
+                Description = StringResource.ActionPlansDescription,
                 ImageUrl = ResourceProvider.ActionPlanIcon,
                 BackgroundColor = Color.FromHex("#e88829"),
                 DisclosureImagePath = ResourceProvider.DisclosureIcon,
@@ -42,17 +42,17 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             });
             this.MenuViewRows.Add(new MenuItemViewRow()
             {
-                Title = "Medications",
-                Description = "Keep track of your current and past medications",
+                Title = StringResource.Medications,
+                Description = StringResource.MedicationsDescription,
                 ImageUrl = ResourceProvider.MedsIcon,
                 BackgroundColor = Color.FromHex("#86bbbf"),
                 DisclosureImagePath = ResourceProvider.DisclosureIcon,
-                PageAction = async () => await OpenMedicationsPage(),
+                PageAction = async () => await OpenMedicationsPageAsync(),
             });
             this.MenuViewRows.Add(new MenuItemViewRow()
             {
-                Title = "Weight",
-                Description = "One of many metrics you can keep track of here",
+                Title = StringResource.Weight,
+                Description = StringResource.WeightDescription,
                 ImageUrl = ResourceProvider.WeightIcon,
                 BackgroundColor = Color.FromHex("#f8b942"),
                 DisclosureImagePath = ResourceProvider.DisclosureIcon,
@@ -60,19 +60,19 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             });
             this.MenuViewRows.Add(new MenuItemViewRow()
             {
-                Title = "Profile",
-                Description = "Edit personal information associated with the account",
+                Title = StringResource.Profile,
+                Description = StringResource.ProfileDescription,
                 DisclosureImagePath = ResourceProvider.DisclosureIcon,
-                PageAction = async () => await OpenPersonPage(),
+                PageAction = async () => await OpenPersonPageAsync(),
             });
         }
 
-        private async Task GoToPage(MenuItemViewRow obj)
+        private async Task GoToPageAsync(MenuItemViewRow obj)
         {
             await obj.PageAction();
         }
 
-        private async Task OpenMedicationsPage()
+        private async Task OpenMedicationsPageAsync()
         {
             var medicationsMainPage = new MedicationsMainPage
             {
@@ -81,7 +81,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             await NavigationService.NavigateAsync(medicationsMainPage);
         }
 
-        private async Task OpenPersonPage()
+        private async Task OpenPersonPageAsync()
         {
             var person = await connection.GetPersonInfoAsync();
             var thingClient = connection.CreateThingClient();
