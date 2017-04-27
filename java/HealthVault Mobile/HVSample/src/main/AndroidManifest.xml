@@ -27,7 +27,9 @@
         
         <activity android:name="com.microsoft.hsg.android.simplexml.ShellActivity" >
         </activity>
+        <activity android:name="AddMedicationActivity"></activity>
         <activity android:name="WeightActivity"></activity>
+        <activity android:name="ProfileActivity"></activity>
         <activity android:name="RecordPickerActivity"></activity>
 
         <provider

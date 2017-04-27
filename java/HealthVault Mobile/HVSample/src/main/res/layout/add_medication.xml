@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<!-- Name Labels/Text -->
+
+	<TextView
+		android:id="@+id/nameLabel"
+		android:layout_width="69dp"
+		android:layout_height="20dp"
+		android:layout_marginTop="20dp"
+		android:layout_marginLeft="20dp"
+		android:textColor="#767676"
+		android:textSize="15sp"
+		android:text="Name" />
+
+	<EditText
+		android:id="@+id/nameText"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_below="@+id/nameLabel"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:background="#eeeeee"
+		android:ems="10"
+		android:inputType="text"
+		android:paddingLeft="20dp"
+		android:text="Duloxetine"
+		android:textSize="15sp"/>
+
+	<!-- Dosage Labels/Text -->
+	<TextView
+		android:id="@+id/dosageTypeLabel"
+		android:layout_width="84dp"
+		android:layout_height="20dp"
+		android:layout_below="@id/nameText"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="20dp"
+		android:textColor="#767676"
+		android:textSize="15sp"
+		android:text="Dosage type" />
+
+	<TextView
+		android:id="@+id/strengthLabel"
+		android:layout_width="68dp"
+		android:layout_height="20dp"
+		android:layout_below="@id/nameText"
+		android:layout_toRightOf="@id/dosageTypeLabel"
+		android:layout_marginLeft="96dp"
+		android:layout_marginTop="10dp"
+		android:textColor="#767676"
+		android:textSize="15sp"
+		android:text="Strength" />
+
+	<Spinner
+		android:id="@+id/dosageTypeText"
+		android:layout_width="155dp"
+		android:layout_height="48dp"
+		android:layout_below="@id/dosageTypeLabel"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="20dp"
+		android:paddingLeft="20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="15sp"
+		android:background="@android:drawable/btn_dropdown"
+		/>
+
+	<EditText
+		android:id="@+id/strengthText"
+		android:layout_width="155dp"
+		android:layout_height="48dp"
+		android:layout_below="@id/strengthLabel"
+		android:layout_toRightOf="@id/dosageTypeText"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="10dp"
+		android:paddingLeft="20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="15sp"
+		android:text="37.5 mg"
+		android:background="#eeeeee"/>
+
+	<!-- Treatment Provider Labels/Text -->
+
+	<TextView
+		android:id="@+id/treatmentProviderLabel"
+		android:layout_width="140dp"
+		android:layout_height="20dp"
+		android:layout_below="@id/dosageTypeText"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="20dp"
+		android:textColor="#767676"
+		android:textSize="15sp"
+		android:text="Treatment provider" />
+
+	<Spinner
+		android:id="@+id/treatmentProviderText"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_below="@id/treatmentProviderLabel"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:paddingLeft="20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="15sp"
+		android:background="@android:drawable/btn_dropdown"/>
+
+	<!-- Reasons Labels/Text -->
+	<TextView
+		android:id="@+id/reasonLabel"
+		android:layout_width="140dp"
+		android:layout_height="20dp"
+		android:layout_below="@id/treatmentProviderText"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="20dp"
+		android:textColor="#767676"
+		android:textSize="15sp"
+		android:text="Reason for taking" />
+
+	<EditText
+		android:id="@+id/reasonText"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_below="@+id/reasonLabel"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:background="#eeeeee"
+		android:ems="10"
+		android:inputType="text"
+		android:paddingLeft="20dp"
+		android:text="Select"
+		android:textSize="15sp"/>
+
+	<!-- Date Started Labels/Text -->
+	<TextView
+		android:id="@+id/dateStartedLabel"
+		android:layout_width="140dp"
+		android:layout_height="20dp"
+		android:layout_below="@id/reasonText"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="20dp"
+		android:textColor="#767676"
+		android:textSize="15sp"
+		android:text="Date started" />
+
+	<EditText
+		android:id="@+id/dateStartedValue1Text"
+		android:layout_width="100dp"
+		android:layout_height="48dp"
+		android:layout_below="@+id/dateStartedLabel"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="20dp"
+		android:background="#eeeeee"
+		android:ems="10"
+		android:inputType="text"
+		android:paddingLeft="20dp"
+		android:text="Value1"
+		android:textSize="15sp"/>
+
+	<EditText
+	android:id="@+id/dateStartedValue2Text"
+	android:layout_width="100dp"
+	android:layout_height="48dp"
+	android:layout_below="@+id/dateStartedLabel"
+	android:layout_toRightOf="@id/dateStartedValue1Text"
+	android:layout_marginTop="10dp"
+	android:layout_marginLeft="10dp"
+	android:background="#eeeeee"
+	android:ems="10"
+	android:inputType="text"
+	android:paddingLeft="20dp"
+	android:text="Value2"
+	android:textSize="15sp"/>
+
+	<EditText
+		android:id="@+id/dateStartedValue3Text"
+		android:layout_width="100dp"
+		android:layout_height="48dp"
+		android:layout_alignEnd="@+id/reasonText"
+		android:layout_below="@+id/dateStartedLabel"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="10dp"
+		android:layout_toRightOf="@id/dateStartedValue2Text"
+		android:background="#eeeeee"
+		android:ems="10"
+		android:inputType="text"
+		android:paddingLeft="20dp"
+		android:text="Value3"
+		android:textSize="15sp"/>
+
+	<Button
+		android:id="@+id/button"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_below="@id/dateStartedValue3Text"
+		android:layout_marginTop="48dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:background="#008272"
+		android:textColor="#ffffff"
+		android:text="Save"/>
+
+</RelativeLayout>

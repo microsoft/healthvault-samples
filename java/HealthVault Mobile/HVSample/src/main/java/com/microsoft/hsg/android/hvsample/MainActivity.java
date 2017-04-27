@@ -32,6 +32,7 @@ import com.microsoft.hsg.android.simplexml.client.RequestCallback;
 import com.microsoft.hsg.android.simplexml.things.types.types.PersonInfo;
 import com.microsoft.hsg.android.simplexml.things.types.types.Record;
 
+
 public class MainActivity
 	extends ListActivity
 	implements HealthVaultInitializationHandler {
@@ -53,7 +54,10 @@ public class MainActivity
 		}
 
 		mHVClient = new HealthVaultClient();
-		
+
+		// TODO: Do we need the bottom navigation? I need to talk to designers.
+		// we are using the home page for navigation currently
+
 		mBottomNav = (BottomNavigationView) findViewById(R.id.navigation);
 
 		mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -73,6 +77,38 @@ public class MainActivity
 				Intent intent = null;
 				if (mService.isAppConnected()) {
 					intent = new Intent(MainActivity.this, WeightActivity.class);
+				} else {
+					Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
+				}
+				if(intent != null) {
+					startActivity(intent);
+				}
+			}
+		});
+
+		LinearLayout profileTile = (LinearLayout) findViewById(R.id.profileTile);
+		profileTile.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				Intent intent = null;
+				if (mService.isAppConnected()) {
+					intent = new Intent(MainActivity.this, ProfileActivity.class);
+				} else {
+					Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
+				}
+				if(intent != null) {
+					startActivity(intent);
+				}
+			}
+		});
+
+		LinearLayout addMeddicationTile = (LinearLayout) findViewById(R.id.medicationTile);
+		addMeddicationTile.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				Intent intent = null;
+				if (mService.isAppConnected()) {
+					intent = new Intent(MainActivity.this, AddMedicationActivity.class);
 				} else {
 					Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
 				}
@@ -165,6 +201,12 @@ public class MainActivity
 			switch(position) {
 				case 0:
 					intent = new Intent(MainActivity.this, WeightActivity.class);
+					break;
+				case 1:
+					intent = new Intent(MainActivity.this, ProfileActivity.class);
+					break;
+				case 2:
+					intent = new Intent(MainActivity.this, AddMedicationActivity.class);
 			}
 		}
 		if(intent != null) {

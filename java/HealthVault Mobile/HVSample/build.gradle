@@ -20,6 +20,8 @@ android {
 
 dependencies {
     compile(name:'android-sdk-simplexml-release', ext:'aar')
+    compile(name:'achartengine-1.1.0', ext:'jar')
+    compile 'com.jjoe64:graphview:4.2.1'
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
 }

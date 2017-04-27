@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<!-- Profile Image -->
+	<LinearLayout
+		android:id="@+id/profileImageLayout"
+		android:layout_width="76dp"
+		android:layout_height="76dp"
+		android:layout_marginLeft="142dp"
+		android:layout_marginTop="20dp"
+		android:layout_marginBottom="28dp"
+		android:orientation="vertical"
+		android:background="@drawable/circle_background_image">
+		<ImageView
+			android:id="@+id/profileImage"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_marginTop="10dp"
+			android:layout_gravity="center"
+			android:src="@drawable/ic_launcher" />
+	</LinearLayout>
+
+	<!-- Name Labels/Text -->
+	<TextView
+		android:id="@+id/firstNameLabel"
+		android:layout_width="69dp"
+		android:layout_height="20dp"
+		android:layout_below="@id/profileImageLayout"
+		android:layout_marginLeft="20dp"
+		android:textColor="#767676"
+		android:textSize="15sp"
+		android:text="First name" />
+
+	<TextView
+		android:id="@+id/lastNameLabel"
+		android:layout_width="68dp"
+		android:layout_height="20dp"
+		android:layout_below="@id/profileImageLayout"
+		android:layout_toRightOf="@id/firstNameLabel"
+		android:layout_marginLeft="96dp"
+		android:textColor="#767676"
+		android:textSize="15sp"
+		android:text="Last name" />
+
+	<EditText
+		android:id="@+id/firstNameText"
+		android:layout_width="155dp"
+		android:layout_height="48dp"
+		android:layout_below="@id/firstNameLabel"
+		android:layout_marginTop="12dp"
+		android:layout_marginLeft="20dp"
+		android:paddingLeft="20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:text="Victoria"
+		android:textSize="15sp"
+		android:background="#eeeeee"/>
+
+	<EditText
+		android:id="@+id/lastNameText"
+		android:layout_width="155dp"
+		android:layout_height="48dp"
+		android:layout_below="@id/lastNameLabel"
+		android:layout_toRightOf="@id/firstNameText"
+		android:layout_marginTop="12dp"
+		android:layout_marginLeft="10dp"
+		android:paddingLeft="20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="15sp"
+		android:text="Nguyen"
+		android:background="#eeeeee"/>
+
+	<!-- Birth Labels/Text -->
+	<TextView
+		android:id="@+id/birthMonthLabel"
+		android:layout_width="80dp"
+		android:layout_height="20dp"
+		android:layout_below="@id/firstNameText"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="24dp"
+		android:text="Birth month"
+		android:textColor="#767676"
+		android:textSize="15sp"/>
+
+	<TextView
+		android:id="@+id/birthYearLabel"
+		android:layout_width="68dp"
+		android:layout_height="20dp"
+		android:layout_below="@id/lastNameText"
+		android:layout_toRightOf="@id/birthMonthLabel"
+		android:layout_marginLeft="85dp"
+		android:layout_marginTop="24dp"
+		android:textColor="#767676"
+		android:textSize="15sp"
+		android:text="Birth Year" />
+
+	<EditText
+		android:id="@+id/birthMonthText"
+		android:layout_width="155dp"
+		android:layout_height="48dp"
+		android:layout_below="@id/birthMonthLabel"
+		android:layout_marginTop="12dp"
+		android:layout_marginLeft="20dp"
+		android:paddingLeft="20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:text="September"
+		android:textSize="15sp"
+		android:background="#eeeeee"/>
+
+	<EditText
+		android:id="@+id/birthYearText"
+		android:layout_width="155dp"
+		android:layout_height="48dp"
+		android:layout_below="@id/birthYearLabel"
+		android:layout_toRightOf="@id/birthMonthText"
+		android:layout_marginTop="12dp"
+		android:layout_marginLeft="10dp"
+		android:paddingLeft="20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="15sp"
+		android:text="1973"
+		android:background="#eeeeee"/>
+
+	<!-- Gender Labels/Text -->
+
+	<TextView
+		android:id="@+id/genderLabel"
+		android:layout_width="69dp"
+		android:layout_height="20dp"
+		android:layout_below="@id/birthYearText"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="24dp"
+		android:textColor="#767676"
+		android:textSize="15sp"
+		android:text="Gender" />
+
+	<EditText
+		android:id="@+id/genderText"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_below="@id/genderLabel"
+		android:layout_marginTop="12dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:paddingLeft="20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="15sp"
+		android:text="Female"
+		android:background="#eeeeee"/>
+
+	<!-- Weight Labels/Text -->
+	<TextView
+		android:id="@+id/weightLabel"
+		android:layout_width="69dp"
+		android:layout_height="20dp"
+		android:layout_below="@id/genderText"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="24dp"
+		android:textColor="#767676"
+		android:textSize="15sp"
+		android:text="Weight" />
+
+	<EditText
+		android:id="@+id/weighText"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:layout_below="@id/weightLabel"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_marginTop="12dp"
+		android:background="#eeeeee"
+		android:ems="10"
+		android:inputType="text"
+		android:paddingLeft="20dp"
+		android:text="150"
+		android:textSize="15sp"/>
+</RelativeLayout>

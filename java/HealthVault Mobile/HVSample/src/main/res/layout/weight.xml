@@ -4,16 +4,28 @@
 	android:layout_height="match_parent">
 
 	<LinearLayout
+		android:id="@+id/graphContainer"
+		android:layout_width="match_parent"
+		android:layout_height="237dp"
+		android:background="#008272">
+		<com.jjoe64.graphview.GraphView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/graph" />
+	</LinearLayout>
+
+	<LinearLayout
 		android:id="@+id/lastWeightContainer"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="20dp"
-		android:layout_marginBottom="20dp"
+		android:layout_marginBottom="10dp"
+		android:layout_below="@id/graphContainer"
 		android:orientation="vertical">
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="20dp"
-			android:layout_marginTop="20dp"
+			android:layout_marginTop="10dp"
 			android:textColor="#767676"
 			android:text="Last weight"/>
 			<LinearLayout
@@ -52,7 +64,7 @@
 		<Button
 			android:id="@+id/addWeight"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="40dp"
 			android:background="#ffffff"
 			android:text="Add new weight measurement"
 			android:textAlignment="center">
@@ -63,7 +75,7 @@
 		android:id="@+id/labels"
 		android:layout_width="match_parent"
 		android:layout_height="40dp"
-		android:layout_marginTop="20dp"
+		android:layout_marginTop="10dp"
 		android:layout_marginLeft="20dp"
 		android:layout_marginRight="20dp"
 		android:layout_below="@id/addWeightContainer"

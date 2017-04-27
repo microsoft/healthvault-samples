@@ -154,7 +154,7 @@
 	</LinearLayout>
 
 	<LinearLayout
-		android:id="@+id/ProfileTile"
+		android:id="@+id/profileTile"
 		android:layout_width="match_parent"
 		android:layout_height="88dp"
 		android:layout_marginTop="10dp"
@@ -214,12 +214,13 @@
 	<android.support.design.widget.BottomNavigationView
 		android:id="@+id/navigation"
 		android:layout_width="360dp"
-		android:layout_height="49dp"
+		android:layout_height="40dp"
 		android:background="#ffffff"
 		android:theme="@style/Theme.AppCompat"
 		android:visibility="visible"
 		design:itemIconTint="#009688"
 		design:itemTextColor="#009688"
+		design:itemTextAppearance="@style/NavigationViewOwnStyle"
 		design:menu="@menu/bottom_nav_items" />
 
 </LinearLayout>
