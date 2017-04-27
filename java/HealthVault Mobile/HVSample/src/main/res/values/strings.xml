@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HVSample</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="clear">Clear</string>
+    <string name="sync">Sync</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_ActionPlan">Action plan</string>
+    <string name="menu_Medication">Medication</string>
+    <string name="menu_Weight">Weight</string>
+
+    <string-array name="countries_array">
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>American Samoa</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Anguilla</item>
+        <item>Antarctica</item>
+    </string-array>
+
+</resources>
