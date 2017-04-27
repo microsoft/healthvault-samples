@@ -66,7 +66,7 @@ public class MainActivity
 			}
 		});
 
-		LinearLayout weightTile = (LinearLayout) findViewById(R.id.weightTile);
+		final LinearLayout weightTile = (LinearLayout) findViewById(R.id.weightTile);
 		weightTile.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -102,10 +102,10 @@ public class MainActivity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
-		LinearLayout recordNameLayout = (LinearLayout) menu.findItem(R.id.recordNameLayout).getActionView();
-		TextView textView = (TextView) recordNameLayout.findViewById(R.id.currentRecordName);
+		final LinearLayout recordNameLayout = (LinearLayout) menu.findItem(R.id.recordNameLayout).getActionView();
+		final TextView textView = (TextView) recordNameLayout.findViewById(R.id.currentRecordName);
 
-		HealthVaultApp application = HealthVaultApp.getInstance();
+		final HealthVaultApp application = HealthVaultApp.getInstance();
 		if(mService.isAppConnected() && application.getCurrentRecord() != null) {
 			textView.setText(application.getCurrentRecord().getName());
 
@@ -126,8 +126,7 @@ public class MainActivity
 	public void onConnected() {
 	}
 
-	public void onError(Exception e) {
-		Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+	public void onError(Exception e) { Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -159,7 +158,7 @@ public class MainActivity
 	}
 	
 	public void onListItemClick(ListView parent, View v, int position, long id) {
-		TextView item = (TextView) v;
+		final TextView item = (TextView) v;
 		Intent intent = null;
 		if (mService.isAppConnected()) {
 			switch(position) {
@@ -173,8 +172,8 @@ public class MainActivity
 	}
 	
 	private String writeFile() {
-		String filename = "writefile" + (int)(Math.random() * 100)  + ".txt";
-		String fileUpload = "This is from file upload";
+		final String filename = "writefile" + (int)(Math.random() * 100)  + ".txt";
+		final String fileUpload = "This is from file upload";
 		FileOutputStream outputStream = null;
 
 		try {

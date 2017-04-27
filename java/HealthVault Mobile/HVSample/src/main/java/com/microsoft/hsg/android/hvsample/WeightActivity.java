@@ -94,7 +94,6 @@ public class WeightActivity extends Activity {
 	private void putWeight(String value) {
 		final Thing2 thing = new Thing2();
 		thing.setData(new Weight(Double.parseDouble(value)));
-		// thing.setData(new Weight(-10));
 		mHVClient.asyncRequest(mCurrentRecord.putThingAsync(thing),
 			new WeightCallback(WeightCallback.PutWeights));
 	}
@@ -108,11 +107,11 @@ public class WeightActivity extends Activity {
 			lastWeight.setText(String.valueOf(w.getValue().getKg()));
 			count++;
 		}
-
-			mAdapter.add(String.valueOf(w.getWhen().getDate().getM() + "/" +
-			w.getWhen().getDate().getD() + "/" +
-				w.getWhen().getDate().getY()) + "               " + "                    " +
-					String.valueOf(w.getValue().getKg()));
+			final int month = w.getWhen().getDate().getM();
+			final int day = w.getWhen().getDate().getD();
+			final int year = w.getWhen().getDate().getY();
+			mAdapter.add(String.valueOf(String.format(month + "/" + day + "/" + year)
+					+ "                                  " + String.valueOf(w.getValue().getKg())));
 			mAdapter.notifyDataSetChanged();
 		}
 	}
@@ -131,7 +130,7 @@ public class WeightActivity extends Activity {
 		@Override
 		public void onError(HVException exception) {
 			WeightActivity.this.setProgressBarIndeterminateVisibility(false);
-			Toast.makeText(WeightActivity.this, "An error occurred.  " + exception.getMessage(), Toast.LENGTH_LONG).show();
+			Toast.makeText(WeightActivity.this, String.format("An error occurred.  " + exception.getMessage()), Toast.LENGTH_LONG).show();
 		}
 
 		@Override
