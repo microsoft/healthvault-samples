@@ -40,7 +40,9 @@ public class MainActivity
 	private HealthVaultApp mService;
 	private HealthVaultClient mHVClient;
 	private BottomNavigationView mBottomNav;
-
+	private static final String mMasterAppId  = "c6ba979f-c342-4408-a2bc-0dfb43b2bf8d";
+	private static final String mServiceUrl  = "https://platform.healthvault-ppe.com/platform/wildcat.ashx";
+	private static final String mShellUrl  = "https://account.healthvault-ppe.com";
 	private ProgressDialog mConnectProgressDialog;
 
 	@Override
@@ -70,7 +72,7 @@ public class MainActivity
 			}
 		});
 
-		LinearLayout weightTile = (LinearLayout) findViewById(R.id.weightTile);
+		final LinearLayout weightTile = (LinearLayout) findViewById(R.id.weightTile);
 		weightTile.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -79,8 +81,7 @@ public class MainActivity
 					intent = new Intent(MainActivity.this, WeightActivity.class);
 				} else {
 					Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
-				}
-				if(intent != null) {
+				} if(intent != null) {
 					startActivity(intent);
 				}
 			}
@@ -125,7 +126,6 @@ public class MainActivity
 		mHVClient.start();
 	}
 
-	@Override
 	protected void onPause(){
 		super.onPause();
 		if(mConnectProgressDialog != null) {
@@ -138,15 +138,12 @@ public class MainActivity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
-		LinearLayout recordNameLayout = (LinearLayout) menu.findItem(R.id.recordNameLayout).getActionView();
-		TextView textView = (TextView) recordNameLayout.findViewById(R.id.currentRecordName);
-
-		HealthVaultApp application = HealthVaultApp.getInstance();
+		final LinearLayout recordNameLayout = (LinearLayout) menu.findItem(R.id.recordNameLayout).getActionView();
+		final TextView textView = (TextView) recordNameLayout.findViewById(R.id.currentRecordName);
+		final HealthVaultApp application = HealthVaultApp.getInstance();
 		if(mService.isAppConnected() && application.getCurrentRecord() != null) {
 			textView.setText(application.getCurrentRecord().getName());
-
 			recordNameLayout.setOnClickListener(new OnClickListener() {
-
 				@Override
 				public void onClick(View arg0) { Intent intent = new Intent(MainActivity.this, RecordPickerActivity.class);
 					startActivity(intent);
@@ -183,9 +180,9 @@ public class MainActivity
 				MainActivity.this, "", "Please wait...", true);
 			
 			HealthVaultSettings settings = mService.getSettings();
-			settings.setMasterAppId("c6ba979f-c342-4408-a2bc-0dfb43b2bf8d");
-			settings.setServiceUrl("https://platform.healthvault-ppe.com/platform/wildcat.ashx");
-			settings.setShellUrl("https://account.healthvault-ppe.com");
+			settings.setMasterAppId(mMasterAppId);
+			settings.setServiceUrl(mServiceUrl);
+			settings.setShellUrl(mShellUrl);
 			settings.setIsMultiInstanceAware(true);
 			settings.setIsMRA(true);
 			mService.start(MainActivity.this, MainActivity.this);
@@ -195,7 +192,7 @@ public class MainActivity
 	}
 	
 	public void onListItemClick(ListView parent, View v, int position, long id) {
-		TextView item = (TextView) v;
+		final TextView item = (TextView) v;
 		Intent intent = null;
 		if (mService.isAppConnected()) {
 			switch(position) {
@@ -207,38 +204,14 @@ public class MainActivity
 					break;
 				case 2:
 					intent = new Intent(MainActivity.this, AddMedicationActivity.class);
+					break;
 			}
 		}
 		if(intent != null) {
 			startActivity(intent);
 		}
 	}
-	
-	private String writeFile() {
-		String filename = "writefile" + (int)(Math.random() * 100)  + ".txt";
-		String fileUpload = "This is from file upload";
-		FileOutputStream outputStream = null;
 
-		try {
-			outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-			outputStream.write(fileUpload.getBytes());
-
-			return filename;
-		} catch (Exception e) {
-		  e.printStackTrace();
-		} finally {
-			try {
-				if(outputStream != null) {
-					outputStream.close();
-				}
-			} catch (Exception e){
-				e.printStackTrace();
-			}
-		}
-
-		return null;
-	}
-	
 	private class HVConnect extends AsyncTask<Void, Void, Void> {
 		private ProgressDialog mProgressDialog;
         public HVConnect() {
@@ -248,9 +221,9 @@ public class MainActivity
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			HealthVaultSettings settings = mService.getSettings();
-			settings.setMasterAppId("c6ba979f-c342-4408-a2bc-0dfb43b2bf8d");
-			settings.setServiceUrl("https://platform.healthvault-ppe.com/platform/wildcat.ashx");
-			settings.setShellUrl("https://account.healthvault-ppe.com");
+			settings.setMasterAppId(mMasterAppId);
+			settings.setServiceUrl(mServiceUrl);
+			settings.setShellUrl(mShellUrl);
 			settings.setIsMultiInstanceAware(true);
 
 			mService.start(MainActivity.this, MainActivity.this);
@@ -283,10 +256,6 @@ public class MainActivity
 		@Override
 		public void onSuccess(java.lang.Object obj) {
 			MainActivity.this.setProgressBarIndeterminateVisibility(false);
-			switch(mEvent) {
-				case UpdateRecords:
-				break;
-			}
 		}
 	}
 }
