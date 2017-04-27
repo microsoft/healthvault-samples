@@ -75,8 +75,7 @@ public class MainActivity
 					intent = new Intent(MainActivity.this, WeightActivity.class);
 				} else {
 					Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
-				}
-				if(intent != null) {
+				} if(intent != null) {
 					startActivity(intent);
 				}
 			}
@@ -89,7 +88,6 @@ public class MainActivity
 		mHVClient.start();
 	}
 
-	@Override
 	protected void onPause(){
 		super.onPause();
 		if(mConnectProgressDialog != null) {
@@ -104,13 +102,10 @@ public class MainActivity
 		getMenuInflater().inflate(R.menu.main, menu);
 		final LinearLayout recordNameLayout = (LinearLayout) menu.findItem(R.id.recordNameLayout).getActionView();
 		final TextView textView = (TextView) recordNameLayout.findViewById(R.id.currentRecordName);
-
 		final HealthVaultApp application = HealthVaultApp.getInstance();
 		if(mService.isAppConnected() && application.getCurrentRecord() != null) {
 			textView.setText(application.getCurrentRecord().getName());
-
 			recordNameLayout.setOnClickListener(new OnClickListener() {
-
 				@Override
 				public void onClick(View arg0) { Intent intent = new Intent(MainActivity.this, RecordPickerActivity.class);
 					startActivity(intent);
@@ -126,7 +121,8 @@ public class MainActivity
 	public void onConnected() {
 	}
 
-	public void onError(Exception e) { Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+	public void onError(Exception e) {
+		Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -164,38 +160,14 @@ public class MainActivity
 			switch(position) {
 				case 0:
 					intent = new Intent(MainActivity.this, WeightActivity.class);
+					break;
 			}
 		}
 		if(intent != null) {
 			startActivity(intent);
 		}
 	}
-	
-	private String writeFile() {
-		final String filename = "writefile" + (int)(Math.random() * 100)  + ".txt";
-		final String fileUpload = "This is from file upload";
-		FileOutputStream outputStream = null;
 
-		try {
-			outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-			outputStream.write(fileUpload.getBytes());
-
-			return filename;
-		} catch (Exception e) {
-		  e.printStackTrace();
-		} finally {
-			try {
-				if(outputStream != null) {
-					outputStream.close();
-				}
-			} catch (Exception e){
-				e.printStackTrace();
-			}
-		}
-
-		return null;
-	}
-	
 	private class HVConnect extends AsyncTask<Void, Void, Void> {
 		private ProgressDialog mProgressDialog;
         public HVConnect() {
@@ -240,10 +212,6 @@ public class MainActivity
 		@Override
 		public void onSuccess(java.lang.Object obj) {
 			MainActivity.this.setProgressBarIndeterminateVisibility(false);
-			switch(mEvent) {
-				case UpdateRecords:
-				break;
-			}
 		}
 	}
 }

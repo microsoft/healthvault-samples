@@ -53,23 +53,22 @@ public class RecordPickerArrayAdapter extends BaseAdapter {
 			convertView = mLayoutInflater.inflate(R.layout.record_picker_item, null, true);
 
 			viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.txtRecordName);
-			viewHolder.ImageViewItem = (ImageView) convertView.findViewById(R.id.recordIcon);
+			viewHolder.imageViewItem = (ImageView) convertView.findViewById(R.id.recordIcon);
 
 			convertView.setTag(viewHolder);
-
 		} else {
 			viewHolder = (ViewHolderItem) convertView.getTag();
 		}
 
 		viewHolder.textViewItem.setText(mRecords.get(position).getName());
 
-		mImageLoader.load(mRecords.get(position).getId(), viewHolder.ImageViewItem, R.drawable.ic_launcher);
+		mImageLoader.load(mRecords.get(position).getId(), viewHolder.imageViewItem, R.drawable.ic_launcher);
 
 		return convertView;
 	}
 
 	static class ViewHolderItem {
 		TextView textViewItem;
-		ImageView ImageViewItem;
+		ImageView imageViewItem;
 	}
 }
