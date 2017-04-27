@@ -39,7 +39,9 @@ public class MainActivity
 	private HealthVaultApp mService;
 	private HealthVaultClient mHVClient;
 	private BottomNavigationView mBottomNav;
-
+	private static final String mMasterAppId  = "c6ba979f-c342-4408-a2bc-0dfb43b2bf8d";
+	private static final String mServiceUrl  = "https://platform.healthvault-ppe.com/platform/wildcat.ashx";
+	private static final String mShellUrl  = "https://account.healthvault-ppe.com";
 	private ProgressDialog mConnectProgressDialog;
 
 	@Override
@@ -142,9 +144,9 @@ public class MainActivity
 				MainActivity.this, "", "Please wait...", true);
 			
 			HealthVaultSettings settings = mService.getSettings();
-			settings.setMasterAppId("c6ba979f-c342-4408-a2bc-0dfb43b2bf8d");
-			settings.setServiceUrl("https://platform.healthvault-ppe.com/platform/wildcat.ashx");
-			settings.setShellUrl("https://account.healthvault-ppe.com");
+			settings.setMasterAppId(mMasterAppId);
+			settings.setServiceUrl(mServiceUrl);
+			settings.setShellUrl(mShellUrl);
 			settings.setIsMultiInstanceAware(true);
 			settings.setIsMRA(true);
 			mService.start(MainActivity.this, MainActivity.this);
@@ -177,9 +179,9 @@ public class MainActivity
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			HealthVaultSettings settings = mService.getSettings();
-			settings.setMasterAppId("c6ba979f-c342-4408-a2bc-0dfb43b2bf8d");
-			settings.setServiceUrl("https://platform.healthvault-ppe.com/platform/wildcat.ashx");
-			settings.setShellUrl("https://account.healthvault-ppe.com");
+			settings.setMasterAppId(mMasterAppId);
+			settings.setServiceUrl(mServiceUrl);
+			settings.setShellUrl(mShellUrl);
 			settings.setIsMultiInstanceAware(true);
 
 			mService.start(MainActivity.this, MainActivity.this);
