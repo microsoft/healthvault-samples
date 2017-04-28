@@ -15,18 +15,20 @@ namespace HealthVaultProviderManagementPortal.Helpers
 {
     public static class Builder
     {
+
+        #region Sleep plan
         /// <summary>
         /// Creates a sample action plan object.
         /// </summary>
-        public static ActionPlan CreateDefaultActionPlan()
+        public static ActionPlan CreateSleepActionPlan()
         {
             var plan = new ActionPlan();
-            var objective = CreateDefaultActionPlanObjective();
+            var objective = CreateSleepObjective();
 
             // Use this if you want to create the task with the plan in one call.
             // You can also create tasks in a separate call after the action plan is created.
-            var scheduledTask = CreateDefaultScheduledActionPlanTask(objective.Id);
-            var frequencyTask = CreateDefaultFrequencyActionPlanTask(objective.Id);
+            var scheduledTask = CreateSleepScheduledActionPlanTask(objective.Id);
+            var frequencyTask = CreateSleepFrequencyActionPlanTask(objective.Id);
 
             plan.Name = "Sleep better";
             plan.Description = "Improve the quantity and quality of your sleep.";
@@ -42,7 +44,7 @@ namespace HealthVaultProviderManagementPortal.Helpers
         /// <summary>
         /// Creates a sample action plan objective.
         /// </summary>
-        public static Objective CreateDefaultActionPlanObjective()
+        public static Objective CreateSleepObjective()
         {
             var objective = new Objective
             {
@@ -60,7 +62,7 @@ namespace HealthVaultProviderManagementPortal.Helpers
         /// <summary>
         /// Creates a sample schedule based task associated with the specified objective.
         /// </summary>
-        public static ActionPlanTask CreateDefaultScheduledActionPlanTask(string objectiveId, Guid planId = default(Guid))
+        public static ActionPlanTask CreateSleepScheduledActionPlanTask(string objectiveId, Guid planId = default(Guid))
         {
             var task = new ActionPlanTask
             {
@@ -96,7 +98,7 @@ namespace HealthVaultProviderManagementPortal.Helpers
         /// <summary>
         /// Creates a sample frequency based task associated with the specified objective.
         /// </summary>
-        public static ActionPlanTask CreateDefaultFrequencyActionPlanTask(string objectiveId, Guid planId = default(Guid))
+        public static ActionPlanTask CreateSleepFrequencyActionPlanTask(string objectiveId, Guid planId = default(Guid))
         {
             var task = new ActionPlanTask
             {
@@ -160,5 +162,81 @@ namespace HealthVaultProviderManagementPortal.Helpers
                 StartDate = DateTime.UtcNow
             };
         }
+        #endregion
+        #region Weight ActionPlan
+        public static ActionPlan CreateWeightActionPlan()
+        {
+            var plan = new ActionPlan();
+            var objective = new Objective
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Manage your weight",
+                Description = "Manage your weight better by measuring daily. ",
+                State = ActionPlanObjectiveStatus.Active.ToString(),
+                OutcomeName = "Better control over your weight",
+                OutcomeType = ActionPlanOutcomeType.Other.ToString()
+            };
+
+            // Use this if you want to create the task with the plan in one call.
+            // You can also create tasks in a separate call after the action plan is created.
+            var task = CreateDailyWeightMeasurementActionPlanTask(objective.Id);
+
+            plan.Name = "Track your weight";
+            plan.Description = "Daily weight tracking can help you be more conscious of what you eat. ";
+
+            plan.ImageUrl = "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW680a?ver=b227";
+            plan.ThumbnailImageUrl = "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW6fN6?ver=6479";
+            plan.Category = ActionPlanCategory.Health.ToString();
+            plan.Objectives = new Collection<Objective> { objective };
+            plan.AssociatedTasks = new Collection<ActionPlanTask> { task };
+
+            return plan;
+        }
+
+        /// <summary>
+        /// Creates a sample frequency based task associated with the specified objective.
+        /// </summary>
+        public static ActionPlanTask CreateDailyWeightMeasurementActionPlanTask(string objectiveId, Guid planId = default(Guid))
+        {
+            var task = new ActionPlanTask
+            {
+                Name = "Measure your weight",
+                ShortDescription = "Measure your weight daily",
+                LongDescription = "Measure your weight daily",
+                ImageUrl = "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW680a?ver=b227",
+                ThumbnailImageUrl = "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW6fN6?ver=6479",
+                TaskType = ActionPlanTaskType.Other.ToString(),
+                SignupName = "Measure your weight",
+                AssociatedObjectiveIds = new Collection<string> { objectiveId },
+                AssociatedPlanId = planId.ToString(), // Only needs to be set if adding as task after the plan
+                TrackingPolicy = new ActionPlanTrackingPolicy
+                {
+                    IsAutoTrackable = true,
+                    OccurrenceMetrics = new ActionPlanTaskOccurrenceMetrics
+                    {
+                        EvaluateTargets = false
+                    },
+                    TargetEvents = new Collection<ActionPlanTaskTargetEvent>
+                    {
+
+                        new ActionPlanTaskTargetEvent
+                        {
+                            ElementXPath = "thing/data-xml/weight",
+                        }
+                    }
+                },
+                CompletionType = ActionPlanTaskCompletionType.Frequency.ToString(),
+                FrequencyTaskCompletionMetrics = new ActionPlanFrequencyTaskCompletionMetrics()
+                {
+                    ReminderState = ActionPlanReminderState.Off.ToString(),
+                    ScheduledDays = new Collection<string> { ActionPlanScheduleDay.Everyday.ToString() },
+                    OccurrenceCount = 1,
+                    WindowType = ActionPlanScheduleRecurrenceType.Daily.ToString()
+                }
+            };
+
+            return task;
+        }
+        #endregion
     }
 }

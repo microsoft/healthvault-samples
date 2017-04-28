@@ -9,6 +9,7 @@
 *@
 @model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlansResponseActionPlanInstance
 
+
 @{
     ViewBag.Title = "Action plans";
 }
@@ -21,10 +22,9 @@
 
     <div class="form-horizontal">
         <div class="form-group">
-            <div class="col-md-12 slim-col">
-                @Html.Hidden("personId", Request.Params["personId"])
-                @Html.Hidden("recordId", Request.Params["recordId"])
-                <input type="submit" value="+ New default plan" class="btn btn-default" />
+            <div class="col-md-12">
+                    <input type="submit" value="+ New sleep plan" class="btn btn-default" formaction="@Url.Action("CreateSleepPlan", new { personId = Request.Params["personId"], recordId = Request.Params["recordId"] })" />
+                    <input type="submit" value="+ New weight plan" class="btn btn-default" formaction="@Url.Action("CreateWeightPlan", new { personId = Request.Params["personId"], recordId = Request.Params["recordId"] })"/>
             </div>
         </div>
     </div>

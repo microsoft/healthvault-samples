@@ -21,7 +21,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
     /// <summary>
     /// Controller for viewing and updating health measurements stored in HealthVault.
     /// </summary>
-
+    [RequireSignIn]
     public class HealthDataController : Controller
     {
         [HttpGet]
@@ -33,6 +33,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
             var thingClient = connection.CreateThingClient();
 
             recordId = recordId ?? record.GetSelfRecord().Id;
+
             var weights = await thingClient.GetThingsAsync<Weight>(recordId.GetValueOrDefault());
             if (weights.Count > 0)
             {

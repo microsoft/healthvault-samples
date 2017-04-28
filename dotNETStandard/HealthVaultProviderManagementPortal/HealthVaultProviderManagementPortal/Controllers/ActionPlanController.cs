@@ -45,13 +45,25 @@ namespace HealthVaultProviderManagementPortal.Controllers
         }
 
         /// <summary>
-        /// Create a sample plan for a user.
+        /// Create a sample sleep plan for a user.
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreatePlan(Guid personId, Guid recordId)
+        public async Task<ActionResult> CreateSleepPlan(Guid personId, Guid recordId)
         {
-            var plan = Builder.CreateDefaultActionPlan();
+            var plan = Builder.CreateSleepActionPlan();
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.CreateActionPlanAsync(plan), personId, recordId);
+            return this.RedirectToRoutePlans(personId, recordId);
+        }
+
+        /// <summary>
+        /// Create a sample weight plan for a user.
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateWeightPlan(Guid personId, Guid recordId)
+        {
+            var plan = Builder.CreateWeightActionPlan();
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.CreateActionPlanAsync(plan), personId, recordId);
             return this.RedirectToRoutePlans(personId, recordId);
         }
@@ -111,7 +123,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         public async Task<ActionResult> CreateScheduledTask(Guid planId, Guid objectiveId, Guid personId, Guid recordId)
         {
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => 
-                api.PostActionPlanTasksAsync(Builder.CreateDefaultScheduledActionPlanTask(objectiveId.ToString(), planId)), personId, recordId);
+                api.PostActionPlanTasksAsync(Builder.CreateSleepScheduledActionPlanTask(objectiveId.ToString(), planId)), personId, recordId);
 
             return RedirectToAction("Plan", new { id = planId, personId, recordId });
         }
@@ -124,7 +136,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         public async Task<ActionResult> CreateFrequencyTask(Guid planId, Guid objectiveId, Guid personId, Guid recordId)
         {
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => 
-                api.PostActionPlanTasksAsync(Builder.CreateDefaultFrequencyActionPlanTask(objectiveId.ToString(), planId)), personId, recordId);
+                api.PostActionPlanTasksAsync(Builder.CreateSleepFrequencyActionPlanTask(objectiveId.ToString(), planId)), personId, recordId);
 
             return RedirectToAction("Plan", new { id = planId, personId, recordId });
         }
@@ -198,7 +210,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         public async Task<ActionResult> Adherence(Guid id, Guid personId, Guid recordId)
         {
             var now = DateTime.UtcNow;
-            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetActionPlanAdherenceAsync(now.AddDays(-14), now, id.ToString()), personId, recordId);
+            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetActionPlanAdherenceAsync(now.AddDays(-14), now.AddDays(1), id.ToString()), personId, recordId);
             return this.View(response);
         }
 
