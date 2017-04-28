@@ -49,8 +49,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StringResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\DataTypeFormatter.cs" />
     <Compile Include="ViewModels\MedicationEditViewModel.cs" />
-    <Compile Include="ViewModels\MedicationViewModel.cs" />
+    <Compile Include="ViewModels\MedicationsSummaryViewModel.cs" />
     <Compile Include="ViewModels\ViewRows\MedicationsSummaryViewRow.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\ViewRows\MenuItemViewRow.cs" />
@@ -67,8 +68,8 @@
       <DependentUpon>MedicationsMainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MedicationsMainViewModel.cs" />
-    <Compile Include="Views\MedicationPage.xaml.cs">
-      <DependentUpon>MedicationPage.xaml</DependentUpon>
+    <Compile Include="Views\MedicationsSummaryPage.xaml.cs">
+      <DependentUpon>MedicationsSummaryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
@@ -118,7 +119,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\MedicationPage.xaml">
+    <EmbeddedResource Include="Views\MedicationsSummaryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

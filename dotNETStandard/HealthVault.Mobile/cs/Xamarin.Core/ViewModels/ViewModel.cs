@@ -3,7 +3,7 @@ using HealthVault.Sample.Xamarin.Core.Services;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
-    public abstract class ViewModel : ExtendedBindableObject
+    public abstract class ViewModel : ExtendedBindableObject, ICanNavigateBack
     {
         protected readonly IPlatformResourceProvider ResourceProvider;
         protected readonly INavigationService NavigationService;
@@ -30,5 +30,15 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         {
             return Task.FromResult(false);
         }
+
+        public virtual async Task OnNavigateBack()
+        {
+            await Task.CompletedTask;
+        }
+    }
+
+    public interface ICanNavigateBack
+    {
+        Task OnNavigateBack();
     }
 }

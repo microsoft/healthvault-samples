@@ -30,14 +30,13 @@
                 Text="{x:Static core:StringResource.Name}" 
                 VerticalTextAlignment="Start">
             </Label>
-            <Label 
+            <Entry 
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Text="{Binding Name}"
-                BackgroundColor="DarkGray"
-                VerticalTextAlignment="Center">
-            </Label>
+                BackgroundColor="DarkGray">
+            </Entry>
             <Label 
                 Grid.Row="2"
                 Grid.Column="0"
@@ -50,20 +49,18 @@
                 Text="{x:Static core:StringResource.Strength}" 
                 VerticalTextAlignment="Start">
             </Label>
-            <Label 
+            <Entry 
                 Grid.Row="3"
                 Grid.Column="0"
                 Text="{Binding DosageType}"
-                BackgroundColor="DarkGray"
-                VerticalTextAlignment="Center">
-            </Label>
-            <Label 
+                BackgroundColor="DarkGray">
+            </Entry>
+            <Entry 
                 Grid.Row="3"
                 Grid.Column="1"
                 Text="{Binding Strength}"
-                BackgroundColor="DarkGray"
-                VerticalTextAlignment="Center">
-            </Label>
+                BackgroundColor="DarkGray">
+            </Entry>
             <Label 
                 Grid.Row="4"
                 Grid.Column="0"
@@ -71,14 +68,13 @@
                 Text="{x:Static core:StringResource.TreatmentProvider}" 
                 VerticalTextAlignment="Start">
             </Label>
-            <Label 
+            <Entry 
                 Grid.Row="5"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Text="{Binding TreatmentProvider}"
-                BackgroundColor="DarkGray"
-                VerticalTextAlignment="Center">
-            </Label>
+                BackgroundColor="DarkGray">
+            </Entry>
             <Label 
                 Grid.Row="6"
                 Grid.Column="0"
@@ -86,14 +82,13 @@
                 Text="{x:Static core:StringResource.ReasonForTaking}" 
                 VerticalTextAlignment="Start">
             </Label>
-            <Label 
+            <Entry 
                 Grid.Row="7"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Text="{Binding ReasonForTaking}"
-                BackgroundColor="DarkGray"
-                VerticalTextAlignment="Center">
-            </Label>
+                BackgroundColor="DarkGray">
+            </Entry>
             <Label 
                 Grid.Row="8"
                 Grid.Column="0"
@@ -101,19 +96,19 @@
                 Text="{x:Static core:StringResource.DateStarted}" 
                 VerticalTextAlignment="Start">
             </Label>
-            <Label 
+            <DatePicker  
                 Grid.Row="9"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Text="{Binding DateStarted}"
-                BackgroundColor="DarkGray"
-                VerticalTextAlignment="Center">
-            </Label>
+                Date="{Binding DateStarted}"
+                BackgroundColor="DarkGray" >
+                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+            </DatePicker>
             <Button 
                 Grid.Row="10"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Command="SaveCommand"
+                Command="{Binding SaveCommand}"
                 BackgroundColor="{StaticResource HighlightColor}"
                 Text="{x:Static core:StringResource.Save}">
             </Button>

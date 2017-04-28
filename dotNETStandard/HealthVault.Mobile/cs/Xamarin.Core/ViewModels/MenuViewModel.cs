@@ -7,6 +7,7 @@ using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows;
 using HealthVault.Sample.Xamarin.Core.Views;
 using Microsoft.HealthVault.Client;
+using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
 using Xamarin.Forms;
@@ -74,9 +75,14 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private async Task OpenMedicationsPageAsync()
         {
+            var person = await connection.GetPersonInfoAsync();
+            IThingClient thingClient = connection.CreateThingClient();
+            HealthRecordInfo record = person.SelectedRecord;
+            IReadOnlyCollection<Medication> items = await thingClient.GetThingsAsync<Medication>(record.Id);
+
             var medicationsMainPage = new MedicationsMainPage
             {
-                BindingContext = new MedicationsMainViewModel(NavigationService, ResourceProvider)
+                BindingContext = new MedicationsMainViewModel(items, thingClient, record.Id, NavigationService, ResourceProvider)
             };
             await NavigationService.NavigateAsync(medicationsMainPage);
         }

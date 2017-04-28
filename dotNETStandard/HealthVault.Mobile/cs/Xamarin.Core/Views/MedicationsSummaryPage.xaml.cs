@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace HealthVault.Sample.Xamarin.Core.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MedicationPage : ContentPage
+    public partial class MedicationsSummaryPage : ContentPage
     {
-        public MedicationPage()
+        public MedicationsSummaryPage()
         {
             InitializeComponent();
         }

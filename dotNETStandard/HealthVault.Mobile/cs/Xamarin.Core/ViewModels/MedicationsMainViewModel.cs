@@ -1,44 +1,93 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows;
 using HealthVault.Sample.Xamarin.Core.Views;
+using Microsoft.HealthVault.Clients;
+using Microsoft.HealthVault.ItemTypes;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class MedicationsMainViewModel : ViewModel
     {
-        public ObservableCollection<MedicationsSummaryViewRow> CurrentMedications { get; }
-        public ObservableCollection<MedicationsSummaryViewRow> PastMedications { get; }
+        private readonly IThingClient thingClient;
+        private readonly Guid recordId;
+        private ObservableCollection<MedicationsSummaryViewRow> currentMedications;
+        private ObservableCollection<MedicationsSummaryViewRow> pastMedications;
+
+        public ObservableCollection<MedicationsSummaryViewRow> CurrentMedications
+        {
+            get => currentMedications;
+            private set
+            {
+                currentMedications = value;
+                RaisePropertyChanged(() => CurrentMedications);
+            }
+        }
+
+        public ObservableCollection<MedicationsSummaryViewRow> PastMedications
+        {
+            get => pastMedications;
+            private set
+            {
+                pastMedications = value;
+                RaisePropertyChanged(() => PastMedications);
+            }
+        }
 
         public ICommand ItemSelectedCommand { get; }
 
         public MedicationsMainViewModel(
+            IEnumerable<Medication> items, 
+            IThingClient thingClient,
+            Guid recordId,
             INavigationService navigationService, 
             IPlatformResourceProvider resourceProvider) : base(navigationService, resourceProvider)
         {
-            ItemSelectedCommand = new Command<MedicationsSummaryViewRow>(async o => await GoToPageAsync(o));
+            this.thingClient = thingClient;
+            this.recordId = recordId;
 
-            CurrentMedications = new ObservableCollection<MedicationsSummaryViewRow>(new[]
-            {
-                new MedicationsSummaryViewRow { Text = "Baboon", Detail = "Africa & Asia", Note = "My note", DisclosureImagePath = resourceProvider.DisclosureIcon},
-                new MedicationsSummaryViewRow { Text = "Capuchin Monkey", Detail = "Central & South America", Note = "My note" , DisclosureImagePath = resourceProvider.DisclosureIcon},
-            });
+            ItemSelectedCommand = new Command<MedicationsSummaryViewRow>(async o => await GoToMedicationsSummaryPageAsync(o.Medication));
 
-            PastMedications = new ObservableCollection<MedicationsSummaryViewRow>(new[]
-            {
-                new MedicationsSummaryViewRow { Text = "Aripiprazole", Detail = "Africa & Asia", Note = "My note", DisclosureImagePath = resourceProvider.DisclosureIcon},
-            });
+            UpdateDisplay(items);
         }
 
-        private async Task GoToPageAsync(MedicationsSummaryViewRow obj)
+        public override async Task OnNavigateBack()
         {
-            var medicationsMainPage = new MedicationPage()
+            IReadOnlyCollection<Medication> items = await thingClient.GetThingsAsync<Medication>(recordId);
+            UpdateDisplay(items);
+            await base.OnNavigateBack();
+        }
+
+        private void UpdateDisplay(IEnumerable<Medication> items)
+        {
+            CurrentMedications = new ObservableCollection<MedicationsSummaryViewRow>();
+            PastMedications = new ObservableCollection<MedicationsSummaryViewRow>();
+
+            foreach (Medication medication in items)
             {
-                BindingContext = new MedicationViewModel(NavigationService, ResourceProvider),
+                var summaryViewRow = new MedicationsSummaryViewRow(medication, ResourceProvider.DisclosureIcon);
+                if (medication.DateDiscontinued == null)
+                {
+                    CurrentMedications.Add(summaryViewRow);
+                }
+                else
+                {
+                    PastMedications.Add(summaryViewRow);
+                }
+            }
+        }
+
+        private async Task GoToMedicationsSummaryPageAsync(Medication medication)
+        {
+            var medicationsMainPage = new MedicationsSummaryPage()
+            {
+                BindingContext = new MedicationsSummaryViewModel(medication, thingClient, recordId, NavigationService, ResourceProvider),
             };
             await NavigationService.NavigateAsync(medicationsMainPage);
         }

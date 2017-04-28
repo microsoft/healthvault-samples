@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography;
+﻿using System.Threading.Tasks;
 using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.ViewModels;
 using HealthVault.Sample.Xamarin.Core.Views;
@@ -22,6 +22,8 @@ namespace HealthVault.Sample.Xamarin.Core
             };
 
             var navigationPage = new NavigationPage(mainPage);
+
+            navigationService.RegisterNavigateBack(navigationPage);
             MainPage = navigationPage;
         }
 
