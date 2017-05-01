@@ -45,10 +45,8 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
         {
             this.connection = navParams.Connection;
 
-            XmlDocument document = await XmlDocument.LoadFromFileAsync(await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync("app.config"));
-
-            var restClient = this.connection.CreateMicrosoftHealthVaultRestApi(
-                new Uri(document.SelectSingleNode("/configuration/appSettings/add[@key='RestHealthServiceUrl']").Attributes.GetNamedItem("value").InnerText), (await this.connection.GetPersonInfoAsync()).SelectedRecord.Id);
+            var recordId = (await this.connection.GetPersonInfoAsync()).SelectedRecord.Id;
+            var restClient = this.connection.CreateMicrosoftHealthVaultRestApi(recordId);
 
             try
             {

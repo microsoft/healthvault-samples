@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.3
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UWP", "UWP\UWP.csproj", "{F3B2D3CC-E1EA-4AED-BC35-0C4C95F20C82}"
 EndProject
@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{66F794
 		Images\meds_icon-2x.png = Images\meds_icon-2x.png
 		Images\meds_icon-3x.png = Images\meds_icon-3x.png
 		Images\meds_icon.png = Images\meds_icon.png
+		Images\profile_icon.png = Images\profile_icon.png
 		Images\toolbar_ap_icon-2x.png = Images\toolbar_ap_icon-2x.png
 		Images\toolbar_ap_icon-3x.png = Images\toolbar_ap_icon-3x.png
 		Images\toolbar_ap_icon.png = Images\toolbar_ap_icon.png

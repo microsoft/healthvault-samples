@@ -55,14 +55,24 @@
                                     Text="{Binding Description}"
                                     Style="{DynamicResource SubtitleStyle}"
                                 VerticalOptions="End" />
-                                <Image Grid.Column="2" 
-                                       Grid.RowSpan="2"
-                                       Grid.Row="0"
-                                       Source="{Binding DisclosureImagePath}" 
-                                       Aspect="AspectFit" 
-                                       HeightRequest="19" 
-                                       HorizontalOptions="Center" 
-                                       VerticalOptions="Center"/>
+                                <Image
+                                    Grid.Column="2" 
+                                    Grid.RowSpan="2"
+                                    Grid.Row="0"
+                                    Source="{Binding DisclosureImagePath}" 
+                                    Aspect="AspectFit" 
+                                    HeightRequest="19"
+                                    HorizontalOptions="Center" 
+                                    VerticalOptions="Center"
+                                    IsVisible="{Binding Openning, Converter={StaticResource InverseBoolConverter}}"/>
+                                <ActivityIndicator
+                                    Grid.Column="2"
+                                    Grid.RowSpan="2"
+                                    Grid.Row="0"
+                                    Color="Red"
+                                    IsRunning="True"
+                                    IsVisible="{Binding Openning}"/>
+
                             </Grid>
                         </StackLayout>
                     </ViewCell>

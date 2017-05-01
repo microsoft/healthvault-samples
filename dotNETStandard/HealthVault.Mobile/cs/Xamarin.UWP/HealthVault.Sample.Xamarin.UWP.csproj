@@ -137,6 +137,9 @@
     <Content Include="..\Images\meds_icon.png">
       <Link>Assets\Health\meds_icon.png</Link>
     </Content>
+    <Content Include="..\Images\profile_icon.png">
+      <Link>Assets\Health\profile_icon.png</Link>
+    </Content>
     <Content Include="..\Images\toolbar_ap_icon-2x.png">
       <Link>Assets\Health\toolbar_ap_icon-2x.png</Link>
     </Content>

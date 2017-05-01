@@ -125,19 +125,25 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.HealthVault, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20419.1\lib\xamarinios\Microsoft.HealthVault.dll</HintPath>
+      <HintPath>..\packages\Microsoft.HealthVault.1.0.20428.3\lib\netstandard1.4\Microsoft.HealthVault.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.HealthVault.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20419.1\lib\xamarinios\Microsoft.HealthVault.Client.dll</HintPath>
+      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20428.3\lib\xamarinios\Microsoft.HealthVault.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.HealthVault.Client.Core, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20419.1\lib\xamarinios\Microsoft.HealthVault.Client.Core.dll</HintPath>
+      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20428.3\lib\xamarinios\Microsoft.HealthVault.Client.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.HealthVault.RestApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.1.0.20428.3\lib\netstandard1.4\Microsoft.HealthVault.RestApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.6\lib\netstandard1.5\Microsoft.Rest.ClientRuntime.dll</HintPath>
     </Reference>
     <Reference Include="ModernHttpClient, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\modernhttpclient.2.4.2\lib\Xamarin.iOS10\ModernHttpClient.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO.Compression" />

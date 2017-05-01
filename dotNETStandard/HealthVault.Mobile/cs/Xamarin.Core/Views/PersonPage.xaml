@@ -11,7 +11,7 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="84"/>
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="48"/>
                 <RowDefinition Height="20"/>
@@ -27,14 +27,18 @@
                 Grid.Row="0"
                 Grid.ColumnSpan="2">
                 <Button 
-                    BackgroundColor="{StaticResource HighlightColor}"
-                    BorderRadius="32"
-                    WidthRequest="64"
-                    HeightRequest="64">
+                    BackgroundColor="{StaticResource WhiteColor}"
+                    BorderColor="{StaticResource HighlightColor}"
+                    BorderWidth="2"
+                    BorderRadius="80"
+                    WidthRequest="80"
+                    HeightRequest="80">
                 </Button>
                 <Image 
-                    Source="{Binding ImageUrl}" 
-                    Margin="18">
+                    Source="{Binding ImageSource}" 
+                    Margin="14"
+                    WidthRequest="64"
+                    HeightRequest="64">
                 </Image>
             </Grid>
             <Label 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Microsoft.HealthVault.Client;
 using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
+using Microsoft.HealthVault.Thing;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
@@ -57,7 +59,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 ImageUrl = ResourceProvider.WeightIcon,
                 BackgroundColor = Color.FromHex("#f8b942"),
                 DisclosureImagePath = ResourceProvider.DisclosureIcon,
-                PageAction = async () => { },
+                PageAction = async () => await OpenWeightPageAsync(),
             });
             this.MenuViewRows.Add(new MenuItemViewRow()
             {
@@ -65,12 +67,30 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 Description = StringResource.ProfileDescription,
                 DisclosureImagePath = ResourceProvider.DisclosureIcon,
                 PageAction = async () => await OpenPersonPageAsync(),
+                BackgroundColor = Color.FromHex("#00b294"),
+                ImageUrl = ResourceProvider.ProfileIcon,
             });
         }
 
         private async Task GoToPageAsync(MenuItemViewRow obj)
         {
+            obj.Openning = true;
             await obj.PageAction();
+            obj.Openning = false;
+        }
+
+        private async Task OpenWeightPageAsync()
+        {
+            var person = await connection.GetPersonInfoAsync();
+            IThingClient thingClient = connection.CreateThingClient();
+            HealthRecordInfo record = person.SelectedRecord;
+            IReadOnlyCollection<Weight> items = await thingClient.GetThingsAsync<Weight>(record.Id);
+
+            var medicationsMainPage = new WeightPage
+            {
+                BindingContext = new WeightViewModel(items, thingClient, record.Id, NavigationService, ResourceProvider)
+            };
+            await NavigationService.NavigateAsync(medicationsMainPage);
         }
 
         private async Task OpenMedicationsPageAsync()
@@ -92,16 +112,22 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             var person = await connection.GetPersonInfoAsync();
             var thingClient = connection.CreateThingClient();
             HealthRecordInfo record = person.SelectedRecord;
-            BasicV2 basicInformation = (await thingClient.GetThingsAsync<BasicV2>(record.Id)).FirstOrDefault();
-            IReadOnlyCollection<Weight> weights = await thingClient.GetThingsAsync<Weight>(record.Id);
+            Guid recordId = record.Id;
+            BasicV2 basicInformation = (await thingClient.GetThingsAsync<BasicV2>(recordId)).FirstOrDefault();
+            IReadOnlyCollection<Weight> weights = await thingClient.GetThingsAsync<Weight>(recordId);
             double weight = weights.Count > 0 ? weights.First().Value.DisplayValue.Value : 0;
+
+            ImageSource imageSource = await GetImage(thingClient, recordId);
+
             var personViewModel = new PersonViewModel()
             {
                 FirstName = record.DisplayName,
                 BirthMonth = "",
                 BirthYear = basicInformation.BirthYear.HasValue ? basicInformation.BirthYear.Value.ToString() : "",
                 Gender = basicInformation.Gender.HasValue ? basicInformation.Gender.Value.ToString() : "",
-                Weight = weight.ToString()
+                Weight = weight.ToString(),
+                ImageSource = imageSource,
+
             };
             var menuPage = new PersonPage()
             {
@@ -109,6 +135,23 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             };
 
             await NavigationService.NavigateAsync(menuPage);
+        }
+
+        private async Task<ImageSource> GetImage(IThingClient thingClient, Guid recordId)
+        {
+            var query = new ThingQuery(PersonalImage.TypeId)
+            {
+                View = { Sections = ThingSections.Xml | ThingSections.BlobPayload | ThingSections.Signature }
+            };
+
+            var things = await thingClient.GetThingsAsync(recordId, query);
+            IThing firstThing = things.FirstOrDefault()?.FirstOrDefault();
+            if (firstThing == null)
+            {
+                return null;
+            }
+            PersonalImage image = (PersonalImage)firstThing;
+            return ImageSource.FromStream(() => image.ReadImage());
         }
     }
 }

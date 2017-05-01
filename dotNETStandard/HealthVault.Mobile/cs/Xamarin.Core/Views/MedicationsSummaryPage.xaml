@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
              x:Class="HealthVault.Sample.Xamarin.Core.Views.MedicationsSummaryPage"
              Title="Medication detail sample">
     <StackLayout Margin="10" BackgroundColor="{StaticResource WhiteColor}">
@@ -9,9 +10,9 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Margin="3" BackgroundColor="{StaticResource WhiteColor}">
-                            <Label Text="{Binding Title}" TextColor="{StaticResource HighlightColor}" FontSize="18"></Label>
-                            <Label Text="{Binding Value}" TextColor="{StaticResource ForegroundLight}" FontSize="15"></Label>
+                        <StackLayout HeightRequest="40" BackgroundColor="{StaticResource WhiteColor}">
+                            <Label Text="{Binding Title}" VerticalTextAlignment="Center" TextColor="{StaticResource HighlightColor}" FontSize="15"></Label>
+                            <Label Text="{Binding Value}" VerticalTextAlignment="Start" TextColor="{StaticResource ForegroundLight}" FontSize="11"></Label>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
@@ -23,7 +24,7 @@
                 BorderWidth="1" 
                 BorderColor="{StaticResource ForegroundLight}"
                 HeightRequest="48" 
-                Text="{Binding EditButtonLabel}" 
+                Text="{x:Static core:StringResource.EditDetails}" 
                 Command="{Binding EditCommand}">
             </Button>
         </StackLayout>

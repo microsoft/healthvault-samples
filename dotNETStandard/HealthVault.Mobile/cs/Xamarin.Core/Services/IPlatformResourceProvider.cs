@@ -6,5 +6,6 @@ namespace HealthVault.Sample.Xamarin.Core.Services
         string MedsIcon { get; }
         string WeightIcon { get; }
         string DisclosureIcon { get; }
+        string ProfileIcon { get; }
     }
 }

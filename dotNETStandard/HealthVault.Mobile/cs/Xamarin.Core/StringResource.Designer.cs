@@ -80,6 +80,15 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new weight measurement.
+        /// </summary>
+        public static string AddNewWeight {
+            get {
+                return ResourceManager.GetString("AddNewWeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birth month.
         /// </summary>
         public static string BirthMonth {
@@ -170,11 +179,29 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to kg.
+        /// </summary>
+        public static string Kg {
+            get {
+                return ResourceManager.GetString("Kg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last weight.
+        /// </summary>
+        public static string LastWeight {
+            get {
+                return ResourceManager.GetString("LastWeight", resourceCulture);
             }
         }
         

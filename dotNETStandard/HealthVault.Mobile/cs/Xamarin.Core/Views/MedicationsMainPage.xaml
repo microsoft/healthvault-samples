@@ -15,11 +15,11 @@
                         </Grid.ColumnDefinitions>
                         <StackLayout Grid.Column="0" Padding="5">
                             <Label Text="{Binding Text}" 
-                                   Style="{DynamicResource ListItemTextStyle}" />
+                                   Style="{DynamicResource ListItemTextStyle}" FontSize="15" />
                             <Label Text="{Binding Detail}" 
-                                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                   Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13"/>
                             <Label Text="{Binding Note}" 
-                                   Style="{DynamicResource ListItemDetailTextStyle}" 
+                                   Style="{DynamicResource ListItemDetailTextStyle}" FontSize="13" 
                                    TextColor="DarkGray"/>
                         </StackLayout>
                         <Image Grid.Column="1" Source="{Binding DisclosureImagePath}" Aspect="AspectFit" HeightRequest="19" HorizontalOptions="Center" VerticalOptions="Center"/>
@@ -30,11 +30,11 @@
     </ContentPage.Resources>
     <StackLayout Margin="5" BackgroundColor="LightGray">
         <StackLayout Padding="10" 
-                     HeightRequest="50"
+                     HeightRequest="40"
                      Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
             <Label Text="Current medications"
-                   FontSize="24"
+                   FontSize="20"
                    HorizontalTextAlignment="Start"
                    VerticalTextAlignment="Center"
                    HorizontalOptions="FillAndExpand"
@@ -49,11 +49,11 @@
             </ListView.Behaviors>
         </ListView>
         <StackLayout Padding="10" 
-                     HeightRequest="50"
+                     HeightRequest="40"
                      Orientation="Horizontal"
                      HorizontalOptions="FillAndExpand">
             <Label Text="Past medications"
-                   FontSize="24"
+                   FontSize="20"
                    HorizontalTextAlignment="Start"
                    VerticalTextAlignment="Center"
                    HorizontalOptions="FillAndExpand"

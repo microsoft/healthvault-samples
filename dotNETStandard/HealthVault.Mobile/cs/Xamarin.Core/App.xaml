@@ -26,7 +26,8 @@
             <Color x:Key="ImageBackground">#e88829</Color>
 
             <converters:ItemTappedEventArgsConverter x:Key="TappedItemConverter" />
-            
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

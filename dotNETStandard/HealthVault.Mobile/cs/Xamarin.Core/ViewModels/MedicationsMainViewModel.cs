@@ -66,21 +66,24 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private void UpdateDisplay(IEnumerable<Medication> items)
         {
-            CurrentMedications = new ObservableCollection<MedicationsSummaryViewRow>();
-            PastMedications = new ObservableCollection<MedicationsSummaryViewRow>();
+            var current = new ObservableCollection<MedicationsSummaryViewRow>();
+            var past = new ObservableCollection<MedicationsSummaryViewRow>();
 
             foreach (Medication medication in items)
             {
                 var summaryViewRow = new MedicationsSummaryViewRow(medication, ResourceProvider.DisclosureIcon);
                 if (medication.DateDiscontinued == null)
                 {
-                    CurrentMedications.Add(summaryViewRow);
+                    current.Add(summaryViewRow);
                 }
                 else
                 {
-                    PastMedications.Add(summaryViewRow);
+                    past.Add(summaryViewRow);
                 }
             }
+
+            CurrentMedications = current;
+            PastMedications = past;
         }
 
         private async Task GoToMedicationsSummaryPageAsync(Medication medication)

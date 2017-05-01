@@ -94,8 +94,6 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             await NavigationService.NavigateAsync(medicationsMainPage);
 
         }
-
-        public string EditButtonLabel { get; set; } = StringResource.EditDetails;
     }
 
     public class MedicationItemViewRow

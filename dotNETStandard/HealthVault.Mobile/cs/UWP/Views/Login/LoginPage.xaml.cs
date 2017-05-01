@@ -60,8 +60,9 @@ namespace HealthVaultMobileSample.UWP.Views.Login
             return new HealthVaultConfiguration
             {
                 MasterApplicationId = Guid.Parse(document.SelectSingleNode("/configuration/appSettings/add[@key='ApplicationId']").Attributes.GetNamedItem("value").InnerText),
-                HealthVaultShellUrl = new Uri(document.SelectSingleNode("/configuration/appSettings/add[@key='ShellUrl']").Attributes.GetNamedItem("value").InnerText),
-                HealthVaultUrl = new Uri(document.SelectSingleNode("/configuration/appSettings/add[@key='HealthServiceUrl']").Attributes.GetNamedItem("value").InnerText)
+                DefaultHealthVaultShellUrl = new Uri(document.SelectSingleNode("/configuration/appSettings/add[@key='ShellUrl']").Attributes.GetNamedItem("value").InnerText),
+                DefaultHealthVaultUrl = new Uri(document.SelectSingleNode("/configuration/appSettings/add[@key='HealthServiceUrl']").Attributes.GetNamedItem("value").InnerText),
+                RestHealthVaultUrl = new Uri(document.SelectSingleNode("/configuration/appSettings/add[@key='RestHealthServiceUrl']").Attributes.GetNamedItem("value").InnerText),
             };
         }
 

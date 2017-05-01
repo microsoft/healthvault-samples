@@ -123,6 +123,9 @@
   <data name="ActionPlansDescription" xml:space="preserve">
     <value>Get help accomplishing your goals in a structred way</value>
   </data>
+  <data name="AddNewWeight" xml:space="preserve">
+    <value>Add new weight measurement</value>
+  </data>
   <data name="BirthMonth" xml:space="preserve">
     <value>Birth month</value>
   </data>
@@ -153,8 +156,14 @@
   <data name="HowTaken" xml:space="preserve">
     <value>How taken</value>
   </data>
+  <data name="Kg" xml:space="preserve">
+    <value>kg</value>
+  </data>
   <data name="LastName" xml:space="preserve">
     <value>Last name</value>
+  </data>
+  <data name="LastWeight" xml:space="preserve">
+    <value>Last weight</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
