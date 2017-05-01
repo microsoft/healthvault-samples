@@ -35,7 +35,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
         {
             get
             {
-                return Items?.First();
+                return Items?.FirstOrDefault();
             }
         }
         private enum QueryTimeframeEnum

@@ -1,4 +1,5 @@
 ﻿using HealthVaultMobileSample.UWP.Helpers;
+using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.RestApi.Generated.Models;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
     /// </summary>
     public sealed partial class ActionPlanDetailsPage : HealthVaultBasePage
     {
+        private IHealthVaultConnection connection;
         public ActionPlanInstance Context { get; set; }
 
         public ActionPlanDetailsPage()
@@ -34,9 +36,27 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
 
         public override async Task Initialize(NavigationParams navParams)
         {
+            this.connection = navParams.Connection as IHealthVaultConnection;
             this.Context = navParams.Context as ActionPlanInstance;
 
             OnPropertyChanged("Context");
+        }
+
+        private void ListView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var task = e.ClickedItem as ActionPlanTaskInstance;
+            if (task.TrackingPolicy.IsAutoTrackable == true)
+            {
+                var xpath = task.TrackingPolicy.TargetEvents.FirstOrDefault().ElementXPath; 
+                if (xpath.Contains("thing/data-xml/weight"))
+                {
+                    this.Frame.Navigate(typeof(Views.Weights.WeightPage),
+                        new NavigationParams()
+                        {
+                            Connection = this.connection
+                        });
+                }
+            }
         }
     }
 }

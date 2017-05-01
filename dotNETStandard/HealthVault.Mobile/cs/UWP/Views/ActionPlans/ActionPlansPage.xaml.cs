@@ -17,11 +17,13 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.HealthVault.RestApi;
 using Windows.Data.Xml.Dom;
-using Windows.Web.Http;
 using Microsoft.HealthVault.RestApi.Generated.Models;
 using Microsoft.HealthVault.RestApi.Generated;
 using Windows.UI.Popups;
 using HealthVaultMobileSample.UWP.Helpers;
+using Microsoft.HealthVault.ItemTypes;
+using System.Net.Http;
+using Microsoft.HealthVault.Thing;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -45,7 +47,7 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
         {
             this.connection = navParams.Connection;
 
-            var recordId = (await this.connection.GetPersonInfoAsync()).SelectedRecord.Id;
+            Guid recordId = (await this.connection.GetPersonInfoAsync()).SelectedRecord.Id;
             var restClient = this.connection.CreateMicrosoftHealthVaultRestApi(recordId);
 
             try
@@ -56,6 +58,7 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
                 this.Plans = from p in response.Plans
                              where p.Status == "Recommended" || p.Status == "InProgress"
                              select p;
+
                 OnPropertyChanged("Plans");
 
             }

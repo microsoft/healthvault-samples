@@ -32,16 +32,17 @@
                             <ColumnDefinition />
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Ellipse Style="{StaticResource ThumbnailSizeStyle}"
-                                 Grid.Column="0">
-                            <Ellipse.Fill>
-                                <ImageBrush>
-                                    <ImageBrush.ImageSource>
-                                        <BitmapImage UriSource="{Binding ThumbnailImageUrl}"/>
-                                    </ImageBrush.ImageSource>
-                                </ImageBrush>
-                            </Ellipse.Fill>
-                        </Ellipse>
+                        <Grid Grid.Column="0"
+                              
+                          Background="Transparent">
+                            <Ellipse Width="64"
+                                         Height="64" 
+                                         Fill="{ThemeResource HighlightColorLight}">
+                            </Ellipse>
+                            <Image Source="{Binding ThumbnailImageUrl}"
+                                   Style="{StaticResource ThumbnailSizeStyle}"
+                               Margin="18"/>
+                        </Grid>
                         <StackPanel Orientation="Horizontal" Grid.Column="1">
                             <StackPanel Orientation="Vertical" Margin="20">
                                 <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderStyle}" />
