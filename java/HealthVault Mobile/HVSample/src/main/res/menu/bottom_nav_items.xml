@@ -1,21 +1,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item
-		android:id="@+id/menuHome"
+		android:id="@+id/menu_home"
 		android:title="@string/menu_home"
 		android:icon="@drawable/home_icon_select"/>
 
 	<item
-		android:id="@+id/menuActionPlan"
-		android:title="@string/menu_ActionPlan"
+		android:id="@+id/menu_actionplan"
+		android:title="@string/menu_actionplan"
 		android:icon="@drawable/habits_icon_selected"/>
 
 	<item
-		android:id="@+id/menuMedication"
-		android:title="@string/menu_Medication"
+		android:id="@+id/menu_medication"
+		android:title="@string/menu_medication"
 		android:icon="@drawable/meds_icon_selected"/>
 
 	<item
-		android:id="@+id/menuWeight"
-		android:title="@string/menu_Weight"
+		android:id="@+id/menu_weight"
+		android:title="@string/menu_weight"
 		android:icon="@drawable/weight_icon" />
 </menu>

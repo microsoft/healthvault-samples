@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 25
     buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "com.microsoft.hsg.android.hvsample"
         minSdkVersion 23
-        targetSdkVersion 25
+        targetSdkVersion 23
     }
 
     buildTypes {
@@ -20,8 +20,7 @@ android {
 
 dependencies {
     compile(name:'android-sdk-simplexml-release', ext:'aar')
-    compile(name:'achartengine-1.1.0', ext:'jar')
     compile 'com.jjoe64:graphview:4.2.1'
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.android.support:design:25.0.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
 }

@@ -5,180 +5,179 @@
 	android:layout_height="match_parent">
 
 	<!-- Profile Image -->
-	<LinearLayout
+	<FrameLayout
 		android:id="@+id/profileImageLayout"
-		android:layout_width="76dp"
-		android:layout_height="76dp"
-		android:layout_marginLeft="142dp"
-		android:layout_marginTop="20dp"
-		android:layout_marginBottom="28dp"
-		android:orientation="vertical"
+		android:layout_width="@dimen/profileimagelayout_width"
+		android:layout_height="@dimen/profileimagelayout_height"
+		android:layout_marginLeft="@dimen/profileimagelayout_marginleftt"
+		android:layout_marginTop="@dimen/margintop_20dp"
+		android:layout_marginBottom="@dimen/profileimagelayout_marginbottom"
 		android:background="@drawable/circle_background_image">
 		<ImageView
 			android:id="@+id/profileImage"
-			android:layout_width="50dp"
-			android:layout_height="50dp"
-			android:layout_marginTop="10dp"
+			android:layout_width="@dimen/profileimage_width"
+			android:layout_height="@dimen/profileimage_height"
+			android:layout_marginTop="@dimen/margintop_10dp"
 			android:layout_gravity="center"
 			android:src="@drawable/ic_launcher" />
-	</LinearLayout>
+	</FrameLayout>
 
 	<!-- Name Labels/Text -->
 	<TextView
 		android:id="@+id/firstNameLabel"
-		android:layout_width="69dp"
-		android:layout_height="20dp"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
 		android:layout_below="@id/profileImageLayout"
-		android:layout_marginLeft="20dp"
-		android:textColor="#767676"
-		android:textSize="15sp"
-		android:text="First name" />
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/label_firstname" />
 
 	<TextView
 		android:id="@+id/lastNameLabel"
-		android:layout_width="68dp"
-		android:layout_height="20dp"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
 		android:layout_below="@id/profileImageLayout"
 		android:layout_toRightOf="@id/firstNameLabel"
-		android:layout_marginLeft="96dp"
-		android:textColor="#767676"
-		android:textSize="15sp"
-		android:text="Last name" />
+		android:layout_marginLeft="@dimen/margin_96dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/label_lastname" />
 
 	<EditText
 		android:id="@+id/firstNameText"
-		android:layout_width="155dp"
-		android:layout_height="48dp"
+		android:layout_width="@dimen/width_155dp"
+		android:layout_height="@dimen/height_48dp"
 		android:layout_below="@id/firstNameLabel"
-		android:layout_marginTop="12dp"
-		android:layout_marginLeft="20dp"
-		android:paddingLeft="20dp"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:paddingLeft="@dimen/padding_20dp"
 		android:ems="10"
 		android:inputType="textPersonName"
-		android:text="Victoria"
-		android:textSize="15sp"
-		android:background="#eeeeee"/>
+		android:text="@string/sample_first"
+		android:textSize="@dimen/textsize_15sp"
+		android:background="@color/Isabelline"/>
 
 	<EditText
 		android:id="@+id/lastNameText"
-		android:layout_width="155dp"
-		android:layout_height="48dp"
+		android:layout_width="@dimen/width_155dp"
+		android:layout_height="@dimen/height_48dp"
 		android:layout_below="@id/lastNameLabel"
 		android:layout_toRightOf="@id/firstNameText"
-		android:layout_marginTop="12dp"
-		android:layout_marginLeft="10dp"
-		android:paddingLeft="20dp"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:layout_marginLeft="@dimen/margin_10dp"
+		android:paddingLeft="@dimen/padding_20dp"
 		android:ems="10"
 		android:inputType="textPersonName"
-		android:textSize="15sp"
-		android:text="Nguyen"
-		android:background="#eeeeee"/>
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/sample_last"
+		android:background="@color/Isabelline"/>
 
 	<!-- Birth Labels/Text -->
 	<TextView
 		android:id="@+id/birthMonthLabel"
-		android:layout_width="80dp"
-		android:layout_height="20dp"
+		android:layout_width="@dimen/width_80dp"
+		android:layout_height="@dimen/height_20dp"
 		android:layout_below="@id/firstNameText"
-		android:layout_marginLeft="20dp"
-		android:layout_marginTop="24dp"
-		android:text="Birth month"
-		android:textColor="#767676"
-		android:textSize="15sp"/>
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginTop="@dimen/margin_24dp"
+		android:text="@string/label_birthmonth"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"/>
 
 	<TextView
 		android:id="@+id/birthYearLabel"
-		android:layout_width="68dp"
-		android:layout_height="20dp"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
 		android:layout_below="@id/lastNameText"
 		android:layout_toRightOf="@id/birthMonthLabel"
-		android:layout_marginLeft="85dp"
-		android:layout_marginTop="24dp"
-		android:textColor="#767676"
-		android:textSize="15sp"
-		android:text="Birth Year" />
+		android:layout_marginLeft="@dimen/margin_85dp"
+		android:layout_marginTop="@dimen/margin_24dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/label_birthyear" />
 
 	<EditText
 		android:id="@+id/birthMonthText"
-		android:layout_width="155dp"
-		android:layout_height="48dp"
+		android:layout_width="@dimen/width_155dp"
+		android:layout_height="@dimen/height_48dp"
 		android:layout_below="@id/birthMonthLabel"
-		android:layout_marginTop="12dp"
-		android:layout_marginLeft="20dp"
-		android:paddingLeft="20dp"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:paddingLeft="@dimen/padding_20dp"
 		android:ems="10"
 		android:inputType="textPersonName"
-		android:text="September"
-		android:textSize="15sp"
-		android:background="#eeeeee"/>
+		android:text="@string/sample_month"
+		android:textSize="@dimen/textsize_15sp"
+		android:background="@color/Isabelline"/>
 
 	<EditText
 		android:id="@+id/birthYearText"
-		android:layout_width="155dp"
-		android:layout_height="48dp"
+		android:layout_width="@dimen/width_155dp"
+		android:layout_height="@dimen/height_48dp"
 		android:layout_below="@id/birthYearLabel"
 		android:layout_toRightOf="@id/birthMonthText"
-		android:layout_marginTop="12dp"
-		android:layout_marginLeft="10dp"
-		android:paddingLeft="20dp"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:layout_marginLeft="@dimen/margin_10dp"
+		android:paddingLeft="@dimen/padding_20dp"
 		android:ems="10"
 		android:inputType="textPersonName"
-		android:textSize="15sp"
-		android:text="1973"
-		android:background="#eeeeee"/>
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/sample_year"
+		android:background="@color/Isabelline"/>
 
 	<!-- Gender Labels/Text -->
 
 	<TextView
 		android:id="@+id/genderLabel"
-		android:layout_width="69dp"
-		android:layout_height="20dp"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
 		android:layout_below="@id/birthYearText"
-		android:layout_marginLeft="20dp"
-		android:layout_marginTop="24dp"
-		android:textColor="#767676"
-		android:textSize="15sp"
-		android:text="Gender" />
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginTop="@dimen/margin_24dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/label_gender" />
 
 	<EditText
 		android:id="@+id/genderText"
 		android:layout_width="match_parent"
-		android:layout_height="48dp"
+		android:layout_height="@dimen/height_48dp"
 		android:layout_below="@id/genderLabel"
-		android:layout_marginTop="12dp"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
-		android:paddingLeft="20dp"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginRight="@dimen/marginright_20dp"
+		android:paddingLeft="@dimen/padding_20dp"
 		android:ems="10"
 		android:inputType="textPersonName"
-		android:textSize="15sp"
-		android:text="Female"
-		android:background="#eeeeee"/>
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/sample_gender"
+		android:background="@color/Isabelline"/>
 
 	<!-- Weight Labels/Text -->
 	<TextView
 		android:id="@+id/weightLabel"
-		android:layout_width="69dp"
-		android:layout_height="20dp"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
 		android:layout_below="@id/genderText"
-		android:layout_marginLeft="20dp"
-		android:layout_marginTop="24dp"
-		android:textColor="#767676"
-		android:textSize="15sp"
-		android:text="Weight" />
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginTop="@dimen/margin_24dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/label_profilepage_weight" />
 
 	<EditText
 		android:id="@+id/weighText"
 		android:layout_width="match_parent"
-		android:layout_height="48dp"
+		android:layout_height="@dimen/height_48dp"
 		android:layout_below="@id/weightLabel"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
-		android:layout_marginTop="12dp"
-		android:background="#eeeeee"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginRight="@dimen/marginright_20dp"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:background="@color/Isabelline"
 		android:ems="10"
 		android:inputType="text"
-		android:paddingLeft="20dp"
-		android:text="150"
-		android:textSize="15sp"/>
+		android:paddingLeft="@dimen/padding_20dp"
+		android:text="@string/sample_weight"
+		android:textSize="@dimen/textsize_15sp"/>
 </RelativeLayout>

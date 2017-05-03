@@ -1,25 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">HVSample</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="clear">Clear</string>
-    <string name="sync">Sync</string>
-    <string name="menu_home">Home</string>
-    <string name="menu_ActionPlan">Action plan</string>
-    <string name="menu_Medication">Medication</string>
-    <string name="menu_Weight">Weight</string>
+	<string name="app_name">HVSample</string>
+	<string name="action_settings">Settings</string>
+	<string name="hello_world">Hello world!</string>
+	<string name="clear">Clear</string>
+	<string name="sync">Sync</string>
+	<string name="menu_home">Home</string>
+	<string name="menu_actionplan">Action plan</string>
+	<string name="menu_medication">Medication</string>
+	<string name="menu_weight">Weight</string>
+	<string name="menu_connect">Connect</string>
+	<string name="menu_recordname">Record Name</string>
 
-    <string-array name="countries_array">
-        <item>Afghanistan</item>
-        <item>Albania</item>
-        <item>Algeria</item>
-        <item>American Samoa</item>
-        <item>Andorra</item>
-        <item>Angola</item>
-        <item>Anguilla</item>
-        <item>Antarctica</item>
-    </string-array>
+	<string-array name="countries_array">
+		<item>Afghanistan</item>
+		<item>Albania</item>
+		<item>Algeria</item>
+		<item>American Samoa</item>
+		<item>Andorra</item>
+		<item>Angola</item>
+		<item>Anguilla</item>
+		<item>Antarctica</item>
+	</string-array>
+
+	<!--Home Page -->
+	<string name="actionplan_title">Action Plan</string>
+	<string name="actionplan_subtitle">Get help accomplishing your goals in a structured way</string>
+	<string name="medication_title">Medications</string>
+	<string name="medication_subtitle">Keep track of your current and past medications</string>
+	<string name="weight_title">Weight</string>
+	<string name="weight_subtitle">One of many metrics you can keep track of here</string>
+	<string name="profile_title">Profile</string>
+	<string name="profile_subtitle">Edit personal information associated with the account</string>
+
+	<!--Weight Page -->
+	<string name="label_lastweight">Last weight</string>
+	<string name="label_metric">kgs</string>
+	<string name="button_addweight">Add new weight measurement</string>
+	<string name="label_date">DATE</string>
+	<string name="label_weightpage_weight">WEIGHT</string>
+
+	<!--Profile Page -->
+	<string name="label_firstname">First</string>
+	<string name="label_lastname">Last</string>
+	<string name="sample_first">Victoria</string>
+	<string name="sample_last">Nguyn</string>
+	<string name="label_birthmonth">Birth month</string>
+	<string name="label_birthyear">Birth year</string>
+	<string name="sample_month">September</string>
+	<string name="sample_year">1973</string>
+	<string name="label_gender">Gender</string>
+	<string name="sample_gender">Female</string>
+	<string name="label_profilepage_weight">Weight</string>
+	<string name="sample_weight">150</string>
+
+	<!--Medication Page -->
+	<string name="name_label">Name</string>
+	<string name="sample_name_text">Duloxetine</string>
+	<string name="dosagetype_label">Dosage type</string>
+	<string name="strength_label">Strength</string>
+	<string name="sample_strength_text">37.5 mg</string>
+	<string name="treatmentprovider_label">Treatment provider</string>
+	<string name="reason_label">Reason for taking</string>
+	<string name="sample_reason_text">Select</string>
+	<string name="datestarted_label">Date started</string>
+	<string name="sample_datestarted_value1_text">Value1</string>
+	<string name="sample_datestarted_value2_text">Value2</string>
+	<string name="sample_datestarted_value3_text">Value3</string>
+	<string name="save_button">Save</string>
 
 </resources>
