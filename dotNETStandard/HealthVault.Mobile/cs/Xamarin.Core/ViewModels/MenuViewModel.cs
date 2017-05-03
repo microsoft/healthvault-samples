@@ -74,9 +74,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private async Task GoToPageAsync(MenuItemViewRow obj)
         {
-            obj.Openning = true;
+            obj.Opening = true;
             await obj.PageAction();
-            obj.Openning = false;
+            obj.Opening = false;
         }
 
         private async Task OpenWeightPageAsync()

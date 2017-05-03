@@ -9,9 +9,7 @@ namespace HealthVault.Sample.Xamarin.UWP
         {
             this.InitializeComponent();
 
-            var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(DefaultConfiguration.GetPpeDefaultConfiguration());
-
-            LoadApplication(new Core.App(connection, new PlatformResourceProvider()));
+            LoadApplication(new Core.App(new PlatformResourceProvider()));
         }
     }
 }

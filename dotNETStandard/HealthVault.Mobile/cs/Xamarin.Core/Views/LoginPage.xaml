@@ -2,15 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
-             x:Class="HealthVault.Sample.Xamarin.Core.Views.MainPage"
-             Title="Login"
-             >
+             x:Class="HealthVault.Sample.Xamarin.Core.Views.LoginPage"
+             Title="Login">
     <Frame BackgroundColor="{StaticResource ItemsBackground}">
         <Grid Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="80" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label 
                 Grid.Row="0"
@@ -19,19 +17,11 @@
                 HorizontalTextAlignment="Center"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" />
-            <Grid
-                Grid.Row="1">
-                <Button 
-                    Text="{x:Static core:StringResource.Login}" 
-                    BorderWidth="1" 
-                    BorderColor="{StaticResource ForegroundLight}"
-                    HeightRequest="48" 
-                    Command="{Binding LoginCommand}"
-                    BorderRadius="5"
-                    WidthRequest="150"
-                    HorizontalOptions="Center">
-                </Button>
-            </Grid>
+            <ActivityIndicator
+                Grid.Row="1"
+                HeightRequest="20"
+                VerticalOptions="Center"
+                HorizontalOptions="FillAndExpand" />
         </Grid>
     </Frame>
 </ContentPage>

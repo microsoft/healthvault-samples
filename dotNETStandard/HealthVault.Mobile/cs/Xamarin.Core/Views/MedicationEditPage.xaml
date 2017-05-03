@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
              x:Class="HealthVault.Sample.Xamarin.Core.Views.MedicationEditPage" 
-             Title="Profile Sample">
+             Title="Medication Edit Sample">
     <Frame BackgroundColor="{StaticResource WhiteColor}">
         <Grid Margin="5">
             <Grid.ColumnDefinitions>
@@ -12,15 +12,15 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="48"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="48"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="48"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="48"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="48"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="48"/>
             </Grid.RowDefinitions>
             <Label 
@@ -101,14 +101,17 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Date="{Binding DateStarted}"
-                BackgroundColor="DarkGray" >
+                BackgroundColor="DarkGray"
+                HorizontalOptions="Start">
                 <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
             </DatePicker>
             <Button 
                 Grid.Row="10"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
+                Margin="0,15,0,0"
                 Command="{Binding SaveCommand}"
+                TextColor="{StaticResource WhiteColor}"
                 BackgroundColor="{StaticResource HighlightColor}"
                 Text="{x:Static core:StringResource.Save}">
             </Button>

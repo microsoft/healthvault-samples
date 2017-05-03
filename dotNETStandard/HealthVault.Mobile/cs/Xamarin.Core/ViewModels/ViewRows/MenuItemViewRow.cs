@@ -4,22 +4,24 @@ using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows
 {
-    public class MenuItemViewRow: ExtendedBindableObject
+    public class MenuItemViewRow : BindableObject
     {
-        private bool openning;
+        private bool opening;
+
         public string ImageUrl { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public Color BackgroundColor { get; set; }
         public string DisclosureImagePath { get; set; }
 
-        public bool Openning
+        public bool Opening
         {
-            get => openning;
+            get { return this.opening; }
+
             set
             {
-                openning = value;
-                RaisePropertyChanged(() => Openning);
+                this.opening = value;
+                this.OnPropertyChanged();
             }
         }
 

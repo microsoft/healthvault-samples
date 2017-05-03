@@ -4,6 +4,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using XLabs.Forms;
 
 namespace HealthVault.Sample.Xamarin.UWP
 {
@@ -19,6 +20,10 @@ namespace HealthVault.Sample.Xamarin.UWP
         public App()
         {
             this.InitializeComponent();
+
+            var xFormsApp = new XFormsAppWin();
+            xFormsApp.Init(this);
+
             this.Suspending += OnSuspending;
         }
 

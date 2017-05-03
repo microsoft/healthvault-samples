@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using HealthVault.Sample.Xamarin.Core.ViewModels;
 using Xamarin.Forms;
@@ -21,21 +22,28 @@ namespace HealthVault.Sample.Xamarin.Core.Services
 
         public void RegisterNavigateBack(NavigationPage navigationPage)
         {
-            navigationPage.Popped += async (sender, args) => await OnPopped();
+            navigationPage.Popped += this.NavigationPageOnPopped;
+            navigationPage.Appearing += (sender, args) => this.HandleNavigationPageAppearing(navigationPage);
         }
 
-        private async Task OnPopped()
+        private void NavigationPageOnPopped(object sender, NavigationEventArgs navigationEventArgs)
         {
-            var viewModel = GetNextPage()?.BindingContext as ICanNavigateBack;
-            if (viewModel != null)
-            {
-                await viewModel.OnNavigateBack();
-            }
+            var viewModel = this.GetNextPage()?.BindingContext as ViewModel;
+            viewModel?.OnNavigateBackAsync();
+
+            //var viewModel = navigationEventArgs.Page?.BindingContext as ViewModel;
+            //viewModel?.OnNavigateBackAsync();
+        }
+
+        private void HandleNavigationPageAppearing(NavigationPage page)
+        {
+            ViewModel viewModel = page.CurrentPage?.BindingContext as ViewModel;
+            viewModel?.OnNavigateToAsync();
         }
 
         private Page GetNextPage()
         {
-            return CurrentApplication.MainPage?.Navigation.NavigationStack.LastOrDefault();
+            return this.CurrentApplication.MainPage?.Navigation.NavigationStack.LastOrDefault();
         }
     }
 }

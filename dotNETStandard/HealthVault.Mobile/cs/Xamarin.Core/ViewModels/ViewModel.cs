@@ -1,9 +1,10 @@
 ﻿using System.Threading.Tasks;
 using HealthVault.Sample.Xamarin.Core.Services;
+using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
-    public abstract class ViewModel : ExtendedBindableObject, ICanNavigateBack
+    public abstract class ViewModel : BindableObject
     {
         protected readonly IPlatformResourceProvider ResourceProvider;
         protected readonly INavigationService NavigationService;
@@ -12,33 +13,34 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public bool IsBusy
         {
-            get => isBusy;
+            get { return this.isBusy; }
+
             set
             {
-                isBusy = value;
-                RaisePropertyChanged(() => IsBusy);
+                this.isBusy = value;
+                this.OnPropertyChanged();
             }
         }
 
         protected ViewModel(INavigationService navigationService, IPlatformResourceProvider resourceProvider)
         {
-            ResourceProvider = resourceProvider;
-            NavigationService = navigationService;
+            this.ResourceProvider = resourceProvider;
+            this.NavigationService = navigationService;
         }
 
         public virtual Task InitializeAsync(object navigationData)
         {
-            return Task.FromResult(false);
+            return Task.CompletedTask;
         }
 
-        public virtual async Task OnNavigateBack()
+        public virtual Task OnNavigateBackAsync()
         {
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
-    }
 
-    public interface ICanNavigateBack
-    {
-        Task OnNavigateBack();
+        public virtual Task OnNavigateToAsync()
+        {
+            return Task.CompletedTask;
+        }
     }
 }

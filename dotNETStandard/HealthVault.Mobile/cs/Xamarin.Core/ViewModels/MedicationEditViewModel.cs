@@ -33,7 +33,6 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         private async Task SaveAsync(Medication medication, IThingClient thingClient, Guid recordId)
         {
             UpdateMedication(medication);
-
             await thingClient.UpdateThingsAsync(recordId, new Collection<Medication>() { medication });
 
             await NavigationService.NavigateBackAsync();

@@ -7,31 +7,28 @@ using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
-    public class MainPageViewModel : ViewModel
+    public class LoginPageViewModel : ViewModel
     {
         private readonly IHealthVaultSodaConnection connection;
 
-        public MainPageViewModel(
+        public LoginPageViewModel(
             IHealthVaultSodaConnection connection,
             INavigationService navigationService, 
             IPlatformResourceProvider resourceProvider) : 
             base(navigationService, resourceProvider)
         {
             this.connection = connection;
-            LoginCommand = new Command(async () => await LoginAsync());
         }
 
-        public ICommand LoginCommand { get; }
-
-        private async Task LoginAsync()
+        public override async Task OnNavigateToAsync()
         {
-            await connection.AuthenticateAsync();
+            await this.connection.AuthenticateAsync();
 
-            var menuPage = new MenuPage()
+            var menuPage = new MenuPage
             {
-                BindingContext = new MenuViewModel(connection, NavigationService, ResourceProvider)
+                BindingContext = new MenuViewModel(this.connection, this.NavigationService, this.ResourceProvider)
             };
-            await NavigationService.NavigateAsync(menuPage);
+            await this.NavigationService.NavigateAsync(menuPage);
         }
     }
 }

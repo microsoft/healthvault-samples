@@ -12,16 +12,21 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class MedicationsSummaryViewModel : ViewModel
     {
-        private readonly Medication medication;
+        private readonly IThingClient thingClient;
+        private readonly Guid recordId;
+
+        private Medication medication;
+
         private ObservableCollection<MedicationItemViewRow> items;
 
         public ObservableCollection<MedicationItemViewRow> Items
         {
-            get => items;
+            get { return this.items; }
+                
             private set
             {
-                items = value;
-                RaisePropertyChanged(() => Items);
+                this.items = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -30,15 +35,27 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         public MedicationsSummaryViewModel(Medication medication, IThingClient thingClient, Guid recordId, INavigationService navigationService, IPlatformResourceProvider resourceProvider) : base(navigationService, resourceProvider)
         {
             this.medication = medication;
+            this.thingClient = thingClient;
+            this.recordId = recordId;
             EditCommand = new Command(async () => await GoToEditAsync(thingClient, recordId));
 
             UpdateDisplay();
         }
 
-        public override async Task OnNavigateBack()
+        public override async Task OnNavigateBackAsync()
         {
-            UpdateDisplay();
-            await base.OnNavigateBack();
+            this.IsBusy = true;
+            try
+            {
+                this.medication = await this.thingClient.GetThingAsync<Medication>(this.recordId, this.medication.Key.Id);
+
+                this.UpdateDisplay();
+                await base.OnNavigateBackAsync();
+            }
+            finally
+            {
+                this.IsBusy = false;
+            }
         }
 
         private void UpdateDisplay()
@@ -87,7 +104,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         {
             var viewModel = new MedicationEditViewModel(medication, thingClient, recordId, NavigationService, ResourceProvider);
 
-            var medicationsMainPage = new MedicationEditPage()
+            var medicationsMainPage = new MedicationEditPage
             {
                 BindingContext = viewModel,
             };

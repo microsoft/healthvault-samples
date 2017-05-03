@@ -64,14 +64,14 @@
                                     HeightRequest="19"
                                     HorizontalOptions="Center" 
                                     VerticalOptions="Center"
-                                    IsVisible="{Binding Openning, Converter={StaticResource InverseBoolConverter}}"/>
+                                    IsVisible="{Binding Opening, Converter={StaticResource InverseBoolConverter}}"/>
                                 <ActivityIndicator
                                     Grid.Column="2"
                                     Grid.RowSpan="2"
                                     Grid.Row="0"
                                     Color="Red"
                                     IsRunning="True"
-                                    IsVisible="{Binding Openning}"/>
+                                    IsVisible="{Binding Opening}"/>
 
                             </Grid>
                         </StackLayout>

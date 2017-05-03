@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using HealthVault.Sample.Xamarin.Core.Configuration;
 using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.ViewModels;
 using HealthVault.Sample.Xamarin.Core.Views;
@@ -10,15 +11,16 @@ namespace HealthVault.Sample.Xamarin.Core
     public partial class App : Application
     {
         public App(
-            IHealthVaultSodaConnection connection, 
             IPlatformResourceProvider resourceProvider)
         {
             InitializeComponent();
 
+            var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(DefaultConfiguration.GetPpeDefaultConfiguration());
+
             var navigationService = new NavigationService();
-            var mainPage = new MainPage()
+            var mainPage = new LoginPage
             {
-                BindingContext = new MainPageViewModel(connection, navigationService, resourceProvider),
+                BindingContext = new LoginPageViewModel(connection, navigationService, resourceProvider),
             };
 
             var navigationPage = new NavigationPage(mainPage);

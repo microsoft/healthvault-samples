@@ -22,9 +22,8 @@ namespace Xamarin.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Forms.Forms.Init();
-
-            var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(DefaultConfiguration.GetPpeDefaultConfiguration());
-            LoadApplication(new App(connection, new PlatformResourceProvider()));
+            
+            LoadApplication(new App(new PlatformResourceProvider()));
 
             return base.FinishedLaunching(app, options);
         }

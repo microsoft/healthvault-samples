@@ -2,31 +2,43 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             xmlns:m="clr-namespace:HealthVault.Sample.Xamarin.Core.ViewModels;assembly=HealthVault.Sample.Xamarin.Core"
              x:Class="HealthVault.Sample.Xamarin.Core.Views.MedicationsSummaryPage"
              Title="Medication detail sample">
-    <StackLayout Margin="10" BackgroundColor="{StaticResource WhiteColor}">
-        <ListView ItemsSource="{Binding Items}"
-                  SeparatorVisibility="None">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
+    <Grid>
+        <StackLayout 
+            Margin="10" 
+            BackgroundColor="{StaticResource WhiteColor}" 
+            IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+            <controls:RepeaterView 
+            x:TypeArguments="m:MedicationItemViewRow"
+            ItemsSource="{Binding Items}"
+            Spacing="10">
+                <controls:RepeaterView.ItemTemplate>
+                    <DataTemplate>
                         <StackLayout HeightRequest="40" BackgroundColor="{StaticResource WhiteColor}">
                             <Label Text="{Binding Title}" VerticalTextAlignment="Center" TextColor="{StaticResource HighlightColor}" FontSize="15"></Label>
                             <Label Text="{Binding Value}" VerticalTextAlignment="Start" TextColor="{StaticResource ForegroundLight}" FontSize="11"></Label>
                         </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <StackLayout Margin="20">
-            <Button 
+                    </DataTemplate>
+                </controls:RepeaterView.ItemTemplate>
+            </controls:RepeaterView>
+            <StackLayout Margin="20">
+                <Button 
                 BackgroundColor="{StaticResource WhiteColor}" 
                 BorderWidth="1" 
                 BorderColor="{StaticResource ForegroundLight}"
                 HeightRequest="48" 
                 Text="{x:Static core:StringResource.EditDetails}" 
                 Command="{Binding EditCommand}">
-            </Button>
+                </Button>
+            </StackLayout>
         </StackLayout>
-    </StackLayout>
+        <ActivityIndicator 
+            IsVisible="{Binding IsBusy}" 
+            HorizontalOptions="FillAndExpand" 
+            VerticalOptions="Center"
+            HeightRequest="20" />
+    </Grid>
 </ContentPage>

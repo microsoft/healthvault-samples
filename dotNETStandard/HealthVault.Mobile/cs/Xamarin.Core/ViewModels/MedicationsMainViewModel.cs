@@ -26,7 +26,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             private set
             {
                 currentMedications = value;
-                RaisePropertyChanged(() => CurrentMedications);
+                this.OnPropertyChanged();
             }
         }
 
@@ -36,7 +36,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             private set
             {
                 pastMedications = value;
-                RaisePropertyChanged(() => PastMedications);
+                this.OnPropertyChanged();
             }
         }
 
@@ -57,11 +57,11 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             UpdateDisplay(items);
         }
 
-        public override async Task OnNavigateBack()
+        public override async Task OnNavigateBackAsync()
         {
             IReadOnlyCollection<Medication> items = await thingClient.GetThingsAsync<Medication>(recordId);
             UpdateDisplay(items);
-            await base.OnNavigateBack();
+            await base.OnNavigateBackAsync();
         }
 
         private void UpdateDisplay(IEnumerable<Medication> items)

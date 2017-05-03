@@ -18,8 +18,7 @@ namespace HealthVault.Sample.Xamarin.Android
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(DefaultConfiguration.GetPpeDefaultConfiguration());
-            LoadApplication(new App(connection, new PlatformResourceProvider()));
+            LoadApplication(new App(new PlatformResourceProvider()));
         }
     }
 }
