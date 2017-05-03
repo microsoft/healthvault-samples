@@ -1,0 +1,6 @@
+﻿{
+  "MasterApplicationId": "your applicationId here",
+  "DefaultHealthVaultShellUrl": "https://account.healthvault-ppe.com/",
+  "DefaultHealthVaultUrl": "https://platform.healthvault-ppe.com/platform/",
+  "RestHealthVaultUrl": "https://data.ppe.microsofthealth.net/v3/"
+}

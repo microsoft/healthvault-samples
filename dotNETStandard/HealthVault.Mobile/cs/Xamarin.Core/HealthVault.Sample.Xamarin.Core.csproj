@@ -41,7 +41,7 @@
     </Compile>
     <Compile Include="Behaviors\BehaviorBase.cs" />
     <Compile Include="Behaviors\EventToCommandBehavior.cs" />
-    <Compile Include="Configuration\DefaultConfiguration.cs" />
+    <Compile Include="Configuration\ConfigurationReader.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\ItemTappedEventArgsConverter.cs" />
     <Compile Include="Services\IPlatformResourceProvider.cs" />
@@ -102,6 +102,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Config.json" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>

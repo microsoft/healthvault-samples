@@ -15,7 +15,7 @@ namespace HealthVault.Sample.Xamarin.Core
         {
             InitializeComponent();
 
-            var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(DefaultConfiguration.GetPpeDefaultConfiguration());
+            var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(ConfigurationReader.ReadConfiguration());
 
             var navigationService = new NavigationService();
             var mainPage = new LoginPage
