@@ -4,7 +4,7 @@ using Microsoft.HealthVault.Client;
 using UIKit;
 using App = HealthVault.Sample.Xamarin.Core.App;
 
-namespace Xamarin.iOS
+namespace HealthVaultSampleIos
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
@@ -21,8 +21,8 @@ namespace Xamarin.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            Forms.Forms.Init();
-            
+            Xamarin.Forms.Forms.Init();
+
             LoadApplication(new App(new PlatformResourceProvider()));
 
             return base.FinishedLaunching(app, options);

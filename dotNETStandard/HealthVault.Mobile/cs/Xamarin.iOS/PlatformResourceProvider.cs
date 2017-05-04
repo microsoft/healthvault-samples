@@ -1,6 +1,6 @@
 using HealthVault.Sample.Xamarin.Core.Services;
 
-namespace Xamarin.iOS
+namespace HealthVaultSampleIos
 {
     public class PlatformResourceProvider: IPlatformResourceProvider
     {
