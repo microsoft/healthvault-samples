@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActionPlanDetailsPageTitle" xml:space="preserve">
+    <value>Action Plan Details</value>
+  </data>
+  <data name="ActionPlanObjectivesSection" xml:space="preserve">
+    <value>Objectives</value>
+  </data>
   <data name="ActionPlans" xml:space="preserve">
     <value>Action plans</value>
   </data>
   <data name="ActionPlansDescription" xml:space="preserve">
     <value>Get help accomplishing your goals in a structred way</value>
+  </data>
+  <data name="ActionPlansPageTitle" xml:space="preserve">
+    <value>Action Plans</value>
+  </data>
+  <data name="ActionPlanTasksSection" xml:space="preserve">
+    <value>Tasks</value>
   </data>
   <data name="AddNewWeight" xml:space="preserve">
     <value>Add new weight measurement</value>

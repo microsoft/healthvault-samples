@@ -51,6 +51,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StringResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ActionPlanDetailsViewModel.cs" />
     <Compile Include="ViewModels\ActionPlansViewModel.cs" />
     <Compile Include="ViewModels\DataTypeFormatter.cs" />
     <Compile Include="ViewModels\MedicationEditViewModel.cs" />
@@ -59,6 +60,9 @@
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\ViewRows\MenuItemViewRow.cs" />
     <Compile Include="ViewModels\WeightViewModel.cs" />
+    <Compile Include="Views\ActionPlanDetailsPage.xaml.cs">
+      <DependentUpon>ActionPlanDetailsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ActionPlansPage.xaml.cs">
       <DependentUpon>ActionPlansPage.xaml</DependentUpon>
     </Compile>
@@ -178,6 +182,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\Images\weight_icon.png">
       <Link>Images\weight_icon.png</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ActionPlanDetailsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

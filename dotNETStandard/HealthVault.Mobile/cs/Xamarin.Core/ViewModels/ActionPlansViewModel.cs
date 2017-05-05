@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using HealthVault.Sample.Xamarin.Core.Services;
+using HealthVault.Sample.Xamarin.Core.Views;
 using Microsoft.HealthVault.Client;
 using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.Person;
 using Microsoft.HealthVault.RestApi;
 using Microsoft.HealthVault.RestApi.Generated;
 using Microsoft.HealthVault.RestApi.Generated.Models;
+using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
@@ -23,6 +26,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             : base(navigationService)
         {
             this.connection = connection;
+
+            this.ItemSelectedCommand = new Command<ActionPlanInstance>(async o => await this.GoToActionPlanDetailsPageAsync(o));
         }
 
         private IEnumerable<ActionPlanInstance> plans;
@@ -37,6 +42,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 this.OnPropertyChanged();
             }
         }
+
+        public ICommand ItemSelectedCommand { get; }
 
         public override async Task OnNavigateToAsync()
         {
@@ -57,6 +64,15 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             {
                 this.IsBusy = false;
             }
+        }
+
+        private async Task GoToActionPlanDetailsPageAsync(ActionPlanInstance actionPlan)
+        {
+            var actionPlanDetailsPage = new ActionPlanDetailsPage
+            {
+                BindingContext = new ActionPlanDetailsViewModel(actionPlan, this.NavigationService),
+            };
+            await this.NavigationService.NavigateAsync(actionPlanDetailsPage);
         }
     }
 }

@@ -62,6 +62,24 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action Plan Details.
+        /// </summary>
+        public static string ActionPlanDetailsPageTitle {
+            get {
+                return ResourceManager.GetString("ActionPlanDetailsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Objectives.
+        /// </summary>
+        public static string ActionPlanObjectivesSection {
+            get {
+                return ResourceManager.GetString("ActionPlanObjectivesSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Action plans.
         /// </summary>
         public static string ActionPlans {
@@ -76,6 +94,24 @@ namespace HealthVault.Sample.Xamarin.Core {
         public static string ActionPlansDescription {
             get {
                 return ResourceManager.GetString("ActionPlansDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action Plans.
+        /// </summary>
+        public static string ActionPlansPageTitle {
+            get {
+                return ResourceManager.GetString("ActionPlansPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tasks.
+        /// </summary>
+        public static string ActionPlanTasksSection {
+            get {
+                return ResourceManager.GetString("ActionPlanTasksSection", resourceCulture);
             }
         }
         

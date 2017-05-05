@@ -21,14 +21,36 @@
             <Color x:Key="BlackColor">#000000</Color>
             <Color x:Key="GreenColor">#0aca91</Color>
             <Color x:Key="HighlightColor">#008272</Color>
+            <Color x:Key="HighlightColorLight">#00B79C</Color>
             <Color x:Key="ForegroundLight">#767676</Color>
             <Color x:Key="ItemsBackground">#EEEEEE</Color>
             <Color x:Key="ImageBackground">#e88829</Color>
+            <Color x:Key="PageBackground">LightGray</Color>
 
             <converters:ItemTappedEventArgsConverter x:Key="TappedItemConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
             <converters:NullVisibilityConverter x:Key="NullVisibilityConverter" />
-
+            
+            <Style x:Key="CircleBackgroundButton" TargetType="Button">
+                <Setter Property="BorderRadius" Value="32" />
+                <Setter Property="HeightRequest" Value="64" />
+                <Setter Property="WidthRequest" Value="64" />
+                <Setter Property="InputTransparent" Value="True" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            
+            <Style x:Key="LargeThumbnailImage" TargetType="Image">
+                <Setter Property="WidthRequest" Value="76" />
+                <Setter Property="HeightRequest" Value="76" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            
+            <Style x:Key="ItemHeader" TargetType="Label">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor" Value="{StaticResource HighlightColor}" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
