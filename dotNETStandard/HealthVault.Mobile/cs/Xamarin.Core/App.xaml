@@ -27,6 +27,7 @@
 
             <converters:ItemTappedEventArgsConverter x:Key="TappedItemConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converters:NullVisibilityConverter x:Key="NullVisibilityConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

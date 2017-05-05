@@ -20,19 +20,26 @@ namespace HealthVault.Sample.Xamarin.Core.Services
             await CurrentApplication.MainPage.Navigation.PopAsync();
         }
 
-        public void RegisterNavigateBack(NavigationPage navigationPage)
+        public void RegisterNavigateEvents(NavigationPage navigationPage)
         {
+            navigationPage.Pushed += this.NavigationPageOnPushed;
             navigationPage.Popped += this.NavigationPageOnPopped;
+
+            // Cover the corner case: the first page doesn't fire the Pushed event but we still want to
+            // call the relevant methods.
             navigationPage.Appearing += (sender, args) => this.HandleNavigationPageAppearing(navigationPage);
+        }
+
+        private void NavigationPageOnPushed(object sender, NavigationEventArgs navigationEventArgs)
+        {
+            var viewModel = navigationEventArgs.Page?.BindingContext as ViewModel;
+            viewModel?.OnNavigateToAsync();
         }
 
         private void NavigationPageOnPopped(object sender, NavigationEventArgs navigationEventArgs)
         {
             var viewModel = this.GetNextPage()?.BindingContext as ViewModel;
             viewModel?.OnNavigateBackAsync();
-
-            //var viewModel = navigationEventArgs.Page?.BindingContext as ViewModel;
-            //viewModel?.OnNavigateBackAsync();
         }
 
         private void HandleNavigationPageAppearing(NavigationPage page)

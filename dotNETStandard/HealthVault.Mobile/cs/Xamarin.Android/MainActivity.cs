@@ -18,7 +18,7 @@ namespace HealthVault.Sample.Xamarin.Android
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new App(new PlatformResourceProvider()));
+            LoadApplication(new App());
         }
     }
 }

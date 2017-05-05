@@ -46,8 +46,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             IEnumerable<Medication> items, 
             IThingClient thingClient,
             Guid recordId,
-            INavigationService navigationService, 
-            IPlatformResourceProvider resourceProvider) : base(navigationService, resourceProvider)
+            INavigationService navigationService) : base(navigationService)
         {
             this.thingClient = thingClient;
             this.recordId = recordId;
@@ -71,7 +70,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
             foreach (Medication medication in items)
             {
-                var summaryViewRow = new MedicationsSummaryViewRow(medication, ResourceProvider.DisclosureIcon);
+                var summaryViewRow = new MedicationsSummaryViewRow(medication);
                 if (medication.DateDiscontinued == null)
                 {
                     current.Add(summaryViewRow);
@@ -90,7 +89,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         {
             var medicationsMainPage = new MedicationsSummaryPage()
             {
-                BindingContext = new MedicationsSummaryViewModel(medication, thingClient, recordId, NavigationService, ResourceProvider),
+                BindingContext = new MedicationsSummaryViewModel(medication, thingClient, recordId, NavigationService),
             };
             await NavigationService.NavigateAsync(medicationsMainPage);
         }

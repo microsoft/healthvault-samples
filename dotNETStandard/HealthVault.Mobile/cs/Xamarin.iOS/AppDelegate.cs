@@ -23,7 +23,7 @@ namespace HealthVaultSampleIos
         {
             Xamarin.Forms.Forms.Init();
 
-            LoadApplication(new App(new PlatformResourceProvider()));
+            LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
         }

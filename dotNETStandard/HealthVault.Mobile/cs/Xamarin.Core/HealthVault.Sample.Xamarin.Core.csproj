@@ -44,12 +44,14 @@
     <Compile Include="Configuration\ConfigurationReader.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\ItemTappedEventArgsConverter.cs" />
-    <Compile Include="Services\IPlatformResourceProvider.cs" />
+    <Compile Include="Converters\NullVisibilityConverter.cs" />
+    <Compile Include="MarkupExtensions\ImageResourceExtension.cs" />
     <Compile Include="StringResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StringResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ActionPlansViewModel.cs" />
     <Compile Include="ViewModels\DataTypeFormatter.cs" />
     <Compile Include="ViewModels\MedicationEditViewModel.cs" />
     <Compile Include="ViewModels\MedicationsSummaryViewModel.cs" />
@@ -57,6 +59,9 @@
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\ViewRows\MenuItemViewRow.cs" />
     <Compile Include="ViewModels\WeightViewModel.cs" />
+    <Compile Include="Views\ActionPlansPage.xaml.cs">
+      <DependentUpon>ActionPlansPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -139,6 +144,40 @@
     <EmbeddedResource Include="Views\WeightPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ActionPlansPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Images\disclosure_icon.png">
+      <Link>Images\disclosure_icon.png</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Images\ap_icon.png">
+      <Link>Images\ap_icon.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Images\meds_icon.png">
+      <Link>Images\meds_icon.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Images\profile_icon.png">
+      <Link>Images\profile_icon.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Images\toolbar_ap_icon.png">
+      <Link>Images\toolbar_ap_icon.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Images\toolbar_meds_icon.png">
+      <Link>Images\toolbar_meds_icon.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Images\toolbar_weight_icon.png">
+      <Link>Images\toolbar_weight_icon.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Images\weight_icon.png">
+      <Link>Images\weight_icon.png</Link>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

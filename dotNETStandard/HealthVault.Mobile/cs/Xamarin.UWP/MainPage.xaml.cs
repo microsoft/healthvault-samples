@@ -9,7 +9,7 @@ namespace HealthVault.Sample.Xamarin.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new Core.App(new PlatformResourceProvider()));
+            LoadApplication(new Core.App());
         }
     }
 }

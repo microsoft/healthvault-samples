@@ -12,9 +12,9 @@
             BackgroundColor="{StaticResource WhiteColor}" 
             IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
             <controls:RepeaterView 
-            x:TypeArguments="m:MedicationItemViewRow"
-            ItemsSource="{Binding Items}"
-            Spacing="10">
+                x:TypeArguments="m:MedicationItemViewRow"
+                ItemsSource="{Binding Items}"
+                Spacing="10">
                 <controls:RepeaterView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout HeightRequest="40" BackgroundColor="{StaticResource WhiteColor}">
@@ -26,19 +26,21 @@
             </controls:RepeaterView>
             <StackLayout Margin="20">
                 <Button 
-                BackgroundColor="{StaticResource WhiteColor}" 
-                BorderWidth="1" 
-                BorderColor="{StaticResource ForegroundLight}"
-                HeightRequest="48" 
-                Text="{x:Static core:StringResource.EditDetails}" 
-                Command="{Binding EditCommand}">
+                    BackgroundColor="{StaticResource WhiteColor}" 
+                    BorderWidth="1" 
+                    BorderColor="{StaticResource ForegroundLight}"
+                    HeightRequest="48" 
+                    Text="{x:Static core:StringResource.EditDetails}" 
+                    Command="{Binding EditCommand}">
                 </Button>
             </StackLayout>
         </StackLayout>
         <ActivityIndicator 
+            IsRunning="True"
+            Color="{StaticResource HighlightColor}"
             IsVisible="{Binding IsBusy}" 
             HorizontalOptions="FillAndExpand" 
             VerticalOptions="Center"
-            HeightRequest="20" />
+            HeightRequest="40" />
     </Grid>
 </ContentPage>

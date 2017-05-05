@@ -27,48 +27,43 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public MenuViewModel(
             IHealthVaultSodaConnection connection,
-            INavigationService navigationService,
-            IPlatformResourceProvider resourceProvider)
-            : base(navigationService, resourceProvider)
+            INavigationService navigationService)
+            : base(navigationService)
         {
             this.connection = connection;
-            ItemSelectedCommand = new Command<MenuItemViewRow>(async o => await GoToPageAsync(o));
+            ItemSelectedCommand = new Command<MenuItemViewRow>(async o => await this.GoToPageAsync(o));
 
-            this.MenuViewRows.Add(new MenuItemViewRow()
+            this.MenuViewRows.Add(new MenuItemViewRow
             {
                 Title = StringResource.ActionPlans,
                 Description = StringResource.ActionPlansDescription,
-                ImageUrl = ResourceProvider.ActionPlanIcon,
+                Image = ImageSource.FromResource("HealthVault.Sample.Xamarin.Core.Images.ap_icon.png"),
                 BackgroundColor = Color.FromHex("#e88829"),
-                DisclosureImagePath = ResourceProvider.DisclosureIcon,
-                PageAction = async () => { },
+                PageAction = async () => await this.OpenActionPlansPageAsync(),
             });
-            this.MenuViewRows.Add(new MenuItemViewRow()
+            this.MenuViewRows.Add(new MenuItemViewRow
             {
                 Title = StringResource.Medications,
                 Description = StringResource.MedicationsDescription,
-                ImageUrl = ResourceProvider.MedsIcon,
+                Image = ImageSource.FromResource("HealthVault.Sample.Xamarin.Core.Images.meds_icon.png"),
                 BackgroundColor = Color.FromHex("#86bbbf"),
-                DisclosureImagePath = ResourceProvider.DisclosureIcon,
-                PageAction = async () => await OpenMedicationsPageAsync(),
+                PageAction = async () => await this.OpenMedicationsPageAsync(),
             });
-            this.MenuViewRows.Add(new MenuItemViewRow()
+            this.MenuViewRows.Add(new MenuItemViewRow
             {
                 Title = StringResource.Weight,
                 Description = StringResource.WeightDescription,
-                ImageUrl = ResourceProvider.WeightIcon,
+                Image = ImageSource.FromResource("HealthVault.Sample.Xamarin.Core.Images.weight_icon.png"),
                 BackgroundColor = Color.FromHex("#f8b942"),
-                DisclosureImagePath = ResourceProvider.DisclosureIcon,
-                PageAction = async () => await OpenWeightPageAsync(),
+                PageAction = async () => await this.OpenWeightPageAsync(),
             });
-            this.MenuViewRows.Add(new MenuItemViewRow()
+            this.MenuViewRows.Add(new MenuItemViewRow
             {
                 Title = StringResource.Profile,
                 Description = StringResource.ProfileDescription,
-                DisclosureImagePath = ResourceProvider.DisclosureIcon,
-                PageAction = async () => await OpenPersonPageAsync(),
+                Image = ImageSource.FromResource("HealthVault.Sample.Xamarin.Core.Images.profile_icon.png"),
                 BackgroundColor = Color.FromHex("#00b294"),
-                ImageUrl = ResourceProvider.ProfileIcon,
+                PageAction = async () => await this.OpenPersonPageAsync(),
             });
         }
 
@@ -77,6 +72,15 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             obj.Opening = true;
             await obj.PageAction();
             obj.Opening = false;
+        }
+
+        private async Task OpenActionPlansPageAsync()
+        {
+            var actionPlansPage = new ActionPlansPage
+            {
+                BindingContext = new ActionPlansViewModel(this.connection, this.NavigationService)
+            };
+            await this.NavigationService.NavigateAsync(actionPlansPage);
         }
 
         private async Task OpenWeightPageAsync()
@@ -88,9 +92,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
             var medicationsMainPage = new WeightPage
             {
-                BindingContext = new WeightViewModel(items, thingClient, record.Id, NavigationService, ResourceProvider)
+                BindingContext = new WeightViewModel(items, thingClient, record.Id, this.NavigationService)
             };
-            await NavigationService.NavigateAsync(medicationsMainPage);
+            await this.NavigationService.NavigateAsync(medicationsMainPage);
         }
 
         private async Task OpenMedicationsPageAsync()
@@ -102,7 +106,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
             var medicationsMainPage = new MedicationsMainPage
             {
-                BindingContext = new MedicationsMainViewModel(items, thingClient, record.Id, NavigationService, ResourceProvider)
+                BindingContext = new MedicationsMainViewModel(items, thingClient, record.Id, this.NavigationService)
             };
             await NavigationService.NavigateAsync(medicationsMainPage);
         }

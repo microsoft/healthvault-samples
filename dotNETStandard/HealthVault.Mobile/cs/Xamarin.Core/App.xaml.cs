@@ -10,8 +10,7 @@ namespace HealthVault.Sample.Xamarin.Core
 {
     public partial class App : Application
     {
-        public App(
-            IPlatformResourceProvider resourceProvider)
+        public App()
         {
             InitializeComponent();
 
@@ -20,12 +19,12 @@ namespace HealthVault.Sample.Xamarin.Core
             var navigationService = new NavigationService();
             var mainPage = new LoginPage
             {
-                BindingContext = new LoginPageViewModel(connection, navigationService, resourceProvider),
+                BindingContext = new LoginPageViewModel(connection, navigationService),
             };
 
             var navigationPage = new NavigationPage(mainPage);
 
-            navigationService.RegisterNavigateBack(navigationPage);
+            navigationService.RegisterNavigateEvents(navigationPage);
             MainPage = navigationPage;
         }
 

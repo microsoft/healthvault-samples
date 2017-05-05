@@ -32,7 +32,11 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public ICommand EditCommand { get; }
 
-        public MedicationsSummaryViewModel(Medication medication, IThingClient thingClient, Guid recordId, INavigationService navigationService, IPlatformResourceProvider resourceProvider) : base(navigationService, resourceProvider)
+        public MedicationsSummaryViewModel(
+            Medication medication,
+            IThingClient thingClient,
+            Guid recordId,
+            INavigationService navigationService) : base(navigationService)
         {
             this.medication = medication;
             this.thingClient = thingClient;
@@ -102,7 +106,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private async Task GoToEditAsync(IThingClient thingClient, Guid recordId)
         {
-            var viewModel = new MedicationEditViewModel(medication, thingClient, recordId, NavigationService, ResourceProvider);
+            var viewModel = new MedicationEditViewModel(medication, thingClient, recordId, this.NavigationService);
 
             var medicationsMainPage = new MedicationEditPage
             {

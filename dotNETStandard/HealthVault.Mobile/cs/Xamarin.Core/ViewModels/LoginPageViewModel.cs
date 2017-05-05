@@ -13,9 +13,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public LoginPageViewModel(
             IHealthVaultSodaConnection connection,
-            INavigationService navigationService, 
-            IPlatformResourceProvider resourceProvider) : 
-            base(navigationService, resourceProvider)
+            INavigationService navigationService) : 
+            base(navigationService)
         {
             this.connection = connection;
         }
@@ -26,7 +25,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
             var menuPage = new MenuPage
             {
-                BindingContext = new MenuViewModel(this.connection, this.NavigationService, this.ResourceProvider)
+                BindingContext = new MenuViewModel(this.connection, this.NavigationService)
             };
             await this.NavigationService.NavigateAsync(menuPage);
         }

@@ -19,8 +19,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             IEnumerable<Weight> weights,
             IThingClient thingClient,
             Guid recordId,
-            INavigationService navigationService, 
-            IPlatformResourceProvider resourceProvider) : base(navigationService, resourceProvider)
+            INavigationService navigationService) : base(navigationService)
         {
             AddCommand = new Command(async () => await GoToAddWeightPageAsync(thingClient, recordId));
 

@@ -3,7 +3,7 @@
   <Identity Name="86837183-1d50-46b0-8668-724b1a59ca88" Publisher="CN=avezra" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="86837183-1d50-46b0-8668-724b1a59ca88" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Xamarin.UWP</DisplayName>
+    <DisplayName>HealthVault.XamarinForms.Sample.UWP</DisplayName>
     <PublisherDisplayName>avezra</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows
@@ -8,11 +9,18 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows
     {
         private bool opening;
 
-        public string ImageUrl { get; set; }
+        public MenuItemViewRow()
+        {
+            this.OpenCommand = new Command(async o => await this.PageAction());
+        }
+
+        public ICommand OpenCommand { get; }
+
+        public ImageSource Image { get; set; }
+
         public string Title { get; set; }
         public string Description { get; set; }
         public Color BackgroundColor { get; set; }
-        public string DisclosureImagePath { get; set; }
 
         public bool Opening
         {

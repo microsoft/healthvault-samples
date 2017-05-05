@@ -2,11 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:HealthVault.Sample.Xamarin.Core.Behaviors;assembly=HealthVault.Sample.Xamarin.Core"
+             xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             xmlns:m="clr-namespace:HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows;assembly=HealthVault.Sample.Xamarin.Core"
+             xmlns:markup="clr-namespace:HealthVault.Sample.Xamarin.Core.MarkupExtensions;assembly=HealthVault.Sample.Xamarin.Core"
              x:Class="HealthVault.Sample.Xamarin.Core.Views.MenuPage"
-             Title="HVI Sample">
+             Title="HealthVault SDK Sample">
 
     <StackLayout BackgroundColor="LightGray">
-        <ListView Margin="5" ItemsSource="{Binding MenuViewRows}" HasUnevenRows="true" >
+        <ListView Margin="5" ItemsSource="{Binding MenuViewRows}" HasUnevenRows="true" ItemTapped="ListView_OnItemTapped">
             <ListView.Behaviors>
                 <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
             </ListView.Behaviors>
@@ -35,7 +38,7 @@
                                         HeightRequest="64">
                                     </Button>
                                     <Image 
-                                        Source="{Binding ImageUrl}" 
+                                        Source="{Binding Image}" 
                                         Margin="18">
                                     </Image>
                                 </Grid>
@@ -59,7 +62,7 @@
                                     Grid.Column="2" 
                                     Grid.RowSpan="2"
                                     Grid.Row="0"
-                                    Source="{Binding DisclosureImagePath}" 
+                                    Source="{markup:ImageResource disclosure_icon.png}" 
                                     Aspect="AspectFit" 
                                     HeightRequest="19"
                                     HorizontalOptions="Center" 

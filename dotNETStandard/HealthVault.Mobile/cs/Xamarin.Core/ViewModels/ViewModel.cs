@@ -6,7 +6,6 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public abstract class ViewModel : BindableObject
     {
-        protected readonly IPlatformResourceProvider ResourceProvider;
         protected readonly INavigationService NavigationService;
 
         private bool isBusy;
@@ -22,9 +21,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             }
         }
 
-        protected ViewModel(INavigationService navigationService, IPlatformResourceProvider resourceProvider)
+        protected ViewModel(INavigationService navigationService)
         {
-            this.ResourceProvider = resourceProvider;
             this.NavigationService = navigationService;
         }
 

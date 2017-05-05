@@ -20,7 +20,12 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public ICommand SaveCommand { get; }
 
-        public MedicationEditViewModel(Medication medication, IThingClient thingClient, Guid recordId, INavigationService navigationService, IPlatformResourceProvider resourceProvider) : base(navigationService, resourceProvider)
+        public MedicationEditViewModel(
+            Medication medication,
+            IThingClient thingClient,
+            Guid recordId, 
+            INavigationService navigationService)
+            : base(navigationService)
         {
             Name = medication.Name?.Text ?? "";
             DosageType = medication.Dose?.Display ?? "";
