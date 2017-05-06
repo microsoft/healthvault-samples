@@ -41,15 +41,15 @@
                             </Ellipse>
                             <Image Source="{Binding ThumbnailImageUrl}"
                                    Style="{StaticResource ThumbnailSizeStyle}"
-                               Margin="18"/>
+                              />
                         </Grid>
-                        <StackPanel Orientation="Horizontal" Grid.Column="1">
-                            <StackPanel Orientation="Vertical" Margin="20">
-                                <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderStyle}" />
-                                <TextBlock Text="{Binding OrganizationName}"/>
-                                <TextBlock Text="{Binding Description}"/>
-                            </StackPanel>
+                        
+                        <StackPanel Orientation="Vertical" Margin="20" Grid.Column="1">
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderStyle}" TextWrapping="Wrap" />
+                            <TextBlock Text="{Binding OrganizationName}" TextWrapping="Wrap"/>
+                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
                         </StackPanel>
+                        
 
                         <Image Grid.Column="2" Source="/Assets/Health/disclosure_icon.png"
                    Height="19"

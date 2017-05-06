@@ -41,6 +41,8 @@ namespace HealthVaultMobileSample.UWP
         {
             Frame rootFrame = Window.Current.Content as Frame;
 
+            Windows.UI.ViewManagement.ApplicationView.PreferredLaunchViewSize = new Size(0, 0);
+
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)

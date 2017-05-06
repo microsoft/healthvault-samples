@@ -186,6 +186,9 @@
   <data name="MedicationsDescription" xml:space="preserve">
     <value>Keep track of your current and past medications</value>
   </data>
+  <data name="MenuPageTitle" xml:space="preserve">
+    <value>HealthVault Mobile Sample</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>

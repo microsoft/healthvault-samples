@@ -34,14 +34,13 @@
                                          Fill="{ThemeResource HighlightColorLight}">
                     </Ellipse>
                     <Image Source="{Binding ThumbnailImageUrl}"
-                                   Style="{StaticResource ThumbnailSizeStyle}"
-                               Margin="18"/>
+                                   Style="{StaticResource ThumbnailSizeStyle}"/>
                 </Grid>
                 <StackPanel Orientation="Vertical" Grid.Column="1"
                             Margin="20">
-                    <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderStyle}" />
-                        <TextBlock Text="{Binding OrganizationName}"/>
-                    <TextBlock Text="{Binding Description}"/>
+                    <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderStyle}" TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding OrganizationName}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
                 </StackPanel>
             </Grid>
             <TextBlock x:Uid="Objectives" 
@@ -55,6 +54,7 @@
                         <StackPanel Margin="20">
                             <TextBlock Text="{Binding Name}"
                                        Style="{StaticResource ItemHeaderStyle}"
+                                       TextWrapping="Wrap"
                                        FontSize="18"/>
                             <TextBlock Text="{Binding Description}"
                                        TextWrapping="WrapWholeWords"
@@ -84,14 +84,13 @@
                                          Fill="{ThemeResource HighlightColorLight}">
                                 </Ellipse>
                                 <Image Source="{Binding ThumbnailImageUrl}"
-                                   Style="{StaticResource ThumbnailSizeStyle}"
-                               Margin="18"/>
+                                   Style="{StaticResource ThumbnailSizeStyle}"/>
                             </Grid>
                             <StackPanel Orientation="Vertical" 
                                             Grid.Column="1"
                                             Margin="20,0,0,0" >
-                                    <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderStyle}" />
-                                    <TextBlock Text="{Binding OrganizationName}"/>
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderStyle}" TextWrapping="Wrap" />
+                                    <TextBlock Text="{Binding OrganizationName}" TextWrapping="Wrap"/>
                                 <TextBlock Text="{Binding ShortDescription}" 
                                                TextWrapping="WrapWholeWords"/>
 

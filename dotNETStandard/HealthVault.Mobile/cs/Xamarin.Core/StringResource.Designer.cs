@@ -269,6 +269,15 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HealthVault Mobile Sample.
+        /// </summary>
+        public static string MenuPageTitle {
+            get {
+                return ResourceManager.GetString("MenuPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {

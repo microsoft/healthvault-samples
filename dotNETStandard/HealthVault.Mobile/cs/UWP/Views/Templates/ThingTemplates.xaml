@@ -149,7 +149,7 @@
     </Style>
     <Style x:Name="ItemHeaderStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Segoe UI"/>
-        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontSize" Value="22"/>
         <Setter Property="Foreground" Value="{ThemeResource HighlightColor}"/>
     </Style>
 
