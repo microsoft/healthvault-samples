@@ -22,20 +22,22 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public ObservableCollection<MedicationsSummaryViewRow> CurrentMedications
         {
-            get => currentMedications;
+            get { return this.currentMedications; }
+
             private set
             {
-                currentMedications = value;
+                this.currentMedications = value;
                 this.OnPropertyChanged();
             }
         }
 
         public ObservableCollection<MedicationsSummaryViewRow> PastMedications
         {
-            get => pastMedications;
+            get { return this.pastMedications; }
+
             private set
             {
-                pastMedications = value;
+                this.pastMedications = value;
                 this.OnPropertyChanged();
             }
         }
@@ -51,15 +53,15 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             this.thingClient = thingClient;
             this.recordId = recordId;
 
-            ItemSelectedCommand = new Command<MedicationsSummaryViewRow>(async o => await GoToMedicationsSummaryPageAsync(o.Medication));
+            this.ItemSelectedCommand = new Command<MedicationsSummaryViewRow>(async o => await this.GoToMedicationsSummaryPageAsync(o.Medication));
 
-            UpdateDisplay(items);
+            this.UpdateDisplay(items);
         }
 
         public override async Task OnNavigateBackAsync()
         {
-            IReadOnlyCollection<Medication> items = await thingClient.GetThingsAsync<Medication>(recordId);
-            UpdateDisplay(items);
+            IReadOnlyCollection<Medication> items = await this.thingClient.GetThingsAsync<Medication>(this.recordId);
+            this.UpdateDisplay(items);
             await base.OnNavigateBackAsync();
         }
 
@@ -70,8 +72,11 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
             foreach (Medication medication in items)
             {
+                DateTimeOffset now = DateTimeOffset.Now;
+                ApproximateDate today = new ApproximateDate(now.Year, now.Month, now.Day);
+
                 var summaryViewRow = new MedicationsSummaryViewRow(medication);
-                if (medication.DateDiscontinued == null)
+                if (medication.DateDiscontinued == null || !(medication.DateDiscontinued.ApproximateDate < today))
                 {
                     current.Add(summaryViewRow);
                 }
@@ -81,17 +86,17 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 }
             }
 
-            CurrentMedications = current;
-            PastMedications = past;
+            this.CurrentMedications = current;
+            this.PastMedications = past;
         }
 
         private async Task GoToMedicationsSummaryPageAsync(Medication medication)
         {
             var medicationsMainPage = new MedicationsSummaryPage()
             {
-                BindingContext = new MedicationsSummaryViewModel(medication, thingClient, recordId, NavigationService),
+                BindingContext = new MedicationsSummaryViewModel(medication, this.thingClient, this.recordId, this.NavigationService),
             };
-            await NavigationService.NavigateAsync(medicationsMainPage);
+            await this.NavigationService.NavigateAsync(medicationsMainPage);
         }
     }
 }

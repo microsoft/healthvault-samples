@@ -219,4 +219,25 @@
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to HealthVault Cross Platform Sample</value>
   </data>
+  <data name="CurrentMedicationsSection" xml:space="preserve">
+    <value>Current medications</value>
+  </data>
+  <data name="EditMedicationPageTitle" xml:space="preserve">
+    <value>Edit Medication</value>
+  </data>
+  <data name="ExpiredDateFormat" xml:space="preserve">
+    <value>Expired: {0}</value>
+  </data>
+  <data name="MedicationDetailPageTitle" xml:space="preserve">
+    <value>Medication Detail</value>
+  </data>
+  <data name="MedicationsPageTitle" xml:space="preserve">
+    <value>Medications</value>
+  </data>
+  <data name="PastMedicationsSection" xml:space="preserve">
+    <value>Past medications</value>
+  </data>
+  <data name="PrescribedDateFormat" xml:space="preserve">
+    <value>Prescribed: {0}</value>
+  </data>
 </root>

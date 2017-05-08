@@ -33,6 +33,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             this.connection = connection;
             ItemSelectedCommand = new Command<MenuItemViewRow>(async o => await this.GoToPageAsync(o));
 
+            this.IsBusy = true;
+
             this.MenuViewRows.Add(new MenuItemViewRow
             {
                 Title = StringResource.ActionPlans,
@@ -65,6 +67,20 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 BackgroundColor = Color.FromHex("#00b294"),
                 PageAction = async () => await this.OpenPersonPageAsync(),
             });
+        }
+
+        public override async Task OnNavigateToAsync()
+        {
+            this.IsBusy = true;
+
+            try
+            {
+                await this.connection.AuthenticateAsync();
+            }
+            finally
+            {
+                this.IsBusy = false;
+            }
         }
 
         private async Task GoToPageAsync(MenuItemViewRow obj)

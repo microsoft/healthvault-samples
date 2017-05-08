@@ -4,7 +4,7 @@
              xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
              x:Class="HealthVault.Sample.Xamarin.Core.Views.PersonPage" 
              Title="Profile Sample">
-    <Frame BackgroundColor="{StaticResource WhiteColor}">
+    <Frame BackgroundColor="{StaticResource LightPageBackground}">
         <Grid Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
@@ -27,7 +27,7 @@
                 Grid.Row="0"
                 Grid.ColumnSpan="2">
                 <Button 
-                    BackgroundColor="{StaticResource WhiteColor}"
+                    BackgroundColor="{StaticResource LightPageBackground}"
                     BorderColor="{StaticResource HighlightColor}"
                     BorderWidth="2"
                     BorderRadius="80"
@@ -57,14 +57,14 @@
                 Grid.Row="2"
                 Grid.Column="0"
                 Text="{Binding FirstName}"
-                BackgroundColor="DarkGray"
+                BackgroundColor="{StaticResource EditFieldBackground}"
                 VerticalTextAlignment="Center">
             </Label>
             <Label 
                 Grid.Row="2"
                 Grid.Column="1"
                 Text="{Binding LastName}"
-                BackgroundColor="DarkGray"
+                BackgroundColor="{StaticResource EditFieldBackground}"
                 VerticalTextAlignment="Center">
             </Label>
             <Label 
@@ -84,14 +84,14 @@
                 Grid.Column="0"
                 Text="{Binding BirthMonth}"
                 VerticalTextAlignment="Center"
-                BackgroundColor="DarkGray">
+                BackgroundColor="{StaticResource EditFieldBackground}">
             </Label>
             <Label 
                 Grid.Row="4"
                 Grid.Column="1"
                 Text="{Binding BirthYear}"
                 VerticalTextAlignment="Center"
-                BackgroundColor="DarkGray">
+                BackgroundColor="{StaticResource EditFieldBackground}">
             </Label>
             <Label 
                 Grid.Row="5"
@@ -105,7 +105,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Text="{Binding Gender}"
-                BackgroundColor="DarkGray"
+                BackgroundColor="{StaticResource EditFieldBackground}"
                 VerticalTextAlignment="Center">
             </Label>
             <Label 
@@ -120,7 +120,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Text="{Binding Weight}"
-                BackgroundColor="DarkGray"
+                BackgroundColor="{StaticResource EditFieldBackground}"
                 VerticalTextAlignment="Center">
             </Label>
         </Grid>

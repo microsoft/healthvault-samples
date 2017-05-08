@@ -66,12 +66,8 @@
     <Compile Include="Views\ActionPlansPage.xaml.cs">
       <DependentUpon>ActionPlansPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="Views\MedicationsMainPage.xaml.cs">
@@ -100,10 +96,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\LoginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="App.xaml">
       <SubType>Designer</SubType>

@@ -5,11 +5,10 @@
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              xmlns:m="clr-namespace:HealthVault.Sample.Xamarin.Core.ViewModels;assembly=HealthVault.Sample.Xamarin.Core"
              x:Class="HealthVault.Sample.Xamarin.Core.Views.MedicationsSummaryPage"
-             Title="Medication detail sample">
-    <Grid>
+             Title="{x:Static core:StringResource.MedicationDetailPageTitle}">
+    <Grid BackgroundColor="{StaticResource LightPageBackground}" >
         <StackLayout 
-            Margin="10" 
-            BackgroundColor="{StaticResource WhiteColor}" 
+            Margin="10"
             IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
             <controls:RepeaterView 
                 x:TypeArguments="m:MedicationItemViewRow"
@@ -17,16 +16,16 @@
                 Spacing="10">
                 <controls:RepeaterView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout HeightRequest="40" BackgroundColor="{StaticResource WhiteColor}">
+                        <StackLayout HeightRequest="40">
                             <Label Text="{Binding Title}" VerticalTextAlignment="Center" TextColor="{StaticResource HighlightColor}" FontSize="15"></Label>
                             <Label Text="{Binding Value}" VerticalTextAlignment="Start" TextColor="{StaticResource ForegroundLight}" FontSize="11"></Label>
                         </StackLayout>
                     </DataTemplate>
                 </controls:RepeaterView.ItemTemplate>
             </controls:RepeaterView>
-            <StackLayout Margin="20">
+            <StackLayout Margin="0,20,0,0">
                 <Button 
-                    BackgroundColor="{StaticResource WhiteColor}" 
+                    BackgroundColor="{StaticResource LightPageBackground}" 
                     BorderWidth="1" 
                     BorderColor="{StaticResource ForegroundLight}"
                     HeightRequest="48" 
@@ -35,12 +34,6 @@
                 </Button>
             </StackLayout>
         </StackLayout>
-        <ActivityIndicator 
-            IsRunning="True"
-            Color="{StaticResource HighlightColor}"
-            IsVisible="{Binding IsBusy}" 
-            HorizontalOptions="FillAndExpand" 
-            VerticalOptions="Center"
-            HeightRequest="40" />
+        <ActivityIndicator Style="{StaticResource PageLoadingIndicator}" IsVisible="{Binding IsBusy}" />
     </Grid>
 </ContentPage>

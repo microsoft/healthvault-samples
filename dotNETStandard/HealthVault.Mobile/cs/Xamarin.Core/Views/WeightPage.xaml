@@ -4,7 +4,7 @@
              xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
              x:Class="HealthVault.Sample.Xamarin.Core.Views.WeightPage">
 
-    <StackLayout Margin="10" BackgroundColor="{StaticResource WhiteColor}">
+    <StackLayout Margin="10" BackgroundColor="{StaticResource LightPageBackground}">
         <Label 
             Text="{x:Static core:StringResource.LastWeight}" 
             TextColor="{StaticResource ForegroundLight}" 
@@ -26,7 +26,7 @@
             </Label>
         </StackLayout>
         <Button 
-            BackgroundColor="{StaticResource WhiteColor}" 
+            BackgroundColor="{StaticResource LightPageBackground}" 
             BorderWidth="1" 
             BorderColor="{StaticResource ForegroundLight}"
             HeightRequest="48" 

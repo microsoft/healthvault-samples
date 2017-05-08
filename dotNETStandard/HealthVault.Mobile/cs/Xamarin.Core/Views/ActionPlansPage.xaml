@@ -58,12 +58,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ActivityIndicator 
-            Color="{StaticResource HighlightColor}"
-            IsRunning="True"
-            HeightRequest="40"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="Center"
-            IsVisible="{Binding IsBusy}"/>
+        <ActivityIndicator Style="{StaticResource PageLoadingIndicator}" IsVisible="{Binding IsBusy}" />
     </Grid>
 </ContentPage>

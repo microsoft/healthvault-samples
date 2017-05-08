@@ -143,6 +143,15 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current medications.
+        /// </summary>
+        public static string CurrentMedicationsSection {
+            get {
+                return ResourceManager.GetString("CurrentMedicationsSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date started.
         /// </summary>
         public static string DateStarted {
@@ -175,6 +184,24 @@ namespace HealthVault.Sample.Xamarin.Core {
         public static string EditDetails {
             get {
                 return ResourceManager.GetString("EditDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Medication.
+        /// </summary>
+        public static string EditMedicationPageTitle {
+            get {
+                return ResourceManager.GetString("EditMedicationPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expired: {0}.
+        /// </summary>
+        public static string ExpiredDateFormat {
+            get {
+                return ResourceManager.GetString("ExpiredDateFormat", resourceCulture);
             }
         }
         
@@ -251,6 +278,15 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Medication Detail.
+        /// </summary>
+        public static string MedicationDetailPageTitle {
+            get {
+                return ResourceManager.GetString("MedicationDetailPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Medications.
         /// </summary>
         public static string Medications {
@@ -278,11 +314,38 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Medications.
+        /// </summary>
+        public static string MedicationsPageTitle {
+            get {
+                return ResourceManager.GetString("MedicationsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Past medications.
+        /// </summary>
+        public static string PastMedicationsSection {
+            get {
+                return ResourceManager.GetString("PastMedicationsSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prescribed: {0}.
+        /// </summary>
+        public static string PrescribedDateFormat {
+            get {
+                return ResourceManager.GetString("PrescribedDateFormat", resourceCulture);
             }
         }
         

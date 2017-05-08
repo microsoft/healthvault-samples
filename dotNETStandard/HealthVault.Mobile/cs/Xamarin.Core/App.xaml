@@ -7,30 +7,19 @@
         <!-- Application resource dictionary -->
         <ResourceDictionary>
             <!-- Colors -->
-            <Color x:Key="WhiteColor">#ffffff</Color>
-            <Color x:Key="TransparentWhiteColor">#BFffffff</Color>
-            <Color x:Key="BlueColor">#3063f5</Color>
-            <Color x:Key="TransparentBlueColor">#BF3063f5</Color>
-            <Color x:Key="BrightYellowColor">#ffed00</Color>
-            <Color x:Key="GrayColor">#484f63</Color>
-            <Color x:Key="ErrorColor">#ff5252</Color>
-            <Color x:Key="BackgroundGrayColor">#f4f6fa</Color>
-            <Color x:Key="ToolbarBlueColor">#3063f5</Color>
-            <Color x:Key="OrangeColor">#ff5e4d</Color>
-            <Color x:Key="ProfileGrayColor">#afb3be</Color>
-            <Color x:Key="BlackColor">#000000</Color>
-            <Color x:Key="GreenColor">#0aca91</Color>
             <Color x:Key="HighlightColor">#008272</Color>
             <Color x:Key="HighlightColorLight">#00B79C</Color>
             <Color x:Key="ForegroundLight">#767676</Color>
-            <Color x:Key="ItemsBackground">#EEEEEE</Color>
-            <Color x:Key="ImageBackground">#e88829</Color>
-            <Color x:Key="PageBackground">LightGray</Color>
+            <Color x:Key="PageBackground">#EEEEEE</Color>
+            <Color x:Key="LightPageBackground">White</Color>
+            <Color x:Key="ItemBackground">White</Color>
+            <Color x:Key="EditFieldBackground">#EEEEEE</Color>
 
             <converters:ItemTappedEventArgsConverter x:Key="TappedItemConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
             <converters:NullVisibilityConverter x:Key="NullVisibilityConverter" />
             
+            <!-- Xamarin forms doesn't have a built-in Ellipse so we work around it with a button with BorderRadius -->
             <Style x:Key="CircleBackgroundButton" TargetType="Button">
                 <Setter Property="BorderRadius" Value="32" />
                 <Setter Property="HeightRequest" Value="64" />
@@ -50,6 +39,14 @@
             <Style x:Key="ItemHeader" TargetType="Label">
                 <Setter Property="FontSize" Value="20" />
                 <Setter Property="TextColor" Value="{StaticResource HighlightColor}" />
+            </Style>
+            
+            <Style x:Key="PageLoadingIndicator" TargetType="ActivityIndicator">
+                <Setter Property="IsRunning" Value="True" />
+                <Setter Property="Color" Value="{StaticResource HighlightColor}" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HeightRequest" Value="40" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

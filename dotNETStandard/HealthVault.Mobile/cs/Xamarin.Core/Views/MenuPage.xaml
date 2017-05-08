@@ -8,15 +8,20 @@
              x:Class="HealthVault.Sample.Xamarin.Core.Views.MenuPage"
              Title="HealthVault SDK Sample">
 
-    <StackLayout BackgroundColor="{StaticResource PageBackground}">
-        <ListView Margin="5" ItemsSource="{Binding MenuViewRows}" HasUnevenRows="true" ItemTapped="ListView_OnItemTapped">
+    <Grid BackgroundColor="{StaticResource PageBackground}">
+        <ListView 
+            Margin="5"
+            IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+            ItemsSource="{Binding MenuViewRows}" 
+            HasUnevenRows="true" 
+            ItemTapped="ListView_OnItemTapped">
             <ListView.Behaviors>
                 <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
             </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Margin="3" BackgroundColor="{StaticResource WhiteColor}">
+                        <StackLayout Margin="3" BackgroundColor="{StaticResource ItemBackground}">
                             <Grid Padding="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="70" />
@@ -66,12 +71,12 @@
                                     Color="Red"
                                     IsRunning="True"
                                     IsVisible="{Binding Opening}"/>
-
                             </Grid>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </StackLayout>
+        <ActivityIndicator Style="{StaticResource PageLoadingIndicator}" IsVisible="{Binding IsBusy}" />
+    </Grid>
 </ContentPage>

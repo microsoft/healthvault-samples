@@ -12,20 +12,20 @@ namespace HealthVault.Sample.Xamarin.Core
     {
         public App()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(ConfigurationReader.ReadConfiguration());
 
             var navigationService = new NavigationService();
-            var mainPage = new LoginPage
+            var mainPage = new MenuPage
             {
-                BindingContext = new LoginPageViewModel(connection, navigationService),
+                BindingContext = new MenuViewModel(connection, navigationService),
             };
 
-            var navigationPage = new NavigationPage(mainPage);
+            var navigationPage = new NavigationPage(mainPage) { BarBackgroundColor = Color.White, BarTextColor = Color.Black };
 
             navigationService.RegisterNavigateEvents(navigationPage);
-            MainPage = navigationPage;
+            this.MainPage = navigationPage;
         }
 
         protected override void OnStart()
