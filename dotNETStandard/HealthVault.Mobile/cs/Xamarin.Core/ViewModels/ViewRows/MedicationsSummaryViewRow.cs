@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.HealthVault.ItemTypes;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows
@@ -22,16 +23,23 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows
                 DateTimeOffset now = DateTimeOffset.Now;
                 ApproximateDate today = new ApproximateDate(now.Year, now.Month, now.Day);
 
-                ApproximateDate approximateDateStarted = medication.DateStarted.ApproximateDate;
-                this.Note = string.Format(
-                    StringResource.PrescribedDateFormat,
-                    FormatApproximateDate(approximateDateStarted));
+                var noteParts = new List<string>();
 
-                ApproximateDate approximateDateEnded = medication.DateDiscontinued.ApproximateDate;
-                if (approximateDateEnded < today)
+                ApproximateDate approximateDateStarted = medication.DateStarted?.ApproximateDate;
+                if (approximateDateStarted != null)
                 {
-                    this.Note += ", " + String.Format(StringResource.ExpiredDateFormat, FormatApproximateDate(approximateDateStarted));
+                    noteParts.Add(string.Format(
+                        StringResource.PrescribedDateFormat,
+                        FormatApproximateDate(approximateDateStarted)));
                 }
+
+                ApproximateDate approximateDateEnded = medication.DateDiscontinued?.ApproximateDate;
+                if (approximateDateEnded != null && approximateDateEnded < today)
+                {
+                    noteParts.Add(string.Format(StringResource.ExpiredDateFormat, FormatApproximateDate(approximateDateStarted)));
+                }
+
+                this.Note = string.Join(", ", noteParts);
             }
         }
 
