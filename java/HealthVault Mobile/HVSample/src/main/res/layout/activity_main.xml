@@ -8,198 +8,205 @@
 	tools:context=".MainActivity">
 
 	<LinearLayout
-		android:id="@+id/actionPlanTile"
+		android:id="@+id/actionplan_tile"
 		android:layout_width="match_parent"
-		android:layout_height="88dp"
-		android:layout_marginTop="10dp"
-		android:layout_marginLeft="10dp"
-		android:layout_marginRight="10dp"
-		android:layout_marginEnd="10dp"
-		android:background="#ffffff"
+		android:layout_height="@dimen/height_88dp"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/margin_10dp"
+		android:layout_marginRight="@dimen/margin_10dp"
+		android:layout_marginEnd="@dimen/margin_10dp"
+		android:background="@color/white"
 		android:orientation="horizontal"
 		android:weightSum="1">
 		<LinearLayout
-			android:layout_width="64dp"
-			android:layout_height="64dp"
-			android:layout_marginTop="12dp"
-			android:layout_marginLeft="12dp"
+			android:layout_width="@dimen/width_64dp"
+			android:layout_height="@dimen/height_64dp"
+			android:layout_marginTop="@dimen/margin_12dp"
+			android:layout_marginLeft="@dimen/margin_12dp"
 			android:background="@drawable/circle_background_actionplan">
 			<ImageView
-				android:id="@+id/actionPlanImageView"
-				android:layout_width="24dp"
-				android:layout_height="28dp"
-				android:layout_marginLeft="20dp"
-				android:layout_marginTop="20dp"
+				android:id="@+id/actionplan_imageview"
+				android:layout_width="@dimen/width_24dp"
+				android:layout_height="@dimen/height_28dp"
+				android:layout_marginLeft="@dimen/marginleft_20dp"
+				android:layout_marginTop="@dimen/margintop_20dp"
 				android:src="@drawable/habits_icon_selected"/>
 		</LinearLayout>
 		<LinearLayout
 			android:layout_width="217dp"
 			android:layout_height="match_parent"
-			android:layout_marginLeft="12dp"
+			android:layout_marginLeft="@dimen/margin_12dp"
 			android:orientation="vertical">
 			<TextView
+				android:id="@+id/actionplan_title"
 				android:layout_width="match_parent"
-				android:layout_height="20dp"
-				android:layout_marginTop="20dp"
+				android:layout_height="@dimen/height_20dp"
+				android:layout_marginTop="@dimen/margintop_20dp"
 				android:textStyle="bold"
-				android:text="Action Plan"/>
+				android:text="@string/actionplan_title"/>
 			<TextView
+				android:id="@+id/actionplan_subtitle"
 				android:layout_width="wrap_content"
-				android:layout_height="35dp"
-				android:text="Get help accomplishing your goals in a structred way"/>
+				android:layout_height="@dimen/height_35dp"
+				android:text="@string/actionplan_subtitle"/>
 		</LinearLayout>
 		<ImageView
 			android:layout_width="wrap_content"
-			android:layout_height="35dp"
-			android:layout_marginTop="30dp"
-			android:layout_marginLeft="14dp"
+			android:layout_height="@dimen/height_35dp"
+			android:layout_marginTop="@dimen/margin_30dp"
+			android:layout_marginLeft="@dimen/margin_14dp"
 			android:src="@drawable/disclosure_icon"/>
 	</LinearLayout>
 	<LinearLayout
-		android:id="@+id/medicationTile"
+		android:id="@+id/medication_tile"
 		android:layout_width="match_parent"
-		android:layout_height="88dp"
-		android:layout_marginTop="10dp"
-		android:layout_marginLeft="10dp"
-		android:layout_marginRight="10dp"
-		android:layout_marginEnd="10dp"
-		android:background="#ffffff"
+		android:layout_height="@dimen/height_88dp"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/margin_10dp"
+		android:layout_marginRight="@dimen/margin_10dp"
+		android:layout_marginEnd="@dimen/margin_10dp"
+		android:background="@color/white"
 		android:orientation="horizontal"
 		android:weightSum="1">
 		<LinearLayout
-			android:layout_width="64dp"
-			android:layout_height="64dp"
-			android:layout_marginTop="12dp"
-			android:layout_marginLeft="12dp"
+			android:layout_width="@dimen/width_64dp"
+			android:layout_height="@dimen/height_64dp"
+			android:layout_marginTop="@dimen/margin_12dp"
+			android:layout_marginLeft="@dimen/margin_12dp"
 			android:background="@drawable/circle_background_medication">
 			<ImageView
-				android:id="@+id/medicationImageView"
-				android:layout_width="24dp"
-				android:layout_height="28dp"
-				android:layout_marginLeft="20dp"
-				android:layout_marginTop="20dp"
+				android:id="@+id/medication_imageview"
+				android:layout_width="@dimen/width_24dp"
+				android:layout_height="@dimen/height_28dp"
+				android:layout_marginLeft="@dimen/marginleft_20dp"
+				android:layout_marginTop="@dimen/margintop_20dp"
 				android:src="@drawable/meds_icon_selected"/>
 		</LinearLayout>
 		<LinearLayout
 			android:layout_width="217dp"
 			android:layout_height="match_parent"
-			android:layout_marginLeft="12dp"
+			android:layout_marginLeft="@dimen/margin_12dp"
 			android:orientation="vertical">
 			<TextView
+				android:id="@+id/medication_title"
 				android:layout_width="match_parent"
-				android:layout_height="20dp"
-				android:layout_marginTop="20dp"
+				android:layout_height="@dimen/height_20dp"
+				android:layout_marginTop="@dimen/margintop_20dp"
 				android:textStyle="bold"
-				android:text="Medications"/>
+				android:text="@string/medication_title"/>
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="35dp"
-				android:text="Keep track of your current and past medications"/>
+				android:text="@string/medication_subtitle"/>
 		</LinearLayout>
 		<ImageView
 			android:layout_width="wrap_content"
-			android:layout_height="35dp"
-			android:layout_marginTop="30dp"
-			android:layout_marginLeft="14dp"
+			android:layout_height="@dimen/height_35dp"
+			android:layout_marginTop="@dimen/margin_30dp"
+			android:layout_marginLeft="@dimen/margin_14dp"
 			android:src="@drawable/disclosure_icon"/>
 	</LinearLayout>
 	<LinearLayout
-		android:id="@+id/weightTile"
+		android:id="@+id/weight_tile"
 		android:layout_width="match_parent"
-		android:layout_height="88dp"
-		android:layout_marginTop="10dp"
-		android:layout_marginLeft="10dp"
-		android:layout_marginRight="10dp"
-		android:layout_marginEnd="10dp"
-		android:background="#ffffff"
+		android:layout_height="@dimen/height_88dp"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/margin_10dp"
+		android:layout_marginRight="@dimen/margin_10dp"
+		android:layout_marginEnd="@dimen/margin_10dp"
+		android:background="@color/white"
 		android:orientation="horizontal"
 		android:weightSum="1">
 		<LinearLayout
-			android:layout_width="64dp"
-			android:layout_height="64dp"
-			android:layout_marginTop="12dp"
-			android:layout_marginLeft="12dp"
+			android:layout_width="@dimen/width_64dp"
+			android:layout_height="@dimen/height_64dp"
+			android:layout_marginTop="@dimen/margin_12dp"
+			android:layout_marginLeft="@dimen/margin_12dp"
 			android:background="@drawable/circle_background">
 			<ImageView
 				android:id="@+id/imageView"
-				android:layout_width="24dp"
-				android:layout_height="28dp"
-				android:layout_marginLeft="20dp"
-				android:layout_marginTop="20dp"
+				android:layout_width="@dimen/width_24dp"
+				android:layout_height="@dimen/height_28dp"
+				android:layout_marginLeft="@dimen/marginleft_20dp"
+				android:layout_marginTop="@dimen/margintop_20dp"
 				android:src="@drawable/weight_icon"/>
 	</LinearLayout>
 		<LinearLayout
 			android:layout_width="217dp"
 			android:layout_height="match_parent"
-			android:layout_marginLeft="12dp"
+			android:layout_marginLeft="@dimen/margin_12dp"
 			android:orientation="vertical">
 			<TextView
+				android:id="@+id/weight_title"
 				android:layout_width="match_parent"
-				android:layout_height="20dp"
-				android:layout_marginTop="20dp"
+				android:layout_height="@dimen/height_20dp"
+				android:layout_marginTop="@dimen/margintop_20dp"
 				android:textStyle="bold"
-				android:text="Weight"/>
+				android:text="@string/weight_title"/>
 			<TextView
+				android:id="@+id/weight_subtitle"
 				android:layout_width="wrap_content"
-				android:layout_height="35dp"
-				android:text="One of many metrics you can keep track of here"/>
+				android:layout_height="@dimen/height_35dp"
+				android:text="@string/weight_subtitle"/>
 
 		</LinearLayout>
 		<ImageView
 			android:layout_width="wrap_content"
-			android:layout_height="35dp"
-			android:layout_marginTop="30dp"
-			android:layout_marginLeft="14dp"
+			android:layout_height="@dimen/height_35dp"
+			android:layout_marginTop="@dimen/margin_30dp"
+			android:layout_marginLeft="@dimen/margin_14dp"
 			android:src="@drawable/disclosure_icon"/>
 	</LinearLayout>
 
 	<LinearLayout
-		android:id="@+id/ProfileTile"
+		android:id="@+id/profile_tile"
 		android:layout_width="match_parent"
-		android:layout_height="88dp"
-		android:layout_marginTop="10dp"
-		android:layout_marginLeft="10dp"
-		android:layout_marginRight="10dp"
-		android:layout_marginEnd="10dp"
-		android:background="#ffffff"
+		android:layout_height="@dimen/height_88dp"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/margin_10dp"
+		android:layout_marginRight="@dimen/margin_10dp"
+		android:layout_marginEnd="@dimen/margin_10dp"
+		android:background="@color/white"
 		android:orientation="horizontal"
 		android:weightSum="1">
 		<LinearLayout
-			android:layout_width="64dp"
-			android:layout_height="64dp"
-			android:layout_marginTop="12dp"
-			android:layout_marginLeft="12dp"
+			android:layout_width="@dimen/width_64dp"
+			android:layout_height="@dimen/height_64dp"
+			android:layout_marginTop="@dimen/margin_12dp"
+			android:layout_marginLeft="@dimen/margin_12dp"
 			android:background="@drawable/circle_background_profile">
 			<ImageView
-				android:id="@+id/profileImageView"
-				android:layout_width="24dp"
-				android:layout_height="28dp"
-				android:layout_marginLeft="20dp"
-				android:layout_marginTop="20dp"
+				android:id="@+id/profile_imageview"
+				android:layout_width="@dimen/width_24dp"
+				android:layout_height="@dimen/height_28dp"
+				android:layout_marginLeft="@dimen/marginleft_20dp"
+				android:layout_marginTop="@dimen/margintop_20dp"
 				android:src="@drawable/weight_icon"/>
 		</LinearLayout>
 		<LinearLayout
 			android:layout_width="217dp"
 			android:layout_height="match_parent"
-			android:layout_marginLeft="12dp"
+			android:layout_marginLeft="@dimen/margin_12dp"
 			android:orientation="vertical">
 			<TextView
+				android:id="@+id/profile_title"
 				android:layout_width="match_parent"
-				android:layout_height="20dp"
-				android:layout_marginTop="20dp"
+				android:layout_height="@dimen/height_20dp"
+				android:layout_marginTop="@dimen/margintop_20dp"
 				android:textStyle="bold"
-				android:text="Profile"/>
+				android:text="@string/profile_title"/>
 			<TextView
+				android:id="@+id/profile_subtitle"
 				android:layout_width="wrap_content"
-				android:layout_height="35dp"
-				android:text="Edit personal information associated with the account"/>
+				android:layout_height="@dimen/height_35dp"
+				android:text="@string/profile_subtitle"/>
 
 		</LinearLayout>
 		<ImageView
 			android:layout_width="wrap_content"
-			android:layout_height="35dp"
-			android:layout_marginTop="30dp"
-			android:layout_marginLeft="14dp"
+			android:layout_height="@dimen/height_35dp"
+			android:layout_marginTop="@dimen/margin_30dp"
+			android:layout_marginLeft="@dimen/margin_14dp"
 			android:src="@drawable/disclosure_icon"/>
 	</LinearLayout>
 
@@ -207,19 +214,8 @@
 		android:id="@android:id/list"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginTop="20dp"
+		android:layout_marginTop="@dimen/margintop_20dp"
 		android:layout_weight="2"
 		android:visibility="invisible"></ListView>
-
-	<android.support.design.widget.BottomNavigationView
-		android:id="@+id/navigation"
-		android:layout_width="360dp"
-		android:layout_height="49dp"
-		android:background="#ffffff"
-		android:theme="@style/Theme.AppCompat"
-		android:visibility="visible"
-		design:itemIconTint="#009688"
-		design:itemTextColor="#009688"
-		design:menu="@menu/bottom_nav_items" />
 
 </LinearLayout>

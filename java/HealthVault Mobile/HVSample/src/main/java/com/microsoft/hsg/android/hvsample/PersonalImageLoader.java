@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 
 import android.app.Activity;
@@ -57,7 +58,7 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 			Record record = null;
 
 			for(Record rcd : records) {
-				if(id == rcd.getId()) {
+				if(Objects.equals(id, rcd.getId())) {
 					record = rcd;
 					break;
 				}
@@ -94,7 +95,7 @@ public class PersonalImageLoader implements ComponentCallbacks2 {
 					PersonalImage image = (PersonalImage)thing.getData();
 					FileOutputStream destination = null;
 					FileInputStream inputStream = null;
-					Bitmap bitmap = null;
+					Bitmap bitmap;
 
 					try {
 						destination = new FileOutputStream(file);

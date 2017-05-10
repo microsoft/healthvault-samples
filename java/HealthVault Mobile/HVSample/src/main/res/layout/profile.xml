@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<!-- Profile Image -->
+	<FrameLayout
+		android:id="@+id/profileImageLayout"
+		android:layout_width="@dimen/profileimagelayout_width"
+		android:layout_height="@dimen/profileimagelayout_height"
+		android:layout_marginLeft="@dimen/profileimagelayout_marginleftt"
+		android:layout_marginTop="@dimen/margintop_20dp"
+		android:layout_marginBottom="@dimen/profileimagelayout_marginbottom"
+		android:background="@drawable/circle_background_image">
+		<ImageView
+			android:id="@+id/profileImage"
+			android:layout_width="@dimen/profileimage_width"
+			android:layout_height="@dimen/profileimage_height"
+			android:layout_marginTop="@dimen/margintop_10dp"
+			android:layout_gravity="center"
+			android:src="@drawable/ic_launcher" />
+	</FrameLayout>
+
+	<!-- Name Labels/Text -->
+	<TextView
+		android:id="@+id/firstNameLabel"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_below="@id/profileImageLayout"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/label_firstname" />
+
+	<TextView
+		android:id="@+id/lastNameLabel"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_below="@id/profileImageLayout"
+		android:layout_toRightOf="@id/firstNameLabel"
+		android:layout_marginLeft="@dimen/margin_96dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/label_lastname" />
+
+	<EditText
+		android:id="@+id/firstNameText"
+		android:layout_width="@dimen/width_155dp"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@id/firstNameLabel"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:text="@string/sample_first"
+		android:textSize="@dimen/textsize_15sp"
+		android:background="@color/Isabelline"/>
+
+	<EditText
+		android:id="@+id/lastNameText"
+		android:layout_width="@dimen/width_155dp"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@id/lastNameLabel"
+		android:layout_toRightOf="@id/firstNameText"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:layout_marginLeft="@dimen/margin_10dp"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/sample_last"
+		android:background="@color/Isabelline"/>
+
+	<!-- Birth Labels/Text -->
+	<TextView
+		android:id="@+id/birthMonthLabel"
+		android:layout_width="@dimen/width_80dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_below="@id/firstNameText"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginTop="@dimen/margin_24dp"
+		android:text="@string/label_birthmonth"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"/>
+
+	<TextView
+		android:id="@+id/birthYearLabel"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_below="@id/lastNameText"
+		android:layout_toRightOf="@id/birthMonthLabel"
+		android:layout_marginLeft="@dimen/margin_85dp"
+		android:layout_marginTop="@dimen/margin_24dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/label_birthyear" />
+
+	<EditText
+		android:id="@+id/birthMonthText"
+		android:layout_width="@dimen/width_155dp"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@id/birthMonthLabel"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:text="@string/sample_month"
+		android:textSize="@dimen/textsize_15sp"
+		android:background="@color/Isabelline"/>
+
+	<EditText
+		android:id="@+id/birthYearText"
+		android:layout_width="@dimen/width_155dp"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@id/birthYearLabel"
+		android:layout_toRightOf="@id/birthMonthText"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:layout_marginLeft="@dimen/margin_10dp"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/sample_year"
+		android:background="@color/Isabelline"/>
+
+	<!-- Gender Labels/Text -->
+
+	<TextView
+		android:id="@+id/genderLabel"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_below="@id/birthYearText"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginTop="@dimen/margin_24dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/label_gender" />
+
+	<EditText
+		android:id="@+id/genderText"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@id/genderLabel"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginRight="@dimen/marginright_20dp"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/sample_gender"
+		android:background="@color/Isabelline"/>
+
+	<!-- Weight Labels/Text -->
+	<TextView
+		android:id="@+id/weightLabel"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_below="@id/genderText"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginTop="@dimen/margin_24dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/label_profilepage_weight" />
+
+	<EditText
+		android:id="@+id/weighText"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@id/weightLabel"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginRight="@dimen/marginright_20dp"
+		android:layout_marginTop="@dimen/margin_12dp"
+		android:background="@color/Isabelline"
+		android:ems="10"
+		android:inputType="text"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:text="@string/sample_weight"
+		android:textSize="@dimen/textsize_15sp"/>
+</RelativeLayout>

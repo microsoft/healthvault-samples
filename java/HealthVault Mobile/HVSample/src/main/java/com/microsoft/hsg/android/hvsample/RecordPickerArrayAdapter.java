@@ -50,10 +50,10 @@ public class RecordPickerArrayAdapter extends BaseAdapter {
 		ViewHolderItem viewHolder;
 		if(convertView == null) {
 			viewHolder = new ViewHolderItem();
-			convertView = mLayoutInflater.inflate(R.layout.record_picker_item, null, true);
+			convertView = mLayoutInflater.inflate(R.layout.record_picker_item, parent, true);
 
-			viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.txtRecordName);
-			viewHolder.imageViewItem = (ImageView) convertView.findViewById(R.id.recordIcon);
+			viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.txt_recordname);
+			viewHolder.imageViewItem = (ImageView) convertView.findViewById(R.id.record_icon);
 
 			convertView.setTag(viewHolder);
 		} else {

@@ -4,95 +4,113 @@
 	android:layout_height="match_parent">
 
 	<LinearLayout
-		android:id="@+id/lastWeightContainer"
+		android:id="@+id/graph_container"
+		android:layout_width="@dimen/weight_graphcontainer_width"
+		android:layout_height="@dimen/weight_graphcontainer_height"
+		android:background="@color/pine_green"
+		android:orientation="vertical">
+		<TextView
+			android:id="@+id/chart_label"
+			style="@style/chart_label"/>
+		<com.jjoe64.graphview.GraphView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/graph" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/last_weight_container"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginBottom="20dp"
+		android:layout_below="@id/graph_container"
 		android:orientation="vertical">
 		<TextView
 			android:layout_width="match_parent"
-			android:layout_height="20dp"
-			android:layout_marginTop="20dp"
-			android:textColor="#767676"
-			android:text="Last weight"/>
+			android:layout_height="@dimen/weightlayout_height_20dp"
+			android:layout_marginTop="@dimen/margintop_10dp"
+			android:layout_marginLeft="@dimen/marginleft_20dp"
+			android:textColor="@color/old_lavender"
+			android:text="@string/label_lastweight"/>
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
+				android:layout_marginLeft="@dimen/marginleft_20dp"
 				android:orientation="horizontal">
 				<TextView
-					android:id="@+id/lasWeight"
-					android:layout_width="80dp"
-					android:layout_height="62dp"
-					android:textColor="#009688"
+					android:id="@+id/last_weight"
+					android:layout_width="@dimen/lastweighttext_width"
+					android:layout_height="@dimen/lastweighttext_height"
+					android:textColor="@color/pine_green"
 					android:textSize="30sp"/>
 				<TextView
 					android:layout_width="292dp"
 					android:layout_height="wrap_content"
-					android:text="lbs"
-					android:textColor="#009688"/>
+					android:text="@string/label_metric"
+					android:textColor="@color/pine_green"/>
 			</LinearLayout>
 	</LinearLayout>
 
 	<LinearLayout
-		android:id="@+id/addWeightContainer"
+		android:id="@+id/add_weight_container"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
-		android:layout_below="@id/lastWeightContainer"
+		android:layout_below="@id/last_weight_container"
 		android:orientation="vertical">
 		<EditText
-			android:id="@+id/weightInput"
+			android:id="@+id/weight_input"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/marginleft_20dp"
+			android:layout_marginRight="@dimen/marginright_20dp"
 			android:inputType="number"
 			android:text="" >
 		</EditText>
 		<Button
-			android:id="@+id/addWeight"
+			android:id="@+id/add_weight"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="#ffffff"
-			android:text="Add new weight measurement"
+			android:layout_height="@dimen/weight_button_height"
+			android:layout_marginLeft="@dimen/marginleft_20dp"
+			android:layout_marginRight="@dimen/marginright_20dp"
+			android:background="@color/white"
+			android:text="@string/button_addweight"
 			android:textAlignment="center">
 		</Button>
 	</LinearLayout>
 
 	<LinearLayout
-		android:id="@+id/labels"
+		android:id="@+id/labels_container"
 		android:layout_width="match_parent"
-		android:layout_height="40dp"
-		android:layout_marginTop="20dp"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp"
-		android:layout_below="@id/addWeightContainer"
+		android:layout_height="@dimen/weightlayout_height_40dp"
+		android:layout_marginTop="@dimen/margintop_10dp"
+		android:layout_marginLeft="@dimen/lastweighttext_marginleft"
+		android:layout_marginRight="@dimen/lastweighttext_marginright"
+		android:layout_below="@id/add_weight_container"
 		android:orientation="horizontal">
 		<TextView
-			android:id="@+id/dateLabel"
+			android:id="@+id/date_label"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="right"
 			android:layout_weight="1"
-			android:text="DATE" />
+			android:text="@string/label_date" />
 		<TextView
-			android:id="@+id/weightLabel"
+			android:id="@+id/weight_label"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="left"
 			android:layout_weight="0.13"
-			android:text="WEIGHT" />
+			android:text="@string/label_weightpage_weight" />
 	</LinearLayout>
 
 	<HorizontalScrollView
-		android:layout_below="@id/labels"
+		android:layout_below="@id/labels_container"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginLeft="20dp"
-		android:layout_marginRight="20dp">
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginRight="@dimen/marginright_20dp">
 		<ListView
-			android:layout_width="360dp"
-			android:layout_height="300dp"
-			android:id="@+id/weightList"/>
+			android:layout_width="@dimen/weighthistory_list_width"
+			android:layout_height="@dimen/weighthistory_list_height"
+			android:id="@+id/weight_list"/>
 	</HorizontalScrollView>
 </RelativeLayout>

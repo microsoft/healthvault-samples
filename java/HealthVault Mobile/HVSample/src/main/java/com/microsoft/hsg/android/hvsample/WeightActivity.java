@@ -1,9 +1,12 @@
 package com.microsoft.hsg.android.hvsample;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import com.jjoe64.graphview.*;
+import com.jjoe64.graphview.series.*;
 import com.microsoft.hsg.HVException;
 import com.microsoft.hsg.android.simplexml.HealthVaultApp;
 import com.microsoft.hsg.android.simplexml.ShellActivity;
@@ -18,6 +21,7 @@ import com.microsoft.hsg.android.simplexml.things.types.weight.Weight;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -47,11 +51,11 @@ public class WeightActivity extends Activity {
 		mService = HealthVaultApp.getInstance();
 		mHVClient = new HealthVaultClient();
 
-		Button weightsBtn = (Button) findViewById(R.id.addWeight);
-		final EditText editText = (EditText) findViewById(R.id.weightInput);
+		Button weightsBtn = (Button) findViewById(R.id.add_weight);
+		final EditText editText = (EditText) findViewById(R.id.weight_input);
 
 		mWeights = new ArrayList<String>();
-		mWeightList = (ListView)findViewById(R.id.weightList);
+		mWeightList = (ListView)findViewById(R.id.weight_list);
 		mAdapter = new ArrayAdapter<String>(WeightActivity.this, android.R.layout.simple_list_item_1, mWeights);
 		mWeightList.setAdapter(mAdapter);
 
@@ -94,25 +98,45 @@ public class WeightActivity extends Activity {
 	private void putWeight(String value) {
 		final Thing2 thing = new Thing2();
 		thing.setData(new Weight(Double.parseDouble(value)));
-		mHVClient.asyncRequest(mCurrentRecord.putThingAsync(thing),
-			new WeightCallback(WeightCallback.PutWeights));
+		mHVClient.asyncRequest(mCurrentRecord.putThingAsync(thing), new WeightCallback(WeightCallback.PutWeights));
 	}
 
 	private void renderWeights(List<Thing2> things) {
-		int count = 0;
-		for(Thing2 thing : things) {
-			Weight w = (Weight)thing.getData();
-		if (count < 1) {
-			TextView lastWeight = (TextView) findViewById(R.id.lasWeight);
-			lastWeight.setText(String.valueOf(w.getValue().getKg()));
-			count++;
-		}
-			final int month = w.getWhen().getDate().getM();
-			final int day = w.getWhen().getDate().getD();
-			final int year = w.getWhen().getDate().getY();
-			mAdapter.add(String.valueOf(String.format(month + "/" + day + "/" + year)
-					+ "                                  " + String.valueOf(w.getValue().getKg())));
+		if(!things.isEmpty()) {
+			int xPoint = things.size() - 1;;
+			GraphView graph = (GraphView) findViewById(R.id.graph);
+			LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+			int size = things.size();
+			DataPoint dataPointArray[] = new DataPoint[size];
+
+			// Populate the last weight view
+			Weight lastWeightValue = (Weight) things.get(0).getData();
+			TextView lastWeightTextView = (TextView) findViewById(R.id.last_weight);
+			lastWeightTextView.setText(String.valueOf(lastWeightValue.getValue().getKg()));
+
+			// Populate the list and last weight
+			mAdapter.clear();
+			for (Thing2 thing : things) {
+				Weight weight = (Weight) thing.getData();
+				final int month = weight.getWhen().getDate().getM();
+				final int day = weight.getWhen().getDate().getD();
+				final int year = weight.getWhen().getDate().getY();
+				mAdapter.add(String.valueOf(String.format(month + "/" + day + "/" + year)
+						+ "                                  " + String.valueOf(weight.getValue().getKg())));
+
+				// Populate the weight chart data points
+				DataPoint dataPoint = new DataPoint(xPoint, weight.getValue().getKg().intValue());
+				dataPointArray[xPoint] = dataPoint;
+				xPoint--;
+			}
+
 			mAdapter.notifyDataSetChanged();
+
+			series.resetData(dataPointArray);
+			series.setColor(Color.WHITE);
+			graph.setTitleColor(Color.WHITE);
+			series.setDrawDataPoints(true);
+			graph.addSeries(series);
 		}
 	}
 

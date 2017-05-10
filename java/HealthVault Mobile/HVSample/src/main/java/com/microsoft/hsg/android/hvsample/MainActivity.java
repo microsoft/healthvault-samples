@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,10 +33,8 @@ import com.microsoft.hsg.android.simplexml.client.RequestCallback;
 import com.microsoft.hsg.android.simplexml.things.types.types.PersonInfo;
 import com.microsoft.hsg.android.simplexml.things.types.types.Record;
 
-public class MainActivity
-	extends ListActivity
-	implements HealthVaultInitializationHandler {
 
+public class MainActivity extends ListActivity implements HealthVaultInitializationHandler {
 	private HealthVaultApp mService;
 	private HealthVaultClient mHVClient;
 	private BottomNavigationView mBottomNav;
@@ -55,31 +54,40 @@ public class MainActivity
 		}
 
 		mHVClient = new HealthVaultClient();
-		
-		mBottomNav = (BottomNavigationView) findViewById(R.id.navigation);
 
-		mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-			@Override
-			public boolean onNavigationItemSelected(MenuItem item) {
-				// handle desired action here
-				// One possibility of action is to replace the contents above the nav bar
-				// return true if you want the item to be displayed as the selected item
-				return true;
-			}
-		});
-
-		final LinearLayout weightTile = (LinearLayout) findViewById(R.id.weightTile);
+		final LinearLayout weightTile = (LinearLayout) findViewById(R.id.weight_tile);
 		weightTile.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent intent = null;
 				if (mService.isAppConnected()) {
-					intent = new Intent(MainActivity.this, WeightActivity.class);
+					startActivity(new Intent(MainActivity.this, WeightActivity.class));
 				} else {
 					Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
-				} if(intent != null) {
-					startActivity(intent);
 				}
+			}
+		});
+
+		LinearLayout profileTile = (LinearLayout) findViewById(R.id.profile_tile);
+		profileTile.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View view) {
+			if (mService.isAppConnected()) {
+				startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+			} else {
+				Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
+			}
+			}
+		});
+
+		LinearLayout addMeddicationTile = (LinearLayout) findViewById(R.id.medication_tile);
+		addMeddicationTile.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View view) {
+			if (mService.isAppConnected()) {
+				startActivity(new Intent(MainActivity.this, AddMedicationActivity.class));
+			} else {
+				Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
+			}
 			}
 		});
 	}
@@ -102,14 +110,15 @@ public class MainActivity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
-		final LinearLayout recordNameLayout = (LinearLayout) menu.findItem(R.id.recordNameLayout).getActionView();
-		final TextView textView = (TextView) recordNameLayout.findViewById(R.id.currentRecordName);
+		final LinearLayout recordNameLayout = (LinearLayout) menu.findItem(R.id.record_name_layout).getActionView();
+		final TextView textView = (TextView) recordNameLayout.findViewById(R.id.current_record_name);
 		final HealthVaultApp application = HealthVaultApp.getInstance();
 		if(mService.isAppConnected() && application.getCurrentRecord() != null) {
 			textView.setText(application.getCurrentRecord().getName());
 			recordNameLayout.setOnClickListener(new OnClickListener() {
 				@Override
-				public void onClick(View arg0) { Intent intent = new Intent(MainActivity.this, RecordPickerActivity.class);
+				public void onClick(View arg0) {
+					Intent intent = new Intent(MainActivity.this, RecordPickerActivity.class);
 					startActivity(intent);
 				}
 			});
@@ -130,7 +139,7 @@ public class MainActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.actionConnect:
+			case R.id.action_connect:
 				doConnect();
 				return true;
 			default:
@@ -140,9 +149,7 @@ public class MainActivity
 	
 	private void doConnect() {
 		if (!mService.isAppConnected()) {
-			mConnectProgressDialog = ProgressDialog.show(
-				MainActivity.this, "", "Please wait...", true);
-			
+			mConnectProgressDialog = ProgressDialog.show(MainActivity.this, "", "Please wait...", true);
 			HealthVaultSettings settings = mService.getSettings();
 			settings.setMasterAppId(mMasterAppId);
 			settings.setServiceUrl(mServiceUrl);
@@ -156,16 +163,20 @@ public class MainActivity
 	}
 	
 	public void onListItemClick(ListView parent, View v, int position, long id) {
-		final TextView item = (TextView) v;
 		Intent intent = null;
 		if (mService.isAppConnected()) {
 			switch(position) {
 				case 0:
 					intent = new Intent(MainActivity.this, WeightActivity.class);
 					break;
+				case 1:
+					intent = new Intent(MainActivity.this, ProfileActivity.class);
+					break;
+				case 2:
+					intent = new Intent(MainActivity.this, AddMedicationActivity.class);
+					break;
 			}
-		}
-		if(intent != null) {
+		} if(intent != null) {
 			startActivity(intent);
 		}
 	}

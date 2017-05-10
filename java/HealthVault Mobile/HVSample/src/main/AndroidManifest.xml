@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.microsoft.hsg.android.hvsample"
-    android:versionCode="1"
-    android:versionName="1.0" >
+	package="com.microsoft.hsg.android.hvsample"
+	android:versionCode="1"
+	android:versionName="1.0" >
 
-    <uses-sdk
-        android:minSdkVersion="23"
-        android:targetSdkVersion="25" />
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+	<uses-sdk
+		android:minSdkVersion="23"
+		android:targetSdkVersion="25" />
+		<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+		<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
-    <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name="com.microsoft.hsg.android.hvsample.MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+	<application
+		android:allowBackup="true"
+		android:icon="@drawable/ic_launcher"
+		android:label="@string/app_name"
+		android:theme="@style/AppTheme" >
+		<activity
+			android:name="com.microsoft.hsg.android.hvsample.MainActivity"
+			android:label="@string/app_name" >
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name="com.microsoft.hsg.android.simplexml.ShellActivity" >
+		</activity>
+		<activity android:name="AddMedicationActivity"></activity>
+		<activity android:name="WeightActivity"></activity>
+		<activity android:name="ProfileActivity"></activity>
+		<activity android:name="RecordPickerActivity"></activity>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        
-        <activity android:name="com.microsoft.hsg.android.simplexml.ShellActivity" >
-        </activity>
-        <activity android:name="WeightActivity"></activity>
-        <activity android:name="RecordPickerActivity"></activity>
-
-        <provider
-           android:name="com.microsoft.hsg.android.simplexml.store.HVContentProvider"
-           android:authorities="com.microsoft.hsg.android.store"
-           android:exported="false"
-           android:grantUriPermissions="false"
-           android:label="HVContentProvider" />
-    </application>
+		<provider
+			android:name="com.microsoft.hsg.android.simplexml.store.HVContentProvider"
+			android:authorities="com.microsoft.hsg.android.store"
+			android:exported="false"
+			android:grantUriPermissions="false"
+			android:label="HVContentProvider" />
+	</application>
 
 </manifest>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<!-- Name Labels/Text -->
+
+	<TextView
+		android:id="@+id/name_label"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_marginTop="@dimen/margintop_20dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/name_label" />
+
+	<EditText
+		android:id="@+id/name_text"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@+id/name_label"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginRight="@dimen/marginright_20dp"
+		android:background="@color/Isabelline"
+		android:ems="10"
+		android:inputType="text"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:text="@string/sample_name_text"
+		android:textSize="@dimen/textsize_15sp"/>
+
+	<!-- Dosage Labels/Text -->
+	<TextView
+		android:id="@+id/dosagetype_label"
+		android:layout_width="@dimen/width_84dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_below="@id/name_text"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/dosagetype_label" />
+
+	<TextView
+		android:id="@+id/strength_label"
+		android:layout_width="@dimen/width_69dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_below="@id/name_text"
+		android:layout_toRightOf="@id/dosagetype_label"
+		android:layout_marginLeft="@dimen/margin_96dp"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/strength_label" />
+
+	<Spinner
+		android:id="@+id/dosagetype_text"
+		android:layout_width="@dimen/width_155dp"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@id/dosagetype_label"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="@dimen/textsize_15sp"
+		android:background="@android:drawable/btn_dropdown"/>
+
+	<EditText
+		android:id="@+id/strength_text"
+		android:layout_width="@dimen/width_155dp"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@id/strength_label"
+		android:layout_toRightOf="@id/dosagetype_text"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/margin_10dp"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/sample_strength_text"
+		android:background="@color/Isabelline"/>
+
+	<!-- Treatment Provider Labels/Text -->
+
+	<TextView
+		android:id="@+id/treatmentprovider_label"
+		android:layout_width="@dimen/width_140dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_below="@id/dosagetype_text"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/treatmentprovider_label" />
+
+	<Spinner
+		android:id="@+id/treatmentprovider_text"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@id/treatmentprovider_label"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginRight="@dimen/marginright_20dp"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:textSize="@dimen/textsize_15sp"
+		android:background="@android:drawable/btn_dropdown"/>
+
+	<!-- Reasons Labels/Text -->
+	<TextView
+		android:id="@+id/reason_label"
+		android:layout_width="@dimen/width_140dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_below="@id/treatmentprovider_text"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/reason_label" />
+
+	<EditText
+		android:id="@+id/reason_text"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@+id/reason_label"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginRight="@dimen/marginright_20dp"
+		android:background="@color/Isabelline"
+		android:ems="10"
+		android:inputType="text"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:text="@string/sample_reason_text"
+		android:textSize="@dimen/textsize_15sp"/>
+
+	<!-- Date Started Labels/Text -->
+	<TextView
+		android:id="@+id/datestarted_label"
+		android:layout_width="@dimen/width_140dp"
+		android:layout_height="@dimen/height_20dp"
+		android:layout_below="@id/reason_text"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:textColor="@color/old_lavender"
+		android:textSize="@dimen/textsize_15sp"
+		android:text="@string/datestarted_label" />
+
+	<EditText
+		android:id="@+id/datestarted_value1_text"
+		android:layout_width="@dimen/width_100dp"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@+id/datestarted_label"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:background="@color/Isabelline"
+		android:ems="10"
+		android:inputType="text"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:text="@string/sample_datestarted_value1_text"
+		android:textSize="@dimen/textsize_15sp"/>
+
+	<EditText
+	android:id="@+id/datestarted_value2_text"
+	android:layout_width="@dimen/width_100dp"
+	android:layout_height="@dimen/height_48dp"
+	android:layout_below="@+id/datestarted_label"
+	android:layout_toRightOf="@id/datestarted_value1_text"
+	android:layout_marginTop="@dimen/margin_10dp"
+	android:layout_marginLeft="@dimen/margin_10dp"
+	android:background="@color/Isabelline"
+	android:ems="10"
+	android:inputType="text"
+	android:paddingLeft="@dimen/padding_20dp"
+	android:text="@string/sample_datestarted_value2_text"
+	android:textSize="@dimen/textsize_15sp"/>
+
+	<EditText
+		android:id="@+id/datestarted_value3_text"
+		android:layout_width="@dimen/width_100dp"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_alignEnd="@+id/reason_text"
+		android:layout_below="@+id/datestarted_label"
+		android:layout_marginTop="@dimen/margin_10dp"
+		android:layout_marginLeft="@dimen/margin_10dp"
+		android:layout_toRightOf="@id/datestarted_value2_text"
+		android:background="@color/Isabelline"
+		android:ems="10"
+		android:inputType="text"
+		android:paddingLeft="@dimen/padding_20dp"
+		android:text="@string/sample_datestarted_value3_text"
+		android:textSize="@dimen/textsize_15sp"/>
+
+	<Button
+		android:id="@+id/save_button"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/height_48dp"
+		android:layout_below="@id/datestarted_value3_text"
+		android:layout_marginTop="@dimen/margin_48dp"
+		android:layout_marginLeft="@dimen/marginleft_20dp"
+		android:layout_marginRight="@dimen/marginright_20dp"
+		android:background="@color/pine_green"
+		android:textColor="@color/white"
+		android:text="@string/save_button"/>
+
+</RelativeLayout>

@@ -5,17 +5,17 @@
 	android:orientation="horizontal" >
 
 	<ImageView
-		android:id="@+id/recordIcon"
-		android:layout_width="60dp"
-		android:layout_height="60dp"
-		android:layout_marginBottom="5dp"
-		android:layout_marginLeft="5dp"
-		android:layout_marginRight="5dp"
-		android:layout_marginTop="5dp"
+		android:id="@+id/record_icon"
+		android:layout_width="@dimen/width_60dp"
+		android:layout_height="@dimen/height_60dp"
+		android:layout_marginBottom="@dimen/margin_5dp"
+		android:layout_marginLeft="@dimen/margin_5dp"
+		android:layout_marginRight="@dimen/margin_5dp"
+		android:layout_marginTop="@dimen/margin_5dp"
 		android:src="@drawable/ic_launcher" />
 
 	<TextView
-		android:id="@+id/txtRecordName"
+		android:id="@+id/txt_recordname"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textSize="25sp"
