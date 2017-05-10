@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
+             x:Class="HealthVault.Sample.Xamarin.Core.Views.WeightPage">
+
+    <StackLayout Margin="10" BackgroundColor="{StaticResource LightPageBackground}">
+        <Label 
+            Text="{x:Static core:StringResource.LastWeight}" 
+            TextColor="{StaticResource ForegroundLight}" 
+            FontSize="15"
+            VerticalTextAlignment="Center">
+        </Label>
+        <StackLayout Orientation="Horizontal">
+            <Label 
+                Text="{Binding LastWeight}"
+                TextColor="{StaticResource HighlightColor}" 
+                FontSize="24"
+                VerticalTextAlignment="Center">
+            </Label>
+            <Label 
+                Text="{x:Static core:StringResource.Kg}"
+                TextColor="{StaticResource HighlightColor}" 
+                FontSize="10"
+                VerticalTextAlignment="End">
+            </Label>
+        </StackLayout>
+        <Button 
+            BackgroundColor="{StaticResource LightPageBackground}" 
+            BorderWidth="1" 
+            BorderColor="{StaticResource ForegroundLight}"
+            HeightRequest="48" 
+            Text="{x:Static core:StringResource.AddNewWeight}" 
+            Command="{Binding AddCommand}">
+        </Button>
+    </StackLayout>
+</ContentPage>

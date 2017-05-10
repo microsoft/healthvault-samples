@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
+             x:Class="HealthVault.Sample.Xamarin.Core.Views.MedicationEditPage" 
+             Title="{x:Static core:StringResource.EditMedicationPageTitle}">
+    <Grid Padding="10" BackgroundColor="{StaticResource LightPageBackground}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label 
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Text="{x:Static core:StringResource.Name}" 
+            VerticalTextAlignment="Start">
+        </Label>
+        <Entry 
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Text="{Binding Name}"
+            BackgroundColor="{StaticResource EditFieldBackground}">
+        </Entry>
+        <Label 
+            Grid.Row="2"
+            Grid.Column="0"
+            Text="{x:Static core:StringResource.DosageType}" 
+            VerticalTextAlignment="Start">
+        </Label>
+        <Label 
+            Grid.Row="2"
+            Grid.Column="1"
+            Text="{x:Static core:StringResource.Strength}" 
+            VerticalTextAlignment="Start">
+        </Label>
+        <Entry 
+            Grid.Row="3"
+            Grid.Column="0"
+            Text="{Binding DosageType}"
+            BackgroundColor="{StaticResource EditFieldBackground}">
+        </Entry>
+        <Entry 
+            Grid.Row="3"
+            Grid.Column="1"
+            Text="{Binding Strength}"
+            BackgroundColor="{StaticResource EditFieldBackground}">
+        </Entry>
+        <Label 
+            Grid.Row="4"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Text="{x:Static core:StringResource.TreatmentProvider}" 
+            VerticalTextAlignment="Start">
+        </Label>
+        <Entry 
+            Grid.Row="5"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Text="{Binding TreatmentProvider}"
+            BackgroundColor="{StaticResource EditFieldBackground}">
+        </Entry>
+        <Label 
+            Grid.Row="6"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Text="{x:Static core:StringResource.ReasonForTaking}" 
+            VerticalTextAlignment="Start">
+        </Label>
+        <Entry 
+            Grid.Row="7"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Text="{Binding ReasonForTaking}"
+            BackgroundColor="{StaticResource EditFieldBackground}">
+        </Entry>
+        <Label 
+            Grid.Row="8"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Text="{x:Static core:StringResource.DateStarted}" 
+            VerticalTextAlignment="Start">
+        </Label>
+        <DatePicker  
+            Grid.Row="9"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Date="{Binding DateStarted}"
+            BackgroundColor="{StaticResource EditFieldBackground}"
+            HorizontalOptions="Start">
+            <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+        </DatePicker>
+        <Button 
+            Grid.Row="10"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="0,15,0,0"
+            Command="{Binding SaveCommand}"
+            TextColor="White"
+            BackgroundColor="{StaticResource HighlightColor}"
+            Text="{x:Static core:StringResource.Save}">
+        </Button>
+    </Grid>
+</ContentPage>

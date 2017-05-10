@@ -1,0 +1,5 @@
+﻿@model Microsoft.HealthVault.RestApi.Generated.Models.Time
+
+@Html.EditorFor(model => model.Hours, new { htmlAttributes = new { @class = "form-control time" } })
+:
+@Html.TextBox("Minutes", Model == null ? null : Model.Minutes.GetValueOrDefault().ToString("00") , new { @class = "form-control time text-box single-line" })
