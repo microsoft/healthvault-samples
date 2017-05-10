@@ -11,19 +11,19 @@ The ApplicationId parameter allows you to specify the GUID value (without braces
 
 #>
 
-Param(
+param(
 [guid]$ApplicationID
 )
 
 
 # https://blogs.technet.microsoft.com/heyscriptingguy/2015/07/29/use-function-to-determine-elevation-of-powershell-console/
-Function Test-IsAdmin
+function Test-IsAdmin
 {
  <#
     .Synopsis
         Tests if the user is an administrator
     .Description
-        Returns true if a user is an administrator, false if the user is not an administrator       
+        Returns TRUE if a user is an administrator, FALSE if the user is not an administrator       
     .Example
         Test-IsAdmin
     #>
@@ -48,7 +48,7 @@ function Set-ReadPermissionsForCert([System.Security.Cryptography.X509Certificat
     Set-Acl $fullPath $acl
 }
 
-if (Test-IsAdmin -eq $true) {
+if (Test-IsAdmin -eq $TRUE) {
     Create-HealthVaultCert($ApplicationID)
 } else {
     Write-Error -Message "Please relaunch Powershell as an administrator and try again."
