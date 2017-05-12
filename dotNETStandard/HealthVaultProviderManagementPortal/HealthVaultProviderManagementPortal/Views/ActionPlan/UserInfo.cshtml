@@ -1,0 +1,10 @@
+﻿<div class="alert alert-info" role="alert">
+    @if (Request.QueryString["personID"] == null || Request.QueryString["recordID"] == null)
+    {
+        <p>Editing action plans for the <b>logged in</b> user</p>
+    }
+    else
+    {
+        <p>Editing action plans for Person ID <b>@Request.QueryString["personID"]</b>, Record ID <b>@Request.QueryString["recordID"]</b></p>
+    }
+</div>

@@ -1,0 +1,103 @@
+﻿@*
+    Copyright (c) Microsoft Corporation.  All rights reserved.
+    MIT License
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*@
+@using System.Runtime
+@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanAdherenceSummary
+
+@{
+    ViewBag.Title = "Action plan adherence";
+}
+@Html.Partial("UserInfo")
+
+<h1 class="page-title">Action plan adherence</h1>
+
+<h1>@Model.Name</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Report start</th>
+            <th>Report end</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.StartDate.GetValueOrDefault().ToString("d")</td>
+            <td>@Model.EndDate.GetValueOrDefault().ToString("d")</td>
+        </tr>
+    </tbody>
+    </table>
+    <h2>Objectives</h2>
+    @foreach (var objective in Model.Objectives)
+    {
+        <h3>Objective: @objective.Name</h3>
+        <p>@objective.OutcomeName</p>
+        foreach (var task in objective.AssociatedTasks)
+        {
+            <div class="alert">
+                <h3>Task: @task.Name</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Task start</th>
+                            <th>Task end</th>
+                            <th>Task window</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@task.StartDate.GetValueOrDefault().ToString("d")</td>
+                            <td>@task.EndDate.GetValueOrDefault().ToString("d")</td>
+                            <td>@task.WindowType</td>
+                        </tr>
+                    </tbody>
+                </table>
+                @if (task.WeeklyAdherence.Count > 0)
+                {
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Week Start</th>
+                                <th>Completion Percentage</th>
+                                <th>Auto tracking evidence (ThingId)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var week in task.WeeklyAdherence)
+                            {
+                                <tr>
+                                    <td>@week.WeekStart.GetValueOrDefault().ToString("d")</td>
+                                    @if (week.IntendedCompletions > 0)
+                                    {
+                                        <td>@((week.Completions / week.IntendedCompletions * 100) + "%") </td>
+                                    }
+                                    else
+                                    {
+                                        <td>0%</td>
+                                    }
+                                    <td>
+                                        @foreach (var evidence in week.AutomaticTrackedOccurrenceEvidence)
+                                        {
+                                            <p>@evidence</p>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert-warning">
+                        <p>No adherence data available</p>
+                    </div>
+                }
+            </div>
+        }
+
+    }

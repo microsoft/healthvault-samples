@@ -7,23 +7,23 @@ This script can be used to build a HealthVault-compatible X509 certificate and a
 ./Create-HealthVaultCert.ps1 -ApplicationId "00000000-0000-0000-0000-000000000000" 
 
 .PARAMETER ApplicationId
-The ApplicationId parameter allows you to specify the GUID value (without braces) which is registed in HealthVault for your app.
+The ApplicationId parameter allows you to specify the GUID value (without braces) which is registered in HealthVault for your app.
 
 #>
 
-Param(
+param(
 [guid]$ApplicationID
 )
 
 
 # https://blogs.technet.microsoft.com/heyscriptingguy/2015/07/29/use-function-to-determine-elevation-of-powershell-console/
-Function Test-IsAdmin
+function Test-IsAdmin
 {
  <#
     .Synopsis
         Tests if the user is an administrator
     .Description
-        Returns true if a user is an administrator, false if the user is not an administrator       
+        Returns TRUE if a user is an administrator, FALSE if the user is not an administrator       
     .Example
         Test-IsAdmin
     #>
@@ -48,7 +48,7 @@ function Set-ReadPermissionsForCert([System.Security.Cryptography.X509Certificat
     Set-Acl $fullPath $acl
 }
 
-if (Test-IsAdmin -eq $true) {
+if (Test-IsAdmin -eq $TRUE) {
     Create-HealthVaultCert($ApplicationID)
 } else {
     Write-Error -Message "Please relaunch Powershell as an administrator and try again."
