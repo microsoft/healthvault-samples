@@ -116,6 +116,15 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string AddButton {
+            get {
+                return ResourceManager.GetString("AddButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new weight measurement.
         /// </summary>
         public static string AddNewWeight {
@@ -305,20 +314,20 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HealthVault Mobile Sample.
-        /// </summary>
-        public static string MenuPageTitle {
-            get {
-                return ResourceManager.GetString("MenuPageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Medications.
         /// </summary>
         public static string MedicationsPageTitle {
             get {
                 return ResourceManager.GetString("MedicationsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HealthVault Mobile Sample.
+        /// </summary>
+        public static string MenuPageTitle {
+            get {
+                return ResourceManager.GetString("MenuPageTitle", resourceCulture);
             }
         }
         
@@ -409,6 +418,24 @@ namespace HealthVault.Sample.Xamarin.Core {
         public static string Weight {
             get {
                 return ResourceManager.GetString("Weight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Weight Measurement.
+        /// </summary>
+        public static string WeightAddPageTitle {
+            get {
+                return ResourceManager.GetString("WeightAddPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day.
+        /// </summary>
+        public static string WeightDayColumn {
+            get {
+                return ResourceManager.GetString("WeightDayColumn", resourceCulture);
             }
         }
         

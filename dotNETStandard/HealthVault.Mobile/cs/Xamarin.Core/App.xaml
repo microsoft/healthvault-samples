@@ -19,6 +19,13 @@
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
             <converters:NullVisibilityConverter x:Key="NullVisibilityConverter" />
             
+            <Style x:Key="StandardButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource LightPageBackground}" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="BorderColor" Value="{StaticResource ForegroundLight}" />
+                <Setter Property="HeightRequest" Value="48" />
+            </Style>
+            
             <!-- Xamarin forms doesn't have a built-in Ellipse so we work around it with a button with BorderRadius -->
             <Style x:Key="CircleBackgroundButton" TargetType="Button">
                 <Setter Property="BorderRadius" Value="32" />

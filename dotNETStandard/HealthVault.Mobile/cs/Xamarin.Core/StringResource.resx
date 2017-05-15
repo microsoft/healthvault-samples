@@ -240,4 +240,13 @@
   <data name="PrescribedDateFormat" xml:space="preserve">
     <value>Prescribed: {0}</value>
   </data>
+  <data name="WeightDayColumn" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="WeightAddPageTitle" xml:space="preserve">
+    <value>Add Weight Measurement</value>
+  </data>
 </root>

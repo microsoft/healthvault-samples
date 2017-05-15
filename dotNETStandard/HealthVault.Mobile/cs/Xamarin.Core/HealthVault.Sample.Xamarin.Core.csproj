@@ -59,6 +59,8 @@
     <Compile Include="ViewModels\ViewRows\MedicationsSummaryViewRow.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
     <Compile Include="ViewModels\ViewRows\MenuItemViewRow.cs" />
+    <Compile Include="ViewModels\ViewRows\WeightViewRow.cs" />
+    <Compile Include="ViewModels\WeightAddViewModel.cs" />
     <Compile Include="ViewModels\WeightViewModel.cs" />
     <Compile Include="Views\ActionPlanDetailsPage.xaml.cs">
       <DependentUpon>ActionPlanDetailsPage.xaml</DependentUpon>
@@ -87,6 +89,9 @@
       <DependentUpon>PersonPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\PersonViewModel.cs" />
+    <Compile Include="Views\WeightAddPage.xaml.cs">
+      <DependentUpon>WeightAddPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WeightPage.xaml.cs">
       <DependentUpon>WeightPage.xaml</DependentUpon>
     </Compile>
@@ -178,6 +183,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\ActionPlanDetailsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\WeightAddPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

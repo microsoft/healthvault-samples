@@ -70,7 +70,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         {
             var actionPlanDetailsPage = new ActionPlanDetailsPage
             {
-                BindingContext = new ActionPlanDetailsViewModel(actionPlan, this.NavigationService),
+                BindingContext = new ActionPlanDetailsViewModel(actionPlan, this.connection, this.NavigationService),
             };
             await this.NavigationService.NavigateAsync(actionPlanDetailsPage);
         }

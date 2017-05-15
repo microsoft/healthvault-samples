@@ -20,5 +20,11 @@ namespace HealthVault.Sample.Xamarin.Core.Views
         {
             InitializeComponent();
         }
+
+        private void ListView_OnItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            // Prevents a menu item from showing as "selected"
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }
