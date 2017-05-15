@@ -85,10 +85,10 @@
     <Compile Include="Views\MedicationEditPage.xaml.cs">
       <DependentUpon>MedicationEditPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PersonPage.xaml.cs">
-      <DependentUpon>PersonPage.xaml</DependentUpon>
+    <Compile Include="Views\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\PersonViewModel.cs" />
+    <Compile Include="ViewModels\ProfileViewModel.cs" />
     <Compile Include="Views\WeightAddPage.xaml.cs">
       <DependentUpon>WeightAddPage.xaml</DependentUpon>
     </Compile>
@@ -118,7 +118,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\PersonPage.xaml">
+    <EmbeddedResource Include="Views\ProfilePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

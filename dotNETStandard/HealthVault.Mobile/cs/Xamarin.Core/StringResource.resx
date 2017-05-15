@@ -138,12 +138,6 @@
   <data name="AddNewWeight" xml:space="preserve">
     <value>Add new weight measurement</value>
   </data>
-  <data name="BirthMonth" xml:space="preserve">
-    <value>Birth month</value>
-  </data>
-  <data name="BirthYear" xml:space="preserve">
-    <value>Birth year</value>
-  </data>
   <data name="DateStarted" xml:space="preserve">
     <value>Date started</value>
   </data>
@@ -248,5 +242,17 @@
   </data>
   <data name="WeightAddPageTitle" xml:space="preserve">
     <value>Add Weight Measurement</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Birth date</value>
+  </data>
+  <data name="Gender_Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="Gender_Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="ProfilePageTitle" xml:space="preserve">
+    <value>Profile</value>
   </data>
 </root>

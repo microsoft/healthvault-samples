@@ -101,8 +101,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private async Task OpenWeightPageAsync()
         {
-            var person = await connection.GetPersonInfoAsync();
-            IThingClient thingClient = connection.CreateThingClient();
+            var person = await this.connection.GetPersonInfoAsync();
+            IThingClient thingClient = this.connection.CreateThingClient();
             HealthRecordInfo record = person.SelectedRecord;
             IReadOnlyCollection<Weight> items = await thingClient.GetThingsAsync<Weight>(record.Id);
 
@@ -115,8 +115,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private async Task OpenMedicationsPageAsync()
         {
-            var person = await connection.GetPersonInfoAsync();
-            IThingClient thingClient = connection.CreateThingClient();
+            var person = await this.connection.GetPersonInfoAsync();
+            IThingClient thingClient = this.connection.CreateThingClient();
             HealthRecordInfo record = person.SelectedRecord;
             IReadOnlyCollection<Medication> items = await thingClient.GetThingsAsync<Medication>(record.Id);
 
@@ -124,37 +124,27 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             {
                 BindingContext = new MedicationsMainViewModel(items, thingClient, record.Id, this.NavigationService)
             };
-            await NavigationService.NavigateAsync(medicationsMainPage);
+            await this.NavigationService.NavigateAsync(medicationsMainPage);
         }
 
         private async Task OpenPersonPageAsync()
         {
-            var person = await connection.GetPersonInfoAsync();
-            var thingClient = connection.CreateThingClient();
+            var person = await this.connection.GetPersonInfoAsync();
+            var thingClient = this.connection.CreateThingClient();
             HealthRecordInfo record = person.SelectedRecord;
             Guid recordId = record.Id;
             BasicV2 basicInformation = (await thingClient.GetThingsAsync<BasicV2>(recordId)).FirstOrDefault();
-            IReadOnlyCollection<Weight> weights = await thingClient.GetThingsAsync<Weight>(recordId);
-            double weight = weights.Count > 0 ? weights.First().Value.DisplayValue.Value : 0;
+            Personal personalInformation = (await thingClient.GetThingsAsync<Personal>(recordId)).FirstOrDefault();
 
-            ImageSource imageSource = await GetImage(thingClient, recordId);
+            ImageSource imageSource = await this.GetImage(thingClient, recordId);
 
-            var personViewModel = new PersonViewModel()
-            {
-                FirstName = record.DisplayName,
-                BirthMonth = "",
-                BirthYear = basicInformation.BirthYear.HasValue ? basicInformation.BirthYear.Value.ToString() : "",
-                Gender = basicInformation.Gender.HasValue ? basicInformation.Gender.Value.ToString() : "",
-                Weight = weight.ToString(),
-                ImageSource = imageSource,
-
-            };
-            var menuPage = new PersonPage()
+            var personViewModel = new ProfileViewModel(recordId, basicInformation, personalInformation, imageSource, thingClient, this.NavigationService);
+            var menuPage = new ProfilePage
             {
                 BindingContext = personViewModel
             };
 
-            await NavigationService.NavigateAsync(menuPage);
+            await this.NavigationService.NavigateAsync(menuPage);
         }
 
         private async Task<ImageSource> GetImage(IThingClient thingClient, Guid recordId)

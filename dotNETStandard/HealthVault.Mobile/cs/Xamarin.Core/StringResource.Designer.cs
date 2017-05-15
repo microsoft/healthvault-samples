@@ -134,20 +134,11 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Birth month.
+        ///   Looks up a localized string similar to Birth date.
         /// </summary>
-        public static string BirthMonth {
+        public static string BirthDate {
             get {
-                return ResourceManager.GetString("BirthMonth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Birth year.
-        /// </summary>
-        public static string BirthYear {
-            get {
-                return ResourceManager.GetString("BirthYear", resourceCulture);
+                return ResourceManager.GetString("BirthDate", resourceCulture);
             }
         }
         
@@ -229,6 +220,24 @@ namespace HealthVault.Sample.Xamarin.Core {
         public static string Gender {
             get {
                 return ResourceManager.GetString("Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        public static string Gender_Female {
+            get {
+                return ResourceManager.GetString("Gender_Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        public static string Gender_Male {
+            get {
+                return ResourceManager.GetString("Gender_Male", resourceCulture);
             }
         }
         
@@ -373,6 +382,15 @@ namespace HealthVault.Sample.Xamarin.Core {
         public static string ProfileDescription {
             get {
                 return ResourceManager.GetString("ProfileDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string ProfilePageTitle {
+            get {
+                return ResourceManager.GetString("ProfilePageTitle", resourceCulture);
             }
         }
         
