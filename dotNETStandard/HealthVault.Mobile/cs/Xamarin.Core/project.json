@@ -1,10 +1,10 @@
 ﻿{
   "supports": {},
   "dependencies": {
-    "Microsoft.HealthVault.Client": "1.0.20502.3",
+    "Microsoft.HealthVault.Client": "1.0.20515.1",
     "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
-    "NETStandard.Library": "1.6.0",
-    "Newtonsoft.Json": "9.0.1",
+    "NETStandard.Library": "1.6.1",
+    "Newtonsoft.Json": "10.0.2",
     "System.ComponentModel": "4.3.0",
     "Xamarin.Forms": "2.3.4.224",
     "XLabs.Forms": "2.3.0-pre05"

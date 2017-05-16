@@ -116,6 +116,15 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string AddButton {
+            get {
+                return ResourceManager.GetString("AddButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new weight measurement.
         /// </summary>
         public static string AddNewWeight {
@@ -125,20 +134,11 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Birth month.
+        ///   Looks up a localized string similar to Birth date.
         /// </summary>
-        public static string BirthMonth {
+        public static string BirthDate {
             get {
-                return ResourceManager.GetString("BirthMonth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Birth year.
-        /// </summary>
-        public static string BirthYear {
-            get {
-                return ResourceManager.GetString("BirthYear", resourceCulture);
+                return ResourceManager.GetString("BirthDate", resourceCulture);
             }
         }
         
@@ -197,6 +197,15 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string ErrorDialogTitle {
+            get {
+                return ResourceManager.GetString("ErrorDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Expired: {0}.
         /// </summary>
         public static string ExpiredDateFormat {
@@ -220,6 +229,24 @@ namespace HealthVault.Sample.Xamarin.Core {
         public static string Gender {
             get {
                 return ResourceManager.GetString("Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        public static string Gender_Female {
+            get {
+                return ResourceManager.GetString("Gender_Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        public static string Gender_Male {
+            get {
+                return ResourceManager.GetString("Gender_Male", resourceCulture);
             }
         }
         
@@ -305,15 +332,6 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HealthVault Mobile Sample.
-        /// </summary>
-        public static string MenuPageTitle {
-            get {
-                return ResourceManager.GetString("MenuPageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Medications.
         /// </summary>
         public static string MedicationsPageTitle {
@@ -323,11 +341,29 @@ namespace HealthVault.Sample.Xamarin.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HealthVault Mobile Sample.
+        /// </summary>
+        public static string MenuPageTitle {
+            get {
+                return ResourceManager.GetString("MenuPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -364,6 +400,15 @@ namespace HealthVault.Sample.Xamarin.Core {
         public static string ProfileDescription {
             get {
                 return ResourceManager.GetString("ProfileDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string ProfilePageTitle {
+            get {
+                return ResourceManager.GetString("ProfilePageTitle", resourceCulture);
             }
         }
         
@@ -409,6 +454,24 @@ namespace HealthVault.Sample.Xamarin.Core {
         public static string Weight {
             get {
                 return ResourceManager.GetString("Weight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Weight Measurement.
+        /// </summary>
+        public static string WeightAddPageTitle {
+            get {
+                return ResourceManager.GetString("WeightAddPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Day.
+        /// </summary>
+        public static string WeightDayColumn {
+            get {
+                return ResourceManager.GetString("WeightDayColumn", resourceCulture);
             }
         }
         
