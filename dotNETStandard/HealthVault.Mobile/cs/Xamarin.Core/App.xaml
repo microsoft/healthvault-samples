@@ -18,6 +18,14 @@
             <converters:ItemTappedEventArgsConverter x:Key="TappedItemConverter" />
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
             <converters:NullVisibilityConverter x:Key="NullVisibilityConverter" />
+            <converters:EnumBoolConverter x:Key="EnumBoolConverter" />
+            
+            <Style x:Key="StandardButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource LightPageBackground}" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="BorderColor" Value="{StaticResource ForegroundLight}" />
+                <Setter Property="HeightRequest" Value="48" />
+            </Style>
             
             <!-- Xamarin forms doesn't have a built-in Ellipse so we work around it with a button with BorderRadius -->
             <Style x:Key="CircleBackgroundButton" TargetType="Button">
@@ -39,6 +47,11 @@
             <Style x:Key="ItemHeader" TargetType="Label">
                 <Setter Property="FontSize" Value="20" />
                 <Setter Property="TextColor" Value="{StaticResource HighlightColor}" />
+            </Style>
+            
+            <Style x:Key="ErrorLabel" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="Center" />
             </Style>
             
             <Style x:Key="PageLoadingIndicator" TargetType="ActivityIndicator">

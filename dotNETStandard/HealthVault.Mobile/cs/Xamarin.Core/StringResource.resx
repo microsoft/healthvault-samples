@@ -138,12 +138,6 @@
   <data name="AddNewWeight" xml:space="preserve">
     <value>Add new weight measurement</value>
   </data>
-  <data name="BirthMonth" xml:space="preserve">
-    <value>Birth month</value>
-  </data>
-  <data name="BirthYear" xml:space="preserve">
-    <value>Birth year</value>
-  </data>
   <data name="DateStarted" xml:space="preserve">
     <value>Date started</value>
   </data>
@@ -239,5 +233,32 @@
   </data>
   <data name="PrescribedDateFormat" xml:space="preserve">
     <value>Prescribed: {0}</value>
+  </data>
+  <data name="WeightDayColumn" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="AddButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="WeightAddPageTitle" xml:space="preserve">
+    <value>Add Weight Measurement</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Birth date</value>
+  </data>
+  <data name="Gender_Female" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="Gender_Male" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="ProfilePageTitle" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="ErrorDialogTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
 </root>

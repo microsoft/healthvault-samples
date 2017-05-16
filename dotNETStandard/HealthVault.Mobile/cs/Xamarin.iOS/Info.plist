@@ -20,8 +20,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>MinimumOSVersion</key>
-	<string>10.3</string>
 	<key>CFBundleDisplayName</key>
 	<string>HealthVaultSampleIos</string>
 	<key>CFBundleIdentifier</key>
@@ -47,5 +45,7 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleShortVersionString</key>
 	<string></string>
+	<key>MinimumOSVersion</key>
+	<string>10.2</string>
 </dict>
 </plist>

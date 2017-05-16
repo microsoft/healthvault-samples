@@ -5,9 +5,9 @@ namespace HealthVault.Sample.Xamarin.Core.Views
 {
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PersonPage : ContentPage
+    public partial class ProfilePage : ContentPage
     {
-        public PersonPage()
+        public ProfilePage()
         {
             InitializeComponent();
         }

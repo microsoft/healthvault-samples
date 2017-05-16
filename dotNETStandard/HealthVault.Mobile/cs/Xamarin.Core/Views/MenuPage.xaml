@@ -5,13 +5,14 @@
              xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              xmlns:m="clr-namespace:HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows;assembly=HealthVault.Sample.Xamarin.Core"
              xmlns:markup="clr-namespace:HealthVault.Sample.Xamarin.Core.MarkupExtensions;assembly=HealthVault.Sample.Xamarin.Core"
+             xmlns:models="clr-namespace:HealthVault.Sample.Xamarin.Core.Models;assembly=HealthVault.Sample.Xamarin.Core"
              x:Class="HealthVault.Sample.Xamarin.Core.Views.MenuPage"
              Title="HealthVault SDK Sample">
 
     <Grid BackgroundColor="{StaticResource PageBackground}">
         <ListView 
             Margin="5"
-            IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loaded}}"
             ItemsSource="{Binding MenuViewRows}" 
             HasUnevenRows="true" 
             ItemTapped="ListView_OnItemTapped">
@@ -77,6 +78,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ActivityIndicator Style="{StaticResource PageLoadingIndicator}" IsVisible="{Binding IsBusy}" />
+        <ActivityIndicator 
+            Style="{StaticResource PageLoadingIndicator}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loading}}" />
+        <Label
+            Text="{Binding ErrorText}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Error}}"
+            Style="{StaticResource ErrorLabel}" />
     </Grid>
 </ContentPage>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthVault.Sample.Xamarin.Core.Models;
 using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.Views;
 using Microsoft.HealthVault.Client;
@@ -47,9 +48,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public override async Task OnNavigateToAsync()
         {
-            this.IsBusy = true;
-
-            try
+            await this.LoadAsync(async () =>
             {
                 PersonInfo personInfo = await this.connection.GetPersonInfoAsync();
 
@@ -59,18 +58,14 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 this.Plans = response.Plans.Where(p => p.Status == "Recommended" || p.Status == "InProgress");
 
                 await base.OnNavigateToAsync();
-            }
-            finally
-            {
-                this.IsBusy = false;
-            }
+            });
         }
 
         private async Task GoToActionPlanDetailsPageAsync(ActionPlanInstance actionPlan)
         {
             var actionPlanDetailsPage = new ActionPlanDetailsPage
             {
-                BindingContext = new ActionPlanDetailsViewModel(actionPlan, this.NavigationService),
+                BindingContext = new ActionPlanDetailsViewModel(actionPlan, this.connection, this.NavigationService),
             };
             await this.NavigationService.NavigateAsync(actionPlanDetailsPage);
         }
