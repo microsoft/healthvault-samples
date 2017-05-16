@@ -255,4 +255,10 @@
   <data name="ProfilePageTitle" xml:space="preserve">
     <value>Profile</value>
   </data>
+  <data name="ErrorDialogTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>

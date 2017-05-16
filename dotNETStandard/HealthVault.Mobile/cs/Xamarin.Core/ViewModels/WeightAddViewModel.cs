@@ -54,31 +54,38 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private async Task AddWeightAsync()
         {
-            bool isMetric = this.UnitsPickerIndex == 1;
-            double weightNumber;
-            if (!double.TryParse(this.WeightValue, out weightNumber))
+            try
             {
-                return;
-            }
+                bool isMetric = this.UnitsPickerIndex == 1;
+                double weightNumber;
+                if (!double.TryParse(this.WeightValue, out weightNumber))
+                {
+                    return;
+                }
 
-            double kilograms;
-            if (isMetric)
+                double kilograms;
+                if (isMetric)
+                {
+                    kilograms = weightNumber;
+                }
+                else
+                {
+                    kilograms = weightNumber / WeightViewModel.KgToLbsFactor;
+                }
+
+                List<Weight> weightList = new List<Weight>();
+                weightList.Add(new Weight(
+                    new HealthServiceDateTime(DateTime.Now),
+                    new WeightValue(kilograms, new DisplayValue(weightNumber, isMetric ? "kg" : "lbs"))));
+
+                await this.thingClient.CreateNewThingsAsync<Weight>(this.recordId, weightList);
+
+                await this.NavigationService.NavigateBackAsync();
+            }
+            catch (Exception exception)
             {
-                kilograms = weightNumber;
+                await this.DisplayAlertAsync(StringResource.ErrorDialogTitle, exception.ToString());
             }
-            else
-            {
-                kilograms = weightNumber / WeightViewModel.KgToLbsFactor;
-            }
-
-            List<Weight> weightList = new List<Weight>();
-            weightList.Add(new Weight(
-                new HealthServiceDateTime(DateTime.Now),
-                new WeightValue(kilograms, new DisplayValue(weightNumber, isMetric ? "kg" : "lbs"))));
-
-            await this.thingClient.CreateNewThingsAsync<Weight>(this.recordId, weightList);
-
-            await this.NavigationService.NavigateBackAsync();
         }
     }
 }

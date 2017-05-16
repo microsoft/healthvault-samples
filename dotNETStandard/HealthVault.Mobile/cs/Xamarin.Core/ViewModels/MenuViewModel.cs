@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthVault.Sample.Xamarin.Core.Models;
 using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows;
 using HealthVault.Sample.Xamarin.Core.Views;
@@ -33,7 +34,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             this.connection = connection;
             ItemSelectedCommand = new Command<MenuItemViewRow>(async o => await this.GoToPageAsync(o));
 
-            this.IsBusy = true;
+            this.LoadState = LoadState.Loading;
 
             this.MenuViewRows.Add(new MenuItemViewRow
             {
@@ -71,23 +72,28 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public override async Task OnNavigateToAsync()
         {
-            this.IsBusy = true;
-
-            try
+            await this.LoadAsync(async () =>
             {
                 await this.connection.AuthenticateAsync();
-            }
-            finally
-            {
-                this.IsBusy = false;
-            }
+            });
         }
 
         private async Task GoToPageAsync(MenuItemViewRow obj)
         {
             obj.Opening = true;
-            await obj.PageAction();
-            obj.Opening = false;
+
+            try
+            {
+                await obj.PageAction();
+            }
+            catch (Exception exception)
+            {
+                await this.DisplayAlertAsync(StringResource.ErrorDialogTitle, exception.ToString());
+            }
+            finally
+            {
+                obj.Opening = false;
+            }
         }
 
         private async Task OpenActionPlansPageAsync()

@@ -6,12 +6,13 @@
     xmlns:markup="clr-namespace:HealthVault.Sample.Xamarin.Core.MarkupExtensions;assembly=HealthVault.Sample.Xamarin.Core"
     xmlns:behaviors="clr-namespace:HealthVault.Sample.Xamarin.Core.Behaviors;assembly=HealthVault.Sample.Xamarin.Core"
     xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
+    xmlns:models="clr-namespace:HealthVault.Sample.Xamarin.Core.Models;assembly=HealthVault.Sample.Xamarin.Core"
     Title="{x:Static core:StringResource.ActionPlansPageTitle}">
     <Grid BackgroundColor="{StaticResource PageBackground}">
         <ListView 
             Margin="5"
             ItemsSource="{Binding Plans}"
-            IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loaded}}"
             ItemTapped="ListView_OnItemTapped" 
             HasUnevenRows="True">
             <ListView.Behaviors>
@@ -58,6 +59,12 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ActivityIndicator Style="{StaticResource PageLoadingIndicator}" IsVisible="{Binding IsBusy}" />
+        <ActivityIndicator 
+            Style="{StaticResource PageLoadingIndicator}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loading}}" />
+        <Label
+            Text="{Binding ErrorText}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Error}}"
+            Style="{StaticResource ErrorLabel}" />
     </Grid>
 </ContentPage>

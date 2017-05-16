@@ -5,10 +5,13 @@
     xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
     xmlns:controls="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
     xmlns:m="clr-namespace:HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows;assembly=HealthVault.Sample.Xamarin.Core"
+    xmlns:models="clr-namespace:HealthVault.Sample.Xamarin.Core.Models;assembly=HealthVault.Sample.Xamarin.Core"
     x:Class="HealthVault.Sample.Xamarin.Core.Views.WeightPage"
     Title="{x:Static core:StringResource.Weight}">
     <Grid>
-        <ScrollView BackgroundColor="{StaticResource LightPageBackground}" IsVisible="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}">
+        <ScrollView 
+            BackgroundColor="{StaticResource LightPageBackground}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loaded}}">
             <StackLayout 
                 Padding="10" 
                 Spacing="0">
@@ -80,6 +83,12 @@
                 </controls:RepeaterView>
             </StackLayout>
         </ScrollView>
-        <ActivityIndicator Style="{StaticResource PageLoadingIndicator}" IsVisible="{Binding IsBusy}" />
+        <ActivityIndicator 
+            Style="{StaticResource PageLoadingIndicator}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loading}}" />
+        <Label
+            Text="{Binding ErrorText}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Error}}"
+            Style="{StaticResource ErrorLabel}" />
     </Grid>
 </ContentPage>

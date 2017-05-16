@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthVault.Sample.Xamarin.Core.Models;
 using HealthVault.Sample.Xamarin.Core.Services;
 using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.ItemTypes;
@@ -92,7 +93,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private async Task SaveProfileAsync()
         {
-            this.IsBusy = true;
+            this.LoadState = LoadState.Loading;
 
             try
             {
@@ -125,9 +126,13 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
                 await this.NavigationService.NavigateBackAsync();
             }
+            catch (Exception exception)
+            {
+                await this.DisplayAlertAsync(StringResource.ErrorDialogTitle, exception.ToString());
+            }
             finally
             {
-                this.IsBusy = false;
+                this.LoadState = LoadState.Loaded;
             }
         }
     }

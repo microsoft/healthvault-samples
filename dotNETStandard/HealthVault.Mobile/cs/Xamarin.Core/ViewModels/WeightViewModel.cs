@@ -54,19 +54,13 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public override async Task OnNavigateBackAsync()
         {
-            this.IsBusy = true;
-
-            try
+            await this.LoadAsync(async () =>
             {
                 IReadOnlyCollection<Weight> items = await this.thingClient.GetThingsAsync<Weight>(this.recordId);
                 this.RefreshPage(items);
 
                 await base.OnNavigateBackAsync();
-            }
-            finally
-            {
-                this.IsBusy = false;
-            }
+            });
         }
 
         private IEnumerable<WeightViewRow> historicWeightValues;

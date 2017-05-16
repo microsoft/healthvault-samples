@@ -42,10 +42,12 @@
     <Compile Include="Behaviors\BehaviorBase.cs" />
     <Compile Include="Behaviors\EventToCommandBehavior.cs" />
     <Compile Include="Configuration\ConfigurationReader.cs" />
+    <Compile Include="Converters\EnumBoolConverter.cs" />
     <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\ItemTappedEventArgsConverter.cs" />
     <Compile Include="Converters\NullVisibilityConverter.cs" />
     <Compile Include="MarkupExtensions\ImageResourceExtension.cs" />
+    <Compile Include="Models\LoadState.cs" />
     <Compile Include="StringResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

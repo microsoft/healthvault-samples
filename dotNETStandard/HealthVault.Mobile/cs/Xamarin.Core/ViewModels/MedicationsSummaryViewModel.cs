@@ -48,18 +48,13 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public override async Task OnNavigateBackAsync()
         {
-            this.IsBusy = true;
-            try
+            await this.LoadAsync(async () =>
             {
                 this.medication = await this.thingClient.GetThingAsync<Medication>(this.recordId, this.medication.Key.Id);
 
                 this.UpdateDisplay();
                 await base.OnNavigateBackAsync();
-            }
-            finally
-            {
-                this.IsBusy = false;
-            }
+            });
         }
 
         private void UpdateDisplay()
