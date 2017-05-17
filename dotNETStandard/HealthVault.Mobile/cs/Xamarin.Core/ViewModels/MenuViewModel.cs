@@ -13,6 +13,7 @@ using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
 using Microsoft.HealthVault.Thing;
+using Microsoft.HealthVault.Vocabulary;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
@@ -125,10 +126,31 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             IThingClient thingClient = this.connection.CreateThingClient();
             HealthRecordInfo record = person.SelectedRecord;
             IReadOnlyCollection<Medication> items = await thingClient.GetThingsAsync<Medication>(record.Id);
+            IVocabularyClient vocabClient = this.connection.CreateVocabularyClient();
+            var ingredientChoices = new List<VocabularyItem>();
+
+            Vocabulary ingredientVocabulary = null;
+            while (ingredientVocabulary == null || ingredientVocabulary.IsTruncated)
+            {
+                string lastCodeValue = null;
+                if (ingredientVocabulary != null)
+                {
+                    lastCodeValue = ingredientVocabulary.Values.Last().Value;
+                }
+
+                ingredientVocabulary = await vocabClient.GetVocabularyAsync(new VocabularyKey("RxNorm Active Ingredients", "RxNorm", "09AB_091102F", lastCodeValue));
+
+                foreach (string key in ingredientVocabulary.Keys)
+                {
+                    ingredientChoices.Add(ingredientVocabulary[key]);
+                }
+            }
+
+            ingredientChoices = ingredientChoices.OrderBy(c => c.DisplayText).ToList();
 
             var medicationsMainPage = new MedicationsMainPage
             {
-                BindingContext = new MedicationsMainViewModel(items, thingClient, record.Id, this.NavigationService)
+                BindingContext = new MedicationsMainViewModel(items, ingredientChoices, thingClient, record.Id, this.NavigationService)
             };
             await this.NavigationService.NavigateAsync(medicationsMainPage);
         }
@@ -161,7 +183,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             };
 
             var things = await thingClient.GetThingsAsync(recordId, query);
-            IThing firstThing = things.FirstOrDefault()?.FirstOrDefault();
+            IThing firstThing = things?.FirstOrDefault();
             if (firstThing == null)
             {
                 return null;

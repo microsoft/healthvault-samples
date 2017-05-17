@@ -103,15 +103,15 @@ namespace HealthVaultMobileSample.UWP.Views.Profile
         /// <param name="recordInfo"></param>
         /// <param name="things"></param>
         /// <returns></returns>
-        private static async Task<Windows.Storage.StorageFile> GetAndSavePersonalImage(HealthRecordInfo recordInfo, IReadOnlyCollection<ThingCollection> things)
+        private static async Task<Windows.Storage.StorageFile> GetAndSavePersonalImage(HealthRecordInfo recordInfo, ThingCollection things)
         {
             var fileName = recordInfo.DisplayName + ".jpg";
             var file = await Windows.Storage.ApplicationData.Current.LocalCacheFolder.CreateFileAsync(fileName, Windows.Storage.CreationCollisionOption.OpenIfExists);
 
 
-            if (things.Count > 0 && things.First().Count > 0)
+            if (things.Count > 0)
             {
-                var personalImage = (PersonalImage) things.First().First();
+                var personalImage = (PersonalImage) things.First();
 
                 using (Stream currentImage = personalImage.ReadImage())
                 {
