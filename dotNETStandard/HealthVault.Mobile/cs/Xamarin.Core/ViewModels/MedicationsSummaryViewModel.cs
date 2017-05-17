@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -6,6 +7,7 @@ using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.Views;
 using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.ItemTypes;
+using Microsoft.HealthVault.Vocabulary;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
@@ -16,6 +18,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         private readonly Guid recordId;
 
         private Medication medication;
+        private readonly IList<VocabularyItem> ingredientChoices;
 
         private ObservableCollection<MedicationItemViewRow> items;
 
@@ -34,11 +37,13 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public MedicationsSummaryViewModel(
             Medication medication,
+            IList<VocabularyItem> ingredientChoices,
             IThingClient thingClient,
             Guid recordId,
             INavigationService navigationService) : base(navigationService)
         {
             this.medication = medication;
+            this.ingredientChoices = ingredientChoices;
             this.thingClient = thingClient;
             this.recordId = recordId;
             EditCommand = new Command(async () => await GoToEditAsync(thingClient, recordId));
@@ -101,7 +106,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private async Task GoToEditAsync(IThingClient thingClient, Guid recordId)
         {
-            var viewModel = new MedicationEditViewModel(medication, thingClient, recordId, this.NavigationService);
+            var viewModel = new MedicationEditViewModel(medication, this.ingredientChoices, thingClient, recordId, this.NavigationService);
 
             var medicationsMainPage = new MedicationEditPage
             {

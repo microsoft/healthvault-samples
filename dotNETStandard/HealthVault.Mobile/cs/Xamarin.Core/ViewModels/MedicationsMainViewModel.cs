@@ -9,16 +9,34 @@ using HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows;
 using HealthVault.Sample.Xamarin.Core.Views;
 using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.ItemTypes;
+using Microsoft.HealthVault.Vocabulary;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class MedicationsMainViewModel : ViewModel
     {
+        private readonly IList<VocabularyItem> ingredientChoices;
         private readonly IThingClient thingClient;
         private readonly Guid recordId;
         private ObservableCollection<MedicationsSummaryViewRow> currentMedications;
         private ObservableCollection<MedicationsSummaryViewRow> pastMedications;
+
+        public MedicationsMainViewModel(
+            IEnumerable<Medication> items, 
+            IList<VocabularyItem> ingredientChoices,
+            IThingClient thingClient,
+            Guid recordId,
+            INavigationService navigationService) : base(navigationService)
+        {
+            this.ingredientChoices = ingredientChoices;
+            this.thingClient = thingClient;
+            this.recordId = recordId;
+
+            this.ItemSelectedCommand = new Command<MedicationsSummaryViewRow>(async o => await this.GoToMedicationsSummaryPageAsync(o.Medication));
+
+            this.UpdateDisplay(items);
+        }
 
         public ObservableCollection<MedicationsSummaryViewRow> CurrentMedications
         {
@@ -43,20 +61,6 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         }
 
         public ICommand ItemSelectedCommand { get; }
-
-        public MedicationsMainViewModel(
-            IEnumerable<Medication> items, 
-            IThingClient thingClient,
-            Guid recordId,
-            INavigationService navigationService) : base(navigationService)
-        {
-            this.thingClient = thingClient;
-            this.recordId = recordId;
-
-            this.ItemSelectedCommand = new Command<MedicationsSummaryViewRow>(async o => await this.GoToMedicationsSummaryPageAsync(o.Medication));
-
-            this.UpdateDisplay(items);
-        }
 
         public override async Task OnNavigateBackAsync()
         {
@@ -94,7 +98,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         {
             var medicationsMainPage = new MedicationsSummaryPage()
             {
-                BindingContext = new MedicationsSummaryViewModel(medication, this.thingClient, this.recordId, this.NavigationService),
+                BindingContext = new MedicationsSummaryViewModel(medication, this.ingredientChoices, this.thingClient, this.recordId, this.NavigationService),
             };
             await this.NavigationService.NavigateAsync(medicationsMainPage);
         }

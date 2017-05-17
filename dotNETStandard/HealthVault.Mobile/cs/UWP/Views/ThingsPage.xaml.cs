@@ -42,8 +42,7 @@ namespace HealthVaultMobileSample.UWP.Views
             var items = await thingClient.GetThingsAsync(recordInfo.Id, query);
 
             //Create a grouped view of the Things by type
-            this.Groups = from collection in items
-                          from colItem in collection
+            this.Groups = from colItem in items
                           orderby (colItem as ThingBase).TypeName, (colItem as ThingBase).EffectiveDate descending
                           group colItem by (colItem as ThingBase).TypeName into newGroup
                           select newGroup;

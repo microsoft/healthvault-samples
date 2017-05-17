@@ -28,11 +28,13 @@
             Grid.ColumnSpan="2"
             Text="{x:Static core:StringResource.Name}" 
             VerticalTextAlignment="Start" />
-        <Entry 
+        <Picker
             Grid.Row="1"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Text="{Binding Name}" />
+            ItemsSource="{Binding IngredientChoices}"
+            ItemDisplayBinding="{Binding DisplayText}"
+            SelectedItem="{Binding Name}"/>
         <Label 
             Grid.Row="2"
             Grid.Column="0"
