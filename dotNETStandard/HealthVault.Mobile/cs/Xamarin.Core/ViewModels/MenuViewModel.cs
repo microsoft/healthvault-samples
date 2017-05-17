@@ -135,7 +135,14 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 string lastCodeValue = null;
                 if (ingredientVocabulary != null)
                 {
-                    lastCodeValue = ingredientVocabulary.Values.Last().Value;
+                    if (ingredientVocabulary.Values.Count > 0)
+                    {
+                        lastCodeValue = ingredientVocabulary.Values.Last().Value;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
 
                 ingredientVocabulary = await vocabClient.GetVocabularyAsync(new VocabularyKey("RxNorm Active Ingredients", "RxNorm", "09AB_091102F", lastCodeValue));
