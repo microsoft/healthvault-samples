@@ -29,10 +29,17 @@
     if (commonError != null)
     {
         ErrorModel deserializeObject = JsonConvert.DeserializeObject<ErrorModel>(commonError.Response.Content);
-        <p>@deserializeObject.Error.Message</p>
-        if (deserializeObject.Error.Details != null)
+        if (deserializeObject != null)
         {
-            <p>@deserializeObject.Error.Details</p>
+            <p>@deserializeObject.Error.Message</p>
+            if (deserializeObject.Error.Details != null)
+            {
+                <p>@deserializeObject.Error.Details</p>
+            }
+        }
+        else
+        {
+            <p>There was an error parsing the response. Response phrase was: @commonError.Response.ReasonPhrase</p>
         }
     }
 
