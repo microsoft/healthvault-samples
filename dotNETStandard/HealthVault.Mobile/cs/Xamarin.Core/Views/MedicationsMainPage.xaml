@@ -5,6 +5,7 @@
     xmlns:behaviors="clr-namespace:HealthVault.Sample.Xamarin.Core.Behaviors;assembly=HealthVault.Sample.Xamarin.Core"
     xmlns:markup="clr-namespace:HealthVault.Sample.Xamarin.Core.MarkupExtensions;assembly=HealthVault.Sample.Xamarin.Core"
     xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
+    xmlns:models="clr-namespace:HealthVault.Sample.Xamarin.Core.Models;assembly=HealthVault.Sample.Xamarin.Core"
     x:Class="HealthVault.Sample.Xamarin.Core.Views.MedicationsMainPage"
     Title="{x:Static core:StringResource.MedicationsPageTitle}">
     <ContentPage.Resources>
@@ -50,30 +51,42 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout BackgroundColor="{StaticResource PageBackground}">
-        <Label 
-            Text="{x:Static core:StringResource.CurrentMedicationsSection}"
-            Style="{StaticResource SectionHeader}" />
-        <ListView 
-            ItemsSource="{Binding CurrentMedications}" 
-            BackgroundColor="{StaticResource PageBackground}"
-            HasUnevenRows="true"
-            ItemTemplate="{StaticResource MedicationItemTemplate}">
-            <ListView.Behaviors>
-                <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
-            </ListView.Behaviors>
-        </ListView>
-        <Label 
-            Text="{x:Static core:StringResource.PastMedicationsSection}"
-            Style="{StaticResource SectionHeader}" />
-        <ListView 
-            ItemsSource="{Binding PastMedications}"
-            BackgroundColor="{StaticResource PageBackground}"
-            HasUnevenRows="true"
-            ItemTemplate="{StaticResource MedicationItemTemplate}">
-            <ListView.Behaviors>
-                <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
-            </ListView.Behaviors>
-        </ListView>
-    </StackLayout>
+    <Grid>
+        <StackLayout
+            BackgroundColor="{StaticResource PageBackground}" 
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loaded}}">
+            <Label 
+                Text="{x:Static core:StringResource.CurrentMedicationsSection}"
+                Style="{StaticResource SectionHeader}" />
+            <ListView 
+                ItemsSource="{Binding CurrentMedications}" 
+                BackgroundColor="{StaticResource PageBackground}"
+                HasUnevenRows="true"
+                ItemTemplate="{StaticResource MedicationItemTemplate}">
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
+                </ListView.Behaviors>
+            </ListView>
+            <Label 
+                Text="{x:Static core:StringResource.PastMedicationsSection}"
+                Style="{StaticResource SectionHeader}" />
+            <ListView 
+                ItemsSource="{Binding PastMedications}"
+                BackgroundColor="{StaticResource PageBackground}"
+                HasUnevenRows="true"
+                ItemTemplate="{StaticResource MedicationItemTemplate}">
+                <ListView.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
+                </ListView.Behaviors>
+            </ListView>
+        </StackLayout>
+        <ActivityIndicator 
+            Style="{StaticResource PageLoadingIndicator}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loading}}" />
+        <Label
+            Text="{Binding ErrorText}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Error}}"
+            Style="{StaticResource ErrorLabel}" />
+    </Grid>
+
 </ContentPage>

@@ -4,33 +4,31 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using HealthVault.Sample.Xamarin.Core.Models;
 using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows;
 using HealthVault.Sample.Xamarin.Core.Views;
 using Microsoft.HealthVault.Clients;
+using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
+using Microsoft.HealthVault.Record;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class WeightViewModel: ViewModel
     {
+        private readonly IHealthVaultConnection connection;
         public const double KgToLbsFactor = 2.20462;
 
-        private readonly IThingClient thingClient;
-        private readonly Guid recordId;
-
         public WeightViewModel(
-            IEnumerable<Weight> weights,
-            IThingClient thingClient,
-            Guid recordId,
+            IHealthVaultConnection connection,
             INavigationService navigationService) : base(navigationService)
         {
-            this.thingClient = thingClient;
-            this.recordId = recordId;
-            this.AddCommand = new Command(async () => await this.GoToAddWeightPageAsync(thingClient, recordId));
+            this.connection = connection;
+            this.AddCommand = new Command(async () => await this.GoToAddWeightPageAsync());
 
-            this.RefreshPage(weights);
+            this.LoadState = LoadState.Loading;
         }
 
         private void RefreshPage(IEnumerable<Weight> weights)
@@ -52,15 +50,31 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             this.HistoricWeightValues = weightList.Skip(1).Select(w => new WeightViewRow(w)).ToList();
         }
 
+        public override async Task OnNavigateToAsync()
+        {
+            await this.LoadAsync(async () =>
+            {
+                await this.RefreshAsync();
+                await base.OnNavigateToAsync();
+            });
+        }
+
         public override async Task OnNavigateBackAsync()
         {
             await this.LoadAsync(async () =>
             {
-                IReadOnlyCollection<Weight> items = await this.thingClient.GetThingsAsync<Weight>(this.recordId);
-                this.RefreshPage(items);
-
+                await this.RefreshAsync();
                 await base.OnNavigateBackAsync();
             });
+        }
+
+        private async Task RefreshAsync()
+        {
+            var person = await this.connection.GetPersonInfoAsync();
+            IThingClient thingClient = this.connection.CreateThingClient();
+            HealthRecordInfo record = person.SelectedRecord;
+            IReadOnlyCollection<Weight> items = await thingClient.GetThingsAsync<Weight>(record.Id);
+            this.RefreshPage(items);
         }
 
         private IEnumerable<WeightViewRow> historicWeightValues;
@@ -104,9 +118,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             }
         }
 
-        private async Task GoToAddWeightPageAsync(IThingClient thingClient, Guid recordId)
+        private async Task GoToAddWeightPageAsync()
         {
-            var viewModel = new WeightAddViewModel(thingClient, recordId, this.NavigationService);
+            var viewModel = new WeightAddViewModel(this.connection, this.NavigationService);
 
             var medicationsMainPage = new WeightAddPage
             {

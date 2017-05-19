@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HealthVault.Sample.Xamarin.Core.Models;
 using HealthVault.Sample.Xamarin.Core.Services;
 using Microsoft.HealthVault.Clients;
+using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
+using Microsoft.HealthVault.Record;
 using Microsoft.HealthVault.Thing;
 using Xamarin.Forms;
 
@@ -13,55 +16,70 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class ProfileViewModel : ViewModel
     {
-        private readonly Guid recordId;
-        private readonly BasicV2 basicInformation;
-        private readonly Personal personalInformation;
-        private readonly IThingClient thingClient;
+        private readonly IHealthVaultConnection connection;
+
+        private BasicV2 basicInformation;
+        private Personal personalInformation;
+        private IThingClient thingClient;
+        private Guid recordId;
 
         public ProfileViewModel(
-            Guid recordId,
-            BasicV2 basicInformation,
-            Personal personalInformation,
-            ImageSource profileImage,
-            IThingClient thingClient,
+            IHealthVaultConnection connection,
             INavigationService navigationService) : base(navigationService)
         {
-            this.recordId = recordId;
-            this.basicInformation = basicInformation;
-            this.personalInformation = personalInformation;
-            this.thingClient = thingClient;
+            this.connection = connection;
 
             this.SaveCommand = new Command(async () => await this.SaveProfileAsync());
 
-            if (personalInformation.BirthDate != null)
-            {
-                this.BirthDate = personalInformation.BirthDate.ToDateTime();
-            }
-            else
-            {
-                this.BirthDate = DateTime.Now;
-            }
-
-            this.FirstName = personalInformation.Name?.First ?? string.Empty;
-            this.LastName = personalInformation.Name?.Last ?? string.Empty;
-
             this.Genders = new List<string>
-            {
-                StringResource.Gender_Male,
-                StringResource.Gender_Female,
-            };
+                {
+                    StringResource.Gender_Male,
+                    StringResource.Gender_Female,
+                };
 
-            this.GenderIndex = basicInformation.Gender != null && basicInformation.Gender.Value == Gender.Female ? 1 : 0;
-            this.ImageSource = profileImage;
+            this.LoadState = LoadState.Loading;
         }
 
         public ICommand SaveCommand { get; }
 
-        public ImageSource ImageSource { get; set; }
+        private ImageSource imageSource;
 
-        public string FirstName { get; set; }
+        public ImageSource ImageSource
+        {
+            get { return this.imageSource; }
 
-        public string LastName { get; set; }
+            set
+            {
+                this.imageSource = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        private string firstName;
+
+        public string FirstName
+        {
+            get { return this.firstName; }
+
+            set
+            {
+                this.firstName = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        private string lastName;
+
+        public string LastName
+        {
+            get { return this.lastName; }
+
+            set
+            {
+                this.lastName = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         private DateTime birthDate;
 
@@ -89,6 +107,55 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 this.genderIndex = value;
                 this.OnPropertyChanged();
             }
+        }
+
+        public override async Task OnNavigateToAsync()
+        {
+            await this.LoadAsync(async () =>
+            {
+                var person = await this.connection.GetPersonInfoAsync();
+                thingClient = this.connection.CreateThingClient();
+                HealthRecordInfo record = person.SelectedRecord;
+                recordId = record.Id;
+                this.basicInformation = (await thingClient.GetThingsAsync<BasicV2>(recordId)).FirstOrDefault();
+                this.personalInformation = (await thingClient.GetThingsAsync<Personal>(recordId)).FirstOrDefault();
+
+                ImageSource profileImageSource = await this.GetImageAsync();
+
+                if (personalInformation.BirthDate != null)
+                {
+                    this.BirthDate = personalInformation.BirthDate.ToDateTime();
+                }
+                else
+                {
+                    this.BirthDate = DateTime.Now;
+                }
+
+                this.FirstName = personalInformation.Name?.First ?? string.Empty;
+                this.LastName = personalInformation.Name?.Last ?? string.Empty;
+
+                this.GenderIndex = basicInformation.Gender != null && basicInformation.Gender.Value == Gender.Female ? 1 : 0;
+                this.ImageSource = profileImageSource;
+
+                await base.OnNavigateToAsync();
+            });
+        }
+
+        private async Task<ImageSource> GetImageAsync()
+        {
+            var query = new ThingQuery(PersonalImage.TypeId)
+            {
+                View = { Sections = ThingSections.Xml | ThingSections.BlobPayload | ThingSections.Signature }
+            };
+
+            var things = await thingClient.GetThingsAsync(recordId, query);
+            IThing firstThing = things?.FirstOrDefault();
+            if (firstThing == null)
+            {
+                return null;
+            }
+            PersonalImage image = (PersonalImage)firstThing;
+            return ImageSource.FromStream(() => image.ReadImage());
         }
 
         private async Task SaveProfileAsync()
