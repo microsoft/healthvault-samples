@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HealthVault.Sample.Xamarin.Core.Services;
 using Microsoft.HealthVault.Clients;
+using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
+using Microsoft.HealthVault.Person;
 using Microsoft.HealthVault.Vocabulary;
 using Xamarin.Forms;
 
@@ -14,29 +16,35 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class MedicationEditViewModel : ViewModel
     {
+        private readonly Medication medication;
+        private readonly IHealthVaultConnection connection;
+
         public MedicationEditViewModel(
             Medication medication,
-            IList<VocabularyItem> ingredientChoices,
-            IThingClient thingClient,
-            Guid recordId, 
+            IHealthVaultConnection connection,
             INavigationService navigationService)
             : base(navigationService)
         {
+            this.medication = medication;
+            this.connection = connection;
             DosageType = medication.Dose?.Display ?? "";
             Strength = medication.Strength?.Display ?? "";
             ReasonForTaking = medication.Indication?.Text ?? "";
             DateStarted = DataTypeFormatter.ApproximateDateTimeToDateTime(medication.DateStarted);
-            SaveCommand = new Command(async () => await SaveAsync(medication, thingClient, recordId));
-
-            this.IngredientChoices = ingredientChoices;
-
-            if (medication.Name.Count > 0)
-            {
-                Name = this.IngredientChoices.FirstOrDefault(c => c.Value == medication.Name[0]?.Value);
-            }
+            SaveCommand = new Command(async () => await SaveAsync(medication));
         }
 
-        public IList<VocabularyItem> IngredientChoices { get; }
+        private IList<VocabularyItem> ingredientChoices;
+        public IList<VocabularyItem> IngredientChoices
+        {
+            get { return this.ingredientChoices; }
+
+            set
+            {
+                this.ingredientChoices = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         private VocabularyItem name;
         public VocabularyItem Name
@@ -58,10 +66,56 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public ICommand SaveCommand { get; }
 
-        private async Task SaveAsync(Medication medication, IThingClient thingClient, Guid recordId)
+        public override async Task OnNavigateToAsync()
+        {
+            await this.LoadAsync(async () =>
+            {
+                IVocabularyClient vocabClient = this.connection.CreateVocabularyClient();
+                var ingredientChoices = new List<VocabularyItem>();
+
+                Vocabulary ingredientVocabulary = null;
+                while (ingredientVocabulary == null || ingredientVocabulary.IsTruncated)
+                {
+                    string lastCodeValue = null;
+                    if (ingredientVocabulary != null)
+                    {
+                        if (ingredientVocabulary.Values.Count > 0)
+                        {
+                            lastCodeValue = ingredientVocabulary.Values.Last().Value;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    ingredientVocabulary = await vocabClient.GetVocabularyAsync(new VocabularyKey("RxNorm Active Ingredients", "RxNorm", "09AB_091102F", lastCodeValue));
+
+                    foreach (string key in ingredientVocabulary.Keys)
+                    {
+                        ingredientChoices.Add(ingredientVocabulary[key]);
+                    }
+                }
+
+                this.IngredientChoices = ingredientChoices.OrderBy(c => c.DisplayText).ToList();
+
+                if (medication.Name.Count > 0)
+                {
+                    Name = this.IngredientChoices.FirstOrDefault(c => c.Value == medication.Name[0]?.Value);
+                }
+
+                await base.OnNavigateToAsync();
+            });
+        }
+
+        private async Task SaveAsync(Medication medication)
         {
             UpdateMedication(medication);
-            await thingClient.UpdateThingsAsync(recordId, new Collection<Medication>() { medication });
+
+            IThingClient thingClient = this.connection.CreateThingClient();
+            PersonInfo personInfo = await this.connection.GetPersonInfoAsync();
+
+            await thingClient.UpdateThingsAsync(personInfo.SelectedRecord.Id, new Collection<Medication>() { medication });
 
             await NavigationService.NavigateBackAsync();
         }

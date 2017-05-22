@@ -6,8 +6,10 @@
     xmlns:models="clr-namespace:HealthVault.Sample.Xamarin.Core.Models;assembly=HealthVault.Sample.Xamarin.Core"
     x:Class="HealthVault.Sample.Xamarin.Core.Views.ProfilePage" 
     Title="{x:Static core:StringResource.ProfilePageTitle}">
-    <Frame BackgroundColor="{StaticResource LightPageBackground}" Padding="10">
-        <Grid>
+    <Grid BackgroundColor="{StaticResource LightPageBackground}">
+        <Grid 
+            Padding="10"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loaded}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="2*" />
@@ -92,18 +94,17 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Margin="0,16,0,0"
-                IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loaded}}"
                 Command="{Binding SaveCommand}"
                 Text="{x:Static core:StringResource.Save}"
                 Style="{StaticResource StandardButton}" />
-
-            <ActivityIndicator 
-                Grid.Row="7"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Margin="0,20,0,0"
-                Style="{StaticResource PageLoadingIndicator}" 
-                IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loading}}" />
         </Grid>
-    </Frame>
+
+        <ActivityIndicator 
+            Style="{StaticResource PageLoadingIndicator}" 
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loading}}" />
+        <Label
+            Text="{Binding ErrorText}"
+            IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Error}}"
+            Style="{StaticResource ErrorLabel}" />
+    </Grid>
 </ContentPage>

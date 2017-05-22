@@ -108,95 +108,31 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private async Task OpenWeightPageAsync()
         {
-            var person = await this.connection.GetPersonInfoAsync();
-            IThingClient thingClient = this.connection.CreateThingClient();
-            HealthRecordInfo record = person.SelectedRecord;
-            IReadOnlyCollection<Weight> items = await thingClient.GetThingsAsync<Weight>(record.Id);
-
             var medicationsMainPage = new WeightPage
             {
-                BindingContext = new WeightViewModel(items, thingClient, record.Id, this.NavigationService)
+                BindingContext = new WeightViewModel(this.connection, this.NavigationService)
             };
             await this.NavigationService.NavigateAsync(medicationsMainPage);
         }
 
         private async Task OpenMedicationsPageAsync()
         {
-            var person = await this.connection.GetPersonInfoAsync();
-            IThingClient thingClient = this.connection.CreateThingClient();
-            HealthRecordInfo record = person.SelectedRecord;
-            IReadOnlyCollection<Medication> items = await thingClient.GetThingsAsync<Medication>(record.Id);
-            IVocabularyClient vocabClient = this.connection.CreateVocabularyClient();
-            var ingredientChoices = new List<VocabularyItem>();
-
-            Vocabulary ingredientVocabulary = null;
-            while (ingredientVocabulary == null || ingredientVocabulary.IsTruncated)
-            {
-                string lastCodeValue = null;
-                if (ingredientVocabulary != null)
-                {
-                    if (ingredientVocabulary.Values.Count > 0)
-                    {
-                        lastCodeValue = ingredientVocabulary.Values.Last().Value;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-
-                ingredientVocabulary = await vocabClient.GetVocabularyAsync(new VocabularyKey("RxNorm Active Ingredients", "RxNorm", "09AB_091102F", lastCodeValue));
-
-                foreach (string key in ingredientVocabulary.Keys)
-                {
-                    ingredientChoices.Add(ingredientVocabulary[key]);
-                }
-            }
-
-            ingredientChoices = ingredientChoices.OrderBy(c => c.DisplayText).ToList();
-
             var medicationsMainPage = new MedicationsMainPage
             {
-                BindingContext = new MedicationsMainViewModel(items, ingredientChoices, thingClient, record.Id, this.NavigationService)
+                BindingContext = new MedicationsMainViewModel(this.connection, this.NavigationService)
             };
             await this.NavigationService.NavigateAsync(medicationsMainPage);
         }
 
         private async Task OpenPersonPageAsync()
         {
-            var person = await this.connection.GetPersonInfoAsync();
-            var thingClient = this.connection.CreateThingClient();
-            HealthRecordInfo record = person.SelectedRecord;
-            Guid recordId = record.Id;
-            BasicV2 basicInformation = (await thingClient.GetThingsAsync<BasicV2>(recordId)).FirstOrDefault();
-            Personal personalInformation = (await thingClient.GetThingsAsync<Personal>(recordId)).FirstOrDefault();
-
-            ImageSource imageSource = await this.GetImage(thingClient, recordId);
-
-            var personViewModel = new ProfileViewModel(recordId, basicInformation, personalInformation, imageSource, thingClient, this.NavigationService);
+            var personViewModel = new ProfileViewModel(this.connection, this.NavigationService);
             var menuPage = new ProfilePage
             {
                 BindingContext = personViewModel
             };
 
             await this.NavigationService.NavigateAsync(menuPage);
-        }
-
-        private async Task<ImageSource> GetImage(IThingClient thingClient, Guid recordId)
-        {
-            var query = new ThingQuery(PersonalImage.TypeId)
-            {
-                View = { Sections = ThingSections.Xml | ThingSections.BlobPayload | ThingSections.Signature }
-            };
-
-            var things = await thingClient.GetThingsAsync(recordId, query);
-            IThing firstThing = things?.FirstOrDefault();
-            if (firstThing == null)
-            {
-                return null;
-            }
-            PersonalImage image = (PersonalImage)firstThing;
-            return ImageSource.FromStream(() => image.ReadImage());
         }
     }
 }

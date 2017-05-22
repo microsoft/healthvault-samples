@@ -38,11 +38,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 var xpath = task.TrackingPolicy.TargetEvents.FirstOrDefault().ElementXPath;
                 if (xpath.Contains("thing/data-xml/weight"))
                 {
-                    PersonInfo personInfo = await this.connection.GetPersonInfoAsync();
-
                     var weightAddPage = new WeightAddPage
                     {
-                        BindingContext = new WeightAddViewModel(this.connection.CreateThingClient(), personInfo.SelectedRecord.Id, this.NavigationService),
+                        BindingContext = new WeightAddViewModel(this.connection, this.NavigationService),
                     };
                     await this.NavigationService.NavigateAsync(weightAddPage);
                 }

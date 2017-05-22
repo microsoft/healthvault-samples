@@ -6,7 +6,9 @@ using System.Windows.Input;
 using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.Views;
 using Microsoft.HealthVault.Clients;
+using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
+using Microsoft.HealthVault.Person;
 using Microsoft.HealthVault.Vocabulary;
 using Xamarin.Forms;
 
@@ -14,12 +16,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class MedicationsSummaryViewModel : ViewModel
     {
-        private readonly IThingClient thingClient;
-        private readonly Guid recordId;
+        private readonly IHealthVaultConnection connection;
 
         private Medication medication;
-        private readonly IList<VocabularyItem> ingredientChoices;
-
         private ObservableCollection<MedicationItemViewRow> items;
 
         public ObservableCollection<MedicationItemViewRow> Items
@@ -37,16 +36,12 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public MedicationsSummaryViewModel(
             Medication medication,
-            IList<VocabularyItem> ingredientChoices,
-            IThingClient thingClient,
-            Guid recordId,
+            IHealthVaultConnection connection,
             INavigationService navigationService) : base(navigationService)
         {
+            this.connection = connection;
             this.medication = medication;
-            this.ingredientChoices = ingredientChoices;
-            this.thingClient = thingClient;
-            this.recordId = recordId;
-            EditCommand = new Command(async () => await GoToEditAsync(thingClient, recordId));
+            EditCommand = new Command(async () => await GoToEditAsync());
 
             UpdateDisplay();
         }
@@ -55,7 +50,10 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         {
             await this.LoadAsync(async () =>
             {
-                this.medication = await this.thingClient.GetThingAsync<Medication>(this.recordId, this.medication.Key.Id);
+                IThingClient thingClient = this.connection.CreateThingClient();
+                PersonInfo personInfo = await this.connection.GetPersonInfoAsync();
+
+                this.medication = await thingClient.GetThingAsync<Medication>(personInfo.SelectedRecord.Id, this.medication.Key.Id);
 
                 this.UpdateDisplay();
                 await base.OnNavigateBackAsync();
@@ -104,9 +102,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             };
         }
 
-        private async Task GoToEditAsync(IThingClient thingClient, Guid recordId)
+        private async Task GoToEditAsync()
         {
-            var viewModel = new MedicationEditViewModel(medication, this.ingredientChoices, thingClient, recordId, this.NavigationService);
+            var viewModel = new MedicationEditViewModel(medication, this.connection, this.NavigationService);
 
             var medicationsMainPage = new MedicationEditPage
             {

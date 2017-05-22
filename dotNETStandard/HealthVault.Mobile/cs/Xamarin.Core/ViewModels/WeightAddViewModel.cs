@@ -6,22 +6,23 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using HealthVault.Sample.Xamarin.Core.Services;
 using Microsoft.HealthVault.Clients;
+using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
+using Microsoft.HealthVault.Record;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class WeightAddViewModel : ViewModel
     {
-        private readonly IThingClient thingClient;
-        private readonly Guid recordId;
+        private readonly IHealthVaultConnection connection;
 
-        public WeightAddViewModel(IThingClient thingClient, Guid recordId, INavigationService navigationService) : base(navigationService)
+        public WeightAddViewModel(
+            IHealthVaultConnection connection,
+            INavigationService navigationService) : base(navigationService)
         {
+            this.connection = connection;
             this.AddCommand = new Command(async () => await this.AddWeightAsync());
-
-            this.thingClient = thingClient;
-            this.recordId = recordId;
         }
 
         private string weightValue;
@@ -78,7 +79,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                     new HealthServiceDateTime(DateTime.Now),
                     new WeightValue(kilograms, new DisplayValue(weightNumber, isMetric ? "kg" : "lbs"))));
 
-                await this.thingClient.CreateNewThingsAsync<Weight>(this.recordId, weightList);
+                IThingClient thingClient = this.connection.CreateThingClient();
+                var person = await this.connection.GetPersonInfoAsync();
+                await thingClient.CreateNewThingsAsync<Weight>(person.SelectedRecord.Id, weightList);
 
                 await this.NavigationService.NavigateBackAsync();
             }
