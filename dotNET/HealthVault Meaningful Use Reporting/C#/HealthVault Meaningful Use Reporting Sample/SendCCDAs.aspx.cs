@@ -40,14 +40,11 @@ namespace MeaningfulUseReporting
         {
             tbEventDate.Text = cldEventDate.SelectedDate.ToShortDateString();
             cldEventDate.Style.Add("display", "none");
-
         }
         protected void Cal_VisibleMonthChanged(object sender, MonthChangedEventArgs e)
         {
             cldEventDate.Style.Add("display", "inline-block");
         }
-
-
 
         protected void btnContributeDOPU_Click(object sender, EventArgs e)
         {
@@ -94,12 +91,12 @@ namespace MeaningfulUseReporting
             ContributeCCDAViaRecordAuthorization();
         }
 
-            private void ContributeCCDAViaRecordAuthorization()
+        private void ContributeCCDAViaRecordAuthorization()
         {
-            // Note: Applications can store the HealthVault personID and recordID and use this to make offline requests to store new information 
+            // Note: Applications can store the HealthVault personID and recordID and use this to make offline requests to store new information
             // in the patient's record whenever new data is available. In this sample, since we don't maintain offline storage (i.e. a DB) to associate
-            // the data source organization's patient identifier with the HealthVault person and record ID, we instead sign-in the user to determine the 
-            // person and record ID everytime a request to send a new CCDA to HealthVault happens (i.e. clicking the "Send CCDA to HealthVault" button); 
+            // the data source organization's patient identifier with the HealthVault person and record ID, we instead sign-in the user to determine the
+            // person and record ID everytime a request to send a new CCDA to HealthVault happens (i.e. clicking the "Send CCDA to HealthVault" button);
 
             PersonInfo pi = WebApplicationUtilities.LoadPersonInfoFromCookie(HttpContext.Current);
             if (pi == null)
@@ -108,7 +105,7 @@ namespace MeaningfulUseReporting
                 return;
             }
 
-            // Make the offline call to stor the CCDA in the patient's HealthVault record. 
+            // Make the offline call to stor the CCDA in the patient's HealthVault record.
             OfflineWebApplicationConnection connection = new OfflineWebApplicationConnection(pi.PersonId);
             HealthRecordAccessor receordAccessor = new HealthRecordAccessor(connection, pi.SelectedRecord.Id);
             receordAccessor.NewItem(_newCcdaItem);
@@ -201,7 +198,6 @@ namespace MeaningfulUseReporting
             return WebApplicationUtilities.LoadPersonInfoFromCookie(HttpContext.Current);
         }
 
-
         private void SetLoggedInState()
         {
             if (GetLoggedInPerson() == null)
@@ -242,7 +238,6 @@ namespace MeaningfulUseReporting
             output.Visible = true;
             output.Text = text + "<br/>";
         }
-
     }
 
     public enum CcdaContributionMethod

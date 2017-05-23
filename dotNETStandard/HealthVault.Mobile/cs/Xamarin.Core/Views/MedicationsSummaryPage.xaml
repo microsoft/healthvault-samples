@@ -7,11 +7,11 @@
              xmlns:models="clr-namespace:HealthVault.Sample.Xamarin.Core.Models;assembly=HealthVault.Sample.Xamarin.Core"
              x:Class="HealthVault.Sample.Xamarin.Core.Views.MedicationsSummaryPage"
              Title="{x:Static core:StringResource.MedicationDetailPageTitle}">
-    <Grid BackgroundColor="{StaticResource LightPageBackground}" >
-        <StackLayout 
+    <Grid BackgroundColor="{StaticResource LightPageBackground}">
+        <StackLayout
             Margin="10"
             IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loaded}}">
-            <controls:RepeaterView 
+            <controls:RepeaterView
                 x:TypeArguments="m:MedicationItemViewRow"
                 ItemsSource="{Binding Items}"
                 Spacing="10">
@@ -25,17 +25,17 @@
                 </controls:RepeaterView.ItemTemplate>
             </controls:RepeaterView>
             <StackLayout Margin="0,20,0,0">
-                <Button 
-                    BackgroundColor="{StaticResource LightPageBackground}" 
-                    BorderWidth="1" 
+                <Button
+                    BackgroundColor="{StaticResource LightPageBackground}"
+                    BorderWidth="1"
                     BorderColor="{StaticResource ForegroundLight}"
-                    HeightRequest="48" 
-                    Text="{x:Static core:StringResource.EditDetails}" 
+                    HeightRequest="48"
+                    Text="{x:Static core:StringResource.EditDetails}"
                     Command="{Binding EditCommand}">
                 </Button>
             </StackLayout>
         </StackLayout>
-        <ActivityIndicator 
+        <ActivityIndicator
             Style="{StaticResource PageLoadingIndicator}"
             IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loading}}" />
         <Label

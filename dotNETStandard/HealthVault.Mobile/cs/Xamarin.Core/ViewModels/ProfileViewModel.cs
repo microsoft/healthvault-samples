@@ -16,126 +16,126 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class ProfileViewModel : ViewModel
     {
-        private readonly IHealthVaultConnection connection;
+        private readonly IHealthVaultConnection _connection;
 
-        private BasicV2 basicInformation;
-        private Personal personalInformation;
-        private IThingClient thingClient;
-        private Guid recordId;
+        private BasicV2 _basicInformation;
+        private Personal _personalInformation;
+        private IThingClient _thingClient;
+        private Guid _recordId;
 
         public ProfileViewModel(
             IHealthVaultConnection connection,
             INavigationService navigationService) : base(navigationService)
         {
-            this.connection = connection;
+            _connection = connection;
 
-            this.SaveCommand = new Command(async () => await this.SaveProfileAsync());
+            SaveCommand = new Command(async () => await SaveProfileAsync());
 
-            this.Genders = new List<string>
+            Genders = new List<string>
                 {
                     StringResource.Gender_Male,
                     StringResource.Gender_Female,
                 };
 
-            this.LoadState = LoadState.Loading;
+            LoadState = LoadState.Loading;
         }
 
         public ICommand SaveCommand { get; }
 
-        private ImageSource imageSource;
+        private ImageSource _imageSource;
 
         public ImageSource ImageSource
         {
-            get { return this.imageSource; }
+            get { return _imageSource; }
 
             set
             {
-                this.imageSource = value;
-                this.OnPropertyChanged();
+                _imageSource = value;
+                OnPropertyChanged();
             }
         }
 
-        private string firstName;
+        private string _firstName;
 
         public string FirstName
         {
-            get { return this.firstName; }
+            get { return _firstName; }
 
             set
             {
-                this.firstName = value;
-                this.OnPropertyChanged();
+                _firstName = value;
+                OnPropertyChanged();
             }
         }
 
-        private string lastName;
+        private string _lastName;
 
         public string LastName
         {
-            get { return this.lastName; }
+            get { return _lastName; }
 
             set
             {
-                this.lastName = value;
-                this.OnPropertyChanged();
+                _lastName = value;
+                OnPropertyChanged();
             }
         }
 
-        private DateTime birthDate;
+        private DateTime _birthDate;
 
         public DateTime BirthDate
         {
-            get { return this.birthDate; }
+            get { return _birthDate; }
 
             set
             {
-                this.birthDate = value;
-                this.OnPropertyChanged();
+                _birthDate = value;
+                OnPropertyChanged();
             }
         }
 
         public List<string> Genders { get; }
 
-        private int genderIndex;
+        private int _genderIndex;
 
         public int GenderIndex
         {
-            get { return this.genderIndex; }
+            get { return _genderIndex; }
 
             set
             {
-                this.genderIndex = value;
-                this.OnPropertyChanged();
+                _genderIndex = value;
+                OnPropertyChanged();
             }
         }
 
         public override async Task OnNavigateToAsync()
         {
-            await this.LoadAsync(async () =>
+            await LoadAsync(async () =>
             {
-                var person = await this.connection.GetPersonInfoAsync();
-                thingClient = this.connection.CreateThingClient();
+                var person = await _connection.GetPersonInfoAsync();
+                _thingClient = _connection.CreateThingClient();
                 HealthRecordInfo record = person.SelectedRecord;
-                recordId = record.Id;
-                this.basicInformation = (await thingClient.GetThingsAsync<BasicV2>(recordId)).FirstOrDefault();
-                this.personalInformation = (await thingClient.GetThingsAsync<Personal>(recordId)).FirstOrDefault();
+                _recordId = record.Id;
+                _basicInformation = (await _thingClient.GetThingsAsync<BasicV2>(_recordId)).FirstOrDefault();
+                _personalInformation = (await _thingClient.GetThingsAsync<Personal>(_recordId)).FirstOrDefault();
 
-                ImageSource profileImageSource = await this.GetImageAsync();
+                ImageSource profileImageSource = await GetImageAsync();
 
-                if (personalInformation.BirthDate != null)
+                if (_personalInformation.BirthDate != null)
                 {
-                    this.BirthDate = personalInformation.BirthDate.ToDateTime();
+                    BirthDate = _personalInformation.BirthDate.ToDateTime();
                 }
                 else
                 {
-                    this.BirthDate = DateTime.Now;
+                    BirthDate = DateTime.Now;
                 }
 
-                this.FirstName = personalInformation.Name?.First ?? string.Empty;
-                this.LastName = personalInformation.Name?.Last ?? string.Empty;
+                FirstName = _personalInformation.Name?.First ?? string.Empty;
+                LastName = _personalInformation.Name?.Last ?? string.Empty;
 
-                this.GenderIndex = basicInformation.Gender != null && basicInformation.Gender.Value == Gender.Female ? 1 : 0;
-                this.ImageSource = profileImageSource;
+                GenderIndex = _basicInformation.Gender != null && _basicInformation.Gender.Value == Gender.Female ? 1 : 0;
+                ImageSource = profileImageSource;
 
                 await base.OnNavigateToAsync();
             });
@@ -148,7 +148,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 View = { Sections = ThingSections.Xml | ThingSections.BlobPayload | ThingSections.Signature }
             };
 
-            var things = await thingClient.GetThingsAsync(recordId, query);
+            var things = await _thingClient.GetThingsAsync(_recordId, query);
             IThing firstThing = things?.FirstOrDefault();
             if (firstThing == null)
             {
@@ -160,46 +160,46 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private async Task SaveProfileAsync()
         {
-            this.LoadState = LoadState.Loading;
+            LoadState = LoadState.Loading;
 
             try
             {
                 // Name property could be null. Construct it if we need to.
-                if (this.personalInformation.Name == null && (!string.IsNullOrEmpty(this.FirstName) || !string.IsNullOrEmpty(this.LastName)))
+                if (_personalInformation.Name == null && (!string.IsNullOrEmpty(FirstName) || !string.IsNullOrEmpty(LastName)))
                 {
-                    this.personalInformation.Name = new Name();
+                    _personalInformation.Name = new Name();
                 }
 
-                if (this.personalInformation.Name != null)
+                if (_personalInformation.Name != null)
                 {
                     // Only set first and last name if we have it
-                    if (!string.IsNullOrEmpty(this.FirstName))
+                    if (!string.IsNullOrEmpty(FirstName))
                     {
-                        this.personalInformation.Name.First = this.FirstName;
+                        _personalInformation.Name.First = FirstName;
                     }
 
-                    if (!string.IsNullOrEmpty(this.LastName))
+                    if (!string.IsNullOrEmpty(LastName))
                     {
-                        this.personalInformation.Name.Last = this.LastName;
+                        _personalInformation.Name.Last = LastName;
                     }
                 }
 
-                this.basicInformation.BirthYear = this.BirthDate.Year;
-                this.basicInformation.Gender = this.GenderIndex == 0 ? Gender.Male : Gender.Female;
+                _basicInformation.BirthYear = BirthDate.Year;
+                _basicInformation.Gender = GenderIndex == 0 ? Gender.Male : Gender.Female;
 
-                this.personalInformation.BirthDate = new HealthServiceDateTime(this.BirthDate);
+                _personalInformation.BirthDate = new HealthServiceDateTime(BirthDate);
 
-                await this.thingClient.UpdateThingsAsync(this.recordId, new List<IThing> { this.basicInformation, this.personalInformation });
+                await _thingClient.UpdateThingsAsync(_recordId, new List<IThing> { _basicInformation, _personalInformation });
 
-                await this.NavigationService.NavigateBackAsync();
+                await NavigationService.NavigateBackAsync();
             }
             catch (Exception exception)
             {
-                await this.DisplayAlertAsync(StringResource.ErrorDialogTitle, exception.ToString());
+                await DisplayAlertAsync(StringResource.ErrorDialogTitle, exception.ToString());
             }
             finally
             {
-                this.LoadState = LoadState.Loaded;
+                LoadState = LoadState.Loaded;
             }
         }
     }

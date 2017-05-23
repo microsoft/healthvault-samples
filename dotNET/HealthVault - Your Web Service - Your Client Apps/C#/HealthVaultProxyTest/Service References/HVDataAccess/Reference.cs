@@ -31,22 +31,22 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
-                return this.extensionDataField;
+                return extensionDataField;
             }
             set {
-                this.extensionDataField = value;
+                extensionDataField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.DateTime SinceDate {
             get {
-                return this.SinceDateField;
+                return SinceDateField;
             }
             set {
-                if ((this.SinceDateField.Equals(value) != true)) {
-                    this.SinceDateField = value;
-                    this.RaisePropertyChanged("SinceDate");
+                if ((SinceDateField.Equals(value) != true)) {
+                    SinceDateField = value;
+                    RaisePropertyChanged("SinceDate");
                 }
             }
         }
@@ -54,12 +54,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Token {
             get {
-                return this.TokenField;
+                return TokenField;
             }
             set {
-                if ((object.ReferenceEquals(this.TokenField, value) != true)) {
-                    this.TokenField = value;
-                    this.RaisePropertyChanged("Token");
+                if ((object.ReferenceEquals(TokenField, value) != true)) {
+                    TokenField = value;
+                    RaisePropertyChanged("Token");
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace HealthVaultProxyTest.HVDataAccess {
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
@@ -99,22 +99,22 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
-                return this.extensionDataField;
+                return extensionDataField;
             }
             set {
-                this.extensionDataField = value;
+                extensionDataField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Message {
             get {
-                return this.MessageField;
+                return MessageField;
             }
             set {
-                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
-                    this.MessageField = value;
-                    this.RaisePropertyChanged("Message");
+                if ((object.ReferenceEquals(MessageField, value) != true)) {
+                    MessageField = value;
+                    RaisePropertyChanged("Message");
                 }
             }
         }
@@ -122,12 +122,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Stack {
             get {
-                return this.StackField;
+                return StackField;
             }
             set {
-                if ((object.ReferenceEquals(this.StackField, value) != true)) {
-                    this.StackField = value;
-                    this.RaisePropertyChanged("Stack");
+                if ((object.ReferenceEquals(StackField, value) != true)) {
+                    StackField = value;
+                    RaisePropertyChanged("Stack");
                 }
             }
         }
@@ -135,12 +135,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public bool Success {
             get {
-                return this.SuccessField;
+                return SuccessField;
             }
             set {
-                if ((this.SuccessField.Equals(value) != true)) {
-                    this.SuccessField = value;
-                    this.RaisePropertyChanged("Success");
+                if ((SuccessField.Equals(value) != true)) {
+                    SuccessField = value;
+                    RaisePropertyChanged("Success");
                 }
             }
         }
@@ -148,7 +148,7 @@ namespace HealthVaultProxyTest.HVDataAccess {
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
@@ -167,12 +167,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string[] Things {
             get {
-                return this.ThingsField;
+                return ThingsField;
             }
             set {
-                if ((object.ReferenceEquals(this.ThingsField, value) != true)) {
-                    this.ThingsField = value;
-                    this.RaisePropertyChanged("Things");
+                if ((object.ReferenceEquals(ThingsField, value) != true)) {
+                    ThingsField = value;
+                    RaisePropertyChanged("Things");
                 }
             }
         }
@@ -203,12 +203,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int CountReceived {
             get {
-                return this.CountReceivedField;
+                return CountReceivedField;
             }
             set {
-                if ((this.CountReceivedField.Equals(value) != true)) {
-                    this.CountReceivedField = value;
-                    this.RaisePropertyChanged("CountReceived");
+                if ((CountReceivedField.Equals(value) != true)) {
+                    CountReceivedField = value;
+                    RaisePropertyChanged("CountReceived");
                 }
             }
         }
@@ -216,12 +216,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int CountSucceeded {
             get {
-                return this.CountSucceededField;
+                return CountSucceededField;
             }
             set {
-                if ((this.CountSucceededField.Equals(value) != true)) {
-                    this.CountSucceededField = value;
-                    this.RaisePropertyChanged("CountSucceeded");
+                if ((CountSucceededField.Equals(value) != true)) {
+                    CountSucceededField = value;
+                    RaisePropertyChanged("CountSucceeded");
                 }
             }
         }
@@ -229,12 +229,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int IndexOnError {
             get {
-                return this.IndexOnErrorField;
+                return IndexOnErrorField;
             }
             set {
-                if ((this.IndexOnErrorField.Equals(value) != true)) {
-                    this.IndexOnErrorField = value;
-                    this.RaisePropertyChanged("IndexOnError");
+                if ((IndexOnErrorField.Equals(value) != true)) {
+                    IndexOnErrorField = value;
+                    RaisePropertyChanged("IndexOnError");
                 }
             }
         }
@@ -252,12 +252,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public HealthVaultProxyTest.HVDataAccess.RecordUpdateInfo[] UpdatedRecords {
             get {
-                return this.UpdatedRecordsField;
+                return UpdatedRecordsField;
             }
             set {
-                if ((object.ReferenceEquals(this.UpdatedRecordsField, value) != true)) {
-                    this.UpdatedRecordsField = value;
-                    this.RaisePropertyChanged("UpdatedRecords");
+                if ((object.ReferenceEquals(UpdatedRecordsField, value) != true)) {
+                    UpdatedRecordsField = value;
+                    RaisePropertyChanged("UpdatedRecords");
                 }
             }
         }
@@ -284,22 +284,22 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
-                return this.extensionDataField;
+                return extensionDataField;
             }
             set {
-                this.extensionDataField = value;
+                extensionDataField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.DateTime LastUpdateDate {
             get {
-                return this.LastUpdateDateField;
+                return LastUpdateDateField;
             }
             set {
-                if ((this.LastUpdateDateField.Equals(value) != true)) {
-                    this.LastUpdateDateField = value;
-                    this.RaisePropertyChanged("LastUpdateDate");
+                if ((LastUpdateDateField.Equals(value) != true)) {
+                    LastUpdateDateField = value;
+                    RaisePropertyChanged("LastUpdateDate");
                 }
             }
         }
@@ -307,12 +307,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid PersonId {
             get {
-                return this.PersonIdField;
+                return PersonIdField;
             }
             set {
-                if ((this.PersonIdField.Equals(value) != true)) {
-                    this.PersonIdField = value;
-                    this.RaisePropertyChanged("PersonId");
+                if ((PersonIdField.Equals(value) != true)) {
+                    PersonIdField = value;
+                    RaisePropertyChanged("PersonId");
                 }
             }
         }
@@ -320,12 +320,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid RecordId {
             get {
-                return this.RecordIdField;
+                return RecordIdField;
             }
             set {
-                if ((this.RecordIdField.Equals(value) != true)) {
-                    this.RecordIdField = value;
-                    this.RaisePropertyChanged("RecordId");
+                if ((RecordIdField.Equals(value) != true)) {
+                    RecordIdField = value;
+                    RaisePropertyChanged("RecordId");
                 }
             }
         }
@@ -333,7 +333,7 @@ namespace HealthVaultProxyTest.HVDataAccess {
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
@@ -367,22 +367,22 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
-                return this.extensionDataField;
+                return extensionDataField;
             }
             set {
-                this.extensionDataField = value;
+                extensionDataField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid PersonId {
             get {
-                return this.PersonIdField;
+                return PersonIdField;
             }
             set {
-                if ((this.PersonIdField.Equals(value) != true)) {
-                    this.PersonIdField = value;
-                    this.RaisePropertyChanged("PersonId");
+                if ((PersonIdField.Equals(value) != true)) {
+                    PersonIdField = value;
+                    RaisePropertyChanged("PersonId");
                 }
             }
         }
@@ -390,12 +390,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid RecordId {
             get {
-                return this.RecordIdField;
+                return RecordIdField;
             }
             set {
-                if ((this.RecordIdField.Equals(value) != true)) {
-                    this.RecordIdField = value;
-                    this.RaisePropertyChanged("RecordId");
+                if ((RecordIdField.Equals(value) != true)) {
+                    RecordIdField = value;
+                    RaisePropertyChanged("RecordId");
                 }
             }
         }
@@ -403,12 +403,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.DateTime SinceDate {
             get {
-                return this.SinceDateField;
+                return SinceDateField;
             }
             set {
-                if ((this.SinceDateField.Equals(value) != true)) {
-                    this.SinceDateField = value;
-                    this.RaisePropertyChanged("SinceDate");
+                if ((SinceDateField.Equals(value) != true)) {
+                    SinceDateField = value;
+                    RaisePropertyChanged("SinceDate");
                 }
             }
         }
@@ -416,12 +416,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Token {
             get {
-                return this.TokenField;
+                return TokenField;
             }
             set {
-                if ((object.ReferenceEquals(this.TokenField, value) != true)) {
-                    this.TokenField = value;
-                    this.RaisePropertyChanged("Token");
+                if ((object.ReferenceEquals(TokenField, value) != true)) {
+                    TokenField = value;
+                    RaisePropertyChanged("Token");
                 }
             }
         }
@@ -429,12 +429,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid[] TypeIds {
             get {
-                return this.TypeIdsField;
+                return TypeIdsField;
             }
             set {
-                if ((object.ReferenceEquals(this.TypeIdsField, value) != true)) {
-                    this.TypeIdsField = value;
-                    this.RaisePropertyChanged("TypeIds");
+                if ((object.ReferenceEquals(TypeIdsField, value) != true)) {
+                    TypeIdsField = value;
+                    RaisePropertyChanged("TypeIds");
                 }
             }
         }
@@ -442,7 +442,7 @@ namespace HealthVaultProxyTest.HVDataAccess {
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
@@ -479,22 +479,22 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
-                return this.extensionDataField;
+                return extensionDataField;
             }
             set {
-                this.extensionDataField = value;
+                extensionDataField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid PersonId {
             get {
-                return this.PersonIdField;
+                return PersonIdField;
             }
             set {
-                if ((this.PersonIdField.Equals(value) != true)) {
-                    this.PersonIdField = value;
-                    this.RaisePropertyChanged("PersonId");
+                if ((PersonIdField.Equals(value) != true)) {
+                    PersonIdField = value;
+                    RaisePropertyChanged("PersonId");
                 }
             }
         }
@@ -502,12 +502,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid RecordId {
             get {
-                return this.RecordIdField;
+                return RecordIdField;
             }
             set {
-                if ((this.RecordIdField.Equals(value) != true)) {
-                    this.RecordIdField = value;
-                    this.RaisePropertyChanged("RecordId");
+                if ((RecordIdField.Equals(value) != true)) {
+                    RecordIdField = value;
+                    RaisePropertyChanged("RecordId");
                 }
             }
         }
@@ -515,12 +515,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Token {
             get {
-                return this.TokenField;
+                return TokenField;
             }
             set {
-                if ((object.ReferenceEquals(this.TokenField, value) != true)) {
-                    this.TokenField = value;
-                    this.RaisePropertyChanged("Token");
+                if ((object.ReferenceEquals(TokenField, value) != true)) {
+                    TokenField = value;
+                    RaisePropertyChanged("Token");
                 }
             }
         }
@@ -528,12 +528,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid TypeId {
             get {
-                return this.TypeIdField;
+                return TypeIdField;
             }
             set {
-                if ((this.TypeIdField.Equals(value) != true)) {
-                    this.TypeIdField = value;
-                    this.RaisePropertyChanged("TypeId");
+                if ((TypeIdField.Equals(value) != true)) {
+                    TypeIdField = value;
+                    RaisePropertyChanged("TypeId");
                 }
             }
         }
@@ -541,12 +541,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string TypeName {
             get {
-                return this.TypeNameField;
+                return TypeNameField;
             }
             set {
-                if ((object.ReferenceEquals(this.TypeNameField, value) != true)) {
-                    this.TypeNameField = value;
-                    this.RaisePropertyChanged("TypeName");
+                if ((object.ReferenceEquals(TypeNameField, value) != true)) {
+                    TypeNameField = value;
+                    RaisePropertyChanged("TypeName");
                 }
             }
         }
@@ -554,12 +554,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string XmlItem {
             get {
-                return this.XmlItemField;
+                return XmlItemField;
             }
             set {
-                if ((object.ReferenceEquals(this.XmlItemField, value) != true)) {
-                    this.XmlItemField = value;
-                    this.RaisePropertyChanged("XmlItem");
+                if ((object.ReferenceEquals(XmlItemField, value) != true)) {
+                    XmlItemField = value;
+                    RaisePropertyChanged("XmlItem");
                 }
             }
         }
@@ -567,7 +567,7 @@ namespace HealthVaultProxyTest.HVDataAccess {
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
@@ -598,22 +598,22 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
-                return this.extensionDataField;
+                return extensionDataField;
             }
             set {
-                this.extensionDataField = value;
+                extensionDataField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid PersonId {
             get {
-                return this.PersonIdField;
+                return PersonIdField;
             }
             set {
-                if ((this.PersonIdField.Equals(value) != true)) {
-                    this.PersonIdField = value;
-                    this.RaisePropertyChanged("PersonId");
+                if ((PersonIdField.Equals(value) != true)) {
+                    PersonIdField = value;
+                    RaisePropertyChanged("PersonId");
                 }
             }
         }
@@ -621,12 +621,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid RecordId {
             get {
-                return this.RecordIdField;
+                return RecordIdField;
             }
             set {
-                if ((this.RecordIdField.Equals(value) != true)) {
-                    this.RecordIdField = value;
-                    this.RaisePropertyChanged("RecordId");
+                if ((RecordIdField.Equals(value) != true)) {
+                    RecordIdField = value;
+                    RaisePropertyChanged("RecordId");
                 }
             }
         }
@@ -634,12 +634,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Token {
             get {
-                return this.TokenField;
+                return TokenField;
             }
             set {
-                if ((object.ReferenceEquals(this.TokenField, value) != true)) {
-                    this.TokenField = value;
-                    this.RaisePropertyChanged("Token");
+                if ((object.ReferenceEquals(TokenField, value) != true)) {
+                    TokenField = value;
+                    RaisePropertyChanged("Token");
                 }
             }
         }
@@ -647,12 +647,12 @@ namespace HealthVaultProxyTest.HVDataAccess {
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string[] XmlInputs {
             get {
-                return this.XmlInputsField;
+                return XmlInputsField;
             }
             set {
-                if ((object.ReferenceEquals(this.XmlInputsField, value) != true)) {
-                    this.XmlInputsField = value;
-                    this.RaisePropertyChanged("XmlInputs");
+                if ((object.ReferenceEquals(XmlInputsField, value) != true)) {
+                    XmlInputsField = value;
+                    RaisePropertyChanged("XmlInputs");
                 }
             }
         }
@@ -660,7 +660,7 @@ namespace HealthVaultProxyTest.HVDataAccess {
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }

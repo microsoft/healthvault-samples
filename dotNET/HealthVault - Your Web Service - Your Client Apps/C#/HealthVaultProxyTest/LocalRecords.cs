@@ -1,21 +1,17 @@
-﻿// Copyright (c) Microsoft Corporation.  All rights reserved. 
+﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // MIT License
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Serialization;
-
 
 // PHIL : Experimenting with XmlSerializer from article here...  BUG : serializes twice!
 // http://www.codeproject.com/Articles/14064/Using-the-XmlSerializer-Attributes
@@ -75,35 +71,33 @@ namespace HealthVaultProxyTest
 
         public PatientRecord(SerializationInfo info, StreamingContext ctxt)
         {
-            this.PatientId = (string)info.GetValue("PatientId", typeof(string));
-            this.PatientName = (string)info.GetValue("PatientName", typeof(string)); ;
-            this.PatientEmail = (string)info.GetValue("PatientEmail", typeof(string)); ;
-            this.SecretQuestion = (string)info.GetValue("SecretQuestion", typeof(string)); ;
-            this.SecretAnswer = (string)info.GetValue("SecretAnswer", typeof(string)); ;
-            this.ConnectCode = (string)info.GetValue("ConnectCode", typeof(string)); ;
-            this.PickUpURL = (string)info.GetValue("PickUpURL", typeof(string)); ;
-            this.PersonId = (string)info.GetValue("PersonId", typeof(string)); ;
-            this.RecordId = (string)info.GetValue("RecordId", typeof(string)); ;
-            this.ApplicationRecordId = (string)info.GetValue("ApplicationRecordId", typeof(string));
-            this.Status = (string)info.GetValue("Status", typeof(string));
-
+            PatientId = (string)info.GetValue("PatientId", typeof(string));
+            PatientName = (string)info.GetValue("PatientName", typeof(string)); ;
+            PatientEmail = (string)info.GetValue("PatientEmail", typeof(string)); ;
+            SecretQuestion = (string)info.GetValue("SecretQuestion", typeof(string)); ;
+            SecretAnswer = (string)info.GetValue("SecretAnswer", typeof(string)); ;
+            ConnectCode = (string)info.GetValue("ConnectCode", typeof(string)); ;
+            PickUpURL = (string)info.GetValue("PickUpURL", typeof(string)); ;
+            PersonId = (string)info.GetValue("PersonId", typeof(string)); ;
+            RecordId = (string)info.GetValue("RecordId", typeof(string)); ;
+            ApplicationRecordId = (string)info.GetValue("ApplicationRecordId", typeof(string));
+            Status = (string)info.GetValue("Status", typeof(string));
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            info.AddValue("PatientId", this.PatientId);
-            info.AddValue("PatientName", this.PatientName);
-            info.AddValue("PatientEmail", this.PatientEmail);
-            info.AddValue("SecretQuestion", this.SecretQuestion);
-            info.AddValue("SecretAnswer", this.SecretAnswer);
-            info.AddValue("ConnectCode", this.ConnectCode);
-            info.AddValue("PickUpURL", this.PickUpURL);
-            info.AddValue("PersonId", this.PersonId);
-            info.AddValue("RecordId", this.RecordId);
-            info.AddValue("ApplicationRecordId", this.ApplicationRecordId);
-            info.AddValue("Status", this.Status);
+            info.AddValue("PatientId", PatientId);
+            info.AddValue("PatientName", PatientName);
+            info.AddValue("PatientEmail", PatientEmail);
+            info.AddValue("SecretQuestion", SecretQuestion);
+            info.AddValue("SecretAnswer", SecretAnswer);
+            info.AddValue("ConnectCode", ConnectCode);
+            info.AddValue("PickUpURL", PickUpURL);
+            info.AddValue("PersonId", PersonId);
+            info.AddValue("RecordId", RecordId);
+            info.AddValue("ApplicationRecordId", ApplicationRecordId);
+            info.AddValue("Status", Status);
         }
-
     }
 
     [Serializable()]
@@ -125,18 +119,18 @@ namespace HealthVaultProxyTest
 
         public List<PatientRecord> PatientRecords
         {
-            get { return this.myLocalPatientRecords; }
-            set { this.myLocalPatientRecords = value; }
+            get { return myLocalPatientRecords; }
+            set { myLocalPatientRecords = value; }
         }
 
         public LocalPatientRecords(SerializationInfo info, StreamingContext ctxt)
         {
-            this.myLocalPatientRecords = (List<PatientRecord>)info.GetValue("Patients", typeof(List<PatientRecord>));
+            myLocalPatientRecords = (List<PatientRecord>)info.GetValue("Patients", typeof(List<PatientRecord>));
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
         {
-            info.AddValue("Patients", this.myLocalPatientRecords);
+            info.AddValue("Patients", myLocalPatientRecords);
         }
 
         public bool ValidateRecord(HVConnect.ValidatedConnection vpc)
@@ -158,16 +152,15 @@ namespace HealthVaultProxyTest
         }
     }
 
-
     public class PatientRecordsSerializer
     {
-        private XmlSerializer s = null;
-        private Type type = null;
+        private XmlSerializer _s = null;
+        private Type _type = null;
 
         public PatientRecordsSerializer()
         {
-            this.type = typeof(LocalPatientRecords);
-            this.s = new XmlSerializer(this.type);
+            _type = typeof(LocalPatientRecords);
+            _s = new XmlSerializer(_type);
         }
 
         public LocalPatientRecords Deserialize(string xml)
@@ -184,7 +177,7 @@ namespace HealthVaultProxyTest
 
         public LocalPatientRecords Deserialize(TextReader reader)
         {
-            LocalPatientRecords lpr = (LocalPatientRecords)s.Deserialize(reader);
+            LocalPatientRecords lpr = (LocalPatientRecords)_s.Deserialize(reader);
             reader.Close();
             return lpr;
         }
@@ -209,8 +202,8 @@ namespace HealthVaultProxyTest
         private TextWriter WriterSerialize(LocalPatientRecords lpr)
         {
             TextWriter w = new StringWriter();
-            this.s = new XmlSerializer(this.type);
-            s.Serialize(w, lpr);
+            _s = new XmlSerializer(_type);
+            _s.Serialize(w, lpr);
             w.Flush();
             return w;
         }
@@ -251,5 +244,4 @@ namespace HealthVaultProxyTest
             return ok;
         }
     }
-
 }

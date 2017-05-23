@@ -9,10 +9,10 @@
 --%>
 
 <%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Redirect.aspx.cs" Inherits="MeaningfulUseReporting.Redirect" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-        <form id="form1" runat="server">
-    <div>
-    
-    </div>
+    <form id="form1" runat="server">
+        <div>
+        </div>
     </form>
 </asp:Content>

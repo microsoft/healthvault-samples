@@ -25,7 +25,7 @@
             <th>View health data</th>
         </tr>
     </thead>
-    
+
     <tbody>
      @foreach (var person in Model)
      {
@@ -38,7 +38,7 @@
             <tr>
                 <td>@authorizedRecord.Value.Name</td>
                 <td>
-                    @Html.ActionLink("Plans", "Plans", "ActionPlan", routeValues, new Dictionary<string, object>())                    
+                    @Html.ActionLink("Plans", "Plans", "ActionPlan", routeValues, new Dictionary<string, object>())
                 </td>
                 <td>
                     @Html.ActionLink("Goals", "Index", "Goals", routeValues, new Dictionary<string, object>())
@@ -50,5 +50,4 @@
           }
     }
     </tbody>
-
 </table>

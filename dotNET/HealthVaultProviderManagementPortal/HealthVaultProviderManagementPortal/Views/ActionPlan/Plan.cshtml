@@ -101,9 +101,9 @@
                 <div class="col-md-12 text-center">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         @Html.ActionLink("Add Blank Task", "Task", new { planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { @class = "btn btn-primary" })
-                        <input type="submit" value="Add Scheduled Task" formaction="@Url.Action("CreateScheduledTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})" class="btn btn-primary"/>
-                        <input type="submit" value="Add Frequency Task" formaction="@Url.Action("CreateFrequencyTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})" class="btn btn-primary"/>
-                        <input type="submit" value="Delete" formaction="@Url.Action("RemoveObjective", new {planId = Model.Id, id = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})" class="btn btn-danger"/>
+                        <input type="submit" value="Add Scheduled Task" formaction="@Url.Action("CreateScheduledTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})" class="btn btn-primary" />
+                        <input type="submit" value="Add Frequency Task" formaction="@Url.Action("CreateFrequencyTask", new {planId = Model.Id, objectiveId = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})" class="btn btn-primary" />
+                        <input type="submit" value="Delete" formaction="@Url.Action("RemoveObjective", new {planId = Model.Id, id = Model.Objectives[i].Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})" class="btn btn-danger" />
                     </div>
                 </div>
             }

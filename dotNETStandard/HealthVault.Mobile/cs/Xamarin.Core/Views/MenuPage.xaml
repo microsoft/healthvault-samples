@@ -10,11 +10,11 @@
              Title="HealthVault SDK Sample">
 
     <Grid BackgroundColor="{StaticResource PageBackground}">
-        <ListView 
+        <ListView
             Margin="5"
             IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loaded}}"
-            ItemsSource="{Binding MenuViewRows}" 
-            HasUnevenRows="true" 
+            ItemsSource="{Binding MenuViewRows}"
+            HasUnevenRows="true"
             ItemTapped="ListView_OnItemTapped">
             <ListView.Behaviors>
                 <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
@@ -29,13 +29,13 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="20" />
                                 </Grid.ColumnDefinitions>
-                                <Grid 
-                                    HorizontalOptions="Center" 
+                                <Grid
+                                    HorizontalOptions="Center"
                                     VerticalOptions="Center">
-                                    <Button 
+                                    <Button
                                         BackgroundColor="{Binding BackgroundColor}"
                                         Style="{StaticResource CircleBackgroundButton}" />
-                                    <Image 
+                                    <Image
                                         Source="{Binding Image}"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center"
@@ -43,9 +43,9 @@
                                         HeightRequest="28"
                                         Margin="18" />
                                 </Grid>
-                                <StackLayout 
-                                    Grid.Column="1" 
-                                    Orientation="Vertical" 
+                                <StackLayout
+                                    Grid.Column="1"
+                                    Orientation="Vertical"
                                     VerticalOptions="Center"
                                     Spacing="0">
                                     <Label
@@ -61,24 +61,24 @@
 
                                 <Image
                                     Grid.Column="2"
-                                    Source="{markup:ImageResource disclosure_icon.png}" 
-                                    Aspect="AspectFit" 
+                                    Source="{markup:ImageResource disclosure_icon.png}"
+                                    Aspect="AspectFit"
                                     HeightRequest="19"
-                                    HorizontalOptions="Center" 
+                                    HorizontalOptions="Center"
                                     VerticalOptions="Center"
-                                    IsVisible="{Binding Opening, Converter={StaticResource InverseBoolConverter}}"/>
+                                    IsVisible="{Binding Opening, Converter={StaticResource InverseBoolConverter}}" />
                                 <ActivityIndicator
                                     Grid.Column="2"
                                     Color="Red"
                                     IsRunning="True"
-                                    IsVisible="{Binding Opening}"/>
+                                    IsVisible="{Binding Opening}" />
                             </Grid>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ActivityIndicator 
+        <ActivityIndicator
             Style="{StaticResource PageLoadingIndicator}"
             IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loading}}" />
         <Label

@@ -12,40 +12,40 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Views/Templates/ThingTemplates.xaml"/>
-                <ResourceDictionary Source="/Themes/Colors.xaml"/>
+                <ResourceDictionary Source="/Views/Templates/ThingTemplates.xaml" />
+                <ResourceDictionary Source="/Themes/Colors.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
     <Grid Background="{ThemeResource ItemsBackground}">
         <StackPanel>
-            <Grid Margin="5" 
-                  Padding="30,10,20,10" 
+            <Grid Margin="5"
+                  Padding="30,10,20,10"
                   Background="{ThemeResource ItemBackground}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0"
                           Grid.Row="0"
                           Background="Transparent">
                     <Ellipse Width="64"
-                                         Height="64" 
+                                         Height="64"
                                          Fill="{ThemeResource HighlightColorLight}">
                     </Ellipse>
                     <Image Source="{Binding ThumbnailImageUrl}"
-                                   Style="{StaticResource ThumbnailSizeStyle}"/>
+                                   Style="{StaticResource ThumbnailSizeStyle}" />
                 </Grid>
                 <StackPanel Orientation="Vertical" Grid.Column="1"
                             Margin="20">
                     <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderStyle}" TextWrapping="Wrap" />
-                    <TextBlock Text="{Binding OrganizationName}" TextWrapping="Wrap"/>
-                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding OrganizationName}" TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
                 </StackPanel>
             </Grid>
-            <TextBlock x:Uid="Objectives" 
+            <TextBlock x:Uid="Objectives"
                        Style="{StaticResource ItemHeaderStyle}"
-                       Margin="25,10,0,0"/>
+                       Margin="25,10,0,0" />
             <ListView ItemsSource="{Binding Objectives}"
                       SelectionMode="None"
                       ItemContainerStyle="{StaticResource FullWidthListViewItem}">
@@ -55,15 +55,15 @@
                             <TextBlock Text="{Binding Name}"
                                        Style="{StaticResource ItemHeaderStyle}"
                                        TextWrapping="Wrap"
-                                       FontSize="18"/>
+                                       FontSize="18" />
                             <TextBlock Text="{Binding Description}"
                                        TextWrapping="WrapWholeWords"
-                                       Style="{StaticResource DetailsLabelTextBlockStyle}"/>
+                                       Style="{StaticResource DetailsLabelTextBlockStyle}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <TextBlock x:Uid="Tasks" Margin="25,10,0,0" Style="{StaticResource ItemHeaderStyle}"/>
+            <TextBlock x:Uid="Tasks" Margin="25,10,0,0" Style="{StaticResource ItemHeaderStyle}" />
             <ListView ItemsSource="{Binding AssociatedTasks}"
                       SelectionMode="None"
                       ItemClick="ListView_ItemClick"
@@ -71,36 +71,33 @@
                       ItemContainerStyle="{StaticResource FullWidthListViewItem}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="20" >
+                        <Grid Margin="20">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0"
                           Grid.Row="0"
                           Background="Transparent">
                                 <Ellipse Width="64"
-                                         Height="64" 
+                                         Height="64"
                                          Fill="{ThemeResource HighlightColorLight}">
                                 </Ellipse>
                                 <Image Source="{Binding ThumbnailImageUrl}"
-                                   Style="{StaticResource ThumbnailSizeStyle}"/>
+                                   Style="{StaticResource ThumbnailSizeStyle}" />
                             </Grid>
-                            <StackPanel Orientation="Vertical" 
+                            <StackPanel Orientation="Vertical"
                                             Grid.Column="1"
-                                            Margin="20,0,0,0" >
-                                    <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderStyle}" TextWrapping="Wrap" />
-                                    <TextBlock Text="{Binding OrganizationName}" TextWrapping="Wrap"/>
-                                <TextBlock Text="{Binding ShortDescription}" 
-                                               TextWrapping="WrapWholeWords"/>
-
+                                            Margin="20,0,0,0">
+                                <TextBlock Text="{Binding Name}" Style="{StaticResource ItemHeaderStyle}" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding OrganizationName}" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding ShortDescription}"
+                                               TextWrapping="WrapWholeWords" />
                             </StackPanel>
-                            
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
     </Grid>
-
 </views:HealthVaultBasePage>

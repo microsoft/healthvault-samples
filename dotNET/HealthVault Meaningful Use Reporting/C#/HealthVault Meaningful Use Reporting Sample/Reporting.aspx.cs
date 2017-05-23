@@ -26,7 +26,6 @@ namespace MeaningfulUseReporting
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         // report start calendar handlers
@@ -108,6 +107,5 @@ namespace MeaningfulUseReporting
             output.Visible = true;
             output.Text = text + "<br/>";
         }
-
     }
 }

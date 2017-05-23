@@ -1,24 +1,19 @@
-﻿// Copyright (c) Microsoft Corporation.  All rights reserved. 
+﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // MIT License
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
-using HVAppCode;
-using Microsoft.Health;
 using System.Xml;
 using System.Xml.XPath;
+using HVAppCode;
+using Microsoft.Health;
 
 // see info here:  http://msdn.microsoft.com/en-us/library/ff803640.aspx
-
 
 namespace HealthVaultProxy
 {
@@ -31,7 +26,7 @@ namespace HealthVaultProxy
             {
                 if (string.IsNullOrEmpty(token))
                     throw (new System.ArgumentNullException("token", AppSettings.NullInputEncountered));
- 
+
                 HealthVaultConnection hv = new HealthVaultConnection(token);
                 response.DopuPackageId = hv.AllocatePackageId();
             }
@@ -69,8 +64,8 @@ namespace HealthVaultProxy
                     throw (new System.ArgumentNullException("DopuPackageId", AppSettings.NullInputEncountered));
 
                 if (string.IsNullOrEmpty(request.LocalPatientId))
-                    throw (new System.ArgumentNullException("LocalPatientId", AppSettings.NullInputEncountered)); 
-                
+                    throw (new System.ArgumentNullException("LocalPatientId", AppSettings.NullInputEncountered));
+
                 if (string.IsNullOrEmpty(request.Token))
                     throw (new System.ArgumentNullException("Token", AppSettings.NullInputEncountered));
 
@@ -117,7 +112,7 @@ namespace HealthVaultProxy
 
                     newRecords.Add(new HealthRecordItem(typeId, navData));
                 }
-                
+
                 HealthVaultConnection hv = new HealthVaultConnection(request.Token);
 
                 if (isForPackageId)
@@ -126,11 +121,11 @@ namespace HealthVaultProxy
                                                      request.LocalPatientId,
                                                      request.SecretQuestion,
                                                      request.SecretAnswer,
-                                                     ref newRecords);                    
+                                                     ref newRecords);
                 else
                     response.SecretCode = hv.DropOff(request.FromName,
                                                      request.LocalPatientId,
-                                                     request.SecretQuestion, 
+                                                     request.SecretQuestion,
                                                      request.SecretAnswer,
                                                      ref newRecords);
 
@@ -141,7 +136,6 @@ namespace HealthVaultProxy
                 response.PickupUrl = AppSettings.PickupUrl();
                 response.PickupUrl += @"?packageid=";
                 response.PickupUrl += response.SecretCode;
-
 
                 string emailBody = AppSettings.DOPUemailTemplate.Replace("[PICKUP]", response.PickupUrl);
                 emailBody = emailBody.Replace("[SECRET]", response.SecretCode);
@@ -162,7 +156,6 @@ namespace HealthVaultProxy
             return (response);
         }
 
-
         public HVProxyResponse DeletePendingForPatient(string token, string localPatientId)
         {
             HVProxyResponse response = new HVProxyResponse();
@@ -174,9 +167,9 @@ namespace HealthVaultProxy
 
                 if (string.IsNullOrEmpty(localPatientId))
                     throw (new System.ArgumentNullException("LocalPatientId", AppSettings.NullInputEncountered));
-                
+
                 HealthVaultConnection hv = new HealthVaultConnection(token);
- 
+
                 if (string.IsNullOrEmpty(localPatientId))
                     throw (new System.ArgumentNullException("LocalPatientId", AppSettings.NullInputEncountered));
                 hv.DeletePendingDropForPatientId(localPatientId);
@@ -227,11 +220,5 @@ namespace HealthVaultProxy
             }
             return response;
         }
-
     }
 }
-
-
-
-
-

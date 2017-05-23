@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
+<ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
@@ -9,52 +9,52 @@
     x:Class="HealthVault.Sample.Xamarin.Core.Views.WeightPage"
     Title="{x:Static core:StringResource.Weight}">
     <Grid>
-        <ScrollView 
+        <ScrollView
             BackgroundColor="{StaticResource LightPageBackground}"
             IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loaded}}">
-            <StackLayout 
-                Padding="10" 
+            <StackLayout
+                Padding="10"
                 Spacing="0">
-                <Label 
-                    Text="{x:Static core:StringResource.LastWeight}" 
-                    TextColor="{StaticResource ForegroundLight}" 
+                <Label
+                    Text="{x:Static core:StringResource.LastWeight}"
+                    TextColor="{StaticResource ForegroundLight}"
                     FontSize="15"
                     VerticalTextAlignment="Center">
                 </Label>
                 <StackLayout Orientation="Horizontal" Margin="0,-8,0,0">
-                    <Label 
+                    <Label
                         Text="{Binding LastWeightValue}"
-                        TextColor="{StaticResource HighlightColor}" 
+                        TextColor="{StaticResource HighlightColor}"
                         FontSize="46"
                         VerticalTextAlignment="End" />
-                    <Label 
+                    <Label
                         Text="{Binding LastWeightUnit}"
-                        TextColor="{StaticResource HighlightColor}" 
+                        TextColor="{StaticResource HighlightColor}"
                         FontSize="14"
                         VerticalTextAlignment="End"
-                        Margin="0,0,0,8"/>
+                        Margin="0,0,0,8" />
                 </StackLayout>
                 <Button
-                    Text="{x:Static core:StringResource.AddNewWeight}" 
+                    Text="{x:Static core:StringResource.AddNewWeight}"
                     Margin="0,16,0,0"
                     Command="{Binding AddCommand}"
-                    Style="{StaticResource StandardButton}"/>
+                    Style="{StaticResource StandardButton}" />
                 <Grid Margin="0,16,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="120" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Label 
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Start" 
+                    <Label
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
                         Text="{x:Static core:StringResource.WeightDayColumn}" />
-                    <Label 
+                    <Label
                         Grid.Column="1"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Start" 
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
                         Text="{x:Static core:StringResource.Weight}" />
                 </Grid>
-                <controls:RepeaterView 
+                <controls:RepeaterView
                     x:TypeArguments="m:WeightViewRow"
                     ItemsSource="{Binding HistoricWeightValues}">
                     <controls:RepeaterView.ItemTemplate>
@@ -64,26 +64,26 @@
                                     <ColumnDefinition Width="120" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Label 
-                                    Text="{Binding Day}" 
-                                    VerticalOptions="Center" 
+                                <Label
+                                    Text="{Binding Day}"
+                                    VerticalOptions="Center"
                                     HorizontalOptions="Start"
-                                    TextColor="{StaticResource ForegroundLight}" 
+                                    TextColor="{StaticResource ForegroundLight}"
                                     FontSize="15" />
-                                <Label 
+                                <Label
                                     Grid.Column="1"
                                     Text="{Binding Weight}"
                                     VerticalOptions="Center"
                                     HorizontalOptions="Start"
                                     TextColor="{StaticResource HighlightColor}"
-                                    FontSize="15"/>
+                                    FontSize="15" />
                             </Grid>
                         </DataTemplate>
                     </controls:RepeaterView.ItemTemplate>
                 </controls:RepeaterView>
             </StackLayout>
         </ScrollView>
-        <ActivityIndicator 
+        <ActivityIndicator
             Style="{StaticResource PageLoadingIndicator}"
             IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loading}}" />
         <Label

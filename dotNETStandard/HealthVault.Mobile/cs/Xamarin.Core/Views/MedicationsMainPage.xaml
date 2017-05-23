@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
+<ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:behaviors="clr-namespace:HealthVault.Sample.Xamarin.Core.Behaviors;assembly=HealthVault.Sample.Xamarin.Core"
@@ -19,12 +19,12 @@
                                 <ColumnDefinition Width="20" />
                             </Grid.ColumnDefinitions>
                             <StackLayout Grid.Column="0" Padding="10" Spacing="0">
-                                <Label 
+                                <Label
                                     Text="{Binding Text}"
                                     TextColor="{StaticResource HighlightColor}"
                                     FontSize="18" />
-                                <Label 
-                                    Text="{Binding Detail}" 
+                                <Label
+                                    Text="{Binding Detail}"
                                     TextColor="{StaticResource HighlightColor}"
                                     FontSize="15" />
                                 <Label
@@ -32,13 +32,13 @@
                                     TextColor="DarkGray"
                                     FontSize="12" />
                             </StackLayout>
-                            <Image 
-                                Grid.Column="1" 
-                                Source="{markup:ImageResource disclosure_icon.png}" 
-                                Aspect="AspectFit" 
+                            <Image
+                                Grid.Column="1"
+                                Source="{markup:ImageResource disclosure_icon.png}"
+                                Aspect="AspectFit"
                                 HeightRequest="19"
-                                HorizontalOptions="Center" 
-                                VerticalOptions="Center"/>
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
                         </Grid>
                         <BoxView HeightRequest="1" BackgroundColor="{StaticResource PageBackground}" HorizontalOptions="FillAndExpand" />
                     </StackLayout>
@@ -53,13 +53,13 @@
     </ContentPage.Resources>
     <Grid>
         <StackLayout
-            BackgroundColor="{StaticResource PageBackground}" 
+            BackgroundColor="{StaticResource PageBackground}"
             IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loaded}}">
-            <Label 
+            <Label
                 Text="{x:Static core:StringResource.CurrentMedicationsSection}"
                 Style="{StaticResource SectionHeader}" />
-            <ListView 
-                ItemsSource="{Binding CurrentMedications}" 
+            <ListView
+                ItemsSource="{Binding CurrentMedications}"
                 BackgroundColor="{StaticResource PageBackground}"
                 HasUnevenRows="true"
                 ItemTemplate="{StaticResource MedicationItemTemplate}">
@@ -67,10 +67,10 @@
                     <behaviors:EventToCommandBehavior EventName="ItemTapped" Command="{Binding ItemSelectedCommand}" Converter="{StaticResource TappedItemConverter}" />
                 </ListView.Behaviors>
             </ListView>
-            <Label 
+            <Label
                 Text="{x:Static core:StringResource.PastMedicationsSection}"
                 Style="{StaticResource SectionHeader}" />
-            <ListView 
+            <ListView
                 ItemsSource="{Binding PastMedications}"
                 BackgroundColor="{StaticResource PageBackground}"
                 HasUnevenRows="true"
@@ -80,7 +80,7 @@
                 </ListView.Behaviors>
             </ListView>
         </StackLayout>
-        <ActivityIndicator 
+        <ActivityIndicator
             Style="{StaticResource PageLoadingIndicator}"
             IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loading}}" />
         <Label
@@ -88,5 +88,4 @@
             IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Error}}"
             Style="{StaticResource ErrorLabel}" />
     </Grid>
-
 </ContentPage>

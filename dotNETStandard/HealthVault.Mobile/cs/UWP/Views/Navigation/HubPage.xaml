@@ -12,49 +12,45 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Views/Templates/ThingTemplates.xaml"/>
-                <ResourceDictionary Source="/Themes/Colors.xaml"/>
+                <ResourceDictionary Source="/Views/Templates/ThingTemplates.xaml" />
+                <ResourceDictionary Source="/Themes/Colors.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0"
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
                     Background="{ThemeResource ItemBackground}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="48"/>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="40"/>
-                </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="48" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="40" />
+            </Grid.ColumnDefinitions>
             <Button x:Name="Home"
                     BorderThickness="0"
                     Width="48"
                     Background="{ThemeResource ItemBackground}"
                     Tapped="Home_Tapped"
                         Foreground="{ThemeResource HighlightColor}">
-                <FontIcon Glyph="&#xE80F;" FontFamily="Segoe MDL2 Assets"/>
+                <FontIcon Glyph="&#xE80F;" FontFamily="Segoe MDL2 Assets" />
             </Button>
-            <TextBlock x:Uid="SampleName"         
+            <TextBlock x:Uid="SampleName"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="18"
-                       Grid.Column="1" 
+                       Grid.Column="1"
                        Foreground="{ThemeResource ForegroundLight}" />
-                <Image Source="{Binding ImageSource}" 
-                        Width="48" 
-                        Height="48"/>
-
-            </Grid>
-            <Frame x:Name="ContentFrame"
+            <Image Source="{Binding ImageSource}"
+                        Width="48"
+                        Height="48" />
+        </Grid>
+        <Frame x:Name="ContentFrame"
                     Grid.Row="1"
                     Background="{ThemeResource ItemsBackground}">
-                    
-            </Frame>
-        </Grid>
-
+        </Frame>
+    </Grid>
 </views:HealthVaultBasePage>

@@ -1,7 +1,7 @@
-﻿// Copyright (c) Microsoft Corporation.  All rights reserved. 
+﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // MIT License
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
@@ -35,10 +35,11 @@ namespace HealthVaultProviderManagementPortal.Controllers
     [RequireSignIn]
     public class ActionPlanController : Controller
     {
-        private string basePlanRestUrl = "v3/actionplans/";
-        private string baseTaskRestUrl = "v3/actionplantasks/";
+        private string _basePlanRestUrl = "v3/actionplans/";
+        private string _baseTaskRestUrl = "v3/actionplantasks/";
 
         #region Controller Actions
+
         public ActionResult Index()
         {
             return View();
@@ -455,7 +456,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 recordId,
                 User.PersonInfo(),
                 HttpMethod.Post.ToString(),
-                basePlanRestUrl,
+                _basePlanRestUrl,
                 null,
                 JsonConvert.SerializeObject(plan));
         }
@@ -473,7 +474,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 recordId,
                 User.PersonInfo(),
                 "PATCH",
-                basePlanRestUrl,
+                _basePlanRestUrl,
                 null,
                 JsonConvert.SerializeObject(plan));
         }
@@ -491,7 +492,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 recordId,
                 User.PersonInfo(),
                 HttpMethod.Get.ToString(),
-                basePlanRestUrl);
+                _basePlanRestUrl);
         }
 
         /// <summary>
@@ -507,7 +508,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 recordId,
                 User.PersonInfo(),
                 HttpMethod.Get.ToString(),
-                basePlanRestUrl + id);
+                _basePlanRestUrl + id);
         }
 
         /// <summary>
@@ -523,7 +524,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 recordId,
                 User.PersonInfo(),
                 HttpMethod.Delete.ToString(),
-                basePlanRestUrl + id);
+                _basePlanRestUrl + id);
         }
 
         /// <summary>
@@ -539,7 +540,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 recordId,
                 User.PersonInfo(),
                 HttpMethod.Delete.ToString(),
-                basePlanRestUrl + planId + "/objectives/" + id);
+                _basePlanRestUrl + planId + "/objectives/" + id);
         }
 
         /// <summary>
@@ -555,7 +556,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 recordId,
                 User.PersonInfo(),
                 HttpMethod.Post.ToString(),
-                baseTaskRestUrl,
+                _baseTaskRestUrl,
                 null,
                 JsonConvert.SerializeObject(task));
         }
@@ -573,7 +574,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 recordId,
                 User.PersonInfo(),
                 HttpMethod.Get.ToString(),
-                baseTaskRestUrl + id);
+                _baseTaskRestUrl + id);
         }
 
         /// <summary>
@@ -589,7 +590,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 recordId,
                 User.PersonInfo(),
                 "PATCH",
-                baseTaskRestUrl,
+                _baseTaskRestUrl,
                 null,
                 JsonConvert.SerializeObject(task));
         }
@@ -607,7 +608,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 recordId,
                 User.PersonInfo(),
                 HttpMethod.Delete.ToString(),
-                baseTaskRestUrl + id);
+                _baseTaskRestUrl + id);
         }
 
         /// <summary>
@@ -621,7 +622,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 null,
                 User.PersonInfo(),
                 HttpMethod.Post.ToString(),
-                baseTaskRestUrl + "ValidateTracking",
+                _baseTaskRestUrl + "ValidateTracking",
                 null,
                 JsonConvert.SerializeObject(trackingValidation));
         }
@@ -666,11 +667,10 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 recordId,
                 User.PersonInfo(),
                 HttpMethod.Get.ToString(),
-                basePlanRestUrl + id + "/Adherence",
+                _basePlanRestUrl + id + "/Adherence",
                 queryParameters);
         }
 
         #endregion
-        
     }
 }

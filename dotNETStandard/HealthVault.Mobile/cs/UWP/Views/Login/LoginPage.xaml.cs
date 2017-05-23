@@ -1,40 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Microsoft.HealthVault.Connection;
-using Microsoft.HealthVault.Client;
-using System.ComponentModel;
-using Microsoft.HealthVault.Configuration;
-using Windows.Data.Xml.Dom;
 using System.Threading.Tasks;
 using HealthVaultMobileSample.UWP.Helpers;
+using Microsoft.HealthVault.Client;
+using Microsoft.HealthVault.Configuration;
+using Microsoft.HealthVault.Connection;
+using Windows.Data.Xml.Dom;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace HealthVaultMobileSample.UWP.Views.Login
 {
     /// <summary>
-    /// A splash page which triggers the display of the HealthVault authentication experience. 
-    /// 
-    /// TODO: refactor to make login user-initiated once we complete Connection API changes. 
+    /// A splash page which triggers the display of the HealthVault authentication experience.
+    ///
+    /// TODO: refactor to make login user-initiated once we complete Connection API changes.
     /// </summary>
     public sealed partial class LoginPage : Page
     {
         public IHealthVaultConnection connection { get; set; }
+
         public LoginPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -46,11 +36,11 @@ namespace HealthVaultMobileSample.UWP.Views.Login
 
         private async void ExecuteLogin()
         {
-            this.connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(await GetHealthVaultConfiguration());
+            connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(await GetHealthVaultConfiguration());
 
-            await this.connection.AuthenticateAsync();
+            await connection.AuthenticateAsync();
 
-            ((Frame)Window.Current.Content).Navigate(typeof(Views.Navigation.HubPage), new NavigationParams() { Connection = this.connection });
+            ((Frame)Window.Current.Content).Navigate(typeof(Views.Navigation.HubPage), new NavigationParams() { Connection = connection });
         }
 
         private static async Task<HealthVaultConfiguration> GetHealthVaultConfiguration()

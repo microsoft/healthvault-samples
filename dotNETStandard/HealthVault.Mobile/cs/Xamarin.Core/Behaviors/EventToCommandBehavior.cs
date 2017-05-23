@@ -7,7 +7,7 @@ namespace HealthVault.Sample.Xamarin.Core.Behaviors
 {
     public class EventToCommandBehavior : BehaviorBase<View>
     {
-        Delegate eventHandler;
+        private Delegate _eventHandler;
 
         public static readonly BindableProperty EventNameProperty = BindableProperty.Create("EventName", typeof(string),
             typeof(EventToCommandBehavior), null, propertyChanged: OnEventNameChanged);
@@ -23,13 +23,13 @@ namespace HealthVault.Sample.Xamarin.Core.Behaviors
 
         public string EventName
         {
-            get { return (string) GetValue(EventNameProperty); }
+            get { return (string)GetValue(EventNameProperty); }
             set { SetValue(EventNameProperty, value); }
         }
 
         public ICommand Command
         {
-            get { return (ICommand) GetValue(CommandProperty); }
+            get { return (ICommand)GetValue(CommandProperty); }
             set { SetValue(CommandProperty, value); }
         }
 
@@ -41,7 +41,7 @@ namespace HealthVault.Sample.Xamarin.Core.Behaviors
 
         public IValueConverter Converter
         {
-            get { return (IValueConverter) GetValue(InputConverterProperty); }
+            get { return (IValueConverter)GetValue(InputConverterProperty); }
             set { SetValue(InputConverterProperty, value); }
         }
 
@@ -57,7 +57,7 @@ namespace HealthVault.Sample.Xamarin.Core.Behaviors
             base.OnDetachingFrom(bindable);
         }
 
-        void RegisterEvent(string name)
+        private void RegisterEvent(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -71,18 +71,18 @@ namespace HealthVault.Sample.Xamarin.Core.Behaviors
                     EventName));
             }
             MethodInfo methodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod("OnEvent");
-            eventHandler = methodInfo.CreateDelegate(eventInfo.EventHandlerType, this);
-            eventInfo.AddEventHandler(AssociatedObject, eventHandler);
+            _eventHandler = methodInfo.CreateDelegate(eventInfo.EventHandlerType, this);
+            eventInfo.AddEventHandler(AssociatedObject, _eventHandler);
         }
 
-        void DeregisterEvent(string name)
+        private void DeregisterEvent(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
                 return;
             }
 
-            if (eventHandler == null)
+            if (_eventHandler == null)
             {
                 return;
             }
@@ -92,11 +92,11 @@ namespace HealthVault.Sample.Xamarin.Core.Behaviors
                 throw new ArgumentException(string.Format("EventToCommandBehavior: Can't de-register the '{0}' event.",
                     EventName));
             }
-            eventInfo.RemoveEventHandler(AssociatedObject, eventHandler);
-            eventHandler = null;
+            eventInfo.RemoveEventHandler(AssociatedObject, _eventHandler);
+            _eventHandler = null;
         }
 
-        void OnEvent(object sender, object eventArgs)
+        private void OnEvent(object sender, object eventArgs)
         {
             if (Command == null)
             {
@@ -123,16 +123,16 @@ namespace HealthVault.Sample.Xamarin.Core.Behaviors
             }
         }
 
-        static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
+        private static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var behavior = (EventToCommandBehavior) bindable;
+            var behavior = (EventToCommandBehavior)bindable;
             if (behavior.AssociatedObject == null)
             {
                 return;
             }
 
-            string oldEventName = (string) oldValue;
-            string newEventName = (string) newValue;
+            string oldEventName = (string)oldValue;
+            string newEventName = (string)newValue;
 
             behavior.DeregisterEvent(oldEventName);
             behavior.RegisterEvent(newEventName);

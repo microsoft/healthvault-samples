@@ -13,24 +13,22 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Themes/Colors.xaml"/>
+                <ResourceDictionary Source="/Themes/Colors.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid DataContext="{Binding ElementName=userControl}">
-        <ProgressRing x:Name="Progress" 
-                      IsActive="True" 
-                      Width="36" 
+        <ProgressRing x:Name="Progress"
+                      IsActive="True"
+                      Width="36"
                       Height="36"></ProgressRing>
-        <chart:CartesianChart x:Name="Chart" Visibility="Collapsed" Series="{Binding SeriesCollection, ElementName=userControl}" LegendLocation="None" >
+        <chart:CartesianChart x:Name="Chart" Visibility="Collapsed" Series="{Binding SeriesCollection, ElementName=userControl}" LegendLocation="None">
             <chart:CartesianChart.AxisY>
                 <chart:Axis x:Uid="WeightChartAxis" LabelFormatter="{Binding YFormatter, ElementName=userControl}"></chart:Axis>
-
             </chart:CartesianChart.AxisY>
             <chart:CartesianChart.AxisX>
                 <chart:Axis x:Uid="Date" LabelFormatter="{Binding XFormatter, ElementName=userControl}"></chart:Axis>
-
             </chart:CartesianChart.AxisX>
         </chart:CartesianChart>
     </Grid>

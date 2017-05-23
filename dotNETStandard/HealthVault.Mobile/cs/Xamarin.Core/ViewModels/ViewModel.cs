@@ -10,46 +10,46 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
     {
         protected readonly INavigationService NavigationService;
 
-        private LoadState loadState;
+        private LoadState _loadState;
 
         public LoadState LoadState
         {
-            get { return this.loadState; }
+            get { return _loadState; }
 
             set
             {
-                this.loadState = value;
-                this.OnPropertyChanged();
+                _loadState = value;
+                OnPropertyChanged();
             }
         }
 
-        private string errorText;
+        private string _errorText;
 
         public string ErrorText
         {
-            get { return this.errorText; }
+            get { return _errorText; }
 
             set
             {
-                this.errorText = value;
-                this.OnPropertyChanged();
+                _errorText = value;
+                OnPropertyChanged();
             }
         }
 
         protected async Task LoadAsync(Func<Task> loadFunc)
         {
-            this.LoadState = LoadState.Loading;
+            LoadState = LoadState.Loading;
 
             try
             {
                 await loadFunc();
 
-                this.LoadState = LoadState.Loaded;
+                LoadState = LoadState.Loaded;
             }
             catch (Exception exception)
             {
-                this.ErrorText = exception.ToString();
-                this.LoadState = LoadState.Error;
+                ErrorText = exception.ToString();
+                LoadState = LoadState.Error;
             }
         }
 
@@ -61,8 +61,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         protected ViewModel(INavigationService navigationService)
         {
-            this.LoadState = LoadState.Loaded;
-            this.NavigationService = navigationService;
+            LoadState = LoadState.Loaded;
+            NavigationService = navigationService;
         }
 
         public virtual Task InitializeAsync(object navigationData)

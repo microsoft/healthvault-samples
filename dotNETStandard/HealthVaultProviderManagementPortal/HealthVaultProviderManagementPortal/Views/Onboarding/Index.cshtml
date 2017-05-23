@@ -20,10 +20,10 @@
 
 <p class="description">This page can be used to create user-specific invitations for your organization's remote monitoring solution. The next page will provide an invitation URL that you can provide your patient directly. </p>
 
-@using (Html.BeginForm("CreateInvite", "Onboarding")) 
+@using (Html.BeginForm("CreateInvite", "Onboarding"))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <div class="form-group">
             <div class="col-md-3">

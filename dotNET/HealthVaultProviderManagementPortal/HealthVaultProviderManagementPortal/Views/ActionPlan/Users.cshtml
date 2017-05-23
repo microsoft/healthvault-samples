@@ -19,7 +19,7 @@
             <th>Records</th>
         </tr>
     </thead>
-    
+
     <tbody>
      @foreach (var person in Model)
           {
@@ -28,11 +28,10 @@
                   <td>
                       @foreach (var record in person.AuthorizedRecords)
                       {
-                          <a href="@Url.Action("Plans", new {personId = person.PersonId, recordId = record.Value.Id})">@record.Value.Name</a><br/>
+                          <a href="@Url.Action("Plans", new {personId = person.PersonId, recordId = record.Value.Id})">@record.Value.Name</a><br />
                       }
                   </td>
               </tr>
           }
     </tbody>
-
 </table>

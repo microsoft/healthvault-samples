@@ -1,53 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HealthVault.Sample.Xamarin.Core.Services;
 using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
-using Microsoft.HealthVault.Record;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class WeightAddViewModel : ViewModel
     {
-        private readonly IHealthVaultConnection connection;
+        private readonly IHealthVaultConnection _connection;
 
         public WeightAddViewModel(
             IHealthVaultConnection connection,
             INavigationService navigationService) : base(navigationService)
         {
-            this.connection = connection;
-            this.AddCommand = new Command(async () => await this.AddWeightAsync());
+            _connection = connection;
+            AddCommand = new Command(async () => await AddWeightAsync());
         }
 
-        private string weightValue;
+        private string _weightValue;
 
         public string WeightValue
         {
-            get { return this.weightValue; }
+            get { return _weightValue; }
 
             set
             {
-                this.weightValue = value;
-                this.OnPropertyChanged();
+                _weightValue = value;
+                OnPropertyChanged();
             }
         }
 
-        private int unitsPickerIndex;
+        private int _unitsPickerIndex;
 
         public int UnitsPickerIndex
         {
-            get { return this.unitsPickerIndex; }
+            get { return _unitsPickerIndex; }
 
             set
             {
-                this.unitsPickerIndex = value;
-                this.OnPropertyChanged();
+                _unitsPickerIndex = value;
+                OnPropertyChanged();
             }
         }
 
@@ -57,9 +54,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         {
             try
             {
-                bool isMetric = this.UnitsPickerIndex == 1;
+                bool isMetric = UnitsPickerIndex == 1;
                 double weightNumber;
-                if (!double.TryParse(this.WeightValue, out weightNumber))
+                if (!double.TryParse(WeightValue, out weightNumber))
                 {
                     return;
                 }
@@ -79,15 +76,15 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                     new HealthServiceDateTime(DateTime.Now),
                     new WeightValue(kilograms, new DisplayValue(weightNumber, isMetric ? "kg" : "lbs"))));
 
-                IThingClient thingClient = this.connection.CreateThingClient();
-                var person = await this.connection.GetPersonInfoAsync();
+                IThingClient thingClient = _connection.CreateThingClient();
+                var person = await _connection.GetPersonInfoAsync();
                 await thingClient.CreateNewThingsAsync<Weight>(person.SelectedRecord.Id, weightList);
 
-                await this.NavigationService.NavigateBackAsync();
+                await NavigationService.NavigateBackAsync();
             }
             catch (Exception exception)
             {
-                await this.DisplayAlertAsync(StringResource.ErrorDialogTitle, exception.ToString());
+                await DisplayAlertAsync(StringResource.ErrorDialogTitle, exception.ToString());
             }
         }
     }

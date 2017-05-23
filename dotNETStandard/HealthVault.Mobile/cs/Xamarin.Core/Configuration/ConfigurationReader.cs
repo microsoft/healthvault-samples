@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Resources;
 using Microsoft.HealthVault.Configuration;
 using Newtonsoft.Json;
 

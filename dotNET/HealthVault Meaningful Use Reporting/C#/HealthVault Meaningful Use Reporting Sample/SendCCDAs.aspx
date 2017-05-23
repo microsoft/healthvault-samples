@@ -77,7 +77,6 @@
             <asp:Button ID="btnContributeDOPU" runat="server" Text="Send CCDA to HealthVault" OnClick="btnContributeDOPU_Click" />
             <br />
             <br />
-
         </div>
     </div>
     <div class="row">
@@ -86,5 +85,4 @@
         </div>
         <asp:Label ID="lblErrorOutput" runat="server" Text="" Style="color: red" />
     </div>
-
 </asp:Content>
