@@ -1,31 +1,18 @@
-﻿using HealthVaultMobileSample.UWP.Helpers;
-using Microsoft.HealthVault.Client;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using HealthVaultMobileSample.UWP.Helpers;
 using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
 using Microsoft.HealthVault.Thing;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace HealthVaultMobileSample.UWP.Views
 {
     /// <summary>
-    /// This page demonstrates how to query for multiple Thing types simultaneously 
-    /// and build a UX using ItemTemplateSelectors. 
+    /// This page demonstrates how to query for multiple Thing types simultaneously
+    /// and build a UX using ItemTemplateSelectors.
     /// </summary>
     public sealed partial class ThingsPage : HealthVaultBasePage
     {
@@ -42,7 +29,7 @@ namespace HealthVaultMobileSample.UWP.Views
             var items = await thingClient.GetThingsAsync(recordInfo.Id, query);
 
             //Create a grouped view of the Things by type
-            this.Groups = from colItem in items
+            Groups = from colItem in items
                           orderby (colItem as ThingBase).TypeName, (colItem as ThingBase).EffectiveDate descending
                           group colItem by (colItem as ThingBase).TypeName into newGroup
                           select newGroup;
@@ -51,7 +38,7 @@ namespace HealthVaultMobileSample.UWP.Views
 
         public ThingsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

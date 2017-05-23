@@ -1,20 +1,10 @@
-﻿using HealthVaultMobileSample.UWP.Helpers;
+﻿using System;
+using System.ComponentModel;
+using HealthVaultMobileSample.UWP.Helpers;
 using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -26,15 +16,18 @@ namespace HealthVaultMobileSample.UWP.Views.Medications
     /// </summary>
     public sealed partial class MedicationDetailsPage : Page, INotifyPropertyChanged
     {
-        private IHealthVaultConnection connection;
+        private IHealthVaultConnection _connection;
         public Medication Item { get; set; }
+
         public MedicationDetailsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         #region INotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -42,6 +35,7 @@ namespace HealthVaultMobileSample.UWP.Views.Medications
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
         #endregion
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -51,9 +45,9 @@ namespace HealthVaultMobileSample.UWP.Views.Medications
             var navParams = ((NavigationParams)e.Parameter);
             if (navParams != null)
             {
-                this.connection = navParams.Connection;
+                _connection = navParams.Connection;
 
-                this.Item = navParams.Context as Medication;
+                Item = navParams.Context as Medication;
                 OnPropertyChanged("Item");
             }
         }
@@ -62,11 +56,11 @@ namespace HealthVaultMobileSample.UWP.Views.Medications
         {
             var navParams = new NavigationParams()
             {
-                Connection = connection,
-                Context = this.Item
+                Connection = _connection,
+                Context = Item
             };
 
-            this.Frame.Navigate(typeof(EditMedication), navParams);
+            Frame.Navigate(typeof(EditMedication), navParams);
         }
     }
 }

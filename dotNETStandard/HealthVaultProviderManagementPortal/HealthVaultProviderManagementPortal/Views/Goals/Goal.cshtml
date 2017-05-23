@@ -42,8 +42,8 @@
                 @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
             </div>
             <div class="col-md-3 slim-col">
-                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })            
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })        
+                @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
         <div class="form-group">
@@ -60,7 +60,7 @@
         <div class="form-group">
             @Html.EditorFor(model => model.Range, new { htmlAttributes = new { @class = "form-control" } })
         </div>
-        
+
         <div class="form-group">
             <div class="col-md-3 slim-col">
                 @Html.LabelFor(model => model.RecurrenceMetrics.OccurrenceCount, htmlAttributes: new { @class = "control-label" })
@@ -80,4 +80,3 @@
         </div>
     </div>
 }
-

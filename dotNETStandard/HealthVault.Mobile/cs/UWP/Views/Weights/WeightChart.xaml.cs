@@ -1,23 +1,15 @@
-﻿using LiveCharts;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using LiveCharts;
 using LiveCharts.Configurations;
 using LiveCharts.Uwp;
 using Microsoft.HealthVault.ItemTypes;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Resources;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -45,6 +37,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -54,18 +47,18 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
         }
 
         /// <summary>
-        /// Updates the Chart control using the latest data available. 
+        /// Updates the Chart control using the latest data available.
         /// </summary>
         private void InitializeChart()
         {
-            if (this.Weights != null)
+            if (Weights != null)
             {
                 //Configure groups
-                this.Labels = new string[this.Weights.Count];
+                Labels = new string[Weights.Count];
                 List<double> values = new List<double>();
 
                 //Sort weight by date
-                var weightsSorted = from weight in this.Weights
+                var weightsSorted = from weight in Weights
                                     orderby weight.EffectiveDate
                                     select weight;
 
@@ -78,7 +71,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
                    .Y(dayModel => (double)converter.Convert(dayModel.Value.Kilograms, typeof(double), null, null));
 
                 //Create the Series and add data
-                this.SeriesCollection = new SeriesCollection(weightConfiguration)
+                SeriesCollection = new SeriesCollection(weightConfiguration)
                 {
                     new LineSeries
                     {
@@ -87,15 +80,15 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
                         PointGeometry = DefaultGeometries.Circle,
                         LineSmoothness = .7,
                         PointGeometrySize = 15,
-                        Foreground = this.Resources["HighlightColor"] as SolidColorBrush,
-                        Fill = (this.Resources["HighlightColorLight"] as SolidColorBrush),
-                        Stroke = this.Resources["HighlightColor"] as SolidColorBrush
+                        Foreground = Resources["HighlightColor"] as SolidColorBrush,
+                        Fill = (Resources["HighlightColorLight"] as SolidColorBrush),
+                        Stroke = Resources["HighlightColor"] as SolidColorBrush
                     }
                 };
 
                 //Configure axis formatters
-                this.YFormatter = value => value.ToString() + Helpers.WeightHelper.GetUnitDisplayString();
-                this.XFormatter = value => new System.DateTime((long)(value * TimeSpan.FromHours(1).Ticks)).ToString("d");
+                YFormatter = value => value.ToString() + Helpers.WeightHelper.GetUnitDisplayString();
+                XFormatter = value => new System.DateTime((long)(value * TimeSpan.FromHours(1).Ticks)).ToString("d");
 
                 //Send PropertyChanged events to update UX, then show chart in UX
                 OnPropertyChanged("YFormatter");
@@ -106,19 +99,19 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
                 ShowChart();
             }
         }
+
         /// <summary>
-        /// Sets visibility on the Progress and Chart controls. 
+        /// Sets visibility on the Progress and Chart controls.
         /// </summary>
         private void ShowChart()
         {
-            this.Progress.Visibility = Visibility.Collapsed;
-            this.Chart.Visibility = Visibility.Visible;
+            Progress.Visibility = Visibility.Collapsed;
+            Chart.Visibility = Visibility.Visible;
         }
 
         public WeightChart()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
-
     }
 }

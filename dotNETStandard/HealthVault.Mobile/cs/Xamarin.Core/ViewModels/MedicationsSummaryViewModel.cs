@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -9,26 +8,25 @@ using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Person;
-using Microsoft.HealthVault.Vocabulary;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class MedicationsSummaryViewModel : ViewModel
     {
-        private readonly IHealthVaultConnection connection;
+        private readonly IHealthVaultConnection _connection;
 
-        private Medication medication;
-        private ObservableCollection<MedicationItemViewRow> items;
+        private Medication _medication;
+        private ObservableCollection<MedicationItemViewRow> _items;
 
         public ObservableCollection<MedicationItemViewRow> Items
         {
-            get { return this.items; }
-                
+            get { return _items; }
+
             private set
             {
-                this.items = value;
-                this.OnPropertyChanged();
+                _items = value;
+                OnPropertyChanged();
             }
         }
 
@@ -39,8 +37,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             IHealthVaultConnection connection,
             INavigationService navigationService) : base(navigationService)
         {
-            this.connection = connection;
-            this.medication = medication;
+            _connection = connection;
+            _medication = medication;
             EditCommand = new Command(async () => await GoToEditAsync());
 
             UpdateDisplay();
@@ -48,14 +46,14 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public override async Task OnNavigateBackAsync()
         {
-            await this.LoadAsync(async () =>
+            await LoadAsync(async () =>
             {
-                IThingClient thingClient = this.connection.CreateThingClient();
-                PersonInfo personInfo = await this.connection.GetPersonInfoAsync();
+                IThingClient thingClient = _connection.CreateThingClient();
+                PersonInfo personInfo = await _connection.GetPersonInfoAsync();
 
-                this.medication = await thingClient.GetThingAsync<Medication>(personInfo.SelectedRecord.Id, this.medication.Key.Id);
+                _medication = await thingClient.GetThingAsync<Medication>(personInfo.SelectedRecord.Id, _medication.Key.Id);
 
-                this.UpdateDisplay();
+                UpdateDisplay();
                 await base.OnNavigateBackAsync();
             });
         }
@@ -67,51 +65,50 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 new MedicationItemViewRow
                 {
                     Title = StringResource.Name,
-                    Value = medication.Name?.Text ?? ""
+                    Value = _medication.Name?.Text ?? ""
                 },
                 new MedicationItemViewRow
                 {
                     Title = StringResource.Strength,
-                    Value = medication.Strength?.Display ?? ""
+                    Value = _medication.Strength?.Display ?? ""
                 },
                 new MedicationItemViewRow()
                 {
                     Title = StringResource.Dosage,
-                    Value = medication.Dose?.Display ?? ""
+                    Value = _medication.Dose?.Display ?? ""
                 },
                 new MedicationItemViewRow()
                 {
                     Title = StringResource.HowOftenTaken,
-                    Value = medication.Frequency?.Display ?? ""
+                    Value = _medication.Frequency?.Display ?? ""
                 },
                 new MedicationItemViewRow()
                 {
                     Title = StringResource.HowTaken,
-                    Value = medication.Route?.Text ?? ""
+                    Value = _medication.Route?.Text ?? ""
                 },
                 new MedicationItemViewRow()
                 {
                     Title = StringResource.ReasonForTaking,
-                    Value = medication.Indication?.Text ?? ""
+                    Value = _medication.Indication?.Text ?? ""
                 },
                 new MedicationItemViewRow()
                 {
                     Title = StringResource.DateStarted,
-                    Value = DataTypeFormatter.ApproximateDateTimeToString(medication.DateStarted)
+                    Value = DataTypeFormatter.ApproximateDateTimeToString(_medication.DateStarted)
                 },
             };
         }
 
         private async Task GoToEditAsync()
         {
-            var viewModel = new MedicationEditViewModel(medication, this.connection, this.NavigationService);
+            var viewModel = new MedicationEditViewModel(_medication, _connection, NavigationService);
 
             var medicationsMainPage = new MedicationEditPage
             {
                 BindingContext = viewModel,
             };
             await NavigationService.NavigateAsync(medicationsMainPage);
-
         }
     }
 

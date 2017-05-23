@@ -36,122 +36,122 @@ namespace HVClientSample
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonProvision = new System.Windows.Forms.Button();
-            this.textBoxWeight = new System.Windows.Forms.TextBox();
-            this.WeightLabel = new System.Windows.Forms.Label();
-            this.buttonGetWeight = new System.Windows.Forms.Button();
-            this.buttonPutWeight = new System.Windows.Forms.Button();
-            this.listViewWeight = new System.Windows.Forms.ListView();
-            this.columnHeaderWeight = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderWhen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonDeProvision = new System.Windows.Forms.Button();
-            this.labelConnectionStatus = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            buttonProvision = new System.Windows.Forms.Button();
+            textBoxWeight = new System.Windows.Forms.TextBox();
+            WeightLabel = new System.Windows.Forms.Label();
+            buttonGetWeight = new System.Windows.Forms.Button();
+            buttonPutWeight = new System.Windows.Forms.Button();
+            listViewWeight = new System.Windows.Forms.ListView();
+            columnHeaderWeight = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            columnHeaderWhen = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            buttonDeProvision = new System.Windows.Forms.Button();
+            labelConnectionStatus = new System.Windows.Forms.Label();
+            SuspendLayout();
             // 
             // buttonProvision
             // 
-            this.buttonProvision.Location = new System.Drawing.Point(13, 38);
-            this.buttonProvision.Name = "buttonProvision";
-            this.buttonProvision.Size = new System.Drawing.Size(75, 23);
-            this.buttonProvision.TabIndex = 0;
-            this.buttonProvision.Text = "Provision";
-            this.buttonProvision.UseVisualStyleBackColor = true;
-            this.buttonProvision.Click += new System.EventHandler(this.buttonProvision_Click);
+            buttonProvision.Location = new System.Drawing.Point(13, 38);
+            buttonProvision.Name = "buttonProvision";
+            buttonProvision.Size = new System.Drawing.Size(75, 23);
+            buttonProvision.TabIndex = 0;
+            buttonProvision.Text = "Provision";
+            buttonProvision.UseVisualStyleBackColor = true;
+            buttonProvision.Click += new System.EventHandler(buttonProvision_Click);
             // 
             // textBoxWeight
             // 
-            this.textBoxWeight.Location = new System.Drawing.Point(68, 154);
-            this.textBoxWeight.Name = "textBoxWeight";
-            this.textBoxWeight.Size = new System.Drawing.Size(131, 20);
-            this.textBoxWeight.TabIndex = 1;
-            this.textBoxWeight.Text = "150";
+            textBoxWeight.Location = new System.Drawing.Point(68, 154);
+            textBoxWeight.Name = "textBoxWeight";
+            textBoxWeight.Size = new System.Drawing.Size(131, 20);
+            textBoxWeight.TabIndex = 1;
+            textBoxWeight.Text = "150";
             // 
             // WeightLabel
             // 
-            this.WeightLabel.AutoSize = true;
-            this.WeightLabel.Location = new System.Drawing.Point(12, 154);
-            this.WeightLabel.Name = "WeightLabel";
-            this.WeightLabel.Size = new System.Drawing.Size(41, 13);
-            this.WeightLabel.TabIndex = 2;
-            this.WeightLabel.Text = "Weight";
+            WeightLabel.AutoSize = true;
+            WeightLabel.Location = new System.Drawing.Point(12, 154);
+            WeightLabel.Name = "WeightLabel";
+            WeightLabel.Size = new System.Drawing.Size(41, 13);
+            WeightLabel.TabIndex = 2;
+            WeightLabel.Text = "Weight";
             // 
             // buttonGetWeight
             // 
-            this.buttonGetWeight.Location = new System.Drawing.Point(15, 197);
-            this.buttonGetWeight.Name = "buttonGetWeight";
-            this.buttonGetWeight.Size = new System.Drawing.Size(52, 21);
-            this.buttonGetWeight.TabIndex = 3;
-            this.buttonGetWeight.Text = "Get";
-            this.buttonGetWeight.UseVisualStyleBackColor = true;
-            this.buttonGetWeight.Click += new System.EventHandler(this.buttonGetWeight_Click);
+            buttonGetWeight.Location = new System.Drawing.Point(15, 197);
+            buttonGetWeight.Name = "buttonGetWeight";
+            buttonGetWeight.Size = new System.Drawing.Size(52, 21);
+            buttonGetWeight.TabIndex = 3;
+            buttonGetWeight.Text = "Get";
+            buttonGetWeight.UseVisualStyleBackColor = true;
+            buttonGetWeight.Click += new System.EventHandler(buttonGetWeight_Click);
             // 
             // buttonPutWeight
             // 
-            this.buttonPutWeight.Location = new System.Drawing.Point(87, 197);
-            this.buttonPutWeight.Name = "buttonPutWeight";
-            this.buttonPutWeight.Size = new System.Drawing.Size(52, 21);
-            this.buttonPutWeight.TabIndex = 4;
-            this.buttonPutWeight.Text = "Put";
-            this.buttonPutWeight.UseVisualStyleBackColor = true;
-            this.buttonPutWeight.Click += new System.EventHandler(this.buttonPutWeight_Click);
+            buttonPutWeight.Location = new System.Drawing.Point(87, 197);
+            buttonPutWeight.Name = "buttonPutWeight";
+            buttonPutWeight.Size = new System.Drawing.Size(52, 21);
+            buttonPutWeight.TabIndex = 4;
+            buttonPutWeight.Text = "Put";
+            buttonPutWeight.UseVisualStyleBackColor = true;
+            buttonPutWeight.Click += new System.EventHandler(buttonPutWeight_Click);
             // 
             // listViewWeight
             // 
-            this.listViewWeight.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderWeight,
-            this.columnHeaderWhen});
-            this.listViewWeight.GridLines = true;
-            this.listViewWeight.Location = new System.Drawing.Point(13, 246);
-            this.listViewWeight.Name = "listViewWeight";
-            this.listViewWeight.Size = new System.Drawing.Size(237, 104);
-            this.listViewWeight.TabIndex = 5;
-            this.listViewWeight.UseCompatibleStateImageBehavior = false;
-            this.listViewWeight.View = System.Windows.Forms.View.Details;
+            listViewWeight.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            columnHeaderWeight,
+            columnHeaderWhen});
+            listViewWeight.GridLines = true;
+            listViewWeight.Location = new System.Drawing.Point(13, 246);
+            listViewWeight.Name = "listViewWeight";
+            listViewWeight.Size = new System.Drawing.Size(237, 104);
+            listViewWeight.TabIndex = 5;
+            listViewWeight.UseCompatibleStateImageBehavior = false;
+            listViewWeight.View = System.Windows.Forms.View.Details;
             // 
             // columnHeaderWeight
             // 
-            this.columnHeaderWeight.Text = "Weight";
+            columnHeaderWeight.Text = "Weight";
             // 
             // columnHeaderWhen
             // 
-            this.columnHeaderWhen.Text = "When";
+            columnHeaderWhen.Text = "When";
             // 
             // buttonDeProvision
             // 
-            this.buttonDeProvision.Location = new System.Drawing.Point(106, 38);
-            this.buttonDeProvision.Name = "buttonDeProvision";
-            this.buttonDeProvision.Size = new System.Drawing.Size(75, 23);
-            this.buttonDeProvision.TabIndex = 6;
-            this.buttonDeProvision.Text = "De-Provision";
-            this.buttonDeProvision.UseVisualStyleBackColor = true;
-            this.buttonDeProvision.Click += new System.EventHandler(this.buttonDeProvision_Click);
+            buttonDeProvision.Location = new System.Drawing.Point(106, 38);
+            buttonDeProvision.Name = "buttonDeProvision";
+            buttonDeProvision.Size = new System.Drawing.Size(75, 23);
+            buttonDeProvision.TabIndex = 6;
+            buttonDeProvision.Text = "De-Provision";
+            buttonDeProvision.UseVisualStyleBackColor = true;
+            buttonDeProvision.Click += new System.EventHandler(buttonDeProvision_Click);
             // 
             // labelConnectionStatus
             // 
-            this.labelConnectionStatus.AutoSize = true;
-            this.labelConnectionStatus.Location = new System.Drawing.Point(15, 85);
-            this.labelConnectionStatus.Name = "labelConnectionStatus";
-            this.labelConnectionStatus.Size = new System.Drawing.Size(112, 13);
-            this.labelConnectionStatus.TabIndex = 7;
-            this.labelConnectionStatus.Text = "Connection status text";
+            labelConnectionStatus.AutoSize = true;
+            labelConnectionStatus.Location = new System.Drawing.Point(15, 85);
+            labelConnectionStatus.Name = "labelConnectionStatus";
+            labelConnectionStatus.Size = new System.Drawing.Size(112, 13);
+            labelConnectionStatus.TabIndex = 7;
+            labelConnectionStatus.Text = "Connection status text";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 383);
-            this.Controls.Add(this.labelConnectionStatus);
-            this.Controls.Add(this.buttonDeProvision);
-            this.Controls.Add(this.listViewWeight);
-            this.Controls.Add(this.buttonPutWeight);
-            this.Controls.Add(this.buttonGetWeight);
-            this.Controls.Add(this.WeightLabel);
-            this.Controls.Add(this.textBoxWeight);
-            this.Controls.Add(this.buttonProvision);
-            this.Name = "MainForm";
-            this.Text = "HealthVault Client";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(284, 383);
+            Controls.Add(labelConnectionStatus);
+            Controls.Add(buttonDeProvision);
+            Controls.Add(listViewWeight);
+            Controls.Add(buttonPutWeight);
+            Controls.Add(buttonGetWeight);
+            Controls.Add(WeightLabel);
+            Controls.Add(textBoxWeight);
+            Controls.Add(buttonProvision);
+            Name = "MainForm";
+            Text = "HealthVault Client";
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 

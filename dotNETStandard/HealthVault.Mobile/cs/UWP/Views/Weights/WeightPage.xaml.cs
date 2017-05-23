@@ -1,35 +1,27 @@
-﻿using HealthVaultMobileSample.UWP.Helpers;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+using HealthVaultMobileSample.UWP.Helpers;
 using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
 using Microsoft.HealthVault.Thing;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace HealthVaultMobileSample.UWP.Views.Weights
 {
     /// <summary>
-    /// This page demonstrates how to implement a comprehensive view using the Weight type. 
+    /// This page demonstrates how to implement a comprehensive view using the Weight type.
     /// </summary>
     public sealed partial class WeightPage : HealthVaultBasePage
     {
-        private IHealthVaultConnection connection;
+        private IHealthVaultConnection _connection;
         public IReadOnlyCollection<Weight> Items { get; set; }
         public Weight Latest
         {
@@ -38,6 +30,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
                 return Items?.FirstOrDefault();
             }
         }
+
         private enum QueryTimeframeEnum
         {
             Default = 0,
@@ -46,7 +39,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
 
         public WeightPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>
@@ -56,17 +49,17 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
         public override async Task Initialize(NavigationParams navParams)
         {
             //Save the connection so that we can reuse it for updates later
-            this.connection = navParams.Connection;
+            _connection = navParams.Connection;
 
-            HealthRecordInfo recordInfo = (await connection.GetPersonInfoAsync()).SelectedRecord;
-            IThingClient thingClient = connection.CreateThingClient();
+            HealthRecordInfo recordInfo = (await _connection.GetPersonInfoAsync()).SelectedRecord;
+            IThingClient thingClient = _connection.CreateThingClient();
 
-            if (this.QueryTimeframe.SelectedIndex == (int)QueryTimeframeEnum.Default)
+            if (QueryTimeframe.SelectedIndex == (int)QueryTimeframeEnum.Default)
             {
                 //Uses a simple query which specifies the Thing type as the only filter
-                this.Items = await thingClient.GetThingsAsync<Weight>(recordInfo.Id);
+                Items = await thingClient.GetThingsAsync<Weight>(recordInfo.Id);
             }
-            else if (this.QueryTimeframe.SelectedIndex == (int)QueryTimeframeEnum.Last30d)
+            else if (QueryTimeframe.SelectedIndex == (int)QueryTimeframeEnum.Last30d)
             {
                 //In this mode, the app specifies a ThingQuery which can be used for functions like
                 //filtering, or paging through values
@@ -75,7 +68,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
                     EffectiveDateMin = DateTime.Now.AddDays(-30)
                 };
 
-                this.Items = await thingClient.GetThingsAsync<Weight>(recordInfo.Id, query);
+                Items = await thingClient.GetThingsAsync<Weight>(recordInfo.Id, query);
             }
 
             OnPropertyChanged("Items");
@@ -85,8 +78,9 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
         }
 
         #region Add Weight
+
         /// <summary>
-        /// Creates a new Weight object and publishes to HealthVault. 
+        /// Creates a new Weight object and publishes to HealthVault.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -96,9 +90,9 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
             double value;
             double kg;
 
-            if (double.TryParse(this.NewWeight.Text, out value))
+            if (double.TryParse(NewWeight.Text, out value))
             {
-                if (this.Units.SelectedIndex == 0)
+                if (Units.SelectedIndex == 0)
                 {
                     kg = value / kgToLbsFactor;
                 }
@@ -110,16 +104,16 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
                 List<Weight> list = new List<Weight>();
                 list.Add(new Weight(
                     new HealthServiceDateTime(DateTime.Now),
-                    new WeightValue(kg, new DisplayValue(value, (this.Units.SelectedValue as ComboBoxItem).Content.ToString()))));
+                    new WeightValue(kg, new DisplayValue(value, (Units.SelectedValue as ComboBoxItem).Content.ToString()))));
 
-                HealthRecordInfo recordInfo = (await this.connection.GetPersonInfoAsync()).SelectedRecord;
-                IThingClient thingClient = connection.CreateThingClient();
+                HealthRecordInfo recordInfo = (await _connection.GetPersonInfoAsync()).SelectedRecord;
+                IThingClient thingClient = _connection.CreateThingClient();
                 thingClient.CreateNewThingsAsync<Weight>(recordInfo.Id, list);
 
-                Initialize(new NavigationParams() { Connection = connection });
-                this.AddWeightPopup.IsOpen = false;
+                Initialize(new NavigationParams() { Connection = _connection });
+                AddWeightPopup.IsOpen = false;
             }
-            else // Show an error message. 
+            else // Show an error message.
             {
                 ResourceLoader loader = new ResourceLoader();
                 Windows.UI.Popups.MessageDialog messageDialog = new Windows.UI.Popups.MessageDialog(loader.GetString("InvalidWeight"));
@@ -128,7 +122,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
         }
 
         /// <summary>
-        /// Opens the AddWeightPopup and positions it just above where the user tapped. 
+        /// Opens the AddWeightPopup and positions it just above where the user tapped.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -136,43 +130,46 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
         {
             configureDefaultUnits();
 
-            var position = e.GetPosition(this.AddWeightPopup as UIElement);
-            this.AddWeightPopup.VerticalOffset = position.Y - 100;
-            this.AddWeightPopup.IsOpen = true;
+            var position = e.GetPosition(AddWeightPopup as UIElement);
+            AddWeightPopup.VerticalOffset = position.Y - 100;
+            AddWeightPopup.IsOpen = true;
         }
 
         /// <summary>
-        /// Uses the CurrentUICulture to determine the default units for new weight entries. 
+        /// Uses the CurrentUICulture to determine the default units for new weight entries.
         /// </summary>
         private void configureDefaultUnits()
         {
             if (CultureInfo.CurrentUICulture.Name == "en-US")
             {
-                this.Units.SelectedIndex = 0; //lbs
-            } else
+                Units.SelectedIndex = 0; //lbs
+            }
+            else
             {
-                this.Units.SelectedIndex = 1; //kg
+                Units.SelectedIndex = 1; //kg
             }
         }
+
         /// <summary>
-        /// Closes the AddWeightPopup. 
+        /// Closes the AddWeightPopup.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            this.AddWeightPopup.IsOpen = false;
+            AddWeightPopup.IsOpen = false;
         }
+
         #endregion
 
         /// <summary>
-        /// Calls the Initialize method any time the selected value changes.  
+        /// Calls the Initialize method any time the selected value changes.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void QueryTimeframe_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Initialize(new NavigationParams() { Connection = connection });
+            Initialize(new NavigationParams() { Connection = _connection });
         }
     }
 }

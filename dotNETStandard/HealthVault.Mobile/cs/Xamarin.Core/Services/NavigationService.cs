@@ -9,7 +9,7 @@ namespace HealthVault.Sample.Xamarin.Core.Services
     public class NavigationService : INavigationService
     {
         private Application CurrentApplication => Application.Current;
-        
+
         public async Task NavigateAsync(Page page)
         {
             await CurrentApplication.MainPage.Navigation.PushAsync(page);
@@ -22,12 +22,12 @@ namespace HealthVault.Sample.Xamarin.Core.Services
 
         public void RegisterNavigateEvents(NavigationPage navigationPage)
         {
-            navigationPage.Pushed += this.NavigationPageOnPushed;
-            navigationPage.Popped += this.NavigationPageOnPopped;
+            navigationPage.Pushed += NavigationPageOnPushed;
+            navigationPage.Popped += NavigationPageOnPopped;
 
             // Cover the corner case: the first page doesn't fire the Pushed event but we still want to
             // call the relevant methods.
-            navigationPage.Appearing += (sender, args) => this.HandleNavigationPageAppearing(navigationPage);
+            navigationPage.Appearing += (sender, args) => HandleNavigationPageAppearing(navigationPage);
         }
 
         private void NavigationPageOnPushed(object sender, NavigationEventArgs navigationEventArgs)
@@ -38,7 +38,7 @@ namespace HealthVault.Sample.Xamarin.Core.Services
 
         private void NavigationPageOnPopped(object sender, NavigationEventArgs navigationEventArgs)
         {
-            var viewModel = this.GetNextPage()?.BindingContext as ViewModel;
+            var viewModel = GetNextPage()?.BindingContext as ViewModel;
             viewModel?.OnNavigateBackAsync();
         }
 
@@ -50,7 +50,7 @@ namespace HealthVault.Sample.Xamarin.Core.Services
 
         private Page GetNextPage()
         {
-            return this.CurrentApplication.MainPage?.Navigation.NavigationStack.LastOrDefault();
+            return CurrentApplication.MainPage?.Navigation.NavigationStack.LastOrDefault();
         }
     }
 }

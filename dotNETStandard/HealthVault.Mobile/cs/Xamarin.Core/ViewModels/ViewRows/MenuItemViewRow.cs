@@ -7,11 +7,11 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows
 {
     public class MenuItemViewRow : BindableObject
     {
-        private bool opening;
+        private bool _opening;
 
         public MenuItemViewRow()
         {
-            this.OpenCommand = new Command(async o => await this.PageAction());
+            OpenCommand = new Command(async o => await PageAction());
         }
 
         public ICommand OpenCommand { get; }
@@ -24,12 +24,12 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows
 
         public bool Opening
         {
-            get { return this.opening; }
+            get { return _opening; }
 
             set
             {
-                this.opening = value;
-                this.OnPropertyChanged();
+                _opening = value;
+                OnPropertyChanged();
             }
         }
 

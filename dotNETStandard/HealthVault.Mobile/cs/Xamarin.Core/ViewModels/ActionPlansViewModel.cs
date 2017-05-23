@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using HealthVault.Sample.Xamarin.Core.Models;
 using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.Views;
 using Microsoft.HealthVault.Client;
-using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.Person;
 using Microsoft.HealthVault.RestApi;
 using Microsoft.HealthVault.RestApi.Generated;
@@ -19,28 +16,28 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class ActionPlansViewModel : ViewModel
     {
-        private readonly IHealthVaultSodaConnection connection;
+        private readonly IHealthVaultSodaConnection _connection;
 
         public ActionPlansViewModel(
             IHealthVaultSodaConnection connection,
-            INavigationService navigationService) 
+            INavigationService navigationService)
             : base(navigationService)
         {
-            this.connection = connection;
+            _connection = connection;
 
-            this.ItemSelectedCommand = new Command<ActionPlanInstance>(async o => await this.GoToActionPlanDetailsPageAsync(o));
+            ItemSelectedCommand = new Command<ActionPlanInstance>(async o => await GoToActionPlanDetailsPageAsync(o));
         }
 
-        private IEnumerable<ActionPlanInstance> plans;
+        private IEnumerable<ActionPlanInstance> _plans;
 
         public IEnumerable<ActionPlanInstance> Plans
         {
-            get { return this.plans; }
+            get { return _plans; }
 
             set
             {
-                this.plans = value;
-                this.OnPropertyChanged();
+                _plans = value;
+                OnPropertyChanged();
             }
         }
 
@@ -48,14 +45,14 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public override async Task OnNavigateToAsync()
         {
-            await this.LoadAsync(async () =>
+            await LoadAsync(async () =>
             {
-                PersonInfo personInfo = await this.connection.GetPersonInfoAsync();
+                PersonInfo personInfo = await _connection.GetPersonInfoAsync();
 
-                IMicrosoftHealthVaultRestApi restApi = this.connection.CreateMicrosoftHealthVaultRestApi(personInfo.SelectedRecord.Id);
+                IMicrosoftHealthVaultRestApi restApi = _connection.CreateMicrosoftHealthVaultRestApi(personInfo.SelectedRecord.Id);
                 var response = await restApi.GetActionPlansAsync();
 
-                this.Plans = response.Plans.Where(p => p.Status == "Recommended" || p.Status == "InProgress");
+                Plans = response.Plans.Where(p => p.Status == "Recommended" || p.Status == "InProgress");
 
                 await base.OnNavigateToAsync();
             });
@@ -65,9 +62,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         {
             var actionPlanDetailsPage = new ActionPlanDetailsPage
             {
-                BindingContext = new ActionPlanDetailsViewModel(actionPlan, this.connection, this.NavigationService),
+                BindingContext = new ActionPlanDetailsViewModel(actionPlan, _connection, NavigationService),
             };
-            await this.NavigationService.NavigateAsync(actionPlanDetailsPage);
+            await NavigationService.NavigateAsync(actionPlanDetailsPage);
         }
     }
 }

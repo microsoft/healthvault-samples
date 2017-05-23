@@ -9,7 +9,6 @@
 *@
 @model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlansResponseActionPlanInstance
 
-
 @{
     ViewBag.Title = "Action plans";
 }
@@ -24,7 +23,7 @@
         <div class="form-group">
             <div class="col-md-12">
                     <input type="submit" value="+ New sleep plan" class="btn btn-default" formaction="@Url.Action("CreateSleepPlan", new { personId = Request.Params["personId"], recordId = Request.Params["recordId"] })" />
-                    <input type="submit" value="+ New weight plan" class="btn btn-default" formaction="@Url.Action("CreateWeightPlan", new { personId = Request.Params["personId"], recordId = Request.Params["recordId"] })"/>
+                    <input type="submit" value="+ New weight plan" class="btn btn-default" formaction="@Url.Action("CreateWeightPlan", new { personId = Request.Params["personId"], recordId = Request.Params["recordId"] })" />
             </div>
         </div>
     </div>
@@ -43,7 +42,7 @@
         @foreach (var plan in Model.Plans)
         {
             <tr>
-                <td class="ms-thumbnail"><img class="img-thumbnail" src="@plan.ThumbnailImageUrl" alt="Plan thumbnail icon"/></td>
+                <td class="ms-thumbnail"><img class="img-thumbnail" src="@plan.ThumbnailImageUrl" alt="Plan thumbnail icon" /></td>
                 <td class="ms-row">@plan.Name</td>
                 <td class="ms-row">@plan.Id</td>
                 <td class="ms-row">

@@ -1,19 +1,15 @@
-﻿// Copyright (c) Microsoft Corporation.  All rights reserved. 
+﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // MIT License
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
-using HVAppCode;
-using Microsoft.Health;
 
 namespace HealthVaultProxy
 {
@@ -22,10 +18,13 @@ namespace HealthVaultProxy
     {
         [OperationContract]
         GetUpdatedRecordsResponse GetUpdatedRecords(GetUpdatedRecordsRequest request);
+
         [OperationContract]
         GetThingsResponse GetThings(GetThingsRequest request);
+
         [OperationContract]
         PutThingResponse PutThing(PutThingRequest request);            // put a single thing item by name
+
         [OperationContract]
         PutThingsResponse PutThings(PutThingsRequest request);         // put a list of thing items by type-id
     }
@@ -42,33 +41,34 @@ namespace HealthVaultProxy
     [DataContract]
     public class RecordUpdateInfo
     {
-        DateTime lastUpdateDate;
-        Guid personId;
-        Guid recordId;
+        private DateTime _lastUpdateDate;
+        private Guid _personId;
+        private Guid _recordId;
 
         public RecordUpdateInfo(DateTime dt, Guid pid, Guid rid)
         {
-            lastUpdateDate = dt;
-            personId = pid;
-            recordId = rid;
+            _lastUpdateDate = dt;
+            _personId = pid;
+            _recordId = rid;
         }
+
         [DataMember]
         public DateTime LastUpdateDate
         {
-            get { return lastUpdateDate; }
-            set { lastUpdateDate = value; }
+            get { return _lastUpdateDate; }
+            set { _lastUpdateDate = value; }
         }
         [DataMember]
         public Guid PersonId
         {
-            get { return personId; }
-            set { personId = value; }
+            get { return _personId; }
+            set { _personId = value; }
         }
         [DataMember]
         public Guid RecordId
         {
-            get { return recordId; }
-            set { recordId = value; }
+            get { return _recordId; }
+            set { _recordId = value; }
         }
     }
 
@@ -101,6 +101,7 @@ namespace HealthVaultProxy
         {
             Things = new List<string>();
         }
+
         [DataMember]
         public List<string> Things;
     }
@@ -151,5 +152,4 @@ namespace HealthVaultProxy
     {
         // FUTURE : Add methods as needed.
     }
-
 }

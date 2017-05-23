@@ -11,7 +11,7 @@ namespace HealthVault.Sample.Xamarin.UWP
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : Application
+    public sealed partial class App : Application
     {
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -19,12 +19,12 @@ namespace HealthVault.Sample.Xamarin.UWP
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var xFormsApp = new XFormsAppWin();
             xFormsApp.Init(this);
 
-            this.Suspending += OnSuspending;
+            Suspending += OnSuspending;
         }
 
         /// <summary>
@@ -34,11 +34,10 @@ namespace HealthVault.Sample.Xamarin.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+                DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
@@ -71,6 +70,7 @@ namespace HealthVault.Sample.Xamarin.UWP
                 // parameter
                 rootFrame.Navigate(typeof(MainPage), e.Arguments);
             }
+
             // Ensure the current window is active
             Window.Current.Activate();
         }
@@ -80,7 +80,7 @@ namespace HealthVault.Sample.Xamarin.UWP
         /// </summary>
         /// <param name="sender">The Frame which failed navigation</param>
         /// <param name="e">Details about the navigation failure</param>
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
@@ -95,6 +95,7 @@ namespace HealthVault.Sample.Xamarin.UWP
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
+
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }

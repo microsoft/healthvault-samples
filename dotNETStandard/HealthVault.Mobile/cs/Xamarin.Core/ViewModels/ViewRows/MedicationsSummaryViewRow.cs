@@ -8,15 +8,15 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows
     {
         public MedicationsSummaryViewRow(Medication medication)
         {
-            this.Medication = medication;
+            Medication = medication;
 
-            this.Text = medication.Name?.Text ?? "";
-            this.Detail = DataTypeFormatter.FormatMedicationDetail(medication.Strength, medication.Dose);
+            Text = medication.Name?.Text ?? "";
+            Detail = DataTypeFormatter.FormatMedicationDetail(medication.Strength, medication.Dose);
 
             string note = medication.CommonData?.Note;
             if (note != null)
             {
-                this.Note = note;
+                Note = note;
             }
             else
             {
@@ -39,7 +39,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows
                     noteParts.Add(string.Format(StringResource.ExpiredDateFormat, FormatApproximateDate(approximateDateStarted)));
                 }
 
-                this.Note = string.Join(", ", noteParts);
+                Note = string.Join(", ", noteParts);
             }
         }
 

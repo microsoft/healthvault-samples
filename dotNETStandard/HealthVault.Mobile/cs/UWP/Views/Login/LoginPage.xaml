@@ -10,20 +10,20 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Themes/Colors.xaml"/>
+                <ResourceDictionary Source="/Themes/Colors.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    
+
     <Grid Background="{ThemeResource HighlightColor}">
-        <TextBlock x:Uid="SampleName" 
+        <TextBlock x:Uid="SampleName"
                    Foreground="White"
                    HorizontalAlignment="Center"
                    Margin="10"
-                   Style="{StaticResource TitleTextBlockStyle}"/>
-        <ProgressRing IsActive="True" 
+                   Style="{StaticResource TitleTextBlockStyle}" />
+        <ProgressRing IsActive="True"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center"
-                      Foreground="White"/>
+                      Foreground="White" />
     </Grid>
 </Page>

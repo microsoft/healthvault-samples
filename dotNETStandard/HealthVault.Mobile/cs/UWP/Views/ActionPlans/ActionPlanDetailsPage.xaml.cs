@@ -1,21 +1,10 @@
 ﻿using HealthVaultMobileSample.UWP.Helpers;
+using System;
+using Windows.UI.Xaml.Controls;
 using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.RestApi.Generated.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using System.Linq;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,18 +15,18 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
     /// </summary>
     public sealed partial class ActionPlanDetailsPage : HealthVaultBasePage
     {
-        private IHealthVaultConnection connection;
+        private IHealthVaultConnection _connection;
         public ActionPlanInstance Context { get; set; }
 
         public ActionPlanDetailsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public override async Task Initialize(NavigationParams navParams)
         {
-            this.connection = navParams.Connection as IHealthVaultConnection;
-            this.Context = navParams.Context as ActionPlanInstance;
+            _connection = navParams.Connection as IHealthVaultConnection;
+            Context = navParams.Context as ActionPlanInstance;
 
             OnPropertyChanged("Context");
         }
@@ -47,13 +36,13 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
             var task = e.ClickedItem as ActionPlanTaskInstance;
             if (task.TrackingPolicy.IsAutoTrackable == true)
             {
-                var xpath = task.TrackingPolicy.TargetEvents.FirstOrDefault().ElementXPath; 
+                var xpath = task.TrackingPolicy.TargetEvents.FirstOrDefault().ElementXPath;
                 if (xpath.Contains("thing/data-xml/weight"))
                 {
-                    this.Frame.Navigate(typeof(Views.Weights.WeightPage),
+                    Frame.Navigate(typeof(Views.Weights.WeightPage),
                         new NavigationParams()
                         {
-                            Connection = this.connection
+                            Connection = _connection
                         });
                 }
             }

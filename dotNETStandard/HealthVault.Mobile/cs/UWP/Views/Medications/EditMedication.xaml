@@ -11,51 +11,50 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Views/Templates/ThingTemplates.xaml"/>
-                <ResourceDictionary Source="/Themes/Colors.xaml"/>
+                <ResourceDictionary Source="/Views/Templates/ThingTemplates.xaml" />
+                <ResourceDictionary Source="/Themes/Colors.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
-    <StackPanel DataContext="{Binding Item, ElementName=page}" 
+    <StackPanel DataContext="{Binding Item, ElementName=page}"
                 Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                Padding="20,0,20,0"
-                >
+                Padding="20,0,20,0">
         <StackPanel Margin="0,10,0,10" Visibility="{Binding Name, Converter={StaticResource NullToVisibilityConverter}}">
-            <TextBlock x:Uid="Name" Style="{StaticResource DetailsLabelTextBlockStyle}"/>
-            <TextBlock Text="{Binding Name}" Style="{StaticResource DetailsValueTextBlockStyle}"/>
+            <TextBlock x:Uid="Name" Style="{StaticResource DetailsLabelTextBlockStyle}" />
+            <TextBlock Text="{Binding Name}" Style="{StaticResource DetailsValueTextBlockStyle}" />
         </StackPanel>
         <StackPanel Margin="0,10,0,10" Visibility="{Binding Strength, Converter={StaticResource NullToVisibilityConverter}}">
-            <TextBlock x:Uid="Strength" Style="{StaticResource DetailsLabelTextBlockStyle}"/>
-            <TextBlock Text="{Binding Strength}" Style="{StaticResource DetailsValueTextBlockStyle}"/>
+            <TextBlock x:Uid="Strength" Style="{StaticResource DetailsLabelTextBlockStyle}" />
+            <TextBlock Text="{Binding Strength}" Style="{StaticResource DetailsValueTextBlockStyle}" />
         </StackPanel>
         <StackPanel Margin="0,10,0,10" Visibility="{Binding Dose, Converter={StaticResource NullToVisibilityConverter}}">
-            <TextBlock x:Uid="Dose" Style="{StaticResource DetailsLabelTextBlockStyle}"/>
-            <TextBlock Text="{Binding Dose}" Style="{StaticResource DetailsValueTextBlockStyle}"/>
+            <TextBlock x:Uid="Dose" Style="{StaticResource DetailsLabelTextBlockStyle}" />
+            <TextBlock Text="{Binding Dose}" Style="{StaticResource DetailsValueTextBlockStyle}" />
         </StackPanel>
         <StackPanel Margin="0,10,0,10" Visibility="{Binding Frequency, Converter={StaticResource NullToVisibilityConverter}}">
-            <TextBlock x:Uid="Frequency" Style="{StaticResource DetailsLabelTextBlockStyle}"/>
-            <TextBlock Text="{Binding Frequency, Converter={StaticResource StructuredMeasurementConverter}}" Style="{StaticResource DetailsValueTextBlockStyle}"/>
+            <TextBlock x:Uid="Frequency" Style="{StaticResource DetailsLabelTextBlockStyle}" />
+            <TextBlock Text="{Binding Frequency, Converter={StaticResource StructuredMeasurementConverter}}" Style="{StaticResource DetailsValueTextBlockStyle}" />
         </StackPanel>
         <StackPanel Margin="0,10,0,10" Visibility="{Binding Indication, Converter={StaticResource NullToVisibilityConverter}}">
-            <TextBlock x:Uid="Indication" Style="{StaticResource DetailsLabelTextBlockStyle}"/>
-            <TextBlock Text="{Binding Indication}" Style="{StaticResource DetailsValueTextBlockStyle}"/>
+            <TextBlock x:Uid="Indication" Style="{StaticResource DetailsLabelTextBlockStyle}" />
+            <TextBlock Text="{Binding Indication}" Style="{StaticResource DetailsValueTextBlockStyle}" />
         </StackPanel>
         <StackPanel Margin="0,10,0,10" Visibility="{Binding Route, Converter={StaticResource NullToVisibilityConverter}}">
-            <TextBlock x:Uid="Route" Style="{StaticResource DetailsLabelTextBlockStyle}"/>
-            <TextBlock Text="{Binding Route}" Style="{StaticResource DetailsValueTextBlockStyle}"/>
+            <TextBlock x:Uid="Route" Style="{StaticResource DetailsLabelTextBlockStyle}" />
+            <TextBlock Text="{Binding Route}" Style="{StaticResource DetailsValueTextBlockStyle}" />
         </StackPanel>
         <StackPanel Margin="0,10,0,10" Visibility="{Binding DateStarted, Converter={StaticResource NullToVisibilityConverter}}">
-            <TextBlock x:Uid="DateStarted" Style="{StaticResource DetailsLabelTextBlockStyle}"/>
-            <TextBlock Text="{Binding DateStarted, Converter={StaticResource ApproxDateTimeConverter}}" Style="{StaticResource DetailsValueTextBlockStyle}"/>
+            <TextBlock x:Uid="DateStarted" Style="{StaticResource DetailsLabelTextBlockStyle}" />
+            <TextBlock Text="{Binding DateStarted, Converter={StaticResource ApproxDateTimeConverter}}" Style="{StaticResource DetailsValueTextBlockStyle}" />
         </StackPanel>
         <StackPanel Margin="0,10,0,10" Visibility="{Binding DateDiscontinued, Converter={StaticResource NullToVisibilityConverter}}">
-            <TextBlock x:Uid="DateDiscontinued" Style="{StaticResource DetailsLabelTextBlockStyle}"/>
-            <TextBlock Text="{Binding DateDiscontinued, Converter={StaticResource ApproxDateTimeConverter}}" Style="{StaticResource DetailsValueTextBlockStyle}"/>
+            <TextBlock x:Uid="DateDiscontinued" Style="{StaticResource DetailsLabelTextBlockStyle}" />
+            <TextBlock Text="{Binding DateDiscontinued, Converter={StaticResource ApproxDateTimeConverter}}" Style="{StaticResource DetailsValueTextBlockStyle}" />
         </StackPanel>
         <StackPanel Margin="0,10,0,10" Visibility="{Binding Prescription, Converter={StaticResource NullToVisibilityConverter}}">
-            <TextBlock x:Uid="Prescription" Style="{StaticResource DetailsLabelTextBlockStyle}"/>
-            <TextBlock Text="{Binding Prescription}" Style="{StaticResource DetailsValueTextBlockStyle}"/>
+            <TextBlock x:Uid="Prescription" Style="{StaticResource DetailsLabelTextBlockStyle}" />
+            <TextBlock Text="{Binding Prescription}" Style="{StaticResource DetailsValueTextBlockStyle}" />
         </StackPanel>
     </StackPanel>
 </Page>

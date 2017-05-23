@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
+<ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:core="clr-namespace:HealthVault.Sample.Xamarin.Core;assembly=HealthVault.Sample.Xamarin.Core"
     xmlns:models="clr-namespace:HealthVault.Sample.Xamarin.Core.Models;assembly=HealthVault.Sample.Xamarin.Core"
-    x:Class="HealthVault.Sample.Xamarin.Core.Views.ProfilePage" 
+    x:Class="HealthVault.Sample.Xamarin.Core.Views.ProfilePage"
     Title="{x:Static core:StringResource.ProfilePageTitle}">
     <Grid BackgroundColor="{StaticResource LightPageBackground}">
-        <Grid 
+        <Grid
             Padding="10"
             IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loaded}}">
             <Grid.ColumnDefinitions>
@@ -15,58 +15,58 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="84"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="84" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Grid 
-                HorizontalOptions="Center" 
+            <Grid
+                HorizontalOptions="Center"
                 VerticalOptions="Start"
                 Grid.Row="0"
                 Grid.ColumnSpan="2">
-                <Button 
+                <Button
                     BackgroundColor="{StaticResource LightPageBackground}"
                     BorderColor="{StaticResource HighlightColor}"
                     BorderWidth="2"
                     BorderRadius="80"
                     WidthRequest="80"
                     HeightRequest="80" />
-                <Image 
-                    Source="{Binding ImageSource}" 
+                <Image
+                    Source="{Binding ImageSource}"
                     Margin="14"
                     WidthRequest="64"
                     HeightRequest="64" />
             </Grid>
-            <Label 
+            <Label
                 Grid.Row="1"
                 Grid.Column="0"
-                Text="{x:Static core:StringResource.FirstName}" 
+                Text="{x:Static core:StringResource.FirstName}"
                 VerticalTextAlignment="Center" />
-            <Entry 
+            <Entry
                 Grid.Row="2"
                 Grid.Column="0"
                 Text="{Binding FirstName}" />
 
-            <Label 
+            <Label
                 Grid.Row="1"
                 Grid.Column="1"
-                Text="{x:Static core:StringResource.LastName}" 
+                Text="{x:Static core:StringResource.LastName}"
                 VerticalTextAlignment="Center" />
-            <Entry 
+            <Entry
                 Grid.Row="2"
                 Grid.Column="1"
                 Text="{Binding LastName}" />
 
-            <Label 
+            <Label
                 Grid.Row="3"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Text="{x:Static core:StringResource.BirthDate}" 
+                Text="{x:Static core:StringResource.BirthDate}"
                 VerticalTextAlignment="Center" />
 
             <DatePicker
@@ -74,13 +74,13 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Date="{Binding BirthDate}"
-                HorizontalOptions="Start"/>
+                HorizontalOptions="Start" />
 
-            <Label 
+            <Label
                 Grid.Row="5"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Text="{x:Static core:StringResource.Gender}" 
+                Text="{x:Static core:StringResource.Gender}"
                 VerticalTextAlignment="Center" />
             <Picker
                 Grid.Row="6"
@@ -88,7 +88,7 @@
                 Grid.ColumnSpan="2"
                 ItemsSource="{Binding Genders}"
                 SelectedIndex="{Binding GenderIndex}" />
-            
+
             <Button
                 Grid.Row="7"
                 Grid.Column="0"
@@ -99,8 +99,8 @@
                 Style="{StaticResource StandardButton}" />
         </Grid>
 
-        <ActivityIndicator 
-            Style="{StaticResource PageLoadingIndicator}" 
+        <ActivityIndicator
+            Style="{StaticResource PageLoadingIndicator}"
             IsVisible="{Binding LoadState, Converter={StaticResource EnumBoolConverter}, ConverterParameter={x:Static models:LoadState.Loading}}" />
         <Label
             Text="{Binding ErrorText}"

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HealthVault.Sample.Xamarin.Core.Models;
@@ -12,38 +11,37 @@ using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
-using Microsoft.HealthVault.Vocabulary;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class MedicationsMainViewModel : ViewModel
     {
-        private readonly IHealthVaultConnection connection;
+        private readonly IHealthVaultConnection _connection;
 
-        private ObservableCollection<MedicationsSummaryViewRow> currentMedications;
-        private ObservableCollection<MedicationsSummaryViewRow> pastMedications;
+        private ObservableCollection<MedicationsSummaryViewRow> _currentMedications;
+        private ObservableCollection<MedicationsSummaryViewRow> _pastMedications;
 
         public MedicationsMainViewModel(
             IHealthVaultConnection connection,
             INavigationService navigationService) : base(navigationService)
         {
-            this.connection = connection;
+            _connection = connection;
 
-            this.ItemSelectedCommand = new Command<MedicationsSummaryViewRow>(async o => await this.GoToMedicationsSummaryPageAsync(o.Medication));
+            ItemSelectedCommand = new Command<MedicationsSummaryViewRow>(async o => await GoToMedicationsSummaryPageAsync(o.Medication));
 
-            this.LoadState = LoadState.Loading;
+            LoadState = LoadState.Loading;
         }
 
         public override async Task OnNavigateToAsync()
         {
-            await this.LoadAsync(async () =>
+            await LoadAsync(async () =>
             {
-                var person = await this.connection.GetPersonInfoAsync();
-                IThingClient thingClient = this.connection.CreateThingClient();
+                var person = await _connection.GetPersonInfoAsync();
+                IThingClient thingClient = _connection.CreateThingClient();
                 HealthRecordInfo record = person.SelectedRecord;
                 IReadOnlyCollection<Medication> items = await thingClient.GetThingsAsync<Medication>(record.Id);
-                this.UpdateDisplay(items);
+                UpdateDisplay(items);
 
                 await base.OnNavigateToAsync();
             });
@@ -51,23 +49,23 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public ObservableCollection<MedicationsSummaryViewRow> CurrentMedications
         {
-            get { return this.currentMedications; }
+            get { return _currentMedications; }
 
             private set
             {
-                this.currentMedications = value;
-                this.OnPropertyChanged();
+                _currentMedications = value;
+                OnPropertyChanged();
             }
         }
 
         public ObservableCollection<MedicationsSummaryViewRow> PastMedications
         {
-            get { return this.pastMedications; }
+            get { return _pastMedications; }
 
             private set
             {
-                this.pastMedications = value;
-                this.OnPropertyChanged();
+                _pastMedications = value;
+                OnPropertyChanged();
             }
         }
 
@@ -75,11 +73,11 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public override async Task OnNavigateBackAsync()
         {
-            var person = await this.connection.GetPersonInfoAsync();
-            IThingClient thingClient = this.connection.CreateThingClient();
+            var person = await _connection.GetPersonInfoAsync();
+            IThingClient thingClient = _connection.CreateThingClient();
             HealthRecordInfo record = person.SelectedRecord;
             IReadOnlyCollection<Medication> items = await thingClient.GetThingsAsync<Medication>(record.Id);
-            this.UpdateDisplay(items);
+            UpdateDisplay(items);
             await base.OnNavigateBackAsync();
         }
 
@@ -104,17 +102,17 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 }
             }
 
-            this.CurrentMedications = current;
-            this.PastMedications = past;
+            CurrentMedications = current;
+            PastMedications = past;
         }
 
         private async Task GoToMedicationsSummaryPageAsync(Medication medication)
         {
             var medicationsMainPage = new MedicationsSummaryPage()
             {
-                BindingContext = new MedicationsSummaryViewModel(medication, this.connection, this.NavigationService),
+                BindingContext = new MedicationsSummaryViewModel(medication, _connection, NavigationService),
             };
-            await this.NavigationService.NavigateAsync(medicationsMainPage);
+            await NavigationService.NavigateAsync(medicationsMainPage);
         }
     }
 }

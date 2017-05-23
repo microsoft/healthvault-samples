@@ -9,8 +9,6 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Microsoft.Health;
 using Microsoft.Health.ItemTypes;
@@ -22,10 +20,10 @@ namespace HVClientSample
     /// Contains sample code for provisioning a client application, creating
     /// a connection and how to retrieve data from HealthVault
     /// </summary>
-    class HVClient
+    internal class HVClient
     {
-
         #region Constructors and initialization
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -62,6 +60,7 @@ namespace HVClientSample
                 _healthClientApplication = HealthClientApplication.Create(_applicationId, _masterApplicationId, _serviceInstance);
             }
         }
+
         #endregion
 
         #region Public Properties
@@ -159,7 +158,7 @@ namespace HVClientSample
             // one recordid for the person. For more persons and records, a selection
             // UI would need to be shown
             PersonInfo personInfo = authorizedPeople[0];
-            
+
             _personId = personInfo.PersonId;
             _recordId = personInfo.SelectedRecord.Id;
             _isProvisioned = true;
@@ -208,7 +207,7 @@ namespace HVClientSample
             // attempt to remove authorization of application from server
             HealthClientAuthorizedConnection connection =
                 HealthClientApplication.CreateAuthorizedConnection(tempPersonId);
-            
+
             HealthRecordAccessor accessor = new HealthRecordAccessor(connection, tempRecordId);
             accessor.RemoveApplicationAuthorization();
 
@@ -280,6 +279,7 @@ namespace HVClientSample
         #endregion
 
         #region private vars
+
         private Guid _applicationId;
         private Guid _masterApplicationId;
         private Guid _personId;
@@ -287,7 +287,7 @@ namespace HVClientSample
         private HealthServiceInstance _serviceInstance;
         private bool _isProvisioned;
 
-        HealthClientApplication _healthClientApplication;
+        private HealthClientApplication _healthClientApplication;
 
         #endregion
     }

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using HealthVault.Sample.Xamarin.Core.Services;
-using HealthVault.Sample.Xamarin.Core.ViewModels.ViewRows;
 using HealthVault.Sample.Xamarin.Core.Views;
 using Microsoft.HealthVault.Client;
-using Microsoft.HealthVault.Person;
 using Microsoft.HealthVault.RestApi.Generated.Models;
 using Xamarin.Forms;
 
@@ -16,15 +12,15 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class ActionPlanDetailsViewModel : ViewModel
     {
-        private readonly IHealthVaultSodaConnection connection;
+        private readonly IHealthVaultSodaConnection _connection;
 
         public ActionPlanDetailsViewModel(ActionPlanInstance actionPlanInstance, IHealthVaultSodaConnection connection, INavigationService navigationService)
             : base(navigationService)
         {
-            this.connection = connection;
-            this.ItemSelectedCommand = new Command<ActionPlanTaskInstance>(async o => await this.HandleTaskSelectedAsync(o));
+            _connection = connection;
+            ItemSelectedCommand = new Command<ActionPlanTaskInstance>(async o => await HandleTaskSelectedAsync(o));
 
-            this.Plan = actionPlanInstance;
+            Plan = actionPlanInstance;
         }
 
         public ICommand ItemSelectedCommand { get; }
@@ -40,9 +36,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 {
                     var weightAddPage = new WeightAddPage
                     {
-                        BindingContext = new WeightAddViewModel(this.connection, this.NavigationService),
+                        BindingContext = new WeightAddViewModel(_connection, NavigationService),
                     };
-                    await this.NavigationService.NavigateAsync(weightAddPage);
+                    await NavigationService.NavigateAsync(weightAddPage);
                 }
             }
         }

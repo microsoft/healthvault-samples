@@ -19,19 +19,19 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid WidthRequest="76" HeightRequest="76" Margin="18">
-                    <Button 
+                    <Button
                         BackgroundColor="{StaticResource HighlightColorLight}"
                         Style="{StaticResource CircleBackgroundButton}" />
-                    
-                    <Image 
+
+                    <Image
                         Source="{Binding Plan.ThumbnailImageUrl}"
                         Style="{StaticResource LargeThumbnailImage}" />
                 </Grid>
 
-                <StackLayout 
+                <StackLayout
                     Orientation="Vertical"
-                    VerticalOptions="Center" 
-                    Grid.Column="1" 
+                    VerticalOptions="Center"
+                    Grid.Column="1"
                     Margin="0,20,20,20"
                     Spacing="0"
                     Padding="0">
@@ -40,8 +40,8 @@
                     <Label Text="{Binding Plan.Description}" IsVisible="{Binding Plan.Description, Converter={StaticResource NullVisibilityConverter}}" />
                 </StackLayout>
             </Grid>
-            <Label 
-                Text="{x:Static core:StringResource.ActionPlanObjectivesSection}" 
+            <Label
+                Text="{x:Static core:StringResource.ActionPlanObjectivesSection}"
                 Style="{StaticResource ItemHeader}"
                 Margin="15,10,0,0" />
             <controls:RepeaterView x:TypeArguments="m:Objective" ItemsSource="{Binding Plan.Objectives}" Spacing="5">
@@ -51,8 +51,8 @@
                             <Label
                                 Text="{Binding Name}"
                                 TextColor="{StaticResource HighlightColor}"
-                                FontSize="18"/>
-                            <Label 
+                                FontSize="18" />
+                            <Label
                                 Text="{Binding Description}"
                                 FontSize="15"
                                 TextColor="{StaticResource ForegroundLight}" />
@@ -60,12 +60,12 @@
                     </DataTemplate>
                 </controls:RepeaterView.ItemTemplate>
             </controls:RepeaterView>
-            <Label 
-                Text="{x:Static core:StringResource.ActionPlanTasksSection}" 
+            <Label
+                Text="{x:Static core:StringResource.ActionPlanTasksSection}"
                 Style="{StaticResource ItemHeader}"
                 Margin="15,10,0,0" />
-            <ListView 
-                ItemsSource="{Binding Plan.AssociatedTasks}" 
+            <ListView
+                ItemsSource="{Binding Plan.AssociatedTasks}"
                 HasUnevenRows="True"
                 ItemTapped="ListView_OnItemTapped">
                 <ListView.Behaviors>
@@ -76,31 +76,31 @@
                         <ViewCell>
                             <Grid Padding="20" BackgroundColor="White">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Grid 
+                                <Grid
                                     Grid.Column="0"
-                                    BackgroundColor="Transparent" 
-                                    VerticalOptions="Center" 
-                                    WidthRequest="76" 
-                                    HeightRequest="76" 
+                                    BackgroundColor="Transparent"
+                                    VerticalOptions="Center"
+                                    WidthRequest="76"
+                                    HeightRequest="76"
                                     Margin="0,0,18,0">
-                                    <Button 
+                                    <Button
                                         BackgroundColor="{StaticResource HighlightColorLight}"
                                         Style="{StaticResource CircleBackgroundButton}" />
-                                    <Image 
+                                    <Image
                                         Source="{Binding ThumbnailImageUrl}"
                                         Style="{StaticResource LargeThumbnailImage}" />
                                 </Grid>
-                                <StackLayout 
-                                    Orientation="Vertical" 
+                                <StackLayout
+                                    Orientation="Vertical"
                                     VerticalOptions="Center"
                                     Grid.Column="1"
                                     Margin="10,0,0,0">
                                     <Label Text="{Binding Name}" Style="{StaticResource ItemHeader}" />
-                                    <Label Text="{Binding OrganizationName}"/>
-                                    <Label Text="{Binding ShortDescription}"/>
+                                    <Label Text="{Binding OrganizationName}" />
+                                    <Label Text="{Binding ShortDescription}" />
                                 </StackLayout>
                             </Grid>
                         </ViewCell>

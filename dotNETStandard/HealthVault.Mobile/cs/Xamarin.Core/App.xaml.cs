@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using HealthVault.Sample.Xamarin.Core.Configuration;
+﻿using HealthVault.Sample.Xamarin.Core.Configuration;
 using HealthVault.Sample.Xamarin.Core.Services;
 using HealthVault.Sample.Xamarin.Core.ViewModels;
 using HealthVault.Sample.Xamarin.Core.Views;
@@ -12,7 +11,7 @@ namespace HealthVault.Sample.Xamarin.Core
     {
         public App()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var connection = HealthVaultConnectionFactory.Current.GetOrCreateSodaConnection(ConfigurationReader.ReadConfiguration());
 
@@ -25,7 +24,7 @@ namespace HealthVault.Sample.Xamarin.Core
             var navigationPage = new NavigationPage(mainPage) { BarBackgroundColor = Color.White, BarTextColor = Color.Black };
 
             navigationService.RegisterNavigateEvents(navigationPage);
-            this.MainPage = navigationPage;
+            MainPage = navigationPage;
         }
 
         protected override void OnStart()

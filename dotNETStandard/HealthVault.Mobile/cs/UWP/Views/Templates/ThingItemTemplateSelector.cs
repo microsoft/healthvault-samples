@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Microsoft.HealthVault.ItemTypes;
 
 namespace HealthVaultMobileSample.UWP.Views.Templates
 {
-
     /// <summary>
-    /// Chooses a template based on a ThingBase's TypeName. 
+    /// Chooses a template based on a ThingBase's TypeName.
     /// </summary>
-    public class ThingItemTemplateSelector: DataTemplateSelector
+    public class ThingItemTemplateSelector : DataTemplateSelector
     {
         public DataTemplate BloodPressure { get; set; }
         public DataTemplate Weight { get; set; }

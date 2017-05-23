@@ -1,7 +1,7 @@
-﻿// Copyright (c) Microsoft Corporation.  All rights reserved. 
+﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 // MIT License
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ""Software""), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
@@ -41,7 +41,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         public async Task<ActionResult> Plans(Guid personId, Guid recordId)
         {
             var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetActionPlansAsync(), personId, recordId);
-            return this.View(response);
+            return View(response);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         {
             var plan = Builder.CreateSleepActionPlan();
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.CreateActionPlanAsync(plan), personId, recordId);
-            return this.RedirectToRoutePlans(personId, recordId);
+            return RedirectToRoutePlans(personId, recordId);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         {
             var plan = Builder.CreateWeightActionPlan();
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.CreateActionPlanAsync(plan), personId, recordId);
-            return this.RedirectToRoutePlans(personId, recordId);
+            return RedirectToRoutePlans(personId, recordId);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         public async Task<ActionResult> Plan(Guid id, Guid personId, Guid recordId)
         {
             var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetActionPlanByIdAsync(id.ToString()), personId, recordId);
-            return this.View(response);
+            return View(response);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePlan(Guid id, Guid personId, Guid recordId)
         {
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => 
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api =>
                 api.DeleteActionPlanAsync(id.ToString()), personId, recordId);
 
             return RedirectToRoutePlans(personId, recordId);
@@ -122,7 +122,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateScheduledTask(Guid planId, Guid objectiveId, Guid personId, Guid recordId)
         {
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => 
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api =>
                 api.PostActionPlanTasksAsync(Builder.CreateSleepScheduledActionPlanTask(objectiveId.ToString(), planId)), personId, recordId);
 
             return RedirectToAction("Plan", new { id = planId, personId, recordId });
@@ -135,7 +135,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateFrequencyTask(Guid planId, Guid objectiveId, Guid personId, Guid recordId)
         {
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => 
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api =>
                 api.PostActionPlanTasksAsync(Builder.CreateSleepFrequencyActionPlanTask(objectiveId.ToString(), planId)), personId, recordId);
 
             return RedirectToAction("Plan", new { id = planId, personId, recordId });
@@ -150,7 +150,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
             if (id.HasValue)
             {
                 var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetActionPlanTasksByIdAsync(id.ToString()), personId, recordId);
-                return this.View(response);
+                return View(response);
             }
 
             var task = new ActionPlanTaskInstance();
@@ -211,7 +211,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         {
             var now = DateTime.UtcNow;
             var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetActionPlanAdherenceAsync(now.AddDays(-14), now.AddDays(1), id.ToString()), personId, recordId);
-            return this.View(response);
+            return View(response);
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
             var response = await restApi.ValidateActionPlanTasksTrackingAsync(trackingValidation);
 
-            return this.View(response);
+            return View(response);
         }
 
         /// <summary>
@@ -267,7 +267,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
         private RedirectToRouteResult RedirectToRoutePlans(Guid personId, Guid recordId)
         {
-            return this.RedirectToAction("Plans", new { personId, recordId });
+            return RedirectToAction("Plans", new { personId, recordId });
         }
     }
 }

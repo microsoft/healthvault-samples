@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -16,19 +15,19 @@ using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
-    public class WeightViewModel: ViewModel
+    public class WeightViewModel : ViewModel
     {
-        private readonly IHealthVaultConnection connection;
+        private readonly IHealthVaultConnection _connection;
         public const double KgToLbsFactor = 2.20462;
 
         public WeightViewModel(
             IHealthVaultConnection connection,
             INavigationService navigationService) : base(navigationService)
         {
-            this.connection = connection;
-            this.AddCommand = new Command(async () => await this.GoToAddWeightPageAsync());
+            _connection = connection;
+            AddCommand = new Command(async () => await GoToAddWeightPageAsync());
 
-            this.LoadState = LoadState.Loading;
+            LoadState = LoadState.Loading;
         }
 
         private void RefreshPage(IEnumerable<Weight> weights)
@@ -38,96 +37,96 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             if (weightValue != null)
             {
                 double pounds = weightValue.Kilograms * KgToLbsFactor;
-                this.LastWeightValue = pounds.ToString("N0");
-                this.LastWeightUnit = "lbs";
+                LastWeightValue = pounds.ToString("N0");
+                LastWeightUnit = "lbs";
             }
             else
             {
-                this.LastWeightValue = string.Empty;
-                this.LastWeightUnit = string.Empty;
+                LastWeightValue = string.Empty;
+                LastWeightUnit = string.Empty;
             }
 
-            this.HistoricWeightValues = weightList.Skip(1).Select(w => new WeightViewRow(w)).ToList();
+            HistoricWeightValues = weightList.Skip(1).Select(w => new WeightViewRow(w)).ToList();
         }
 
         public override async Task OnNavigateToAsync()
         {
-            await this.LoadAsync(async () =>
+            await LoadAsync(async () =>
             {
-                await this.RefreshAsync();
+                await RefreshAsync();
                 await base.OnNavigateToAsync();
             });
         }
 
         public override async Task OnNavigateBackAsync()
         {
-            await this.LoadAsync(async () =>
+            await LoadAsync(async () =>
             {
-                await this.RefreshAsync();
+                await RefreshAsync();
                 await base.OnNavigateBackAsync();
             });
         }
 
         private async Task RefreshAsync()
         {
-            var person = await this.connection.GetPersonInfoAsync();
-            IThingClient thingClient = this.connection.CreateThingClient();
+            var person = await _connection.GetPersonInfoAsync();
+            IThingClient thingClient = _connection.CreateThingClient();
             HealthRecordInfo record = person.SelectedRecord;
             IReadOnlyCollection<Weight> items = await thingClient.GetThingsAsync<Weight>(record.Id);
-            this.RefreshPage(items);
+            RefreshPage(items);
         }
 
-        private IEnumerable<WeightViewRow> historicWeightValues;
+        private IEnumerable<WeightViewRow> _historicWeightValues;
 
         public IEnumerable<WeightViewRow> HistoricWeightValues
         {
-            get { return this.historicWeightValues; }
+            get { return _historicWeightValues; }
 
             set
             {
-                this.historicWeightValues = value;
-                this.OnPropertyChanged();
+                _historicWeightValues = value;
+                OnPropertyChanged();
             }
         }
 
         public ICommand AddCommand { get; }
 
-        private string lastWeightValue;
+        private string _lastWeightValue;
 
         public string LastWeightValue
         {
-            get { return this.lastWeightValue; }
+            get { return _lastWeightValue; }
 
             set
             {
-                this.lastWeightValue = value;
-                this.OnPropertyChanged();
+                _lastWeightValue = value;
+                OnPropertyChanged();
             }
         }
 
-        private string lastWeightUnit;
+        private string _lastWeightUnit;
 
         public string LastWeightUnit
         {
-            get { return this.lastWeightUnit; }
+            get { return _lastWeightUnit; }
 
             set
             {
-                this.lastWeightUnit = value;
-                this.OnPropertyChanged();
+                _lastWeightUnit = value;
+                OnPropertyChanged();
             }
         }
 
         private async Task GoToAddWeightPageAsync()
         {
-            var viewModel = new WeightAddViewModel(this.connection, this.NavigationService);
+            var viewModel = new WeightAddViewModel(_connection, NavigationService);
 
             var medicationsMainPage = new WeightAddPage
             {
                 BindingContext = viewModel,
             };
 
-            await this.NavigationService.NavigateAsync(medicationsMainPage);
+            await NavigationService.NavigateAsync(medicationsMainPage);
         }
     }
 }

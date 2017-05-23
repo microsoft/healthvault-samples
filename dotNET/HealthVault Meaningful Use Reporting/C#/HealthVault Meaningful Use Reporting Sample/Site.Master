@@ -25,7 +25,7 @@
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-    <script type="text/javascript">        
+    <script type="text/javascript">
         function ToggleVisible(id) {
             var elem = document.getElementById(id);
             if (elem.style.display == "none") {
@@ -35,7 +35,6 @@
             }
         }
     </script>
-
 </head>
 <body>
     <form runat="server">
@@ -87,7 +86,6 @@
                 <p>&copy; <%: DateTime.Now.Year %> - Microsoft Corporation - HealthVault Meaningful Use Reporting Sample</p>
             </footer>
         </div>
-
     </form>
 </body>
 </html>

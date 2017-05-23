@@ -1,17 +1,13 @@
-﻿using Microsoft.HealthVault.ItemTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Microsoft.HealthVault.ItemTypes;
 using Windows.UI.Xaml.Data;
 
 namespace HealthVaultMobileSample.UWP.Converters
 {
     /// <summary>
-    /// Converts an ApproximateDateTime to a string. 
+    /// Converts an ApproximateDateTime to a string.
     /// </summary>
-    public class ApproximateDateTimeConverter: IValueConverter
+    public class ApproximateDateTimeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
@@ -19,7 +15,7 @@ namespace HealthVaultMobileSample.UWP.Converters
             {
                 var approxDateTime = value as ApproximateDateTime;
 
-                // If ApproximateDateTime.Description is set, then we don't expect anything else to be present. Just output that content directly. 
+                // If ApproximateDateTime.Description is set, then we don't expect anything else to be present. Just output that content directly.
                 if (!String.IsNullOrEmpty(approxDateTime.Description))
                 {
                     return approxDateTime.Description;

@@ -16,8 +16,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 {
     public class MedicationEditViewModel : ViewModel
     {
-        private readonly Medication medication;
-        private readonly IHealthVaultConnection connection;
+        private readonly Medication _medication;
+        private readonly IHealthVaultConnection _connection;
 
         public MedicationEditViewModel(
             Medication medication,
@@ -25,8 +25,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             INavigationService navigationService)
             : base(navigationService)
         {
-            this.medication = medication;
-            this.connection = connection;
+            _medication = medication;
+            _connection = connection;
             DosageType = medication.Dose?.Display ?? "";
             Strength = medication.Strength?.Display ?? "";
             ReasonForTaking = medication.Indication?.Text ?? "";
@@ -34,27 +34,27 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             SaveCommand = new Command(async () => await SaveAsync(medication));
         }
 
-        private IList<VocabularyItem> ingredientChoices;
+        private IList<VocabularyItem> _ingredientChoices;
         public IList<VocabularyItem> IngredientChoices
         {
-            get { return this.ingredientChoices; }
+            get { return _ingredientChoices; }
 
             set
             {
-                this.ingredientChoices = value;
-                this.OnPropertyChanged();
+                _ingredientChoices = value;
+                OnPropertyChanged();
             }
         }
 
-        private VocabularyItem name;
+        private VocabularyItem _name;
         public VocabularyItem Name
         {
-            get { return this.name; }
+            get { return _name; }
 
             set
             {
-                this.name = value;
-                this.OnPropertyChanged();
+                _name = value;
+                OnPropertyChanged();
             }
         }
 
@@ -68,9 +68,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         public override async Task OnNavigateToAsync()
         {
-            await this.LoadAsync(async () =>
+            await LoadAsync(async () =>
             {
-                IVocabularyClient vocabClient = this.connection.CreateVocabularyClient();
+                IVocabularyClient vocabClient = _connection.CreateVocabularyClient();
                 var ingredientChoices = new List<VocabularyItem>();
 
                 Vocabulary ingredientVocabulary = null;
@@ -97,11 +97,11 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                     }
                 }
 
-                this.IngredientChoices = ingredientChoices.OrderBy(c => c.DisplayText).ToList();
+                IngredientChoices = ingredientChoices.OrderBy(c => c.DisplayText).ToList();
 
-                if (medication.Name.Count > 0)
+                if (_medication.Name.Count > 0)
                 {
-                    Name = this.IngredientChoices.FirstOrDefault(c => c.Value == medication.Name[0]?.Value);
+                    Name = IngredientChoices.FirstOrDefault(c => c.Value == _medication.Name[0]?.Value);
                 }
 
                 await base.OnNavigateToAsync();
@@ -112,8 +112,8 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         {
             UpdateMedication(medication);
 
-            IThingClient thingClient = this.connection.CreateThingClient();
-            PersonInfo personInfo = await this.connection.GetPersonInfoAsync();
+            IThingClient thingClient = _connection.CreateThingClient();
+            PersonInfo personInfo = await _connection.GetPersonInfoAsync();
 
             await thingClient.UpdateThingsAsync(personInfo.SelectedRecord.Id, new Collection<Medication>() { medication });
 
@@ -122,9 +122,9 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
         private void UpdateMedication(Medication medication)
         {
-            if (this.Name != null)
+            if (Name != null)
             {
-                medication.Name = new CodableValue(this.Name.DisplayText, this.Name);
+                medication.Name = new CodableValue(Name.DisplayText, Name);
             }
             bool empty = string.IsNullOrWhiteSpace(DosageType) && medication.Dose == null;
             if (!empty)

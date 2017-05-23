@@ -15,12 +15,12 @@
     <div class="jumbotron">
         <h1>Meaningful Use Reporting</h1>
         <p class="lead">HealthVault has EHR modular certification for the following Meaningful Use Stage 2 objectives:</p>
-            <ul>
-                <li>View, download, and transmit to a 3rd party (inpatient settings)</li>
-                <li>View, download, and transmit to a 3rd party (ambulatory settings)</li>
-                <li>Automated numerator recording (inpatient settings)</li>
-                <li>Automated numerator recording (ambulatory settings).</li>
-            </ul>
+        <ul>
+            <li>View, download, and transmit to a 3rd party (inpatient settings)</li>
+            <li>View, download, and transmit to a 3rd party (ambulatory settings)</li>
+            <li>Automated numerator recording (inpatient settings)</li>
+            <li>Automated numerator recording (ambulatory settings).</li>
+        </ul>
         <p><a href="https://www.healthvault.com/en-us/healthvault-meaningful-use/" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
@@ -28,7 +28,7 @@
         <div class="col-md-4">
             <h2>Send CCDAs to HealthVault</h2>
             <p>
-                Submit Consolidated Clinical Document Architecture encoded documents to HealthVault. 
+                Submit Consolidated Clinical Document Architecture encoded documents to HealthVault.
             </p>
             <p>
                 <a class="btn btn-default" runat="server" href="~/SendCCDAs.aspx">Learn more &raquo;</a>
@@ -43,7 +43,5 @@
                 <a class="btn btn-default" runat="server" href="~/Reporting.aspx">Learn more &raquo;</a>
             </p>
         </div>
-
     </div>
-
 </asp:Content>

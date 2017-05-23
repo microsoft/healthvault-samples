@@ -1,9 +1,5 @@
-﻿using Microsoft.HealthVault.ItemTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Microsoft.HealthVault.ItemTypes;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Data;
 
@@ -15,8 +11,8 @@ namespace HealthVaultMobileSample.UWP.Converters
         {
             ResourceLoader loader = new ResourceLoader();
             var structured = (value as GeneralMeasurement);
-            if (structured != null && 
-                structured.Structured != null && 
+            if (structured != null &&
+                structured.Structured != null &&
                 structured.Structured.Count > 0)
             {
                 var item = structured.Structured[0];

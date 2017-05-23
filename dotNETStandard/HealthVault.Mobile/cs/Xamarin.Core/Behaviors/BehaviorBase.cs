@@ -27,7 +27,7 @@ namespace HealthVault.Sample.Xamarin.Core.Behaviors
             AssociatedObject = null;
         }
 
-        void OnBindingContextChanged(object sender, EventArgs e)
+        private void OnBindingContextChanged(object sender, EventArgs e)
         {
             OnBindingContextChanged();
         }
@@ -39,4 +39,3 @@ namespace HealthVault.Sample.Xamarin.Core.Behaviors
         }
     }
 }
-

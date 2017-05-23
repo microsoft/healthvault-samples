@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
 
 namespace HealthVaultMobileSample.UWP.Converters
 {
-    public class WeightConverter: IValueConverter
+    public class WeightConverter : IValueConverter
     {
-
         /// <summary>
         /// Decides whether to convert the input kg into pounds or to leave them alone based on the CurrentUICulture
         /// </summary>
@@ -28,10 +23,10 @@ namespace HealthVaultMobileSample.UWP.Converters
                 default:
                     return kg;
             }
-            
         }
+
         /// <summary>
-        /// Decides whether the input value is in lbs or kg using the CurrentUICulture, and then converts to kg as appropriate. 
+        /// Decides whether the input value is in lbs or kg using the CurrentUICulture, and then converts to kg as appropriate.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="targetType"></param>
@@ -48,6 +43,5 @@ namespace HealthVaultMobileSample.UWP.Converters
                     return value;
             }
         }
-
     }
 }
