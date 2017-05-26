@@ -81,4 +81,50 @@
 	<dimen name="profileimagelayout_marginleftt">142dp</dimen>
 	<dimen name="profileimagelayout_marginbottom">28dp</dimen>
 
+	<!--Medications -->
+	<dimen name="medication_main_marginleft">20dp</dimen>
+	<dimen name="medication_main_marginright">125dp</dimen>
+	<dimen name="medication_main_margintop">22dp</dimen>
+	<dimen name="medication_main_height">24dp</dimen>
+	<dimen name="medication_main_width">215dp</dimen>
+	<dimen name="medication_list_width">360dp</dimen>
+	<dimen name="medication_list_height">88dp</dimen>
+	<dimen name="medication_textsize">24sp</dimen>
+	<!--Medications record-->
+	<dimen name="medicationname_marginleft">20dp</dimen>
+	<dimen name="medicationname_margintop">12dp</dimen>
+	<dimen name="medicationname_width">86dp</dimen>
+	<dimen name="medicationname_height">24dp</dimen>
+	<dimen name="medicationname_textsize">18sp</dimen>
+
+	<dimen name="medicationdose_marginleft">20dp</dimen>
+	<dimen name="medicationdose_width">200dp</dimen>
+	<dimen name="medicationdose_height">20dp</dimen>
+	<dimen name="medication_dose_textsize">15sp</dimen>
+
+	<dimen name="medicationprescribe_marginleft">20dp</dimen>
+	<dimen name="medicationprescribe_width">187dp</dimen>
+	<dimen name="medicationprescribe_height">18dp</dimen>
+	<dimen name="medicationprescribe_textsize">12sp</dimen>
+
+	<dimen name="medicationdislosureimage_marginleft">115dp</dimen>
+	<dimen name="medicationdislosureimage_marginright">20dp</dimen>
+	<dimen name="medicationdislosureimage_height">19dp</dimen>
+	<dimen name="medicationdislosureimage_width">9dp</dimen>
+
+	<!--Add Medications record-->
+	<dimen name="add_medicationlabels_hight">20dp</dimen>
+	<dimen name="add_medicationlabels_top">16dp</dimen>
+	<dimen name="add_medicationlabels_marginleft">20dp</dimen>
+	<dimen name="add_medicationlabels_textsize">15sp</dimen>
+
+	<dimen name="add_medicationtext_hight">24dp</dimen>
+	<dimen name="add_medicationtext_textsize">15sp</dimen>
+	<dimen name="add_medicationtext_padding">20dp</dimen>
+
+	<dimen name="add_medicationbutton_hight">48dp</dimen>
+	<dimen name="add_medicationbutton_top">35dp</dimen>
+	<dimen name="add_medicationbutton_marginleft">20dp</dimen>
+	<dimen name="add_medicationbutton_marginright">20dp</dimen>
+
 </resources>

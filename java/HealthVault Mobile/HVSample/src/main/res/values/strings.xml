@@ -56,18 +56,16 @@
 	<string name="sample_weight">150</string>
 
 	<!--Medication Page -->
+
+
+	<!--Add Medication Page -->
 	<string name="name_label">Name</string>
-	<string name="sample_name_text">Duloxetine</string>
-	<string name="dosagetype_label">Dosage type</string>
 	<string name="strength_label">Strength</string>
-	<string name="sample_strength_text">37.5 mg</string>
-	<string name="treatmentprovider_label">Treatment provider</string>
+	<string name="dosagetype_label">Dosage</string>
+	<string name="howoften_label">How often taken?</string>
+	<string name="howtaken_label">How taken?</string>
 	<string name="reason_label">Reason for taking</string>
-	<string name="sample_reason_text">Select</string>
 	<string name="datestarted_label">Date started</string>
-	<string name="sample_datestarted_value1_text">Value1</string>
-	<string name="sample_datestarted_value2_text">Value2</string>
-	<string name="sample_datestarted_value3_text">Value3</string>
-	<string name="save_button">Save</string>
+	<string name="edit_button">Edit details</string>
 
 </resources>

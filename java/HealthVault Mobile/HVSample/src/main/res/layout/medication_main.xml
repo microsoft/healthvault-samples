@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#e3e3e3"
+	android:id="@+id/medication_layout">
+
+	<TextView
+		android:id="@+id/medication_title"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/medication_main_height"
+		android:layout_marginTop="@dimen/medication_main_margintop"
+		android:layout_marginLeft="@dimen/medication_main_marginleft"
+		android:textSize="@dimen/medicationname_textsize"
+		android:text="Main medication Page"
+		android:textColor="@color/pine_green"/>
+	<RelativeLayout
+		android:id="@+id/meds_details_layout"
+		android:layout_marginTop="20dp"
+		android:background="@color/white"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/medication_list_height">
+		<TextView
+			android:id="@+id/medication_name"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/medication_main_height"
+			android:layout_marginLeft="@dimen/medicationname_marginleft"
+			android:layout_marginTop="@dimen/medicationname_margintop"
+			android:textSize="@dimen/medicationname_textsize"
+			android:textColor="@color/pine_green"
+			android:text="medication_name"/>
+		<TextView
+			android:id="@+id/dosage_strength"
+			android:layout_width="@dimen/medicationdose_width"
+			android:layout_height="@dimen/medicationdislosureimage_height"
+			android:layout_marginLeft="@dimen/medicationdose_marginleft"
+			android:textSize="@dimen/medication_dose_textsize"
+			android:textColor="@color/pine_green"
+			android:text="dosage_strength"
+			android:layout_below="@id/medication_name"/>
+
+		<TextView
+			android:id="@+id/prescribed_date"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/medicationprescribe_height"
+			android:layout_marginLeft="@dimen/medicationprescribe_marginleft"
+			android:textColor="@color/old_lavender"
+			android:layout_below="@id/dosage_strength"/>
+
+		<ImageView
+			android:id="@+id/image_view"
+			android:layout_width="@dimen/medicationdislosureimage_width"
+			android:layout_height="@dimen/medicationdislosureimage_height"
+			android:layout_marginRight="@dimen/medicationdislosureimage_marginright"
+			android:layout_marginLeft="@dimen/medicationdislosureimage_marginleft"
+			android:src="@drawable/disclosure_icon"
+			android:layout_toRightOf="@id/dosage_strength"
+			android:layout_below="@id/medication_name"/>
+	</RelativeLayout>
+</LinearLayout>

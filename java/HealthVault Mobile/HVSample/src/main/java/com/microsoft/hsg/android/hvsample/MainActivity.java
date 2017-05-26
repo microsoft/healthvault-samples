@@ -79,12 +79,12 @@ public class MainActivity extends ListActivity implements HealthVaultInitializat
 			}
 		});
 
-		LinearLayout addMeddicationTile = (LinearLayout) findViewById(R.id.medication_tile);
-		addMeddicationTile.setOnClickListener(new View.OnClickListener(){
+		LinearLayout meddicationTile = (LinearLayout) findViewById(R.id.medication_tile);
+		meddicationTile.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View view) {
 			if (mService.isAppConnected()) {
-				startActivity(new Intent(MainActivity.this, AddMedicationActivity.class));
+				startActivity(new Intent(MainActivity.this, MainMedicationActivity.class));
 			} else {
 				Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
 			}
@@ -173,7 +173,7 @@ public class MainActivity extends ListActivity implements HealthVaultInitializat
 					intent = new Intent(MainActivity.this, ProfileActivity.class);
 					break;
 				case 2:
-					intent = new Intent(MainActivity.this, AddMedicationActivity.class);
+					intent = new Intent(MainActivity.this, MainMedicationActivity.class);
 					break;
 			}
 		} if(intent != null) {

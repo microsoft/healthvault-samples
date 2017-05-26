@@ -34,11 +34,52 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class ProfileActivity extends Activity {
+	private HealthVaultApp mService;
+	private HealthVaultClient mHVClient;
+	private Record mCurrentRecord;
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.profile);
+		mService = HealthVaultApp.getInstance();
+		mHVClient = new HealthVaultClient();
 
 		setTitle("Profile Sample");
+	}
+
+	private void populateProfile() {
+		final EditText firstName = (EditText) findViewById(R.id.firstNameText);
+		final EditText secondtName = (EditText) findViewById(R.id.firstNameText);
+		firstName.setText("hatim");
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mHVClient.start();
+		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
+		populateProfile();
+	}
+
+	@Override
+	protected void onPause() {
+		mHVClient.stop();
+		super.onPause();
+	}
+
+	public class ProfileCallback<Object> implements RequestCallback {
+		public ProfileCallback() {
+		}
+
+		@Override
+		public void onError(HVException exception) {
+			Toast.makeText(ProfileActivity.this, String.format("An error occurred.  " + exception.getMessage()), Toast.LENGTH_LONG).show();
+		}
+
+		@Override
+		public void onSuccess(java.lang.Object obj) {
+			populateProfile();
+		}
 	}
 }

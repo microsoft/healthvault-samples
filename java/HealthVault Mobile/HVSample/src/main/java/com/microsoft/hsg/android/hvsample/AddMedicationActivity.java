@@ -13,6 +13,7 @@ import com.microsoft.hsg.android.simplexml.client.RequestCallback;
 import com.microsoft.hsg.android.simplexml.methods.getthings3.request.ThingRequestGroup2;
 import com.microsoft.hsg.android.simplexml.methods.getthings3.response.ThingResponseGroup2;
 import com.microsoft.hsg.android.simplexml.things.thing.Thing2;
+import com.microsoft.hsg.android.simplexml.things.types.medication.Medication;
 import com.microsoft.hsg.android.simplexml.things.types.types.PersonInfo;
 import com.microsoft.hsg.android.simplexml.things.types.types.Record;
 import com.microsoft.hsg.android.simplexml.things.types.weight.Weight;
@@ -27,6 +28,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,11 +36,90 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class AddMedicationActivity extends Activity {
+	private HealthVaultApp mService;
+	private HealthVaultClient mHVClient;
+	private Record mCurrentRecord;
+	private int mIndex = 0;
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_medication);
+		Button editButton = (Button) findViewById(R.id.editdetails_button);
+		mService = HealthVaultApp.getInstance();
+		mHVClient = new HealthVaultClient();
+		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
 
-		setTitle("Add medication Sample");
+		Intent mIntent = getIntent();
+		mIndex = mIntent.getIntExtra("index", 0);
+
+		editButton.setEnabled(false);
+		//displayMedication();
+
+		setTitle("Medication details sample");
+	}
+
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mHVClient.start();
+		displayMedication();
+	}
+
+
+	@Override
+	protected void onPause() {
+		mHVClient.stop();
+		super.onPause();
+	}
+
+	private void displayMedication() {
+		mHVClient.asyncRequest(mCurrentRecord.getThingsAsync(ThingRequestGroup2.thingTypeQuery(Medication.ThingType)),
+				new medicationRecordCallback());
+	}
+
+	private void renderMedicationRecord(List<Thing2> things) {
+		if(!things.isEmpty()) {
+			Medication meds = (Medication) things.get(mIndex).getDataXml().getAny().getThing().getData();
+
+			TextView medsName = (TextView) findViewById(R.id.name_text);
+			TextView strength = (TextView) findViewById(R.id.strength_text);
+			TextView dosage = (TextView) findViewById(R.id.dosagetype_text);
+			TextView often = (TextView) findViewById(R.id.howoften_text);
+			TextView taken = (TextView) findViewById(R.id.howtaken_text);
+			TextView reason = (TextView) findViewById(R.id.reason_text);
+			TextView dateStarted = (TextView) findViewById(R.id.datestarted_text);
+
+			medsName.setText(meds.getName().getText());
+			strength.setText(meds.getStrength().getDisplay().toString());
+			dosage.setText(meds.getDose().getDisplay());
+			often.setText(meds.getFrequency().getDisplay());
+			taken.setText(meds.getRoute().getText());
+			reason.setText(meds.getIndication().getText());
+			final String monthStart = String.valueOf(meds.getDateStarted().getStructured().getDate().getM());
+			final String dayStart = String.valueOf(meds.getDateStarted().getStructured().getDate().getD());
+			final String yearStart = String.valueOf(meds.getDateStarted().getStructured().getDate().getY());
+			final String prescribed = String.format(monthStart + "/" + dayStart + "/" + yearStart);
+			dateStarted.setText(prescribed);
+		} else {
+			Toast.makeText(AddMedicationActivity.this, "Unable to get medication with this index!", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	public class medicationRecordCallback<Object> implements RequestCallback {
+
+		public medicationRecordCallback() {
+		}
+
+		@Override
+		public void onError(HVException exception) {
+			Toast.makeText(AddMedicationActivity.this, String.format("An error occurred.  " + exception.getMessage()), Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onSuccess(java.lang.Object obj) {
+			renderMedicationRecord(((ThingResponseGroup2)obj).getThing());
+		}
 	}
 }

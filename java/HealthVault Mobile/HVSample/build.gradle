@@ -9,7 +9,11 @@ android {
         minSdkVersion 23
         targetSdkVersion 23
     }
-
+    repositories {
+        maven {
+            url 'https://maven.google.com'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -27,4 +31,5 @@ dependencies {
     compile 'com.jjoe64:graphview:4.2.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
