@@ -38,7 +38,7 @@ public class MainActivity extends ListActivity implements HealthVaultInitializat
 	private HealthVaultApp mService;
 	private HealthVaultClient mHVClient;
 	private BottomNavigationView mBottomNav;
-	private static final String mMasterAppId  = "c6ba979f-c342-4408-a2bc-0dfb43b2bf8d";
+	private static final String mMasterAppId  = "e92b8605-ad54-4d48-829f-1a5f1dfbe40f";
 	private static final String mServiceUrl  = "https://platform.healthvault-ppe.com/platform/wildcat.ashx";
 	private static final String mShellUrl  = "https://account.healthvault-ppe.com";
 	private ProgressDialog mConnectProgressDialog;
@@ -55,7 +55,7 @@ public class MainActivity extends ListActivity implements HealthVaultInitializat
 
 		mHVClient = new HealthVaultClient();
 
-		final LinearLayout weightTile = (LinearLayout) findViewById(R.id.weight_tile);
+		final RelativeLayout weightTile = (RelativeLayout) findViewById(R.id.weight_tile);
 		weightTile.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -67,7 +67,7 @@ public class MainActivity extends ListActivity implements HealthVaultInitializat
 			}
 		});
 
-		LinearLayout profileTile = (LinearLayout) findViewById(R.id.profile_tile);
+		final RelativeLayout profileTile = (RelativeLayout) findViewById(R.id.profile_tile);
 		profileTile.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View view) {
@@ -79,7 +79,7 @@ public class MainActivity extends ListActivity implements HealthVaultInitializat
 			}
 		});
 
-		LinearLayout meddicationTile = (LinearLayout) findViewById(R.id.medication_tile);
+		final RelativeLayout meddicationTile = (RelativeLayout) findViewById(R.id.medication_tile);
 		meddicationTile.setOnClickListener(new View.OnClickListener(){
 			@Override
 			public void onClick(View view) {
@@ -88,6 +88,18 @@ public class MainActivity extends ListActivity implements HealthVaultInitializat
 			} else {
 				Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
 			}
+			}
+		});
+
+		final RelativeLayout actionPlanTile = (RelativeLayout) findViewById(R.id.actionplan_tile);
+		actionPlanTile.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				if (mService.isAppConnected()) {
+					startActivity(new Intent(MainActivity.this, ActionPlanActivity.class));
+				} else {
+					Toast.makeText(MainActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 	}
@@ -174,6 +186,9 @@ public class MainActivity extends ListActivity implements HealthVaultInitializat
 					break;
 				case 2:
 					intent = new Intent(MainActivity.this, MainMedicationActivity.class);
+					break;
+				case 3:
+					intent = new Intent(MainActivity.this, ActionPlanActivity.class);
 					break;
 			}
 		} if(intent != null) {

@@ -124,7 +124,8 @@ public class WeightActivity extends Activity {
 				final int day = weight.getWhen().getDate().getD();
 				final int year = weight.getWhen().getDate().getY();
 				mAdapter.add(String.valueOf(String.format(month + "/" + day + "/" + year)
-						+ "                                  " + String.valueOf(weight.getValue().getKg())));
+						+ "                                            " +
+						String.valueOf(weight.getValue().getKg().shortValue())));
 
 				// Populate the weight chart data points
 				DataPoint dataPoint = new DataPoint(xPoint, weight.getValue().getKg().intValue());

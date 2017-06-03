@@ -49,9 +49,16 @@ public class ProfileActivity extends Activity {
 	}
 
 	private void populateProfile() {
-		final EditText firstName = (EditText) findViewById(R.id.firstNameText);
-		final EditText secondtName = (EditText) findViewById(R.id.firstNameText);
-		firstName.setText("hatim");
+		final EditText firstNameEditText = (EditText) findViewById(R.id.firstNameText);
+		final EditText secondtNameEditText = (EditText) findViewById(R.id.lastNameText);
+
+		String name = mCurrentRecord.getName();
+		String[] firstLastName = name.split(" ");
+		String fisrtName = firstLastName[0];
+		String lasttName = firstLastName[1];
+		firstNameEditText.setText(fisrtName);
+		secondtNameEditText.setText(lasttName);
+
 	}
 
 	@Override

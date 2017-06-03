@@ -1,65 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:orientation="vertical">
 
 	<!-- Name Labels/Text -->
 	<TextView
 		android:id="@+id/name_label"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:layout_marginTop="@dimen/add_medicationlabels_top"
-		android:layout_marginLeft="@dimen/add_medicationlabels_marginleft"
-		android:textSize="@dimen/add_medicationlabels_textsize"
+		android:layout_height="@dimen/add_medication_labels_hight"
+		android:layout_marginTop="@dimen/add_medication_labels_top"
+		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
 		android:text="@string/name_label" />
 	<TextView
 		android:id="@+id/name_text"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:textSize="@dimen/add_medicationlabels_textsize"
-		android:paddingLeft="@dimen/add_medicationtext_padding"
-		android:textColor="@color/pine_green"
-		android:layout_below="@+id/name_label"/>
+		android:layout_height="@dimen/add_medication_text_hight"
+		android:textSize="@dimen/add_medication_labels_text_size"
+		android:paddingLeft="@dimen/add_medication_text_padding"
+		android:textColor="@color/pine_green"/>
 
 	<TextView
 		android:id="@+id/strength_label"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:layout_marginTop="@dimen/add_medicationlabels_top"
-		android:layout_marginLeft="@dimen/add_medicationlabels_marginleft"
-		android:textSize="@dimen/add_medicationlabels_textsize"
-		android:layout_below="@id/name_text"
+		android:layout_height="@dimen/add_medication_labels_hight"
+		android:layout_marginTop="@dimen/add_medication_labels_top"
+		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
 		android:text="@string/strength_label" />
 
 	<TextView
 		android:id="@+id/strength_text"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:textSize="@dimen/add_medicationlabels_textsize"
-		android:paddingLeft="@dimen/add_medicationtext_padding"
-		android:textColor="@color/pine_green"
-		android:layout_below="@id/strength_label"/>
+		android:layout_height="@dimen/add_medication_text_hight"
+		android:textSize="@dimen/add_medication_labels_text_size"
+		android:paddingLeft="@dimen/add_medication_text_padding"
+		android:textColor="@color/pine_green"/>
 	<!-- Dosage Labels/Text -->
 	<TextView
 		android:id="@+id/dosagetype_label"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:layout_marginTop="@dimen/add_medicationlabels_top"
-		android:layout_marginLeft="@dimen/add_medicationlabels_marginleft"
-		android:textSize="@dimen/add_medicationlabels_textsize"
-		android:layout_below="@id/strength_text"
+		android:layout_height="@dimen/add_medication_labels_hight"
+		android:layout_marginTop="@dimen/add_medication_labels_top"
+		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
 		android:text="@string/dosagetype_label" />
 
 	<TextView
 		android:id="@+id/dosagetype_text"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:textSize="@dimen/add_medicationlabels_textsize"
-		android:paddingLeft="@dimen/add_medicationtext_padding"
-		android:layout_below="@id/dosagetype_label"
+		android:layout_height="@dimen/add_medication_text_hight"
+		android:textSize="@dimen/add_medication_labels_text_size"
+		android:paddingLeft="@dimen/add_medication_text_padding"
 		android:textColor="@color/pine_green"/>
 
 
@@ -67,94 +63,84 @@
 	<TextView
 		android:id="@+id/howoften_label"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:layout_marginTop="@dimen/add_medicationlabels_top"
-		android:layout_marginLeft="@dimen/add_medicationlabels_marginleft"
-		android:textSize="@dimen/add_medicationlabels_textsize"
+		android:layout_height="@dimen/add_medication_labels_hight"
+		android:layout_marginTop="@dimen/add_medication_labels_top"
+		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
-		android:layout_below="@id/dosagetype_text"
 		android:text="@string/howoften_label" />
 
 	<TextView
 		android:id="@+id/howoften_text"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:textSize="@dimen/add_medicationlabels_textsize"
-		android:paddingLeft="@dimen/add_medicationtext_padding"
-		android:textColor="@color/pine_green"
-		android:layout_below="@+id/howoften_label"/>
+		android:layout_height="@dimen/add_medication_text_hight"
+		android:textSize="@dimen/add_medication_labels_text_size"
+		android:paddingLeft="@dimen/add_medication_text_padding"
+		android:textColor="@color/pine_green"/>
 
 	<!-- how taken Labels/Text -->
 	<TextView
 		android:id="@+id/howtaken_label"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:layout_marginTop="@dimen/add_medicationlabels_top"
-		android:layout_marginLeft="@dimen/add_medicationlabels_marginleft"
-		android:textSize="@dimen/add_medicationlabels_textsize"
+		android:layout_height="@dimen/add_medication_labels_hight"
+		android:layout_marginTop="@dimen/add_medication_labels_top"
+		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
-		android:layout_below="@id/howoften_text"
 		android:text="@string/howtaken_label" />
 
 	<TextView
 		android:id="@+id/howtaken_text"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:textSize="@dimen/add_medicationlabels_textsize"
-		android:paddingLeft="@dimen/add_medicationtext_padding"
-		android:textColor="@color/pine_green"
-		android:layout_below="@+id/howtaken_label"/>
+		android:layout_height="@dimen/add_medication_text_hight"
+		android:textSize="@dimen/add_medication_labels_text_size"
+		android:paddingLeft="@dimen/add_medication_text_padding"
+		android:textColor="@color/pine_green"/>
 
 	<!-- Reason Labels/Text -->
 	<TextView
 		android:id="@+id/reason_label"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:layout_marginTop="@dimen/add_medicationlabels_top"
-		android:layout_marginLeft="@dimen/add_medicationlabels_marginleft"
-		android:textSize="@dimen/add_medicationlabels_textsize"
+		android:layout_height="@dimen/add_medication_labels_hight"
+		android:layout_marginTop="@dimen/add_medication_labels_top"
+		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
-		android:layout_below="@id/howtaken_text"
 		android:text="@string/reason_label" />
 
 	<TextView
 		android:id="@+id/reason_text"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:textSize="@dimen/add_medicationlabels_textsize"
-		android:paddingLeft="@dimen/add_medicationtext_padding"
-		android:textColor="@color/pine_green"
-		android:layout_below="@+id/reason_label"/>
+		android:layout_height="@dimen/add_medication_text_hight"
+		android:textSize="@dimen/add_medication_labels_text_size"
+		android:paddingLeft="@dimen/add_medication_text_padding"
+		android:textColor="@color/pine_green"/>
 
 	<!-- Date Started Labels/Text -->
 	<TextView
 		android:id="@+id/datestarted_label"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:layout_marginTop="@dimen/add_medicationlabels_top"
-		android:layout_marginLeft="@dimen/add_medicationlabels_marginleft"
-		android:textSize="@dimen/add_medicationlabels_textsize"
+		android:layout_height="@dimen/add_medication_labels_hight"
+		android:layout_marginTop="@dimen/add_medication_labels_top"
+		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
-		android:layout_below="@id/reason_text"
 		android:text="@string/datestarted_label" />
 
 	<TextView
 		android:id="@+id/datestarted_text"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationlabels_hight"
-		android:textSize="@dimen/add_medicationlabels_textsize"
-		android:paddingLeft="@dimen/add_medicationtext_padding"
-		android:textColor="@color/pine_green"
-		android:layout_below="@+id/datestarted_label"/>
+		android:layout_height="@dimen/add_medication_text_hight"
+		android:textSize="@dimen/add_medication_labels_text_size"
+		android:paddingLeft="@dimen/add_medication_text_padding"
+		android:textColor="@color/pine_green"/>
 	<Button
 		android:id="@+id/editdetails_button"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medicationbutton_hight"
-		android:layout_marginTop="@dimen/add_medicationlabels_top"
-		android:layout_marginLeft="@dimen/add_medicationbutton_marginleft"
-		android:layout_marginRight="@dimen/add_medicationbutton_marginright"
+		android:layout_height="@dimen/add_medication_labels_hight"
+		android:layout_marginTop="@dimen/add_medication_labels_top"
+		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/black"
-		android:layout_below="@id/datestarted_text"
 		android:text="@string/edit_button"/>
-
-</RelativeLayout>
+</LinearLayout>

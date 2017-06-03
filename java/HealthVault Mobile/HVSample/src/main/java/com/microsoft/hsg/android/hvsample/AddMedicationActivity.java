@@ -51,10 +51,9 @@ public class AddMedicationActivity extends Activity {
 		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
 
 		Intent mIntent = getIntent();
-		mIndex = mIntent.getIntExtra("index", 0);
+		mIndex = mIntent.getIntExtra(Constants.IndexParameter, 0);
 
 		editButton.setEnabled(false);
-		//displayMedication();
 
 		setTitle("Medication details sample");
 	}
@@ -92,16 +91,28 @@ public class AddMedicationActivity extends Activity {
 			TextView dateStarted = (TextView) findViewById(R.id.datestarted_text);
 
 			medsName.setText(meds.getName().getText());
-			strength.setText(meds.getStrength().getDisplay().toString());
+			strength.setText(meds.getStrength().getDisplay());
 			dosage.setText(meds.getDose().getDisplay());
-			often.setText(meds.getFrequency().getDisplay());
-			taken.setText(meds.getRoute().getText());
-			reason.setText(meds.getIndication().getText());
-			final String monthStart = String.valueOf(meds.getDateStarted().getStructured().getDate().getM());
-			final String dayStart = String.valueOf(meds.getDateStarted().getStructured().getDate().getD());
-			final String yearStart = String.valueOf(meds.getDateStarted().getStructured().getDate().getY());
-			final String prescribed = String.format(monthStart + "/" + dayStart + "/" + yearStart);
-			dateStarted.setText(prescribed);
+
+			if(meds.getFrequency() != null) {
+				often.setText(meds.getFrequency().getDisplay().toString());
+			}
+
+			if (meds.getRoute() != null) {
+				taken.setText(meds.getRoute().getText());
+			}
+
+			if (meds.getIndication() != null) {
+				reason.setText(meds.getIndication().getText());
+			}
+
+			if (meds.getDateStarted() != null) {
+				final String monthStart = String.valueOf(meds.getDateStarted().getStructured().getDate().getM());
+				final String dayStart = String.valueOf(meds.getDateStarted().getStructured().getDate().getD());
+				final String yearStart = String.valueOf(meds.getDateStarted().getStructured().getDate().getY());
+				final String prescribed = String.format(monthStart + "/" + dayStart + "/" + yearStart);
+				dateStarted.setText(prescribed);
+			}
 		} else {
 			Toast.makeText(AddMedicationActivity.this, "Unable to get medication with this index!", Toast.LENGTH_SHORT).show();
 		}

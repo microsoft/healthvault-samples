@@ -43,9 +43,9 @@ public class MainMedicationActivity extends Activity {
 	private HealthVaultApp mService;
 	private HealthVaultClient mHVClient;
 	private Record mCurrentRecord;
-	private final String mCurrentMeds = "Current medications";
-	private final String mPastMeds = "Past medications";
-	private final int mIndex = 2;
+	private static final String mCurrentMeds = "Current medications";
+	private static final String mPastMeds = "Past medications";
+	private static final int mIndex = 0;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class MainMedicationActivity extends Activity {
 			public void onClick(View view) {
 				if (mService.isAppConnected()) {
 					Intent myIntent = new Intent(MainMedicationActivity.this, AddMedicationActivity.class);
-					myIntent.putExtra("index", mIndex);
+					myIntent.putExtra(Constants.IndexParameter, mIndex);
 					startActivity(myIntent);
 				} else {
 					Toast.makeText(MainMedicationActivity.this, "Please connect to HV from Setting menu!", Toast.LENGTH_SHORT).show();
