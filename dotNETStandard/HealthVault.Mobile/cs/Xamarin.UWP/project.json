@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "Microsoft.HealthVault.Client": "1.0.20517.1",
+    "Microsoft.HealthVault.Client": "1.0.20605.1",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.3",
     "Newtonsoft.Json": "10.0.2",
     "Xamarin.Forms": "2.3.4.224",
