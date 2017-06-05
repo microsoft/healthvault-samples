@@ -30,7 +30,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         public async Task<ActionResult> Index(Guid personId, Guid recordId)
         {
-            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetGoalsAsync(), personId, recordId);
+            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetActiveAsync(), personId, recordId);
             return View(response);
         }
 
@@ -40,7 +40,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [HttpGet]
         public async Task<ActionResult> Goal(Guid id, Guid personId, Guid recordId)
         {
-            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetGoalByIdAsync(id.ToString()), personId, recordId);
+            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetByIdAsync(id.ToString()), personId, recordId);
             return View(response);
         }
 
@@ -61,7 +61,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 Goals = new Collection<Goal> { goal }
             };
 
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.PatchGoalsAsync(goalWrapper), personId, recordId);
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.UpdateAsync(goalWrapper), personId, recordId);
             return RedirectToAction("Index", new { personId = personId, recordId = recordId });
         }
 
@@ -77,7 +77,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 Goals = new Collection<Goal> { Builder.CreateDefaultGoal() }
             };
 
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.CreateGoalsAsync(goalWrapper), personId, recordId);
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.CreateAsync(goalWrapper), personId, recordId);
             return RedirectToAction("Index", new { personId = personId, recordId = recordId });
         }
 
@@ -88,7 +88,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveGoal(Guid id, Guid personId, Guid recordId)
         {
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.DeleteGoalAsync(id.ToString()), personId, recordId);
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.DeleteAsync(id.ToString()), personId, recordId);
             return RedirectToAction("Index", new { personId = personId, recordId = recordId });
         }
     }
