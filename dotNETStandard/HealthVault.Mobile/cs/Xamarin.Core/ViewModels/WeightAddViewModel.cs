@@ -6,6 +6,7 @@ using HealthVault.Sample.Xamarin.Core.Services;
 using Microsoft.HealthVault.Clients;
 using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
+using NodaTime;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
@@ -73,7 +74,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
                 List<Weight> weightList = new List<Weight>();
                 weightList.Add(new Weight(
-                    new HealthServiceDateTime(DateTime.Now),
+                    new HealthServiceDateTime(SystemClock.Instance.GetCurrentInstant().InZone(DateTimeZoneProviders.Tzdb.GetSystemDefault()).LocalDateTime),
                     new WeightValue(kilograms, new DisplayValue(weightNumber, isMetric ? "kg" : "lbs"))));
 
                 IThingClient thingClient = _connection.CreateThingClient();
