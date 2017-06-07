@@ -7,15 +7,15 @@
 	<item
 		android:id="@+id/menu_actionplan"
 		android:title="@string/menu_actionplan"
-		android:icon="@mipmap/habits_icon"/>
+		android:icon="@drawable/habits_icon"/>
 
 	<item
 		android:id="@+id/menu_medication"
 		android:title="@string/menu_medication"
-		android:icon="@mipmap/meds_icon"/>
+		android:icon="@drawable/meds_icon"/>
 
 	<item
 		android:id="@+id/menu_weight"
 		android:title="@string/menu_weight"
-		android:icon="@mipmap/weight_icon" />
+		android:icon="@drawable/weight_icon" />
 </menu>

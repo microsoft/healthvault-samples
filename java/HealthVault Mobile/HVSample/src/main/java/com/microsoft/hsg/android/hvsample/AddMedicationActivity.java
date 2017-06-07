@@ -45,15 +45,12 @@ public class AddMedicationActivity extends Activity {
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_medication);
-		Button editButton = (Button) findViewById(R.id.editdetails_button);
 		mService = HealthVaultApp.getInstance();
 		mHVClient = new HealthVaultClient();
 		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
 
 		Intent mIntent = getIntent();
 		mIndex = mIntent.getIntExtra(Constants.IndexParameter, 0);
-
-		editButton.setEnabled(false);
 
 		setTitle("Medication details sample");
 	}

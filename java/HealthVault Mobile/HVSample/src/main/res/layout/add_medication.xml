@@ -10,7 +10,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/add_medication_labels_hight"
 		android:layout_marginTop="@dimen/add_medication_labels_top"
-		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:layout_marginLeft="@dimen/horizontal_margin_medium"
 		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
 		android:text="@string/name_label" />
@@ -27,7 +27,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/add_medication_labels_hight"
 		android:layout_marginTop="@dimen/add_medication_labels_top"
-		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:layout_marginLeft="@dimen/horizontal_margin_medium"
 		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
 		android:text="@string/strength_label" />
@@ -45,7 +45,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/add_medication_labels_hight"
 		android:layout_marginTop="@dimen/add_medication_labels_top"
-		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:layout_marginLeft="@dimen/horizontal_margin_medium"
 		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
 		android:text="@string/dosagetype_label" />
@@ -65,7 +65,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/add_medication_labels_hight"
 		android:layout_marginTop="@dimen/add_medication_labels_top"
-		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:layout_marginLeft="@dimen/horizontal_margin_medium"
 		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
 		android:text="@string/howoften_label" />
@@ -84,7 +84,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/add_medication_labels_hight"
 		android:layout_marginTop="@dimen/add_medication_labels_top"
-		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:layout_marginLeft="@dimen/horizontal_margin_medium"
 		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
 		android:text="@string/howtaken_label" />
@@ -103,7 +103,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/add_medication_labels_hight"
 		android:layout_marginTop="@dimen/add_medication_labels_top"
-		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:layout_marginLeft="@dimen/horizontal_margin_medium"
 		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
 		android:text="@string/reason_label" />
@@ -122,7 +122,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/add_medication_labels_hight"
 		android:layout_marginTop="@dimen/add_medication_labels_top"
-		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
+		android:layout_marginLeft="@dimen/horizontal_margin_medium"
 		android:textSize="@dimen/add_medication_labels_text_size"
 		android:textColor="@color/old_lavender"
 		android:text="@string/datestarted_label" />
@@ -134,13 +134,5 @@
 		android:textSize="@dimen/add_medication_labels_text_size"
 		android:paddingLeft="@dimen/add_medication_text_padding"
 		android:textColor="@color/pine_green"/>
-	<Button
-		android:id="@+id/editdetails_button"
-		android:layout_width="match_parent"
-		android:layout_height="@dimen/add_medication_labels_hight"
-		android:layout_marginTop="@dimen/add_medication_labels_top"
-		android:layout_marginLeft="@dimen/add_medication_labels_margin_left"
-		android:textSize="@dimen/add_medication_labels_text_size"
-		android:textColor="@color/black"
-		android:text="@string/edit_button"/>
+
 </LinearLayout>

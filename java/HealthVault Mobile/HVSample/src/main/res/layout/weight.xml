@@ -82,8 +82,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/weight_layout_height_medium"
 		android:layout_below="@id/add_weight_container"
-		android:layout_marginLeft="@dimen/last_weight_text_margin_left"
-		android:layout_marginRight="@dimen/last_weight_text_margin_right"
+		android:layout_marginLeft="@dimen/horizontal_margin_medium"
+		android:layout_marginRight="@dimen/horizontal_margin_medium"
 		android:layout_marginTop="@dimen/vertical_margin_small">
 
 		<TextView

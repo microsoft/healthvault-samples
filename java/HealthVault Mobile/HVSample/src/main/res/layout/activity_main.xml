@@ -29,7 +29,7 @@
 				android:layout_height="@dimen/main_page_height_medium"
 				android:layout_marginLeft="@dimen/horizontal_margin_medium"
 				android:layout_marginTop="@dimen/vertical_margin_medium"
-				android:src="@mipmap/habits_icon"/>
+				android:src="@drawable/habits_icon"/>
 		</FrameLayout>
 		<TextView
 			android:id="@+id/actionplan_title"
@@ -86,7 +86,7 @@
 				android:layout_height="@dimen/main_page_height_medium"
 				android:layout_marginLeft="@dimen/horizontal_margin_medium"
 				android:layout_marginTop="@dimen/vertical_margin_medium"
-				android:src="@mipmap/meds_icon"/>
+				android:src="@drawable/meds_icon"/>
 		</FrameLayout>
 
 		<TextView
@@ -143,7 +143,7 @@
 				android:layout_height="@dimen/main_page_height_medium"
 				android:layout_marginLeft="@dimen/horizontal_margin_medium"
 				android:layout_marginTop="@dimen/vertical_margin_medium"
-				android:src="@mipmap/weight_icon"/>
+				android:src="@drawable/weight_icon"/>
 		</FrameLayout>
 		<TextView
 			android:id="@+id/weight_title"
@@ -198,7 +198,7 @@
 				android:layout_height="@dimen/main_page_height_medium"
 				android:layout_marginLeft="@dimen/horizontal_margin_medium"
 				android:layout_marginTop="@dimen/vertical_margin_medium"
-				android:src="@mipmap/profile_icon"/>
+				android:src="@drawable/profile_icon"/>
 		</FrameLayout>
 		<TextView
 			android:id="@+id/profile_title"

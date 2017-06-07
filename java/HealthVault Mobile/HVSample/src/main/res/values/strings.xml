@@ -44,16 +44,10 @@
 	<!--Profile Page -->
 	<string name="label_firstname">First</string>
 	<string name="label_lastname">Last</string>
-	<string name="sample_first">Victoria</string>
-	<string name="sample_last">Nguyn</string>
 	<string name="label_birthmonth">Birth month</string>
 	<string name="label_birthyear">Birth year</string>
-	<string name="sample_month">September</string>
-	<string name="sample_year">1973</string>
 	<string name="label_gender">Gender</string>
-	<string name="sample_gender">Female</string>
-	<string name="label_profilepage_weight">Weight</string>
-	<string name="sample_weight">150</string>
+	<string name="label_profilepage_country">Country</string>
 
 	<!--Medication Page -->
 
@@ -67,5 +61,9 @@
 	<string name="reason_label">Reason for taking</string>
 	<string name="datestarted_label">Date started</string>
 	<string name="edit_button">Edit details</string>
+
+	<!--Action Plan Page -->
+	<string name="objectives_label">Objective</string>
+	<string name="tasks_label">Task</string>
 
 </resources>

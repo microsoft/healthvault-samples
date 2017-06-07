@@ -10,8 +10,8 @@
 		android:id="@+id/medication_title"
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/medication_main_height"
-		android:layout_marginTop="@dimen/medication_main_margin_top"
-		android:layout_marginLeft="@dimen/medication_main_margin_left"
+		android:layout_marginTop="@dimen/vertical_margin_medium"
+		android:layout_marginLeft="@dimen/horizontal_margin_medium"
 		android:textSize="@dimen/medication_name_text_size"
 		android:text="Main medication Page"
 		android:textColor="@color/pine_green"/>
@@ -25,8 +25,8 @@
 			android:id="@+id/medication_name"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/medication_main_height"
-			android:layout_marginLeft="@dimen/medication_main_margin_left"
-			android:layout_marginTop="@dimen/medication_main_margin_top"
+			android:layout_marginLeft="@dimen/horizontal_margin_medium"
+			android:layout_marginTop="@dimen/vertical_margin_medium"
 			android:textSize="@dimen/medication_name_text_size"
 			android:textColor="@color/pine_green"
 			android:text="medication_name"/>
@@ -34,7 +34,7 @@
 			android:id="@+id/dosage_strength"
 			android:layout_width="@dimen/medication_dose_width"
 			android:layout_height="@dimen/medication_dose_height"
-			android:layout_marginLeft="@dimen/medication_dose_margin_left"
+			android:layout_marginLeft="@dimen/horizontal_margin_medium"
 			android:textSize="@dimen/medication_dose_text_size"
 			android:textColor="@color/pine_green"
 			android:text="dosage_strength"
@@ -44,7 +44,7 @@
 			android:id="@+id/prescribed_date"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/medication_prescribe_height"
-			android:layout_marginLeft="@dimen/medication_prescribe_margin_left"
+			android:layout_marginLeft="@dimen/horizontal_margin_medium"
 			android:textColor="@color/old_lavender"
 			android:layout_below="@id/dosage_strength"/>
 
@@ -52,8 +52,8 @@
 			android:id="@+id/image_view"
 			android:layout_width="@dimen/medication_dislosure_image_width"
 			android:layout_height="@dimen/medication_dislosure_image_height"
-			android:layout_marginRight="@dimen/medication_dislosure_image_margin_right"
-			android:layout_marginLeft="@dimen/medication_dislosure_image_margin_left"
+			android:layout_marginRight="@dimen/horizontal_margin_medium"
+			android:layout_marginLeft="115dp"
 			android:src="@drawable/disclosure_icon"
 			android:layout_toRightOf="@id/dosage_strength"
 			android:layout_below="@id/medication_name"/>

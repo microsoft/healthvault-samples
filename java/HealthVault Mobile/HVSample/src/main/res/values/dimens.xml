@@ -12,8 +12,6 @@
 	<dimen name="vertical_margin_small">10dp</dimen>
 	<dimen name="vertical_margin_xsmall">5dp</dimen>
 
-	<dimen name="weight_layout_margin_left">20dp</dimen>
-	<dimen name="weight_layout_margin_right">200dp</dimen>
 	<dimen name="weight_layout_height_large">40dp</dimen>
 	<dimen name="weight_layout_height_medium">20dp</dimen>
 
@@ -22,14 +20,9 @@
 
 	<dimen name="last_weight_label_width">75dp</dimen>
 	<dimen name="last_weight_label_height">20dp</dimen>
-	<dimen name="last_weight_label_margin_left">20dp</dimen>
-	<dimen name="last_weight_label_margin_top">26dp</dimen>
 
 	<dimen name="last_weight_text_width">80dp</dimen>
 	<dimen name="last_weight_text_height">62dp</dimen>
-	<dimen name="last_weight_text_margin_left">20dp</dimen>
-	<dimen name="last_weight_text_margin_right">20dp</dimen>
-	<dimen name="last_weight_text_margin_bottom">20dp</dimen>
 
 	<dimen name="last_weight_metric_width">16dp</dimen>
 	<dimen name="last_weight_metric_height">16dp</dimen>
@@ -58,8 +51,6 @@
 	<dimen name="padding_medium">20dp</dimen>
 	<dimen name="padding_small">10dp</dimen>
 
-
-
 	<!--Profile -->
 	<dimen name="profile_height_medium">20dp</dimen>
 	<dimen name="profile_image_width">50dp</dimen>
@@ -72,44 +63,33 @@
 
 	<dimen name="profile_image_layout_width">76dp</dimen>
 	<dimen name="profile_image_layout_height">76dp</dimen>
-	<dimen name="profile_image_layout_margin_leftt">142dp</dimen>
-	<dimen name="profile_image_layout_margin_bottom">28dp</dimen>
 
 	<!--Medications -->
-	<dimen name="medication_main_margin_left">20dp</dimen>
-	<dimen name="medication_main_margin_right">125dp</dimen>
-	<dimen name="medication_main_margin_top">22dp</dimen>
 	<dimen name="medication_main_height">24dp</dimen>
 	<dimen name="medication_main_width">215dp</dimen>
 	<dimen name="medication_list_width">360dp</dimen>
 	<dimen name="medication_list_height">88dp</dimen>
 	<dimen name="medication_text_size">24sp</dimen>
 	<!--Medications record-->
-	<dimen name="medication_name_margin_left">20dp</dimen>
 	<dimen name="medication_name_margin_top">12dp</dimen>
 	<dimen name="medication_name_width">86dp</dimen>
 	<dimen name="medication_name_height">24dp</dimen>
 	<dimen name="medication_name_text_size">18sp</dimen>
 
-	<dimen name="medication_dose_margin_left">20dp</dimen>
 	<dimen name="medication_dose_width">200dp</dimen>
 	<dimen name="medication_dose_height">20dp</dimen>
 	<dimen name="medication_dose_text_size">15sp</dimen>
 
-	<dimen name="medication_prescribe_margin_left">20dp</dimen>
 	<dimen name="medication_prescribe_width">187dp</dimen>
 	<dimen name="medication_prescribe_height">18dp</dimen>
 	<dimen name="medication_prescribe_text_size">12sp</dimen>
 
-	<dimen name="medication_dislosure_image_margin_left">115dp</dimen>
-	<dimen name="medication_dislosure_image_margin_right">20dp</dimen>
 	<dimen name="medication_dislosure_image_height">19dp</dimen>
 	<dimen name="medication_dislosure_image_width">9dp</dimen>
 
 	<!--Add Medications record-->
 	<dimen name="add_medication_labels_hight">20dp</dimen>
 	<dimen name="add_medication_labels_top">16dp</dimen>
-	<dimen name="add_medication_labels_margin_left">20dp</dimen>
 	<dimen name="add_medication_labels_text_size">15sp</dimen>
 
 	<dimen name="add_medication_text_hight">24dp</dimen>
@@ -118,7 +98,5 @@
 
 	<dimen name="add_medication_button_hight">48dp</dimen>
 	<dimen name="add_medication_button_top">35dp</dimen>
-	<dimen name="add_medication_button_margin_left">20dp</dimen>
-	<dimen name="add_medication_button_margin_right">20dp</dimen>
 
 </resources>

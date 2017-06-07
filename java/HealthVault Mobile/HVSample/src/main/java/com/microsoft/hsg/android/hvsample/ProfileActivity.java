@@ -13,6 +13,8 @@ import com.microsoft.hsg.android.simplexml.client.RequestCallback;
 import com.microsoft.hsg.android.simplexml.methods.getthings3.request.ThingRequestGroup2;
 import com.microsoft.hsg.android.simplexml.methods.getthings3.response.ThingResponseGroup2;
 import com.microsoft.hsg.android.simplexml.things.thing.Thing2;
+import com.microsoft.hsg.android.simplexml.things.types.medication.Medication;
+import com.microsoft.hsg.android.simplexml.things.types.personal.PersonalDemographics;
 import com.microsoft.hsg.android.simplexml.things.types.types.PersonInfo;
 import com.microsoft.hsg.android.simplexml.things.types.types.Record;
 import com.microsoft.hsg.android.simplexml.things.types.weight.Weight;
@@ -27,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,6 +40,7 @@ public class ProfileActivity extends Activity {
 	private HealthVaultApp mService;
 	private HealthVaultClient mHVClient;
 	private Record mCurrentRecord;
+	private PersonalImageLoader mImageLoader;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,29 +48,42 @@ public class ProfileActivity extends Activity {
 		setContentView(R.layout.profile);
 		mService = HealthVaultApp.getInstance();
 		mHVClient = new HealthVaultClient();
+		mImageLoader = new PersonalImageLoader(this, mHVClient);
 
 		setTitle("Profile Sample");
 	}
 
-	private void populateProfile() {
-		final EditText firstNameEditText = (EditText) findViewById(R.id.firstNameText);
-		final EditText secondtNameEditText = (EditText) findViewById(R.id.lastNameText);
+	private void populateProfile(List<Thing2> things) {
+		PersonalDemographics personalDemographics = (PersonalDemographics) things.get(0).getDataXml().getAny().getThing().getData();
+		final EditText firstNameEditText = (EditText) findViewById(R.id.first_name_text);
+		final EditText secondtNameEditText = (EditText) findViewById(R.id.last_name_text);
+		final EditText countryEditText = (EditText) findViewById(R.id.country_text);
+		final EditText monthEditText = (EditText) findViewById(R.id.birth_month_text);
+		final EditText yearEditText = (EditText) findViewById(R.id.birth_year_text);
+		final EditText genderEditText = (EditText) findViewById(R.id.gender_text);
+		ImageView imageView = (ImageView) findViewById(R.id.profileImage);
 
-		String name = mCurrentRecord.getName();
-		String[] firstLastName = name.split(" ");
-		String fisrtName = firstLastName[0];
-		String lasttName = firstLastName[1];
-		firstNameEditText.setText(fisrtName);
-		secondtNameEditText.setText(lasttName);
+		mImageLoader.load(mCurrentRecord.getId(), imageView, R.drawable.record_image_placeholder);
 
+		firstNameEditText.setText(personalDemographics.getName().getFirst());
+		secondtNameEditText.setText(personalDemographics.getName().getLast());
+		countryEditText.setText(mCurrentRecord.getLocationCountry());
+		String birthMonth = String.valueOf(personalDemographics.getBirthdate().getDate().getM());
+		String birthYear = String.valueOf(personalDemographics.getBirthdate().getDate().getY());
+
+		monthEditText.setText(birthMonth);
+		yearEditText.setText(birthYear);
+		genderEditText.setText("male");
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		mHVClient.start();
+
 		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
-		populateProfile();
+		mHVClient.asyncRequest(mCurrentRecord.getThingsAsync(ThingRequestGroup2.thingTypeQuery(PersonalDemographics.ThingType)),
+				new ProfileActivity.ProfileCallback());
 	}
 
 	@Override
@@ -86,7 +103,7 @@ public class ProfileActivity extends Activity {
 
 		@Override
 		public void onSuccess(java.lang.Object obj) {
-			populateProfile();
+			populateProfile(((ThingResponseGroup2)obj).getThing());
 		}
 	}
 }

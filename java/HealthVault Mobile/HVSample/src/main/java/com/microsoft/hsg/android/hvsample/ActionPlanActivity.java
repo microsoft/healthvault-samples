@@ -34,6 +34,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
@@ -53,8 +54,6 @@ public class ActionPlanActivity  extends Activity {
 	private HealthVaultApp mService;
 	private HealthVaultClient mClient;
 	private Record mCurrentRecord;
-	private ArrayAdapter<String> mAdapter;
-	private ListView mPlanList;
 	private static ActionPlansResponseActionPlanInstance mActionPlanInstance;
 
 	@Override
@@ -68,6 +67,8 @@ public class ActionPlanActivity  extends Activity {
 			mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
 			getActionPlan();
 		}
+
+		setTitle("Action plan sample");
 	}
 
 	@Override
@@ -112,20 +113,29 @@ public class ActionPlanActivity  extends Activity {
 	}
 
 	private void renderActionPlans() {
-		List<String> actionplans = new ArrayList<String>();
 		if (mActionPlanInstance != null) {
-			int size = mActionPlanInstance.plans().size();
-			for (int index = 0; index < size; ++index) {
-				ActionPlanInstance plan = mActionPlanInstance.plans().get(index);
-				actionplans.add("Plan: " + plan.name().toString() +
-						"     Category: " + plan.category().toString());
-			}
-			mPlanList = (ListView) findViewById(R.id.actionplan_list);
-			mAdapter = new ArrayAdapter<String>(ActionPlanActivity.this, android.R.layout.simple_list_item_1, actionplans);
-			mPlanList.setAdapter(mAdapter);
+			ActionPlanInstance plan = mActionPlanInstance.plans().get(0);
+
+			TextView planName = (TextView) findViewById(R.id.actionplan_name);
+			TextView planDescription = (TextView) findViewById(R.id.actionplan_description);
+
+			TextView objectiveName = (TextView) findViewById(R.id.objective_name);
+			TextView objectiveDescription = (TextView) findViewById(R.id.objective_description);
+
+			TextView taskName = (TextView) findViewById(R.id.task_name);
+			TextView taskDescription = (TextView) findViewById(R.id.task_description);
+
+			planName.setText(plan.name().toString());
+			planDescription.setText("HealthVault Mobile App Sample");
+
+			objectiveName.setText(plan.objectives().get(0).name());
+			objectiveDescription.setText(plan.objectives().get(0).description());
+
+			taskName.setText(plan.associatedTasks().get(0).name());
+			taskDescription.setText(plan.associatedTasks().get(0).shortDescription());
+
 		} else {
 			Toast.makeText(ActionPlanActivity.this, "No Action plans!", Toast.LENGTH_SHORT).show();
-			finish();
 		}
 	}
 }
