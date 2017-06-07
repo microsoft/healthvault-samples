@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.microsoft.hsg.android.hvsample"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:versionCode="1"
 	android:versionName="1.0" >
 
@@ -12,7 +13,8 @@
 
 	<application
 		android:allowBackup="true"
-		android:icon="@drawable/ic_launcher"
+		tools:replace="android:icon"
+        android:icon="@drawable/app_icon"
 		android:label="@string/app_name"
 		android:theme="@style/AppTheme" >
 		<activity
@@ -25,11 +27,12 @@
 		</activity>
 		<activity android:name="com.microsoft.hsg.android.simplexml.ShellActivity" >
 		</activity>
-		<activity android:name="AddMedicationActivity"></activity>
 		<activity android:name="WeightActivity"></activity>
 		<activity android:name="ProfileActivity"></activity>
 		<activity android:name="RecordPickerActivity"></activity>
-
+		<activity android:name="MainMedicationActivity"></activity>
+		<activity android:name="AddMedicationActivity"></activity>
+		<activity android:name="ActionPlanActivity"></activity>
 		<provider
 			android:name="com.microsoft.hsg.android.simplexml.store.HVContentProvider"
 			android:authorities="com.microsoft.hsg.android.store"
