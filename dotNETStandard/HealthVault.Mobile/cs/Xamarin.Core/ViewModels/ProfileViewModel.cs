@@ -10,6 +10,7 @@ using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
 using Microsoft.HealthVault.Thing;
+using NodaTime.Extensions;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
@@ -124,7 +125,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
 
                 if (_personalInformation.BirthDate != null)
                 {
-                    BirthDate = _personalInformation.BirthDate.ToDateTime();
+                    BirthDate = _personalInformation.BirthDate.ToLocalDateTime().ToDateTimeUnspecified();
                 }
                 else
                 {
@@ -187,7 +188,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 _basicInformation.BirthYear = BirthDate.Year;
                 _basicInformation.Gender = GenderIndex == 0 ? Gender.Male : Gender.Female;
 
-                _personalInformation.BirthDate = new HealthServiceDateTime(BirthDate);
+                _personalInformation.BirthDate = new HealthServiceDateTime(BirthDate.ToLocalDateTime());
 
                 await _thingClient.UpdateThingsAsync(_recordId, new List<IThing> { _basicInformation, _personalInformation });
 
