@@ -22,8 +22,8 @@
 
 @helper ErrorMessage(Exception ex)
 {
-    <p>
-        <span class="response-data-label">Response body:</span> @ex.Message</p>
+    <h2>Exception Message:</h2>
+    <p>@ex.Message</p>
 
     MicrosoftKhronosCloudCommonErrorsErrorResponseException commonError = ex as MicrosoftKhronosCloudCommonErrorsErrorResponseException;
     if (commonError != null)
@@ -31,9 +31,11 @@
         ErrorModel deserializeObject = JsonConvert.DeserializeObject<ErrorModel>(commonError.Response.Content);
         if (deserializeObject != null)
         {
+            <h2>Response Message:</h2>
             <p>@deserializeObject.Error.Message</p>
             if (deserializeObject.Error.Details != null)
             {
+                <h2>Response Details:</h2>
                 <p>@deserializeObject.Error.Details</p>
             }
         }
@@ -42,6 +44,9 @@
             <p>There was an error parsing the response. Response phrase was: @commonError.Response.ReasonPhrase</p>
         }
     }
+
+    <h2>Stack Trace: </h2>
+    <pre>@ex.StackTrace</pre>
 
     if (ex.InnerException != null)
     {
