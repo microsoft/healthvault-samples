@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">HVSample</string>
+	<string name="app_name">HealthVault Sample</string>
 	<string name="action_settings">Settings</string>
 	<string name="hello_world">Hello world!</string>
 	<string name="clear">Clear</string>
@@ -44,30 +44,26 @@
 	<!--Profile Page -->
 	<string name="label_firstname">First</string>
 	<string name="label_lastname">Last</string>
-	<string name="sample_first">Victoria</string>
-	<string name="sample_last">Nguyn</string>
 	<string name="label_birthmonth">Birth month</string>
 	<string name="label_birthyear">Birth year</string>
-	<string name="sample_month">September</string>
-	<string name="sample_year">1973</string>
 	<string name="label_gender">Gender</string>
-	<string name="sample_gender">Female</string>
-	<string name="label_profilepage_weight">Weight</string>
-	<string name="sample_weight">150</string>
+	<string name="label_profilepage_country">Country</string>
 
 	<!--Medication Page -->
+
+
+	<!--Add Medication Page -->
 	<string name="name_label">Name</string>
-	<string name="sample_name_text">Duloxetine</string>
-	<string name="dosagetype_label">Dosage type</string>
 	<string name="strength_label">Strength</string>
-	<string name="sample_strength_text">37.5 mg</string>
-	<string name="treatmentprovider_label">Treatment provider</string>
+	<string name="dosagetype_label">Dosage</string>
+	<string name="howoften_label">How often taken?</string>
+	<string name="howtaken_label">How taken?</string>
 	<string name="reason_label">Reason for taking</string>
-	<string name="sample_reason_text">Select</string>
 	<string name="datestarted_label">Date started</string>
-	<string name="sample_datestarted_value1_text">Value1</string>
-	<string name="sample_datestarted_value2_text">Value2</string>
-	<string name="sample_datestarted_value3_text">Value3</string>
-	<string name="save_button">Save</string>
+	<string name="edit_button">Edit details</string>
+
+	<!--Action Plan Page -->
+	<string name="objectives_label">Objective</string>
+	<string name="tasks_label">Task</string>
 
 </resources>

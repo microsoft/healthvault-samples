@@ -1,67 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent"
+	android:orientation="vertical">
 
-	<LinearLayout
+	<RelativeLayout
 		android:id="@+id/graph_container"
-		android:layout_width="@dimen/weight_graphcontainer_width"
-		android:layout_height="@dimen/weight_graphcontainer_height"
-		android:background="@color/pine_green"
-		android:orientation="vertical">
+		android:layout_width="@dimen/weight_graph_container_width"
+		android:layout_height="@dimen/weight_graph_container_height"
+		android:background="@color/pine_green">
 		<TextView
 			android:id="@+id/chart_label"
 			style="@style/chart_label"/>
 		<com.jjoe64.graphview.GraphView
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:layout_below="@+id/chart_label"
 			android:id="@+id/graph" />
-	</LinearLayout>
+	</RelativeLayout>
 
-	<LinearLayout
+	<RelativeLayout
 		android:id="@+id/last_weight_container"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/graph_container"
-		android:orientation="vertical">
+		android:layout_below="@id/graph_container">
 		<TextView
+			android:id="@+id/last_weight_label"
 			android:layout_width="match_parent"
-			android:layout_height="@dimen/weightlayout_height_20dp"
-			android:layout_marginTop="@dimen/margintop_10dp"
-			android:layout_marginLeft="@dimen/marginleft_20dp"
+			android:layout_height="@dimen/weight_layout_height_medium"
+			android:layout_marginTop="@dimen/vertical_margin_small"
+			android:layout_marginLeft="@dimen/horizontal_margin_medium"
 			android:textColor="@color/old_lavender"
 			android:text="@string/label_lastweight"/>
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_marginLeft="@dimen/marginleft_20dp"
-				android:orientation="horizontal">
-				<TextView
-					android:id="@+id/last_weight"
-					android:layout_width="@dimen/lastweighttext_width"
-					android:layout_height="@dimen/lastweighttext_height"
-					android:textColor="@color/pine_green"
-					android:textSize="30sp"/>
-				<TextView
-					android:layout_width="292dp"
-					android:layout_height="wrap_content"
-					android:text="@string/label_metric"
-					android:textColor="@color/pine_green"/>
-			</LinearLayout>
-	</LinearLayout>
+		<TextView
+			android:id="@+id/last_weight"
+			android:layout_width="@dimen/last_weight_text_width"
+			android:layout_height="@dimen/last_weight_text_height"
+			android:layout_marginLeft="@dimen/horizontal_margin_medium"
+			android:textColor="@color/pine_green"
+			android:layout_below="@+id/last_weight_label"
+			android:textSize="30sp"/>
+		<TextView
+			android:layout_width="292dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="15dp"
+			android:layout_below="@+id/last_weight_label"
+			android:layout_toRightOf="@+id/last_weight"
+			android:text="@string/label_metric"
+			android:textColor="@color/pine_green"/>
+	</RelativeLayout>
 
-	<LinearLayout
+	<RelativeLayout
 		android:id="@+id/add_weight_container"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/last_weight_container"
-		android:orientation="vertical">
+		android:layout_below="@id/last_weight_container">
 		<EditText
 			android:id="@+id/weight_input"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/marginleft_20dp"
-			android:layout_marginRight="@dimen/marginright_20dp"
+			android:layout_marginLeft="@dimen/horizontal_margin_medium"
+			android:layout_marginRight="@dimen/horizontal_margin_medium"
 			android:inputType="number"
 			android:text="" >
 		</EditText>
@@ -69,48 +68,43 @@
 			android:id="@+id/add_weight"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/weight_button_height"
-			android:layout_marginLeft="@dimen/marginleft_20dp"
-			android:layout_marginRight="@dimen/marginright_20dp"
+			android:layout_marginLeft="@dimen/horizontal_margin_medium"
+			android:layout_marginRight="@dimen/vertical_margin_medium"
+			android:layout_below="@+id/weight_input"
 			android:background="@color/white"
 			android:text="@string/button_addweight"
 			android:textAlignment="center">
 		</Button>
-	</LinearLayout>
+	</RelativeLayout>
 
-	<LinearLayout
+	<RelativeLayout
 		android:id="@+id/labels_container"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/weightlayout_height_40dp"
-		android:layout_marginTop="@dimen/margintop_10dp"
-		android:layout_marginLeft="@dimen/lastweighttext_marginleft"
-		android:layout_marginRight="@dimen/lastweighttext_marginright"
+		android:layout_height="@dimen/weight_layout_height_medium"
 		android:layout_below="@id/add_weight_container"
-		android:orientation="horizontal">
+		android:layout_marginLeft="@dimen/horizontal_margin_medium"
+		android:layout_marginRight="@dimen/horizontal_margin_medium"
+		android:layout_marginTop="@dimen/vertical_margin_small">
+
 		<TextView
 			android:id="@+id/date_label"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="right"
-			android:layout_weight="1"
-			android:text="@string/label_date" />
+			android:text="@string/label_date"/>
+
 		<TextView
 			android:id="@+id/weight_label"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="left"
-			android:layout_weight="0.13"
-			android:text="@string/label_weightpage_weight" />
-	</LinearLayout>
+			android:layout_marginLeft="240dp"
+			android:text="@string/label_weightpage_weight"
+			android:layout_alignParentEnd="true"/>
+	</RelativeLayout>
 
-	<HorizontalScrollView
-		android:layout_below="@id/labels_container"
+	<ListView
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_marginLeft="@dimen/marginleft_20dp"
-		android:layout_marginRight="@dimen/marginright_20dp">
-		<ListView
-			android:layout_width="@dimen/weighthistory_list_width"
-			android:layout_height="@dimen/weighthistory_list_height"
-			android:id="@+id/weight_list"/>
-	</HorizontalScrollView>
-</RelativeLayout>
+		android:layout_marginLeft="@dimen/horizontal_margin_medium"
+		android:layout_marginRight="@dimen/horizontal_margin_medium"
+		android:layout_height="@dimen/weigh_thistory_list_height"
+		android:id="@+id/weight_list"/>
+</LinearLayout>

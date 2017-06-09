@@ -67,7 +67,7 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
 
                 //Add a custom type mapping for the Weight class so the charting library knows how to draw it
                 var weightConfiguration = Mappers.Xy<Weight>()
-                   .X(dayModel => (double)dayModel.EffectiveDate.Ticks / TimeSpan.FromHours(1).Ticks)
+                   .X(dayModel => (double)dayModel.EffectiveDate.Value.ToDateTimeUnspecified().Ticks / TimeSpan.FromHours(1).Ticks)
                    .Y(dayModel => (double)converter.Convert(dayModel.Value.Kilograms, typeof(double), null, null));
 
                 //Create the Series and add data

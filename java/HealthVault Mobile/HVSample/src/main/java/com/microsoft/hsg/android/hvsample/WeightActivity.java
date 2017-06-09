@@ -15,6 +15,7 @@ import com.microsoft.hsg.android.simplexml.client.RequestCallback;
 import com.microsoft.hsg.android.simplexml.methods.getthings3.request.ThingRequestGroup2;
 import com.microsoft.hsg.android.simplexml.methods.getthings3.response.ThingResponseGroup2;
 import com.microsoft.hsg.android.simplexml.things.thing.Thing2;
+import com.microsoft.hsg.android.simplexml.things.types.medication.Medication;
 import com.microsoft.hsg.android.simplexml.things.types.types.PersonInfo;
 import com.microsoft.hsg.android.simplexml.things.types.types.Record;
 import com.microsoft.hsg.android.simplexml.things.types.weight.Weight;
@@ -51,6 +52,8 @@ public class WeightActivity extends Activity {
 		mService = HealthVaultApp.getInstance();
 		mHVClient = new HealthVaultClient();
 
+		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
+
 		Button weightsBtn = (Button) findViewById(R.id.add_weight);
 		final EditText editText = (EditText) findViewById(R.id.weight_input);
 
@@ -79,7 +82,6 @@ public class WeightActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		mHVClient.start();
-		mCurrentRecord = HealthVaultApp.getInstance().getCurrentRecord();
 		getWeights();
 	}
 
@@ -122,7 +124,8 @@ public class WeightActivity extends Activity {
 				final int day = weight.getWhen().getDate().getD();
 				final int year = weight.getWhen().getDate().getY();
 				mAdapter.add(String.valueOf(String.format(month + "/" + day + "/" + year)
-						+ "                                  " + String.valueOf(weight.getValue().getKg())));
+						+ "                                            " +
+						String.valueOf(weight.getValue().getKg().shortValue())));
 
 				// Populate the weight chart data points
 				DataPoint dataPoint = new DataPoint(xPoint, weight.getValue().getKg().intValue());
