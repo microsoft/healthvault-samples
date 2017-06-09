@@ -13,6 +13,8 @@ using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using NodaTime;
+using Duration = NodaTime.Duration;
 
 namespace HealthVaultMobileSample.UWP.Views.Weights
 {
@@ -61,11 +63,13 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
             }
             else if (QueryTimeframe.SelectedIndex == (int)QueryTimeframeEnum.Last30d)
             {
+                LocalDateTime localNow = SystemClock.Instance.GetCurrentInstant().InZone(DateTimeZoneProviders.Tzdb.GetSystemDefault()).LocalDateTime;
+
                 //In this mode, the app specifies a ThingQuery which can be used for functions like
                 //filtering, or paging through values
-                ThingQuery query = new ThingQuery()
+                ThingQuery query = new ThingQuery
                 {
-                    EffectiveDateMin = DateTime.Now.AddDays(-30)
+                    EffectiveDateMin = localNow.Minus(Period.FromDays(30))
                 };
 
                 Items = await thingClient.GetThingsAsync<Weight>(recordInfo.Id, query);
@@ -101,9 +105,11 @@ namespace HealthVaultMobileSample.UWP.Views.Weights
                     kg = value;
                 }
 
+                LocalDateTime localNow = SystemClock.Instance.GetCurrentInstant().InZone(DateTimeZoneProviders.Tzdb.GetSystemDefault()).LocalDateTime;
+
                 List<Weight> list = new List<Weight>();
                 list.Add(new Weight(
-                    new HealthServiceDateTime(DateTime.Now),
+                    new HealthServiceDateTime(localNow),
                     new WeightValue(kg, new DisplayValue(value, (Units.SelectedValue as ComboBoxItem).Content.ToString()))));
 
                 HealthRecordInfo recordInfo = (await _connection.GetPersonInfoAsync()).SelectedRecord;

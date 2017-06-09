@@ -7,214 +7,234 @@
 	android:orientation="vertical"
 	tools:context=".MainActivity">
 
-	<LinearLayout
+	<RelativeLayout
 		android:id="@+id/actionplan_tile"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/height_88dp"
-		android:layout_marginTop="@dimen/margin_10dp"
-		android:layout_marginLeft="@dimen/margin_10dp"
-		android:layout_marginRight="@dimen/margin_10dp"
-		android:layout_marginEnd="@dimen/margin_10dp"
-		android:background="@color/white"
-		android:orientation="horizontal"
-		android:weightSum="1">
-		<LinearLayout
-			android:layout_width="@dimen/width_64dp"
-			android:layout_height="@dimen/height_64dp"
-			android:layout_marginTop="@dimen/margin_12dp"
-			android:layout_marginLeft="@dimen/margin_12dp"
+		android:layout_height="@dimen/actionplan_height_xxlarge"
+		android:layout_marginTop="@dimen/vertical_margin_small"
+		android:layout_marginLeft="@dimen/horizontal_margin_small"
+		android:layout_marginRight="@dimen/horizontal_margin_small"
+		android:layout_marginEnd="@dimen/horizontal_margin_small"
+		android:background="@color/white">
+		<FrameLayout
+			android:id="@+id/actionplan_imageview_container"
+			android:layout_width="@dimen/main_page_width_large"
+			android:layout_height="@dimen/actionplan_height_xlarge"
+			android:layout_marginTop="@dimen/main_page_vertical_margin"
+			android:layout_marginLeft="@dimen/main_page_horizontal_margin"
 			android:background="@drawable/circle_background_actionplan">
 			<ImageView
 				android:id="@+id/actionplan_imageview"
-				android:layout_width="@dimen/width_24dp"
-				android:layout_height="@dimen/height_28dp"
-				android:layout_marginLeft="@dimen/marginleft_20dp"
-				android:layout_marginTop="@dimen/margintop_20dp"
-				android:src="@drawable/habits_icon_selected"/>
-		</LinearLayout>
-		<LinearLayout
+				android:layout_width="@dimen/main_page_width_medium"
+				android:layout_height="@dimen/main_page_height_medium"
+				android:layout_marginLeft="@dimen/horizontal_margin_medium"
+				android:layout_marginTop="@dimen/vertical_margin_medium"
+				android:src="@drawable/habits_icon"/>
+		</FrameLayout>
+		<TextView
+			android:id="@+id/actionplan_title"
 			android:layout_width="217dp"
-			android:layout_height="match_parent"
-			android:layout_marginLeft="@dimen/margin_12dp"
-			android:orientation="vertical">
-			<TextView
-				android:id="@+id/actionplan_title"
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/height_20dp"
-				android:layout_marginTop="@dimen/margintop_20dp"
-				android:textStyle="bold"
-				android:text="@string/actionplan_title"/>
-			<TextView
-				android:id="@+id/actionplan_subtitle"
+			android:layout_height="@dimen/actionplan_height_medium"
+			android:layout_marginTop="@dimen/vertical_margin_medium"
+			android:layout_marginLeft="12dp"
+			android:layout_toRightOf="@+id/actionplan_imageview_container"
+			android:textStyle="bold"
+			android:text="@string/actionplan_title"/>
+		<TextView
+			android:id="@+id/actionplan_subtitle"
+			android:layout_width="217dp"
+			android:layout_height="@dimen/main_page_height_large"
+			android:layout_marginLeft="12dp"
+			android:layout_toRightOf="@+id/actionplan_imageview_container"
+			android:layout_below="@+id/actionplan_title"
+			android:text="@string/actionplan_subtitle"/>
+		<FrameLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="15dp"
+			android:layout_toRightOf="@+id/actionplan_subtitle">
+			<ImageView
 				android:layout_width="wrap_content"
-				android:layout_height="@dimen/height_35dp"
-				android:text="@string/actionplan_subtitle"/>
-		</LinearLayout>
-		<ImageView
-			android:layout_width="wrap_content"
-			android:layout_height="@dimen/height_35dp"
-			android:layout_marginTop="@dimen/margin_30dp"
-			android:layout_marginLeft="@dimen/margin_14dp"
-			android:src="@drawable/disclosure_icon"/>
-	</LinearLayout>
-	<LinearLayout
+				android:layout_height="@dimen/main_page_height_large"
+				android:layout_marginTop="@dimen/disclosure_image_vertical_margin"
+				android:src="@drawable/disclosure_icon"/>
+		</FrameLayout>
+	</RelativeLayout>
+
+	<RelativeLayout
 		android:id="@+id/medication_tile"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/height_88dp"
-		android:layout_marginTop="@dimen/margin_10dp"
-		android:layout_marginLeft="@dimen/margin_10dp"
-		android:layout_marginRight="@dimen/margin_10dp"
-		android:layout_marginEnd="@dimen/margin_10dp"
+		android:layout_height="@dimen/actionplan_height_xxlarge"
+		android:layout_marginEnd="@dimen/horizontal_margin_small"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="@dimen/horizontal_margin_small"
+		android:layout_marginTop="@dimen/vertical_margin_small"
 		android:background="@color/white"
-		android:orientation="horizontal"
 		android:weightSum="1">
-		<LinearLayout
-			android:layout_width="@dimen/width_64dp"
-			android:layout_height="@dimen/height_64dp"
-			android:layout_marginTop="@dimen/margin_12dp"
-			android:layout_marginLeft="@dimen/margin_12dp"
+
+		<FrameLayout
+			android:id="@+id/medication_imageview_container"
+			android:layout_width="@dimen/main_page_width_large"
+			android:layout_height="@dimen/actionplan_height_xlarge"
+			android:layout_marginLeft="@dimen/main_page_horizontal_margin"
+			android:layout_marginTop="@dimen/main_page_vertical_margin"
 			android:background="@drawable/circle_background_medication">
+
 			<ImageView
 				android:id="@+id/medication_imageview"
-				android:layout_width="@dimen/width_24dp"
-				android:layout_height="@dimen/height_28dp"
-				android:layout_marginLeft="@dimen/marginleft_20dp"
-				android:layout_marginTop="@dimen/margintop_20dp"
-				android:src="@drawable/meds_icon_selected"/>
-		</LinearLayout>
-		<LinearLayout
+				android:layout_width="@dimen/main_page_width_medium"
+				android:layout_height="@dimen/main_page_height_medium"
+				android:layout_marginLeft="@dimen/horizontal_margin_medium"
+				android:layout_marginTop="@dimen/vertical_margin_medium"
+				android:src="@drawable/meds_icon"/>
+		</FrameLayout>
+
+		<TextView
+			android:id="@+id/medication_title"
 			android:layout_width="217dp"
-			android:layout_height="match_parent"
-			android:layout_marginLeft="@dimen/margin_12dp"
-			android:orientation="vertical">
-			<TextView
-				android:id="@+id/medication_title"
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/height_20dp"
-				android:layout_marginTop="@dimen/margintop_20dp"
-				android:textStyle="bold"
-				android:text="@string/medication_title"/>
-			<TextView
+			android:layout_height="@dimen/actionplan_height_medium"
+			android:layout_marginTop="@dimen/vertical_margin_medium"
+			android:layout_marginLeft="12dp"
+			android:layout_toRightOf="@+id/medication_imageview_container"
+			android:text="@string/medication_title"
+			android:textStyle="bold"/>
+		<TextView
+			android:layout_width="217dp"
+			android:layout_height="35dp"
+			android:layout_marginLeft="12dp"
+			android:layout_below="@+id/medication_title"
+			android:layout_toRightOf="@+id/medication_imageview_container"
+			android:text="@string/medication_subtitle"/>
+
+		<FrameLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="15dp"
+			android:layout_toRightOf="@+id/medication_title">
+
+			<ImageView
 				android:layout_width="wrap_content"
-				android:layout_height="35dp"
-				android:text="@string/medication_subtitle"/>
-		</LinearLayout>
-		<ImageView
-			android:layout_width="wrap_content"
-			android:layout_height="@dimen/height_35dp"
-			android:layout_marginTop="@dimen/margin_30dp"
-			android:layout_marginLeft="@dimen/margin_14dp"
-			android:src="@drawable/disclosure_icon"/>
-	</LinearLayout>
-	<LinearLayout
+				android:layout_height="@dimen/main_page_height_large"
+				android:layout_marginTop="@dimen/disclosure_image_vertical_margin"
+				android:src="@drawable/disclosure_icon"/>
+		</FrameLayout>
+	</RelativeLayout>
+
+	<RelativeLayout
 		android:id="@+id/weight_tile"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/height_88dp"
-		android:layout_marginTop="@dimen/margin_10dp"
-		android:layout_marginLeft="@dimen/margin_10dp"
-		android:layout_marginRight="@dimen/margin_10dp"
-		android:layout_marginEnd="@dimen/margin_10dp"
+		android:layout_height="@dimen/actionplan_height_xxlarge"
+		android:layout_marginTop="@dimen/vertical_margin_small"
+		android:layout_marginLeft="@dimen/horizontal_margin_small"
+		android:layout_marginRight="@dimen/horizontal_margin_small"
+		android:layout_marginEnd="@dimen/horizontal_margin_small"
 		android:background="@color/white"
-		android:orientation="horizontal"
 		android:weightSum="1">
-		<LinearLayout
-			android:layout_width="@dimen/width_64dp"
-			android:layout_height="@dimen/height_64dp"
-			android:layout_marginTop="@dimen/margin_12dp"
-			android:layout_marginLeft="@dimen/margin_12dp"
+		<FrameLayout
+			android:id="@+id/weight_imageview_container"
+			android:layout_width="@dimen/main_page_width_large"
+			android:layout_height="@dimen/actionplan_height_xlarge"
+			android:layout_marginTop="@dimen/main_page_vertical_margin"
+			android:layout_marginLeft="@dimen/main_page_horizontal_margin"
 			android:background="@drawable/circle_background">
 			<ImageView
-				android:id="@+id/imageView"
-				android:layout_width="@dimen/width_24dp"
-				android:layout_height="@dimen/height_28dp"
-				android:layout_marginLeft="@dimen/marginleft_20dp"
-				android:layout_marginTop="@dimen/margintop_20dp"
+				android:id="@+id/weight_imageView"
+				android:layout_width="@dimen/main_page_width_medium"
+				android:layout_height="@dimen/main_page_height_medium"
+				android:layout_marginLeft="@dimen/horizontal_margin_medium"
+				android:layout_marginTop="@dimen/vertical_margin_medium"
 				android:src="@drawable/weight_icon"/>
-	</LinearLayout>
-		<LinearLayout
+		</FrameLayout>
+		<TextView
+			android:id="@+id/weight_title"
 			android:layout_width="217dp"
+			android:layout_height="@dimen/actionplan_height_medium"
+			android:layout_marginTop="@dimen/vertical_margin_medium"
+			android:layout_marginLeft="12dp"
+			android:layout_toRightOf="@+id/weight_imageview_container"
+			android:textStyle="bold"
+			android:text="@string/weight_title"/>
+		<TextView
+			android:id="@+id/weight_subtitle"
+			android:layout_width="217dp"
+			android:layout_height="@dimen/main_page_height_large"
+			android:layout_marginLeft="12dp"
+			android:layout_below="@+id/weight_title"
+			android:layout_toRightOf="@+id/weight_imageview_container"
+			android:text="@string/weight_subtitle"/>
+		<FrameLayout
+			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_marginLeft="@dimen/margin_12dp"
-			android:orientation="vertical">
-			<TextView
-				android:id="@+id/weight_title"
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/height_20dp"
-				android:layout_marginTop="@dimen/margintop_20dp"
-				android:textStyle="bold"
-				android:text="@string/weight_title"/>
-			<TextView
-				android:id="@+id/weight_subtitle"
+			android:layout_toRightOf="@+id/weight_title">
+			<ImageView
 				android:layout_width="wrap_content"
-				android:layout_height="@dimen/height_35dp"
-				android:text="@string/weight_subtitle"/>
+				android:layout_height="@dimen/main_page_height_large"
+				android:layout_marginTop="@dimen/disclosure_image_vertical_margin"
+				android:layout_marginLeft="14dp"
+				android:src="@drawable/disclosure_icon"/>
+		</FrameLayout>
+	</RelativeLayout>
 
-		</LinearLayout>
-		<ImageView
-			android:layout_width="wrap_content"
-			android:layout_height="@dimen/height_35dp"
-			android:layout_marginTop="@dimen/margin_30dp"
-			android:layout_marginLeft="@dimen/margin_14dp"
-			android:src="@drawable/disclosure_icon"/>
-	</LinearLayout>
-
-	<LinearLayout
+	<RelativeLayout
 		android:id="@+id/profile_tile"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/height_88dp"
-		android:layout_marginTop="@dimen/margin_10dp"
-		android:layout_marginLeft="@dimen/margin_10dp"
-		android:layout_marginRight="@dimen/margin_10dp"
-		android:layout_marginEnd="@dimen/margin_10dp"
+		android:layout_height="@dimen/actionplan_height_xxlarge"
+		android:layout_marginTop="@dimen/vertical_margin_small"
+		android:layout_marginLeft="@dimen/horizontal_margin_small"
+		android:layout_marginRight="@dimen/horizontal_margin_small"
+		android:layout_marginEnd="@dimen/horizontal_margin_small"
 		android:background="@color/white"
-		android:orientation="horizontal"
 		android:weightSum="1">
-		<LinearLayout
-			android:layout_width="@dimen/width_64dp"
-			android:layout_height="@dimen/height_64dp"
-			android:layout_marginTop="@dimen/margin_12dp"
-			android:layout_marginLeft="@dimen/margin_12dp"
+		<FrameLayout
+			android:id="@+id/profile_imageview_container"
+			android:layout_width="@dimen/main_page_width_large"
+			android:layout_height="@dimen/actionplan_height_xlarge"
+			android:layout_marginTop="@dimen/main_page_vertical_margin"
+			android:layout_marginLeft="@dimen/main_page_horizontal_margin"
 			android:background="@drawable/circle_background_profile">
 			<ImageView
 				android:id="@+id/profile_imageview"
-				android:layout_width="@dimen/width_24dp"
-				android:layout_height="@dimen/height_28dp"
-				android:layout_marginLeft="@dimen/marginleft_20dp"
-				android:layout_marginTop="@dimen/margintop_20dp"
-				android:src="@drawable/weight_icon"/>
-		</LinearLayout>
-		<LinearLayout
+				android:layout_width="@dimen/main_page_width_medium"
+				android:layout_height="@dimen/main_page_height_medium"
+				android:layout_marginLeft="@dimen/horizontal_margin_medium"
+				android:layout_marginTop="@dimen/vertical_margin_medium"
+				android:src="@drawable/profile_icon"/>
+		</FrameLayout>
+		<TextView
+			android:id="@+id/profile_title"
 			android:layout_width="217dp"
+			android:layout_height="@dimen/actionplan_height_medium"
+			android:layout_marginTop="@dimen/vertical_margin_medium"
+			android:layout_marginLeft="12dp"
+			android:layout_toRightOf="@+id/profile_imageview_container"
+			android:textStyle="bold"
+			android:text="@string/profile_title"/>
+		<TextView
+			android:id="@+id/profile_subtitle"
+			android:layout_width="217dp"
+			android:layout_height="@dimen/main_page_height_large"
+			android:layout_marginLeft="12dp"
+			android:layout_below="@+id/profile_title"
+			android:layout_toRightOf="@+id/profile_imageview_container"
+			android:text="@string/profile_subtitle"/>
+		<FrameLayout
+			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_marginLeft="@dimen/margin_12dp"
-			android:orientation="vertical">
-			<TextView
-				android:id="@+id/profile_title"
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/height_20dp"
-				android:layout_marginTop="@dimen/margintop_20dp"
-				android:textStyle="bold"
-				android:text="@string/profile_title"/>
-			<TextView
-				android:id="@+id/profile_subtitle"
+			android:layout_toRightOf="@+id/profile_title">
+			<ImageView
 				android:layout_width="wrap_content"
-				android:layout_height="@dimen/height_35dp"
-				android:text="@string/profile_subtitle"/>
-
-		</LinearLayout>
-		<ImageView
-			android:layout_width="wrap_content"
-			android:layout_height="@dimen/height_35dp"
-			android:layout_marginTop="@dimen/margin_30dp"
-			android:layout_marginLeft="@dimen/margin_14dp"
-			android:src="@drawable/disclosure_icon"/>
-	</LinearLayout>
+				android:layout_height="@dimen/main_page_height_large"
+				android:layout_marginTop="@dimen/disclosure_image_vertical_margin"
+				android:layout_marginLeft="14dp"
+				android:src="@drawable/disclosure_icon"/>
+		</FrameLayout>
+	</RelativeLayout>
 
 	<ListView
 		android:id="@android:id/list"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginTop="@dimen/margintop_20dp"
+		android:layout_marginTop="@dimen/vertical_margin_medium"
 		android:layout_weight="2"
 		android:visibility="invisible"></ListView>
 

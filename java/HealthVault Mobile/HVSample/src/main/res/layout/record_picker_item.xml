@@ -6,12 +6,12 @@
 
 	<ImageView
 		android:id="@+id/record_icon"
-		android:layout_width="@dimen/width_60dp"
-		android:layout_height="@dimen/height_60dp"
-		android:layout_marginBottom="@dimen/margin_5dp"
-		android:layout_marginLeft="@dimen/margin_5dp"
-		android:layout_marginRight="@dimen/margin_5dp"
-		android:layout_marginTop="@dimen/margin_5dp"
+		android:layout_width="60dp"
+		android:layout_height="60dp"
+		android:layout_marginBottom="@dimen/vertical_margin_xsmall"
+		android:layout_marginLeft="@dimen/horizontal_margin_xsmall"
+		android:layout_marginRight="@dimen/horizontal_margin_xsmall"
+		android:layout_marginTop="@dimen/vertical_margin_xsmall"
 		android:src="@drawable/ic_launcher" />
 
 	<TextView

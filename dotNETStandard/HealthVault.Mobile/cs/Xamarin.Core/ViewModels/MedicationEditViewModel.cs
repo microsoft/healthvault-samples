@@ -10,6 +10,7 @@ using Microsoft.HealthVault.Connection;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Person;
 using Microsoft.HealthVault.Vocabulary;
+using NodaTime.Extensions;
 using Xamarin.Forms;
 
 namespace HealthVault.Sample.Xamarin.Core.ViewModels
@@ -115,7 +116,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             IThingClient thingClient = _connection.CreateThingClient();
             PersonInfo personInfo = await _connection.GetPersonInfoAsync();
 
-            await thingClient.UpdateThingsAsync(personInfo.SelectedRecord.Id, new Collection<Medication>() { medication });
+            await thingClient.UpdateThingsAsync(personInfo.SelectedRecord.Id, new Collection<Medication> { medication });
 
             await NavigationService.NavigateBackAsync();
         }
@@ -148,7 +149,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             empty = inputDateEmpty && medication.DateStarted == null;
             if (!empty)
             {
-                medication.DateStarted = new ApproximateDateTime(DateStarted);
+                medication.DateStarted = new ApproximateDateTime(DateStarted.ToLocalDateTime());
             }
         }
     }
