@@ -25,6 +25,7 @@
         <div class="form-group">
             <div class="col-md-12">
                 <input type="submit" value="+ New default steps goal" class="btn btn-default" />
+                @Html.ActionLink("+ New goal", "Goal", new {personId = Request.Params["personId"], recordId = Request.Params["recordID"]}, new {@class = "btn btn-default"})
             </div>
         </div>
     </div>
@@ -37,6 +38,7 @@
                 <th>Name</th>
                 <th>Type</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -47,7 +49,10 @@
                     <td>@goal.Name</td>
                     <td>@goal.GoalType</td>
                     <td>
-                        @Html.ActionLink("Edit", "Goal", new { id = goal.Id, personId = Request.Params["personId"], recordId = Request.Params["recordID"] }, new { cssClass = "btn btn-default" })
+                        @Html.ActionLink("Edit", "Goal", new { id = goal.Id, personId = Request.Params["personId"], recordId = Request.Params["recordID"] })
+                    </td>
+                    <td>
+                        <input type="submit" value="Delete" formaction="@Url.Action("RemoveGoal", new {id = goal.Id})" class="btn-link delete" onclick="return confirm('Do you want to delete this goal? This action is irreversible.');"/>
                     </td>
                 </tr>
             }

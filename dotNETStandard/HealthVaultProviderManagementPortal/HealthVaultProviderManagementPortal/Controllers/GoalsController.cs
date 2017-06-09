@@ -38,10 +38,16 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get a goal for the logged in user
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult> Goal(Guid id, Guid personId, Guid recordId)
+        public async Task<ActionResult> Goal(Guid? id, Guid personId, Guid recordId)
         {
-            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetByIdAsync(id.ToString()), personId, recordId);
-            return View(response);
+            if (id.HasValue)
+            {
+                var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetByIdAsync(id.ToString()), personId, recordId);
+                return View(response);
+            }
+
+            var goal = new Goal();
+            return View(goal);
         }
 
         /// <summary>
@@ -49,7 +55,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Goal(Goal goal, Guid personId, Guid recordId)
+        public async Task<ActionResult> Goal(Guid? id, Goal goal, Guid personId, Guid recordId)
         {
             if (goal?.RecurrenceMetrics?.OccurrenceCount == null && goal?.RecurrenceMetrics?.WindowType == GoalRecurrenceType.Unknown.ToString())
             {
@@ -61,7 +67,15 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 Goals = new Collection<Goal> { goal }
             };
 
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.UpdateAsync(goalWrapper), personId, recordId);
+            if (id.HasValue && id.Value != Guid.Empty)
+            {
+                await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.UpdateAsync(goalWrapper), personId, recordId);
+            }
+            else
+            {
+                await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.CreateAsync(goalWrapper), personId, recordId);
+            }
+            
             return RedirectToAction("Index", new { personId = personId, recordId = recordId });
         }
 

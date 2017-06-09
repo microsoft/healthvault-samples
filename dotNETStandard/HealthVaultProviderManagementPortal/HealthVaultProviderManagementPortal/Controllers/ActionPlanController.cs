@@ -83,7 +83,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Plan(Guid id, ActionPlanInstance plan, Guid personId, Guid recordId)
+        public async Task<ActionResult> Plan(Guid id, ActionPlanInstanceV2 plan, Guid personId, Guid recordId)
         {
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.ActionPlans.UpdateAsync(plan), personId, recordId);
             return RedirectToAction("Plan", new { id, personId, recordId });
@@ -153,7 +153,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 return View(response);
             }
 
-            var task = new ActionPlanTaskInstance();
+            var task = new ActionPlanTaskInstanceV2();
 
             if (planId.HasValue)
             {
@@ -173,7 +173,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Task(Guid? id, ActionPlanTaskInstance task, Guid personId, Guid recordId)
+        public async Task<ActionResult> Task(Guid? id, ActionPlanTaskInstanceV2 task, Guid personId, Guid recordId)
         {
             if (id.HasValue && id.Value != Guid.Empty)
             {
@@ -186,7 +186,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                     IsAutoTrackable = false
                 };
 
-                await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.ActionPlanTasks.CreateAsync(task.AsActionPlanTask()), personId, recordId);
+                await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.ActionPlanTasks.CreateAsync(task.AsActionPlanTaskV2()), personId, recordId);
             }
 
             return RedirectToAction("Plan", new { id = task.AssociatedPlanId, personId, recordId });
@@ -240,7 +240,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
             var trackingValidation = new TrackingValidation
             {
-                ActionPlanTask = taskInstance?.AsActionPlanTask(),
+                ActionPlanTask = taskInstance?.AsActionPlanTaskV2(),
                 XmlThingDocument = thing
             };
 

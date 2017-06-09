@@ -13,6 +13,7 @@ using System.Web.Mvc;
 using Microsoft.HealthVault.ItemTypes;
 using Microsoft.HealthVault.Record;
 using Microsoft.HealthVault.Web.Attributes;
+using NodaTime;
 using static HealthVaultProviderManagementPortal.Helpers.RestClientFactory;
 
 namespace HealthVaultProviderManagementPortal.Controllers
@@ -46,7 +47,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         public async Task<ActionResult> Index(Guid personId, Guid? recordId, double weight)
         {
             var item = new Weight(
-                new HealthServiceDateTime(DateTime.UtcNow),
+                new HealthServiceDateTime(LocalDateTime.FromDateTime(DateTime.UtcNow)),
                 new WeightValue(weight)
                 );
 
