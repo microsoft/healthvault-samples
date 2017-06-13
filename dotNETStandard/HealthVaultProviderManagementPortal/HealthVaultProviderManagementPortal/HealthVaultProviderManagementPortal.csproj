@@ -241,6 +241,7 @@
     <Compile Include="Models\Enums\GoalType.cs" />
     <Compile Include="Models\ErrorInfoModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
+    <Compile Include="Models\GoalsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +299,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Goals\GoalRecommendation.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

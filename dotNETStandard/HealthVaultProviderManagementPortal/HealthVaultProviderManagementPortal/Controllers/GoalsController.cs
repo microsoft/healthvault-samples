@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using HealthVaultProviderManagementPortal.Helpers;
+using HealthVaultProviderManagementPortal.Models;
 using HealthVaultProviderManagementPortal.Models.Enums;
 using Microsoft.HealthVault.RestApi.Generated;
 using Microsoft.HealthVault.RestApi.Generated.Models;
@@ -30,8 +31,16 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         public async Task<ActionResult> Index(Guid personId, Guid recordId)
         {
-            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetActiveAsync(), personId, recordId);
-            return View(response);
+            var goalsResponse = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetActiveAsync(), personId, recordId);
+            var goalRecommendationsResponse = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GoalRecommendations.GetAsync(), personId, recordId);
+
+            var model = new GoalsModel
+            {
+                Goals = goalsResponse.Goals,
+                GoalRecomendations = goalRecommendationsResponse.GoalRecommendations
+            };
+
+            return View(model);
         }
 
         /// <summary>
@@ -103,6 +112,45 @@ namespace HealthVaultProviderManagementPortal.Controllers
         public async Task<ActionResult> RemoveGoal(Guid id, Guid personId, Guid recordId)
         {
             await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.DeleteAsync(id.ToString()), personId, recordId);
+            return RedirectToAction("Index", new { personId = personId, recordId = recordId });
+        }
+
+        /// <summary>
+        /// Get a goal recommendation for the logged in user
+        /// </summary>
+        [HttpGet]
+        public ActionResult GoalRecommendation(Guid personId, Guid recordId)
+        {
+            var recommendation = new GoalRecommendation
+            {
+                AssociatedGoal = new Goal()
+            };
+            return View(recommendation);
+        }
+
+        /// <summary>
+        /// Create a goal recommendation for the logged in user
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> GoalRecommendation(GoalRecommendation recommendation, Guid personId, Guid recordId)
+        {
+            if (recommendation?.AssociatedGoal?.RecurrenceMetrics?.OccurrenceCount == null && recommendation?.AssociatedGoal?.RecurrenceMetrics?.WindowType == GoalRecurrenceType.Unknown.ToString())
+            {
+                recommendation.AssociatedGoal.RecurrenceMetrics = null;
+            }
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GoalRecommendations.CreateAsync(recommendation), personId, recordId);
+            return RedirectToAction("Index", new { personId = personId, recordId = recordId });
+        }
+
+        /// <summary>
+        /// Delete a goal recommendation for the logged in user
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RemoveGoalRecommendation(string id, Guid personId, Guid recordId)
+        {
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GoalRecommendations.DeleteAsync(id), personId, recordId);
             return RedirectToAction("Index", new { personId = personId, recordId = recordId });
         }
     }
