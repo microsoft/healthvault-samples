@@ -40,12 +40,12 @@ else
                     <td>@instance.TrackingStatus</td>
                     <td>
                         @if (instance.Evidence != null)
-                    {
-                        if (instance.Evidence.HvThings != null)
                         {
-                            foreach (var evidence in instance.Evidence.HvThings)
+                            if (instance.Evidence.HvThings != null)
                             {
-                                    <p>@evidence</p>
+                                foreach (var evidence in instance.Evidence.HvThings)
+                                {
+                                        <p>@evidence</p>
                                 }
                             }
                             if (instance.Evidence.Trackings != null)
