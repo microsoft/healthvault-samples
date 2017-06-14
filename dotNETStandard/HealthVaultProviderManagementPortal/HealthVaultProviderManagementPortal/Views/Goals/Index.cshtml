@@ -25,8 +25,8 @@
         <div class="form-group">
             <div class="col-md-12">
                 <input type="submit" value="+ New default steps goal" class="btn btn-default" />
-                @Html.ActionLink("+ New goal", "Goal", new {personId = Request.Params["personId"], recordId = Request.Params["recordID"]}, new {@class = "btn btn-default"})
-                @Html.ActionLink("+ New goal recommendation", "GoalRecommendation", new { personId = Request.Params["personId"], recordId = Request.Params["recordID"] }, new { @class = "btn btn-default" })
+                @Html.ActionLink("+ New goal", "Goal", new {personId = Request.Params["personId"], recordId = Request.Params["recordId"]}, new {@class = "btn btn-default"})
+                @Html.ActionLink("+ New goal recommendation", "GoalRecommendation", new { personId = Request.Params["personId"], recordId = Request.Params["recordId"] }, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@
                 <td>@goal.Name</td>
                 <td>@goal.GoalType</td>
                 <td>
-                    @Html.ActionLink("Edit", "Goal", new { id = goal.Id, personId = Request.Params["personId"], recordId = Request.Params["recordID"] })
+                    @Html.ActionLink("Edit", "Goal", new { id = goal.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] })
                 </td>
                 <td>
                     <input type="submit" value="Delete" formaction="@Url.Action("RemoveGoal", new {id = goal.Id})" class="btn-link delete" onclick="return confirm('Do you want to delete this goal? This action is irreversible.');"/>

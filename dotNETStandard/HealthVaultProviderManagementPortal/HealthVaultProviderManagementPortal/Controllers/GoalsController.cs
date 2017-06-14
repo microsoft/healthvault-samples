@@ -31,13 +31,15 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         public async Task<ActionResult> Index(Guid personId, Guid recordId)
         {
-            var goalsResponse = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetActiveAsync(), personId, recordId);
-            var goalRecommendationsResponse = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GoalRecommendations.GetAsync(), personId, recordId);
+            var goalsTask = ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetActiveAsync(), personId, recordId);
+            var goalRecommendationsTask = ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GoalRecommendations.GetAsync(), personId, recordId);
+
+            await Task.WhenAll(goalsTask, goalRecommendationsTask);
 
             var model = new GoalsModel
             {
-                Goals = goalsResponse.Goals,
-                GoalRecomendations = goalRecommendationsResponse.GoalRecommendations
+                Goals = goalsTask.Result.Goals,
+                GoalRecomendations = goalRecommendationsTask.Result.GoalRecommendations
             };
 
             return View(model);
@@ -49,7 +51,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [HttpGet]
         public async Task<ActionResult> Goal(Guid? id, Guid personId, Guid recordId)
         {
-            if (id.HasValue)
+            if (id.HasValue && id.Value != Guid.Empty)
             {
                 var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetByIdAsync(id.ToString()), personId, recordId);
                 return View(response);
@@ -116,10 +118,10 @@ namespace HealthVaultProviderManagementPortal.Controllers
         }
 
         /// <summary>
-        /// Get a goal recommendation for the logged in user
+        /// Get a blank goal recommendation page for the user to fill out
         /// </summary>
         [HttpGet]
-        public ActionResult GoalRecommendation(Guid personId, Guid recordId)
+        public ActionResult GoalRecommendation()
         {
             var recommendation = new GoalRecommendation
             {
