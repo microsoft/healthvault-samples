@@ -57,16 +57,16 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.HealthVault, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.1.0.20607.3\lib\netstandard1.4\Microsoft.HealthVault.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault, Version=1.65.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.1.65.20615.4-preview\lib\netstandard1.4\Microsoft.HealthVault.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.HealthVault.RestApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.1.0.20607.3\lib\netstandard1.4\Microsoft.HealthVault.RestApi.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault.RestApi, Version=1.65.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.1.65.20615.4-preview\lib\netstandard1.4\Microsoft.HealthVault.RestApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.HealthVault.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.Web.1.0.20607.3\lib\net461\Microsoft.HealthVault.Web.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault.Web, Version=1.65.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.Web.1.65.20615.4-preview\lib\net461\Microsoft.HealthVault.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
