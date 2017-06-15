@@ -47,7 +47,7 @@
 	<string name="label_birthmonth">Birth month</string>
 	<string name="label_birthyear">Birth year</string>
 	<string name="label_gender">Gender</string>
-	<string name="label_profilepage_country">Country</string>
+	<string name="label_profilepage_country">Country/Region</string>
 
 	<!--Medication Page -->
 
