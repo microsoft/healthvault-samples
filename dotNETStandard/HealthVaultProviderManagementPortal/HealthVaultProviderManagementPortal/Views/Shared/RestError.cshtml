@@ -25,7 +25,7 @@
     <h2>Exception Message:</h2>
     <p>@ex.Message</p>
 
-    MicrosoftKhronosCloudCommonErrorsErrorResponseException commonError = ex as MicrosoftKhronosCloudCommonErrorsErrorResponseException;
+    ErrorResponseException commonError = ex as ErrorResponseException;
     if (commonError != null)
     {
         ErrorModel deserializeObject = JsonConvert.DeserializeObject<ErrorModel>(commonError.Response.Content);
