@@ -6,16 +6,15 @@
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System.Collections.Generic;
 using Microsoft.HealthVault.RestApi.Generated.Models;
-using Newtonsoft.Json;
 
-namespace HealthVaultProviderManagementPortal.Helpers
+namespace HealthVaultProviderManagementPortal.Models
 {
-    public static class TypeHelper
+    public class GoalsModel
     {
-        public static ActionPlanTaskV2 AsActionPlanTaskV2(this ActionPlanTaskInstanceV2 instance)
-        {
-            return JsonConvert.DeserializeObject<ActionPlanTaskV2>(JsonConvert.SerializeObject(instance));
-        }
+        public IList<Goal> Goals { get; set; }
+
+        public IList<GoalRecommendationInstance> GoalRecomendations { get; set; }
     }
 }

@@ -85,6 +85,11 @@ label {
     background-color: rgba(0, 130, 114, 0.75);
     border: none;
 }
+.btn-link {
+    padding: 0;
+    position: relative;
+    top: -2px;
+}
 .navbar-brand {
     padding: 0px;
     margin: 22px 40px 13px 15px;

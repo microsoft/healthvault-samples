@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using HealthVaultProviderManagementPortal.Helpers;
+using HealthVaultProviderManagementPortal.Models;
 using HealthVaultProviderManagementPortal.Models.Enums;
 using Microsoft.HealthVault.RestApi.Generated;
 using Microsoft.HealthVault.RestApi.Generated.Models;
@@ -30,18 +31,34 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         public async Task<ActionResult> Index(Guid personId, Guid recordId)
         {
-            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetGoalsAsync(), personId, recordId);
-            return View(response);
+            var goalsTask = ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetActiveAsync(), personId, recordId);
+            var goalRecommendationsTask = ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GoalRecommendations.GetAsync(), personId, recordId);
+
+            await Task.WhenAll(goalsTask, goalRecommendationsTask);
+
+            var model = new GoalsModel
+            {
+                Goals = goalsTask.Result.Goals,
+                GoalRecomendations = goalRecommendationsTask.Result.GoalRecommendations
+            };
+
+            return View(model);
         }
 
         /// <summary>
         /// Get a goal for the logged in user
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult> Goal(Guid id, Guid personId, Guid recordId)
+        public async Task<ActionResult> Goal(Guid? id, Guid personId, Guid recordId)
         {
-            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GetGoalByIdAsync(id.ToString()), personId, recordId);
-            return View(response);
+            if (id.HasValue && id.Value != Guid.Empty)
+            {
+                var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetByIdAsync(id.ToString()), personId, recordId);
+                return View(response);
+            }
+
+            var goal = new Goal();
+            return View(goal);
         }
 
         /// <summary>
@@ -49,7 +66,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Goal(Goal goal, Guid personId, Guid recordId)
+        public async Task<ActionResult> Goal(Guid? id, Goal goal, Guid personId, Guid recordId)
         {
             if (goal?.RecurrenceMetrics?.OccurrenceCount == null && goal?.RecurrenceMetrics?.WindowType == GoalRecurrenceType.Unknown.ToString())
             {
@@ -61,7 +78,15 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 Goals = new Collection<Goal> { goal }
             };
 
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.PatchGoalsAsync(goalWrapper), personId, recordId);
+            if (id.HasValue && id.Value != Guid.Empty)
+            {
+                await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.UpdateAsync(goalWrapper), personId, recordId);
+            }
+            else
+            {
+                await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.CreateAsync(goalWrapper), personId, recordId);
+            }
+            
             return RedirectToAction("Index", new { personId = personId, recordId = recordId });
         }
 
@@ -77,7 +102,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 Goals = new Collection<Goal> { Builder.CreateDefaultGoal() }
             };
 
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.CreateGoalsAsync(goalWrapper), personId, recordId);
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.CreateAsync(goalWrapper), personId, recordId);
             return RedirectToAction("Index", new { personId = personId, recordId = recordId });
         }
 
@@ -88,7 +113,46 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveGoal(Guid id, Guid personId, Guid recordId)
         {
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.DeleteGoalAsync(id.ToString()), personId, recordId);
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.DeleteAsync(id.ToString()), personId, recordId);
+            return RedirectToAction("Index", new { personId = personId, recordId = recordId });
+        }
+
+        /// <summary>
+        /// Get a blank goal recommendation page for the user to fill out
+        /// </summary>
+        [HttpGet]
+        public ActionResult GoalRecommendation()
+        {
+            var recommendation = new GoalRecommendation
+            {
+                AssociatedGoal = new Goal()
+            };
+            return View(recommendation);
+        }
+
+        /// <summary>
+        /// Create a goal recommendation for the logged in user
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> GoalRecommendation(GoalRecommendation recommendation, Guid personId, Guid recordId)
+        {
+            if (recommendation?.AssociatedGoal?.RecurrenceMetrics?.OccurrenceCount == null && recommendation?.AssociatedGoal?.RecurrenceMetrics?.WindowType == GoalRecurrenceType.Unknown.ToString())
+            {
+                recommendation.AssociatedGoal.RecurrenceMetrics = null;
+            }
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GoalRecommendations.CreateAsync(recommendation), personId, recordId);
+            return RedirectToAction("Index", new { personId = personId, recordId = recordId });
+        }
+
+        /// <summary>
+        /// Delete a goal recommendation for the logged in user
+        /// </summary>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RemoveGoalRecommendation(string id, Guid personId, Guid recordId)
+        {
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.GoalRecommendations.DeleteAsync(id), personId, recordId);
             return RedirectToAction("Index", new { personId = personId, recordId = recordId });
         }
     }

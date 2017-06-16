@@ -45,7 +45,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
             try
             {
                 var client = await CreateMicrosoftHealthVaultRestApiAsync();
-                var response = await client.GenerateInviteCodeAsync(onboardingRequest);
+                var response = await client.Onboarding.GenerateInviteCodeAsync(onboardingRequest);
                 return View("InviteSuccess", response);
             }
             catch (HealthVaultException ex)

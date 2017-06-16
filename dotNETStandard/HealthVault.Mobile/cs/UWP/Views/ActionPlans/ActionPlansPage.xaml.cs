@@ -36,7 +36,7 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
 
             try
             {
-                var response = await restClient.GetActionPlansAsync();
+                var response = await restClient.ActionPlans.GetAsync();
 
                 //Filter to only recommended or InProgress plans
                 Plans = from p in response.Plans
