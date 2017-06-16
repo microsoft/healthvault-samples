@@ -50,7 +50,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 PersonInfo personInfo = await _connection.GetPersonInfoAsync();
 
                 IMicrosoftHealthVaultRestApi restApi = _connection.CreateMicrosoftHealthVaultRestApi(personInfo.SelectedRecord.Id);
-                var response = await restApi.ActionPlans.GetAsync();
+                var response = await restApi.GetActionPlansAsync();
 
                 Plans = response.Plans.Where(p => p.Status == "Recommended" || p.Status == "InProgress");
 
