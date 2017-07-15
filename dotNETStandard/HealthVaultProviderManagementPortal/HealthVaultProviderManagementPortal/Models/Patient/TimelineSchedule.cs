@@ -43,38 +43,5 @@ namespace HealthVaultProviderManagementPortal.Models.Patient
         /// The occurrences which are bucketed into the schedule
         /// </summary>
         public List<TimelineScheduleOccurrence> Occurrences { get; set; }
-
-        public TimelineSchedule Clone()
-        {
-            return new TimelineSchedule
-            {
-                AdherenceDelta = this.AdherenceDelta,
-                LocalDateTime = this.LocalDateTime,
-                Type = this.Type,
-                RecurrenceType = this.RecurrenceType,
-                Occurrences = this.Occurrences
-            };
-        }
-
-        /// <summary>
-        /// Allocate the schedule occurrences which are grouped by date to the timeline schedule
-        /// </summary>
-        /// <param name="scheduleOccurrencesGroupedByDate"></param>
-        public void AssignOccurrences(IEnumerable<IGrouping<LocalDate, TimelineScheduleOccurrence>> scheduleOccurrencesGroupedByDate)
-        {
-            if (scheduleOccurrencesGroupedByDate != null)
-            {
-                this.Occurrences = scheduleOccurrencesGroupedByDate
-                    .FirstOrDefault(group => group.Key.Equals(this.LocalDateTime.Date))
-                    ?.Select(occurrence =>
-                    {
-                        // Re-calculate if the occurrence is in or out of window
-                        occurrence.InWindow = this.Type == TimelineScheduleType.Anytime ||
-                            Math.Abs(Period.Between(this.LocalDateTime, occurrence.LocalDateTime).ToDuration().TotalMinutes) <= this.AdherenceDelta?.TotalMinutes;
-                        return occurrence;
-                    })
-                    .ToList();
-            }
-        }
     }
 }

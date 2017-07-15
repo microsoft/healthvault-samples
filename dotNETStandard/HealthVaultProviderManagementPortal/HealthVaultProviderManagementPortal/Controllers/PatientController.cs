@@ -65,7 +65,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
         private async Task<TimelineResponse> GetTimeline(Guid personId, Guid recordId, DateTime startDate, DateTime? endDate)
         {
-            var restHealthVaultUrl = WebConfigurationManager.AppSettings.Get("HV_RestHealthServiceUrl"); //TODO: use built in SDK function to retreive this
+            var restHealthVaultUrl = WebConfigurationManager.AppSettings.Get("HV_RestHealthServiceUrl"); //TODO: use built in SDK function to retreive config settings when available
 
             // Construct URL
             var uriBuilder = new UriBuilder(restHealthVaultUrl)
@@ -88,24 +88,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 uriBuilder.Query = string.Join("&", queryParameters);
             }
 
-            // Create HTTP transport objects
-            var httpRequest = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = uriBuilder.Uri,
-            };
-            httpRequest.Headers.Add("x-ms-version", "2.0-preview");
-
-            var connection = await GetConnectionAsync(personId);
-            await connection.AuthorizeRestRequestAsync(httpRequest, recordId);
-
-            var httpClient = new HttpClient();
-            var httpResponse = await httpClient.SendAsync(httpRequest);
-            var responseContent = await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-            if (!httpResponse.IsSuccessStatusCode)
-            {
-                throw new RestException(responseContent);
-            }
+            var responseContent = await ExecuteRestRequest(personId, recordId, uriBuilder.Uri, HttpMethod.Get, "2.0-preview");
 
             return SafeJsonConvert.DeserializeObject<TimelineResponse>(responseContent, GetDeserializationSettings());
         }
@@ -134,6 +117,30 @@ namespace HealthVaultProviderManagementPortal.Controllers
             }
 
             return timelineEntries;
+        }
+
+        private static async Task<string> ExecuteRestRequest(Guid personId, Guid recordId, Uri uri, HttpMethod requestMethod, string apiVersion)
+        {
+            // Create HTTP transport objects
+            var httpRequest = new HttpRequestMessage
+            {
+                Method = requestMethod,
+                RequestUri = uri,
+            };
+            httpRequest.Headers.Add("x-ms-version", apiVersion);
+
+            var connection = await GetConnectionAsync(personId);
+            await connection.AuthorizeRestRequestAsync(httpRequest, recordId);
+
+            var httpClient = new HttpClient();
+            var httpResponse = await httpClient.SendAsync(httpRequest);
+            var responseContent = await httpResponse.Content.ReadAsStringAsync();
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                throw new RestException(responseContent);
+            }
+
+            return responseContent;
         }
 
         private static JsonSerializerSettings GetDeserializationSettings()

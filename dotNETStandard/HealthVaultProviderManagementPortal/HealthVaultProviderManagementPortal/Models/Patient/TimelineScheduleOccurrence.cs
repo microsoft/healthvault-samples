@@ -30,19 +30,5 @@ namespace HealthVaultProviderManagementPortal.Models.Patient
         /// If the occurrence occurred in or out of window
         /// </summary>
         public bool InWindow { get; set; }
-
-        /// <summary>
-        /// Creates a deep copy of the timeline schedule occurrence
-        /// </summary>
-        /// <returns></returns>
-        public TimelineScheduleOccurrence Clone()
-        {
-            return new TimelineScheduleOccurrence
-            {
-                Id = this.Id,
-                LocalDateTime = this.LocalDateTime,
-                InWindow = this.InWindow
-            };
-        }
     }
 }
