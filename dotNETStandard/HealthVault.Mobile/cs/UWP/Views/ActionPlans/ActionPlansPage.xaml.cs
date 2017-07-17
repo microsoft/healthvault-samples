@@ -19,7 +19,7 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
     /// </summary>
     public sealed partial class ActionPlansPage : HealthVaultBasePage
     {
-        public IEnumerable<ActionPlanInstance> Plans { get; set; }
+        public IEnumerable<ActionPlanInstanceV2> Plans { get; set; }
         private IHealthVaultConnection _connection;
 
         public ActionPlansPage()
@@ -36,7 +36,7 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
 
             try
             {
-                var response = await restClient.GetActionPlansAsync();
+                var response = await restClient.ActionPlans.GetAsync();
 
                 //Filter to only recommended or InProgress plans
                 Plans = from p in response.Plans

@@ -16,7 +16,7 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
     public sealed partial class ActionPlanDetailsPage : HealthVaultBasePage
     {
         private IHealthVaultConnection _connection;
-        public ActionPlanInstance Context { get; set; }
+        public ActionPlanInstanceV2 Context { get; set; }
 
         public ActionPlanDetailsPage()
         {
@@ -26,14 +26,14 @@ namespace HealthVaultMobileSample.UWP.Views.ActionPlans
         public override async Task Initialize(NavigationParams navParams)
         {
             _connection = navParams.Connection as IHealthVaultConnection;
-            Context = navParams.Context as ActionPlanInstance;
+            Context = navParams.Context as ActionPlanInstanceV2;
 
             OnPropertyChanged("Context");
         }
 
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var task = e.ClickedItem as ActionPlanTaskInstance;
+            var task = e.ClickedItem as ActionPlanTaskInstanceV2;
             if (task.TrackingPolicy.IsAutoTrackable == true)
             {
                 var xpath = task.TrackingPolicy.TargetEvents.FirstOrDefault().ElementXPath;
