@@ -1,7 +1,7 @@
 ﻿{
   "supports": {},
   "dependencies": {
-    "Microsoft.HealthVault.Client": "1.0.20605.1",
+    "Microsoft.HealthVault.Client": "1.66.20706.2-preview",
     "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
     "NETStandard.Library": "1.6.1",
     "Newtonsoft.Json": "10.0.2",

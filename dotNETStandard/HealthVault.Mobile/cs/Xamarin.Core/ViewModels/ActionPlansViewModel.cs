@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,12 +25,12 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
         {
             _connection = connection;
 
-            ItemSelectedCommand = new Command<ActionPlanInstance>(async o => await GoToActionPlanDetailsPageAsync(o));
+            ItemSelectedCommand = new Command<ActionPlanInstanceV2>(async o => await GoToActionPlanDetailsPageAsync(o));
         }
 
-        private IEnumerable<ActionPlanInstance> _plans;
+        private IEnumerable<ActionPlanInstanceV2> _plans;
 
-        public IEnumerable<ActionPlanInstance> Plans
+        public IEnumerable<ActionPlanInstanceV2> Plans
         {
             get { return _plans; }
 
@@ -50,7 +50,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
                 PersonInfo personInfo = await _connection.GetPersonInfoAsync();
 
                 IMicrosoftHealthVaultRestApi restApi = _connection.CreateMicrosoftHealthVaultRestApi(personInfo.SelectedRecord.Id);
-                var response = await restApi.GetActionPlansAsync();
+                var response = await restApi.ActionPlans.GetAsync();
 
                 Plans = response.Plans.Where(p => p.Status == "Recommended" || p.Status == "InProgress");
 
@@ -58,7 +58,7 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
             });
         }
 
-        private async Task GoToActionPlanDetailsPageAsync(ActionPlanInstance actionPlan)
+        private async Task GoToActionPlanDetailsPageAsync(ActionPlanInstanceV2 actionPlan)
         {
             var actionPlanDetailsPage = new ActionPlanDetailsPage
             {
