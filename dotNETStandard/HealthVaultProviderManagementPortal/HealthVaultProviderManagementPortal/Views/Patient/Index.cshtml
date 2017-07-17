@@ -52,14 +52,14 @@
                 @foreach (var task in entry)
                 {
                     <tr>
-                        <td class="ms-thumbnail"><img class="img-thumbnail" src="@task.TaskImageUrl" alt="Task thumbnail icon" /></td>
-                        <td>
+                        <td class="ms-thumbnail col-md-1"><img class="img-thumbnail" src="@task.TaskImageUrl" alt="Task thumbnail icon" /></td>
+                        <td class="col-md-9">
                             @task.TaskName<br />
                             @(task.ScheduleType == TimelineScheduleType.Anytime ?
                                 TimelineScheduleType.Anytime.ToString() :
                                 task.LocalDateTime.TimeOfDay.ToString())
                         </td>
-                        <td><!--@task.TaskId--></td>
+                        <td class="col-md-2"><!--@task.TaskId--></td>
                     </tr>
                 }
             </tbody>
