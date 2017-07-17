@@ -57,20 +57,20 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.HealthVault, Version=1.65.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.1.65.20615.4-preview\lib\netstandard1.4\Microsoft.HealthVault.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault, Version=1.66.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.1.66.20706.2-preview\lib\netstandard1.4\Microsoft.HealthVault.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.HealthVault.RestApi, Version=1.65.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.1.65.20615.4-preview\lib\netstandard1.4\Microsoft.HealthVault.RestApi.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault.RestApi, Version=1.66.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.1.66.20706.2-preview\lib\netstandard1.4\Microsoft.HealthVault.RestApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.HealthVault.Web, Version=1.65.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.Web.1.65.20615.4-preview\lib\net461\Microsoft.HealthVault.Web.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault.Web, Version=1.66.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.Web.1.66.20706.2-preview\lib\net461\Microsoft.HealthVault.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.7\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.8\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -86,6 +86,10 @@
     </Reference>
     <Reference Include="NodaTime, Version=2.0.2.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
       <HintPath>..\packages\NodaTime.2.0.2\lib\net45\NodaTime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NodaTime.Serialization.JsonNet, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NodaTime.Serialization.JsonNet.2.0.0\lib\net45\NodaTime.Serialization.JsonNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -147,6 +151,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Reflection.TypeExtensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.TypeExtensions.4.3.0\lib\net46\System.Reflection.TypeExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime">
       <HintPath>..\..\..\..\..\..\Repos\healthvault-samples\dotNETStandard\HealthVaultProviderManagementPortal\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
     </Reference>
@@ -214,6 +222,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ActionPlanController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\GoalsController.cs" />
     <Compile Include="Controllers\HealthDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -242,6 +251,16 @@
     <Compile Include="Models\ErrorInfoModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\GoalsModel.cs" />
+    <Compile Include="Models\Patient\TaskType.cs" />
+    <Compile Include="Models\Patient\TimelineResponse.cs" />
+    <Compile Include="Models\Patient\TimelineSchedule.cs" />
+    <Compile Include="Models\Patient\TimelineScheduleOccurrence.cs" />
+    <Compile Include="Models\Patient\TimelineScheduleType.cs" />
+    <Compile Include="Models\Patient\TimelineSnapshot.cs" />
+    <Compile Include="Models\Patient\TimelineSnapshotCompletionMetrics.cs" />
+    <Compile Include="Models\Patient\TimelineEntryViewModel.cs" />
+    <Compile Include="Models\Patient\TimelineTask.cs" />
+    <Compile Include="Models\Patient\TimelineViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +321,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Goals\GoalRecommendation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Patient\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

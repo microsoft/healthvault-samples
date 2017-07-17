@@ -31,11 +31,13 @@
      {
          foreach (var authorizedRecord in person.AuthorizedRecords)
          {
-             var routeValues = new RouteValueDictionary();
-             routeValues.Add("recordId", authorizedRecord.Value.Id);
-             routeValues.Add("personId", person.PersonId);
+             var routeValues = new RouteValueDictionary
+             {
+                 {"recordId", authorizedRecord.Value.Id},
+                 { "personId", person.PersonId}
+             };
 
-            <tr>
+             <tr>
                 <td>@authorizedRecord.Value.Name</td>
                 <td>
                     @Html.ActionLink("Plans", "Plans", "ActionPlan", routeValues, new Dictionary<string, object>())
@@ -45,6 +47,9 @@
                 </td>
                 <td>
                     @Html.ActionLink("Health data", "Index", "HealthData", routeValues, new Dictionary<string, object>())
+                </td>
+                <td>
+                    @Html.ActionLink("Patient preview", "Index", "Patient", routeValues, new Dictionary<string, object>())
                 </td>
             </tr>
           }

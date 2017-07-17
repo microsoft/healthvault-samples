@@ -90,6 +90,9 @@ label {
     position: relative;
     top: -2px;
 }
+.btn-inline {
+    margin-top: 35px;
+}
 .navbar-brand {
     padding: 0px;
     margin: 22px 40px 13px 15px;
@@ -193,6 +196,7 @@ td.ms-row {
 }
 .ms-thumbnail img{
     height: 50px;
+    width: 50px;
 }
 .goal-range-separator {
     max-width: 6px;
