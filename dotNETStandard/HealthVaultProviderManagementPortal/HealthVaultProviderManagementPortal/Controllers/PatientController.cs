@@ -104,19 +104,62 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 {
                     foreach (var schedule in snapshot.Schedules)
                     {
-                        timelineEntries.Add(new TimelineEntryViewModel
+                        if (schedule.LocalDateTime >= snapshot.EffectiveStartInstant.InUtc().LocalDateTime &&
+                            schedule.LocalDateTime <= snapshot.EffectiveEndInstant.InUtc().LocalDateTime)
                         {
-                            TaskId = task.TaskId,
-                            TaskName = task.TaskName,
-                            TaskImageUrl = task.TaskImageUrl,
-                            LocalDateTime = schedule.LocalDateTime,
-                            ScheduleType = schedule.Type
-                        });
+
+                            timelineEntries.Add(new TimelineEntryViewModel
+                            {
+                                TaskId = task.TaskId,
+                                TaskName = task.TaskName,
+                                TaskImageUrl = task.TaskImageUrl,
+                                LocalDateTime = schedule.LocalDateTime,
+                                ScheduleType = schedule.Type
+                            });
+
+                            if (schedule.Occurrences != null && schedule.Occurrences.Any(o => !o.InWindow))
+                            {
+                                var outOfWindowOccurrences = schedule.Occurrences.Where(o => !o.InWindow);
+                                foreach (var occurrence in outOfWindowOccurrences)
+                                {
+                                    AddOccurrence(timelineEntries, occurrence, task);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (snapshot.UnscheduledOccurrences != null && snapshot.UnscheduledOccurrences.Any())
+                {
+                    foreach (var occurrence in snapshot.UnscheduledOccurrences)
+                    {
+                        {
+                            AddOccurrence(timelineEntries, occurrence, task);
+                        }
                     }
                 }
             }
 
             return timelineEntries;
+        }
+
+        private static void AddOccurrence(List<TimelineEntryViewModel> timelineEntries, TimelineScheduleOccurrence occurrence, TimelineTask task)
+        {
+            // Don't add another entry if this occurrence has already been added to the timeline
+            if (timelineEntries.Any(t => t.OccurrenceId.HasValue && t.OccurrenceId.Value == occurrence.Id))
+            {
+                return;
+            }
+
+            timelineEntries.Add(new TimelineEntryViewModel
+            {
+                TaskId = task.TaskId,
+                TaskName = task.TaskName,
+                TaskImageUrl = task.TaskImageUrl,
+                LocalDateTime = occurrence.LocalDateTime,
+                ScheduleType = TimelineScheduleType.Unscheduled,
+                OccurrenceId = occurrence.Id
+            });
         }
 
         private static async Task<string> ExecuteRestRequest(Guid personId, Guid recordId, Uri uri, HttpMethod requestMethod, string apiVersion)

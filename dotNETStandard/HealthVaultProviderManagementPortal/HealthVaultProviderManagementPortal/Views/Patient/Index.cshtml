@@ -8,6 +8,7 @@
     THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@
 @using HealthVaultProviderManagementPortal.Models.Patient
+@using Microsoft.Ajax.Utilities
 @model HealthVaultProviderManagementPortal.Models.Patient.TimelineViewModel
 
 @{
@@ -53,11 +54,9 @@
                 {
                     <tr>
                         <td class="ms-thumbnail col-md-1"><img class="img-thumbnail" src="@task.TaskImageUrl" alt="Task thumbnail icon" /></td>
-                        <td class="col-md-9">
+                        <td class="col-md-9 @(task.ScheduleType == TimelineScheduleType.Unscheduled ? "occurrence" : "")">
                             @task.TaskName<br />
-                            @(task.ScheduleType == TimelineScheduleType.Anytime ?
-                                TimelineScheduleType.Anytime.ToString() :
-                                task.LocalDateTime.TimeOfDay.ToString())
+                            @TaskTime(task)
                         </td>
                         <td class="col-md-2"><!--@task.TaskId--></td>
                     </tr>
@@ -67,3 +66,18 @@
     }
 }
 
+@helper TaskTime(TimelineEntryViewModel task)
+{
+    switch (task.ScheduleType)
+    {
+        case TimelineScheduleType.Anytime:
+            @TimelineScheduleType.Anytime.ToString()
+            break;
+        case TimelineScheduleType.Unscheduled:
+            @:Logged at: @task.LocalDateTime.TimeOfDay.ToString()
+            break;
+        default:
+            @task.LocalDateTime.TimeOfDay.ToString();
+            break;
+    }
+}

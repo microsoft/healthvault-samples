@@ -41,5 +41,10 @@ namespace HealthVaultProviderManagementPortal.Models.Patient
         /// The type of schedule
         /// </summary>
         public TimelineScheduleType ScheduleType { get; set; }
+
+        /// <summary>
+        /// If this entry represents an occurrence, the ID of that occurrence
+        /// </summary>
+        public Guid? OccurrenceId { get; set; }
     }
 }

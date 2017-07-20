@@ -205,3 +205,6 @@ td.ms-row {
     margin-left: -3px;
     margin-right: -3px;
 }
+td.occurrence {
+    color: rgba(153, 153, 153, 1);
+}
