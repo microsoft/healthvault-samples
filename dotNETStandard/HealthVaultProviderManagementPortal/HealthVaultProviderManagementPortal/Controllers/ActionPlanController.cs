@@ -233,10 +233,15 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ValidateTracking(Guid id, string thing, Guid personId, Guid recordId)
+        public async Task<ActionResult> ValidateTracking(Guid id, string trackingPolicy, string thing, Guid personId, Guid recordId)
         {
             var restApi = await CreateMicrosoftHealthVaultRestApiAsync(personId, recordId);
             var taskInstance = await restApi.ActionPlanTasks.GetByIdAsync(id.ToString());
+
+            if (!string.IsNullOrWhiteSpace(trackingPolicy))
+            {
+                taskInstance.TrackingPolicy = trackingPolicy.AsActionPlanTrackingPolicy();
+            }
 
             var trackingValidation = new TrackingValidation
             {
