@@ -17,5 +17,10 @@ namespace HealthVaultProviderManagementPortal.Helpers
         {
             return JsonConvert.DeserializeObject<ActionPlanTaskV2>(JsonConvert.SerializeObject(instance));
         }
+
+        public static ActionPlanTrackingPolicy AsActionPlanTrackingPolicy(this string instance)
+        {
+            return JsonConvert.DeserializeObject<ActionPlanTrackingPolicy>(instance);
+        }
     }
 }
