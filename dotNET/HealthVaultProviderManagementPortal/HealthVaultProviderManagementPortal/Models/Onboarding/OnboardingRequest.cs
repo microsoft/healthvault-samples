@@ -65,14 +65,14 @@ namespace HealthVaultProviderManagementPortal.Models.Onboarding
         public string ZipCode { get; set; }
 
         /// <summary>
-        /// Gets and sets the user's state
+        /// Gets and sets the user's state/province
         /// </summary>
-        public string State { get; set; }
+        public string StateProvince { get; set; }
 
         /// <summary>
         /// Gets and sets the user's country/region
         /// </summary>
-        public string Country { get; set; }
+        public string CountryRegion { get; set; }
 
         /// <summary>
         /// Gets and sets the user's birthday
