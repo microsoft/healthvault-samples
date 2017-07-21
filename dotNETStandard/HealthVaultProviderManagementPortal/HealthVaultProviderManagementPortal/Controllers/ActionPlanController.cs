@@ -218,13 +218,10 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get a task for a user.
         /// </summary>
         [HttpGet]
-        public ActionResult ValidateTracking(Guid id, Guid planId, Guid personId, Guid recordId)
+        public async Task<ActionResult> ValidateTracking(Guid id, Guid planId, Guid personId, Guid recordId)
         {
-            return View("TrackingValidationEntry", new ActionPlanTaskInstance()
-            {
-                Id = id.ToString(),
-                AssociatedPlanId = planId.ToString()
-            });
+            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.ActionPlanTasks.GetByIdAsync(id.ToString()), personId, recordId);
+            return View("TrackingValidationEntry", response);
         }
 
         /// <summary>

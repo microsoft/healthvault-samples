@@ -7,7 +7,8 @@
 
     THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@
-@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanTaskInstance
+@using Newtonsoft.Json
+@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanTaskInstanceV2
 
 @{
     ViewBag.Title = "Validate Task Auto Tracking";
@@ -32,7 +33,7 @@
         <div class="form-group">
             <div class="col-md-12 slim-col">
                 @Html.Label("Tracking policy override JSON (optional)", htmlAttributes: new { @class = "control-label" })
-                @Html.TextArea("trackingPolicy", htmlAttributes: new { @class = "form-control", rows = 15 })
+                @Html.TextArea("trackingPolicy", JsonConvert.SerializeObject(Model.TrackingPolicy, Formatting.Indented), htmlAttributes: new { @class = "form-control", rows = 15 })
             </div>
         </div>
 
