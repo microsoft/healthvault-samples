@@ -98,25 +98,57 @@ namespace HealthVaultProviderManagementPortal.Controllers
             var timelineEntries = new List<TimelineEntryViewModel>();
             if (task?.TimelineSnapshots == null || !task.TimelineSnapshots.Any()) return timelineEntries;
 
+            // Each task can contain multiple snapshots of what the schedules and completion metrics looked like at a point in time
             foreach (var snapshot in task.TimelineSnapshots)
             {
                 if (snapshot.Schedules != null && snapshot.Schedules.Any())
                 {
                     foreach (var schedule in snapshot.Schedules)
                     {
-                        timelineEntries.Add(new TimelineEntryViewModel
+                        // Check that the schedule is within this snapshot.
+                        if (schedule.LocalDateTime >= snapshot.EffectiveStartInstant.InUtc().LocalDateTime &&
+                            schedule.LocalDateTime <= snapshot.EffectiveEndInstant.InUtc().LocalDateTime)
                         {
-                            TaskId = task.TaskId,
-                            TaskName = task.TaskName,
-                            TaskImageUrl = task.TaskImageUrl,
-                            LocalDateTime = schedule.LocalDateTime,
-                            ScheduleType = schedule.Type
-                        });
+                            // Add a timeline entry for the schedule
+                            timelineEntries.Add(new TimelineEntryViewModel
+                            {
+                                TaskId = task.TaskId,
+                                TaskName = task.TaskName,
+                                TaskImageUrl = task.TaskImageUrl,
+                                LocalDateTime = schedule.LocalDateTime,
+                                ScheduleType = schedule.Type
+                            });
+
+                            // Add any out-of-window task occurrences to show on the timeline
+                            schedule.Occurrences?.Where(o => !o.InWindow).ToList().ForEach(occurrence => AddOccurrence(timelineEntries, occurrence, task)); ;
+                        }
                     }
                 }
+
+                // Add any unscheduled task occurrences to show on the timeline
+                snapshot.UnscheduledOccurrences?.ForEach(occurrence => AddOccurrence(timelineEntries, occurrence, task));
             }
 
             return timelineEntries;
+        }
+
+        private static void AddOccurrence(List<TimelineEntryViewModel> timelineEntries, TimelineScheduleOccurrence occurrence, TimelineTask task)
+        {
+            // Don't add another entry if this occurrence has already been added to the timeline
+            if (timelineEntries.Any(t => t.OccurrenceId.HasValue && t.OccurrenceId.Value == occurrence.Id))
+            {
+                return;
+            }
+
+            timelineEntries.Add(new TimelineEntryViewModel
+            {
+                TaskId = task.TaskId,
+                TaskName = task.TaskName,
+                TaskImageUrl = task.TaskImageUrl,
+                LocalDateTime = occurrence.LocalDateTime,
+                ScheduleType = TimelineScheduleType.Unscheduled,
+                OccurrenceId = occurrence.Id
+            });
         }
 
         private static async Task<string> ExecuteRestRequest(Guid personId, Guid recordId, Uri uri, HttpMethod requestMethod, string apiVersion)
