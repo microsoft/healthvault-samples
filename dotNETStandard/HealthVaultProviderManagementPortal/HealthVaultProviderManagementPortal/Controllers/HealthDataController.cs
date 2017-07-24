@@ -47,7 +47,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         public async Task<ActionResult> Index(Guid personId, Guid? recordId, double weight)
         {
             var item = new Weight(
-                new HealthServiceDateTime(DateTime.Now),
+                new HealthServiceDateTime(LocalDateTime.FromDateTime(DateTime.Now)),
                 new WeightValue(weight)
                 );
 

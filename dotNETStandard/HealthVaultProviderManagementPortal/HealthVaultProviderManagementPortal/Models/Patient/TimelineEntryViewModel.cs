@@ -6,21 +6,45 @@
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Microsoft.HealthVault.RestApi.Generated.Models;
-using Newtonsoft.Json;
 
-namespace HealthVaultProviderManagementPortal.Helpers
+namespace HealthVaultProviderManagementPortal.Models.Patient
 {
-    public static class TypeHelper
-    {
-        public static ActionPlanTaskV2 AsActionPlanTaskV2(this ActionPlanTaskInstanceV2 instance)
-        {
-            return JsonConvert.DeserializeObject<ActionPlanTaskV2>(JsonConvert.SerializeObject(instance));
-        }
+    using System;
+    using NodaTime;
 
-        public static ActionPlanTrackingPolicy AsActionPlanTrackingPolicy(this string instance)
-        {
-            return JsonConvert.DeserializeObject<ActionPlanTrackingPolicy>(instance);
-        }
+    /// <summary>
+    /// An entry on the timeline
+    /// </summary>
+    public class TimelineEntryViewModel
+    {
+        /// <summary>
+        /// ID of the task this timeline task is associated with
+        /// </summary>
+        public Guid TaskId { get; set; }
+
+        /// <summary>
+        /// Name of the task
+        /// </summary>
+        public string TaskName { get; set; }
+
+        /// <summary>
+        /// Task image URL
+        /// </summary>
+        public string TaskImageUrl { get; set; }
+
+        /// <summary>
+        /// The local date and time of the schedule
+        /// </summary>
+        public LocalDateTime LocalDateTime { get; set; }
+
+        /// <summary>
+        /// The type of schedule
+        /// </summary>
+        public TimelineScheduleType ScheduleType { get; set; }
+
+        /// <summary>
+        /// If this entry represents an occurrence, the ID of that occurrence
+        /// </summary>
+        public Guid? OccurrenceId { get; set; }
     }
 }

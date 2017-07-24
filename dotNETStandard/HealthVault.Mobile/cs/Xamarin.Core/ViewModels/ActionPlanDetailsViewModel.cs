@@ -14,20 +14,20 @@ namespace HealthVault.Sample.Xamarin.Core.ViewModels
     {
         private readonly IHealthVaultSodaConnection _connection;
 
-        public ActionPlanDetailsViewModel(ActionPlanInstance actionPlanInstance, IHealthVaultSodaConnection connection, INavigationService navigationService)
+        public ActionPlanDetailsViewModel(ActionPlanInstanceV2 actionPlanInstance, IHealthVaultSodaConnection connection, INavigationService navigationService)
             : base(navigationService)
         {
             _connection = connection;
-            ItemSelectedCommand = new Command<ActionPlanTaskInstance>(async o => await HandleTaskSelectedAsync(o));
+            ItemSelectedCommand = new Command<ActionPlanTaskInstanceV2>(async o => await HandleTaskSelectedAsync(o));
 
             Plan = actionPlanInstance;
         }
 
         public ICommand ItemSelectedCommand { get; }
 
-        public ActionPlanInstance Plan { get; }
+        public ActionPlanInstanceV2 Plan { get; }
 
-        private async Task HandleTaskSelectedAsync(ActionPlanTaskInstance task)
+        private async Task HandleTaskSelectedAsync(ActionPlanTaskInstanceV2 task)
         {
             if (task.TrackingPolicy.IsAutoTrackable == true)
             {

@@ -218,13 +218,10 @@ namespace HealthVaultProviderManagementPortal.Controllers
         /// Get a task for a user.
         /// </summary>
         [HttpGet]
-        public ActionResult ValidateTracking(Guid id, Guid planId, Guid personId, Guid recordId)
+        public async Task<ActionResult> ValidateTracking(Guid id, Guid planId, Guid personId, Guid recordId)
         {
-            return View("TrackingValidationEntry", new ActionPlanTaskInstance()
-            {
-                Id = id.ToString(),
-                AssociatedPlanId = planId.ToString()
-            });
+            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.ActionPlanTasks.GetByIdAsync(id.ToString()), personId, recordId);
+            return View("TrackingValidationEntry", response);
         }
 
         /// <summary>
@@ -233,10 +230,15 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ValidateTracking(Guid id, string thing, Guid personId, Guid recordId)
+        public async Task<ActionResult> ValidateTracking(Guid id, string trackingPolicy, string thing, Guid personId, Guid recordId)
         {
             var restApi = await CreateMicrosoftHealthVaultRestApiAsync(personId, recordId);
             var taskInstance = await restApi.ActionPlanTasks.GetByIdAsync(id.ToString());
+
+            if (!string.IsNullOrWhiteSpace(trackingPolicy))
+            {
+                taskInstance.TrackingPolicy = trackingPolicy.AsActionPlanTrackingPolicy();
+            }
 
             var trackingValidation = new TrackingValidation
             {

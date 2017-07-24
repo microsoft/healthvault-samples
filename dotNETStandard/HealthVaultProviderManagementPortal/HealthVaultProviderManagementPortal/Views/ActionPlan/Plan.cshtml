@@ -117,15 +117,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var task in Model.AssociatedTasks)
+                @if (Model.AssociatedTasks != null)
                 {
-                    <tr>
-                        <td>@task.Id</td>
-                        <td>@task.Name</td>
-                        <td>@task.Status</td>
-                        <td>@Html.ActionLink("Edit", "Task", new { planId = task.AssociatedPlanId, id = task.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] })</td>
-                        <td>@Html.ActionLink("Validate auto tracking", "ValidateTracking", new { planId = task.AssociatedPlanId, id = task.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"] })</td>
-                    </tr>
+                    foreach (var task in Model.AssociatedTasks)
+                    {
+                        <tr>
+                            <td>@task.Id</td>
+                            <td>@task.Name</td>
+                            <td>@task.Status</td>
+                            <td>@Html.ActionLink("Edit", "Task", new {planId = task.AssociatedPlanId, id = task.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})</td>
+                            <td>@Html.ActionLink("Validate auto tracking", "ValidateTracking", new {planId = task.AssociatedPlanId, id = task.Id, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})</td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>
