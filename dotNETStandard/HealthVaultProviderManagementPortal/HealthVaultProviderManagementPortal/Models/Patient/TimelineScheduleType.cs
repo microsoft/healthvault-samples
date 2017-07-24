@@ -6,21 +6,17 @@
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Microsoft.HealthVault.RestApi.Generated.Models;
-using Newtonsoft.Json;
-
-namespace HealthVaultProviderManagementPortal.Helpers
+namespace HealthVaultProviderManagementPortal.Models.Patient
 {
-    public static class TypeHelper
+    /// <summary>
+    /// Specifies the type of the TimelineScheduleEntry
+    /// </summary>
+    public enum TimelineScheduleType
     {
-        public static ActionPlanTaskV2 AsActionPlanTaskV2(this ActionPlanTaskInstanceV2 instance)
-        {
-            return JsonConvert.DeserializeObject<ActionPlanTaskV2>(JsonConvert.SerializeObject(instance));
-        }
-
-        public static ActionPlanTrackingPolicy AsActionPlanTrackingPolicy(this string instance)
-        {
-            return JsonConvert.DeserializeObject<ActionPlanTrackingPolicy>(instance);
-        }
+        Unknown = 0,
+        Zoned = 1,
+        Local = 2,
+        Unscheduled = 3,
+        Anytime = 4
     }
 }

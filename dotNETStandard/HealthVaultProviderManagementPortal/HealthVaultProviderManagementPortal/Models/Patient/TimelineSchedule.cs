@@ -6,21 +6,42 @@
 //
 // THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Microsoft.HealthVault.RestApi.Generated.Models;
-using Newtonsoft.Json;
-
-namespace HealthVaultProviderManagementPortal.Helpers
+namespace HealthVaultProviderManagementPortal.Models.Patient
 {
-    public static class TypeHelper
-    {
-        public static ActionPlanTaskV2 AsActionPlanTaskV2(this ActionPlanTaskInstanceV2 instance)
-        {
-            return JsonConvert.DeserializeObject<ActionPlanTaskV2>(JsonConvert.SerializeObject(instance));
-        }
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Enums;
+    using NodaTime;
 
-        public static ActionPlanTrackingPolicy AsActionPlanTrackingPolicy(this string instance)
-        {
-            return JsonConvert.DeserializeObject<ActionPlanTrackingPolicy>(instance);
-        }
+    /// <summary>
+    /// The schedule for the timeline entry
+    /// </summary>
+    public class TimelineSchedule
+    {
+        /// <summary>
+        /// The adherence delta for the task
+        /// </summary>
+        public Duration? AdherenceDelta { get; set; }
+
+        /// <summary>
+        /// The local date and time of the schedule
+        /// </summary>
+        public LocalDateTime LocalDateTime { get; set; }
+
+        /// <summary>
+        /// The type of schedule
+        /// </summary>
+        public TimelineScheduleType Type { get; set; }
+
+        /// <summary>
+        /// The recurrence type of the schedule
+        /// </summary>
+        public ActionPlanScheduleRecurrenceType RecurrenceType { get; set; }
+
+        /// <summary>
+        /// The occurrences which are bucketed into the schedule
+        /// </summary>
+        public List<TimelineScheduleOccurrence> Occurrences { get; set; }
     }
 }

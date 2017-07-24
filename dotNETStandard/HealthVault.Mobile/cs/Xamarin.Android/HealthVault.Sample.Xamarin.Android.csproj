@@ -66,20 +66,20 @@
       <HintPath>..\packages\Grace.6.0.1\lib\netstandard1.0\Grace.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.HealthVault, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.1.0.20605.1\lib\netstandard1.4\Microsoft.HealthVault.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault, Version=1.66.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.1.66.20714.1-preview\lib\netstandard1.4\Microsoft.HealthVault.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.HealthVault.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20605.1\lib\monoandroid\Microsoft.HealthVault.Client.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault.Client, Version=1.66.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.Client.1.66.20714.1-preview\lib\monoandroid\Microsoft.HealthVault.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.HealthVault.Client.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.Client.1.0.20605.1\lib\monoandroid\Microsoft.HealthVault.Client.Core.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault.Client.Core, Version=1.66.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.Client.1.66.20714.1-preview\lib\monoandroid\Microsoft.HealthVault.Client.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.HealthVault.RestApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.1.0.20605.1\lib\netstandard1.4\Microsoft.HealthVault.RestApi.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault.RestApi, Version=1.66.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.1.66.20714.1-preview\lib\netstandard1.4\Microsoft.HealthVault.RestApi.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.7\lib\netstandard1.4\Microsoft.Rest.ClientRuntime.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.8\lib\netstandard1.4\Microsoft.Rest.ClientRuntime.dll</HintPath>
     </Reference>
     <Reference Include="ModernHttpClient, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\ModernHttpClient.dll</HintPath>
