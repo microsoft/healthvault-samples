@@ -10,18 +10,19 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 using HealthVaultProviderManagementPortal.Models.Patient;
-using Microsoft.HealthVault.Configuration;
+using Microsoft.HealthVault.RestApi.Generated;
 using Microsoft.HealthVault.Web.Attributes;
 using Microsoft.Rest;
 using Microsoft.Rest.Serialization;
 using Newtonsoft.Json;
 using NodaTime;
+using NodaTime.Extensions;
 using NodaTime.Serialization.JsonNet;
 using static HealthVaultProviderManagementPortal.Helpers.RestClientFactory;
 
@@ -33,6 +34,9 @@ namespace HealthVaultProviderManagementPortal.Controllers
     [RequireSignIn]
     public class PatientController : Controller
     {
+        private static JsonSerializerSettings _serializerSettings = GetSerializationSettings();
+        private static JsonSerializerSettings _deserializerSettings = GetDeserializationSettings();
+
         /// <summary>
         /// Gets a the timeline for a patient
         /// </summary>
@@ -63,6 +67,20 @@ namespace HealthVaultProviderManagementPortal.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> TaskOccurrence(Guid personId, Guid recordId, Guid id)
+        {
+            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.ActionPlanTasks.GetByIdAsync(id.ToString()), personId, recordId);
+            return View(response);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> TaskOccurrence(Guid personId, Guid recordId, Guid id, DateTimeOffset trackingDateTime)
+        {
+            await PostTaskTracking(personId, recordId, id, trackingDateTime);
+            return View("Index");
+        }
+
         private async Task<TimelineResponse> GetTimeline(Guid personId, Guid recordId, DateTime startDate, DateTime? endDate)
         {
             var restHealthVaultUrl = WebConfigurationManager.AppSettings.Get("HV_RestHealthServiceUrl"); //TODO: use built in SDK function to retreive config settings when available
@@ -90,7 +108,26 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
             var responseContent = await ExecuteRestRequest(personId, recordId, uriBuilder.Uri, HttpMethod.Get, "2.0-preview");
 
-            return SafeJsonConvert.DeserializeObject<TimelineResponse>(responseContent, GetDeserializationSettings());
+            return SafeJsonConvert.DeserializeObject<TimelineResponse>(responseContent, _deserializerSettings);
+        }
+
+        private async Task PostTaskTracking(Guid personId, Guid recordId, Guid taskId, DateTimeOffset trackingDateTime)
+        {
+            var restHealthVaultUrl = WebConfigurationManager.AppSettings.Get("HV_RestHealthServiceUrl"); //TODO: use built in SDK function to retreive config settings when available
+
+            // Construct URL
+            var uriBuilder = new UriBuilder(restHealthVaultUrl)
+            {
+                Path = "TaskTracking"
+            };
+
+            var taskTracking = new
+            {
+                taskId,
+                trackingDateTime = trackingDateTime.ToZonedDateTime()
+            };
+
+            await ExecuteRestRequest(personId, recordId, uriBuilder.Uri, HttpMethod.Post, "2.0-preview", SafeJsonConvert.SerializeObject(taskTracking, _serializerSettings));
         }
 
         private static IList<TimelineEntryViewModel> ConvertToTimelineEntryViewModels(TimelineTask task)
@@ -151,15 +188,22 @@ namespace HealthVaultProviderManagementPortal.Controllers
             });
         }
 
-        private static async Task<string> ExecuteRestRequest(Guid personId, Guid recordId, Uri uri, HttpMethod requestMethod, string apiVersion)
+        private static async Task<string> ExecuteRestRequest(Guid personId, Guid recordId, Uri uri, HttpMethod requestMethod, string apiVersion, string requestBody = null)
         {
             // Create HTTP transport objects
             var httpRequest = new HttpRequestMessage
             {
                 Method = requestMethod,
-                RequestUri = uri,
+                RequestUri = uri
             };
             httpRequest.Headers.Add("x-ms-version", apiVersion);
+
+            // Set up the request body if it has been specified
+            if (!string.IsNullOrWhiteSpace(requestBody))
+            {
+                httpRequest.Content = new StringContent(requestBody);
+                httpRequest.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            }
 
             var connection = await GetConnectionAsync(personId);
             await connection.AuthorizeRestRequestAsync(httpRequest, recordId);
@@ -190,6 +234,14 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 }
             };
 
+            settings.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
+
+            return settings;
+        }
+
+        private static JsonSerializerSettings GetSerializationSettings()
+        {
+            var settings = new JsonSerializerSettings();
             settings.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
 
             return settings;

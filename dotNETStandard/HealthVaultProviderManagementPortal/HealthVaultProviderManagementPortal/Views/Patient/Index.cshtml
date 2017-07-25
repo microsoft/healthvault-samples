@@ -9,14 +9,11 @@
 *@
 @using HealthVaultProviderManagementPortal.Models.Patient
 @model HealthVaultProviderManagementPortal.Models.Patient.TimelineViewModel
-
 @{
     ViewBag.Title = "Patient preview";
     DateTime date = DateTime.MinValue;
 }
-
 <h1 class="page-title">Patient preview</h1>
-
 @using (Html.BeginForm("Index", "Patient", FormMethod.Get))
 {
     @Html.Hidden("personID", Request.Params["personId"])
@@ -38,7 +35,6 @@
         </div>
     </div>
 }
-
 @if (Model?.TimelineEntries != null && Model.TimelineEntries.Any())
 {
     <h3>Timeline</h3>
@@ -54,8 +50,15 @@
                     <tr>
                         <td class="ms-thumbnail col-md-1"><img class="img-thumbnail" src="@task.TaskImageUrl" alt="Task thumbnail icon" /></td>
                         <td class="col-md-9 @(task.ScheduleType == TimelineScheduleType.Unscheduled ? "occurrence" : "")">
-                            @task.TaskName<br />
-                            @TaskTime(task)
+                            @if (task.ScheduleType == TimelineScheduleType.Unscheduled)
+                            {
+                                @task.TaskName
+                            }
+                            else
+                            {
+                                @Html.ActionLink(task.TaskName, "TaskOccurrence", new {id = task.TaskId, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})
+                            }
+                            <br/>@TaskTime(task)
                         </td>
                         <td class="col-md-2"><!--@task.TaskId--></td>
                     </tr>
@@ -64,15 +67,14 @@
         </table>
     }
 }
-
 @helper TaskTime(TimelineEntryViewModel task)
 {
-    switch (task.ScheduleType)
-    {
-        case TimelineScheduleType.Anytime:
+switch (task.ScheduleType)
+{
+    case TimelineScheduleType.Anytime:
             @TimelineScheduleType.Anytime.ToString()
-            break;
-        case TimelineScheduleType.Unscheduled:
+        break;
+    case TimelineScheduleType.Unscheduled:
             @:Logged at: @task.LocalDateTime.TimeOfDay.ToString()
             break;
         default:
