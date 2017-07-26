@@ -20,6 +20,8 @@
 {
     @Html.Hidden("personID", Request.Params["personId"])
     @Html.Hidden("recordID", Request.Params["recordID"])
+    @Html.Hidden("startDate", Request.Params["startDate"])
+    @Html.Hidden("endDate", Request.Params["endDate"])
     @Html.Hidden("id", Model.Id)
 
     <table class="table">

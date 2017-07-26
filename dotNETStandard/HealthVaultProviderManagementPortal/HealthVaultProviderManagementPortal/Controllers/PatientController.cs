@@ -15,6 +15,7 @@ using System.Net.Http.Headers;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using System.Web.Configuration;
+using System.Web.Routing;
 using HealthVaultProviderManagementPortal.Models.Patient;
 using Microsoft.HealthVault.RestApi.Generated;
 using Microsoft.HealthVault.Web.Attributes;
@@ -75,10 +76,18 @@ namespace HealthVaultProviderManagementPortal.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> TaskOccurrence(Guid personId, Guid recordId, Guid id, DateTimeOffset trackingDateTime)
+        public async Task<ActionResult> TaskOccurrence(Guid personId, Guid recordId, Guid id, DateTimeOffset trackingDateTime, DateTime? startDate, DateTime? endDate)
         {
             await PostTaskTracking(personId, recordId, id, trackingDateTime);
-            return View("Index");
+            var routeValues = new RouteValueDictionary
+            {
+                {"startDate", startDate?.ToString("d")},
+                {"endDate", endDate?.ToString("d")},
+                {"personId", personId},
+                {"recordId", recordId},
+            };
+
+            return RedirectToAction("Index", routeValues);
         }
 
         private async Task<TimelineResponse> GetTimeline(Guid personId, Guid recordId, DateTime startDate, DateTime? endDate)

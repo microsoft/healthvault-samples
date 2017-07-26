@@ -56,11 +56,10 @@
                             }
                             else
                             {
-                                @Html.ActionLink(task.TaskName, "TaskOccurrence", new {id = task.TaskId, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})
+                                @Html.ActionLink(task.TaskName, "TaskOccurrence", new {id = task.TaskId, startDate = Model.StartDate, endDate = Model.EndDate, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})
                             }
                             <br/>@TaskTime(task)
                         </td>
-                        <td class="col-md-2"><!--@task.TaskId--></td>
                     </tr>
                 }
             </tbody>
