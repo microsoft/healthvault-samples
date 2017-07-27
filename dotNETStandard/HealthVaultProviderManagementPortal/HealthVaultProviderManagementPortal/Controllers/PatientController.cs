@@ -16,6 +16,7 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Web.Routing;
+using HealthVaultProviderManagementPortal.Models.Enums;
 using HealthVaultProviderManagementPortal.Models.Patient;
 using Microsoft.HealthVault.RestApi.Generated;
 using Microsoft.HealthVault.Web.Attributes;
@@ -155,18 +156,21 @@ namespace HealthVaultProviderManagementPortal.Controllers
                         if (schedule.LocalDateTime >= snapshot.EffectiveStartInstant.InUtc().LocalDateTime &&
                             schedule.LocalDateTime <= snapshot.EffectiveEndInstant.InUtc().LocalDateTime)
                         {
-                            // Add a timeline entry for the schedule
+                            // Add a timeline entry for the schedule. 
+                            // Count all occurences for a frequency task, and only in-window one for a scheduled task
                             timelineEntries.Add(new TimelineEntryViewModel
                             {
                                 TaskId = task.TaskId,
                                 TaskName = task.TaskName,
                                 TaskImageUrl = task.TaskImageUrl,
                                 LocalDateTime = schedule.LocalDateTime,
-                                ScheduleType = schedule.Type
+                                ScheduleType = schedule.Type,
+                                CompletionMetrics = snapshot.CompletionMetrics,
+                                OccurrenceCount = schedule.Occurrences?.Count(o => o.InWindow || snapshot.CompletionMetrics.CompletionType == ActionPlanTaskCompletionType.Frequency) ?? 0
                             });
 
-                            // Add any out-of-window task occurrences to show on the timeline
-                            schedule.Occurrences?.Where(o => !o.InWindow).ToList().ForEach(occurrence => AddOccurrence(timelineEntries, occurrence, task)); ;
+                            // Add any out-of-window task occurrences for scheduled tasks to show on the timeline
+                            schedule.Occurrences?.Where(o => !o.InWindow && snapshot.CompletionMetrics.CompletionType == ActionPlanTaskCompletionType.Scheduled).ToList().ForEach(occurrence => AddOccurrence(timelineEntries, occurrence, task)); ;
                         }
                     }
                 }

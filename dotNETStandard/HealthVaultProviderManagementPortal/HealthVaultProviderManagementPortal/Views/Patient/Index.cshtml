@@ -7,6 +7,7 @@
 
     THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@
+@using HealthVaultProviderManagementPortal.Models.Enums
 @using HealthVaultProviderManagementPortal.Models.Patient
 @model HealthVaultProviderManagementPortal.Models.Patient.TimelineViewModel
 @{
@@ -59,6 +60,19 @@
                                 @Html.ActionLink(task.TaskName, "TaskOccurrence", new {id = task.TaskId, startDate = Model.StartDate, endDate = Model.EndDate, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})
                             }
                             <br/>@TaskTime(task)
+                        </td>
+                        <td class="col-md-2">
+                            @if (task.ScheduleType != TimelineScheduleType.Unscheduled)
+                            {
+                                if (task.CompletionMetrics.CompletionType == ActionPlanTaskCompletionType.Scheduled && task.OccurrenceCount > 0)
+                                {
+                                    @:Done!
+                                }
+                                else if (task.CompletionMetrics.CompletionType == ActionPlanTaskCompletionType.Frequency)
+                                {
+                                    @Html.Raw($"{task.OccurrenceCount}/{task.CompletionMetrics.RequiredNumberOfOccurrences.Value}<br/>{task.CompletionMetrics.RecurrenceType}")
+                                }
+                            }
                         </td>
                     </tr>
                 }
