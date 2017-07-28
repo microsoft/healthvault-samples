@@ -20,6 +20,6 @@ namespace HealthVaultProviderManagementPortal.Models.Patient
 
         public DateTime? EndDate { get; set; }
 
-        public IEnumerable<IGrouping<LocalDate, Patient.TimelineEntryViewModel>> TimelineEntries { get; set; }
+        public IEnumerable<IGrouping<LocalDate, Patient.TimelineEntryViewModel>> TimelineEntryGroups { get; set; }
     }
 }

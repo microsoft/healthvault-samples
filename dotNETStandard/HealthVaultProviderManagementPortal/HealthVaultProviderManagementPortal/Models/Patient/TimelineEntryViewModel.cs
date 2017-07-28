@@ -46,5 +46,15 @@ namespace HealthVaultProviderManagementPortal.Models.Patient
         /// If this entry represents an occurrence, the ID of that occurrence
         /// </summary>
         public Guid? OccurrenceId { get; set; }
+
+        /// <summary>
+        /// Completion metrics specifying the recurrence and type for the timeline entry
+        /// </summary>
+        public TimelineSnapshotCompletionMetrics CompletionMetrics { get; set; }
+
+        /// <summary>
+        /// The number of completed occurrences against this timeline entry
+        /// </summary>
+        public int InWindowOccurrenceCount { get; set; }
     }
 }

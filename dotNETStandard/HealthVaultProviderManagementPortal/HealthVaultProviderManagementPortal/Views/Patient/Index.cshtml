@@ -7,16 +7,14 @@
 
     THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *@
+@using HealthVaultProviderManagementPortal.Models.Enums
 @using HealthVaultProviderManagementPortal.Models.Patient
-@model HealthVaultProviderManagementPortal.Models.Patient.TimelineViewModel
-
+@model TimelineViewModel
 @{
     ViewBag.Title = "Patient preview";
     DateTime date = DateTime.MinValue;
 }
-
-<h1 class="page-title">Patient preview</h1>
-
+<h1 class="page-title">@ViewBag.Title</h1>
 @using (Html.BeginForm("Index", "Patient", FormMethod.Get))
 {
     @Html.Hidden("personID", Request.Params["personId"])
@@ -38,41 +36,58 @@
         </div>
     </div>
 }
-
-@if (Model?.TimelineEntries != null && Model.TimelineEntries.Any())
+@if (Model?.TimelineEntryGroups != null && Model.TimelineEntryGroups.Any())
 {
     <h3>Timeline</h3>
 
-    foreach (var entry in Model.TimelineEntries)
+    foreach (var group in Model.TimelineEntryGroups)
     {
-        <h4>@entry.Key</h4>
+        <h4>@group.Key</h4>
 
         <table class="table table-striped">
             <tbody>
-                @foreach (var task in entry)
+                @foreach (var entry in group)
                 {
                     <tr>
-                        <td class="ms-thumbnail col-md-1"><img class="img-thumbnail" src="@task.TaskImageUrl" alt="Task thumbnail icon" /></td>
-                        <td class="col-md-9 @(task.ScheduleType == TimelineScheduleType.Unscheduled ? "occurrence" : "")">
-                            @task.TaskName<br />
-                            @TaskTime(task)
+                        <td class="ms-thumbnail col-md-1"><img class="img-thumbnail" src="@entry.TaskImageUrl" alt="Task thumbnail icon" /></td>
+                        <td class="col-md-9 @(entry.ScheduleType == TimelineScheduleType.Unscheduled ? "occurrence" : "")">
+                            @if (entry.ScheduleType == TimelineScheduleType.Unscheduled)
+                            {
+                                @entry.TaskName
+                            }
+                            else
+                            {
+                                @Html.ActionLink(entry.TaskName, "TaskOccurrence", new {taskId = entry.TaskId, startDate = Model.StartDate, endDate = Model.EndDate, personId = Request.Params["personId"], recordId = Request.Params["recordId"]})
+                            }
+                            <br/>@TaskTime(entry)
                         </td>
-                        <td class="col-md-2"><!--@task.TaskId--></td>
+                        <td class="col-md-2">
+                            @if (entry.ScheduleType != TimelineScheduleType.Unscheduled)
+                            {
+                                if (entry.CompletionMetrics.CompletionType == ActionPlanTaskCompletionType.Scheduled && entry.InWindowOccurrenceCount > 0)
+                                {
+                                    @:Done!
+                                }
+                                else if (entry.CompletionMetrics.CompletionType == ActionPlanTaskCompletionType.Frequency)
+                                {
+                                    @Html.Raw($"{entry.InWindowOccurrenceCount}/{entry.CompletionMetrics.RequiredNumberOfOccurrences.Value}<br/>{entry.CompletionMetrics.RecurrenceType}")
+                                }
+                            }
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
     }
 }
-
 @helper TaskTime(TimelineEntryViewModel task)
 {
-    switch (task.ScheduleType)
-    {
-        case TimelineScheduleType.Anytime:
+switch (task.ScheduleType)
+{
+    case TimelineScheduleType.Anytime:
             @TimelineScheduleType.Anytime.ToString()
-            break;
-        case TimelineScheduleType.Unscheduled:
+        break;
+    case TimelineScheduleType.Unscheduled:
             @:Logged at: @task.LocalDateTime.TimeOfDay.ToString()
             break;
         default:

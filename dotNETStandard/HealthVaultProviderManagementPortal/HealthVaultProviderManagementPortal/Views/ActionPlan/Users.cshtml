@@ -19,10 +19,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Person</th>
-            <th>Manage action plans</th>
-            <th>Manage goals</th>
-            <th>View health data</th>
+            <th>Authorized patients</th>
         </tr>
     </thead>
 
@@ -45,10 +42,14 @@
                 <td>
                     @Html.ActionLink("Goals", "Index", "Goals", routeValues, new Dictionary<string, object>())
                 </td>
-                <td>
-                    @Html.ActionLink("Health data", "Index", "HealthData", routeValues, new Dictionary<string, object>())
-                </td>
-                <td>
+                 <td>
+                     @Html.ActionLink("Health data", "Index", "HealthData", routeValues, new Dictionary<string, object>())
+                 </td>
+
+                 @{
+                     routeValues.Add("startDate", DateTime.Today.ToString("d"));
+                 }
+                 <td>
                     @Html.ActionLink("Patient preview", "Index", "Patient", routeValues, new Dictionary<string, object>())
                 </td>
             </tr>
