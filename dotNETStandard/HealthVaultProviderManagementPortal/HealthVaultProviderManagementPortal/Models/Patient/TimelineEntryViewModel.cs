@@ -53,8 +53,8 @@ namespace HealthVaultProviderManagementPortal.Models.Patient
         public TimelineSnapshotCompletionMetrics CompletionMetrics { get; set; }
 
         /// <summary>
-        /// The number of completed occurrences againt this timeline entry
+        /// The number of completed occurrences against this timeline entry
         /// </summary>
-        public int OccurrenceCount { get; set; }
+        public int InWindowOccurrenceCount { get; set; }
     }
 }
