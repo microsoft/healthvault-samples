@@ -14,7 +14,7 @@
     ViewBag.Title = "Patient preview";
 }
 
-<h1 class="page-title">Patient preview</h1>
+<h1 class="page-title">@ViewBag.Title</h1>
 
 @using (Html.BeginForm("TaskOccurrence", "Patient", FormMethod.Post))
 {
