@@ -36,7 +36,7 @@ HealthVault offers SDKs for many platforms.
   * **Create-HealthVaultCertificate** - This tool creates a valid certificate for HealthVault using the ApplicationID that you provide. The certificate is automatically added to your LocalMachine's certificate store, and a copy is placed in your user's Downloads folder. 
 
 ## Registering your applications
-All applications must be registered with the [HealthVault Application Configuration Center](https://go.microsoft.com/fwlink/?linkid=838954) before they can connect to the service. During registration, the ACC will request that you upload an appropriate certificate which will be used subsequently to secure communications between your app and the service. For more information on how to obtain an appropriate certificate, please see [MSDN](https://msdn.microsoft.com/en-us/healthvault/dn781357). 
+All applications must be registered with the [HealthVault Application Configuration Center](https://go.microsoft.com/fwlink/?linkid=838954) before they can connect to the service. During registration, the ACC will request that you upload an appropriate certificate which will be used subsequently to secure communications between your app and the service. For more information on how to obtain an appropriate certificate, please see [Creating Key Pairs](https://docs.microsoft.com/en-us/healthvault/concepts/connectivity/creating-key-pairs). 
 
 # Contribute
 Contributions to healthvault-samples are welcome.  Here is how you can contribute:
