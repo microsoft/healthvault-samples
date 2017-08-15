@@ -1,6 +1,6 @@
 # HealthVault Meaningful Use Reporting Sample
 
-This sample serves as a demonstration of HealthVault capabilities in support of Meaningful Use Stage 2 (2014 Edition) patient engagement objectives.  Refer to [Meaningful Use with HealthVault](http://msdn.microsoft.com/en-us/library/dn539122.aspx) for an overview and technical description of the HealthVault capabilities that support Meaningful Use 2. 
+This sample serves as a demonstration of HealthVault capabilities in support of Meaningful Use Stage 2 (2014 Edition) patient engagement objectives.  Refer to [Meaningful Use with HealthVault](https://docs.microsoft.com/en-us/healthvault/scenarios/meaningful-use) for an overview and technical description of the HealthVault capabilities that support Meaningful Use 2. 
 
 ## Scenarios
 This sample demonstrates the following scenarios: 

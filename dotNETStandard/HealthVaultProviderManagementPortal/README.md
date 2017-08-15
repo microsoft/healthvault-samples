@@ -1,6 +1,6 @@
 # HealthVaultProviderManagementPortal
 
-Please make sure you've reviewed the Getting Started documentation on [Action Plans](http://msdn.microsoft.com/en-us/healthvault/mt778893).
+Please make sure you've reviewed the [HealthVault Getting Started documentation](https://docs.microsoft.com/en-us/healthvault/getting-started/).
 
 To run this sample: 
 1. Make sure you've registered your app in the [Application Config Center](https://config.healthvault-ppe.com/) (ACC).
@@ -10,7 +10,7 @@ To run this sample:
     > ```cmd
     > powershell .\Update-WebConfig.ps1 -ApplicationId "00000000-0000-0000-0000-000000000000"
     ```
-3. Make sure the private key for the application is installed on your machine. See how to [create or install a certificate on MSDN](https://msdn.microsoft.com/en-us/healthvault/mt778893#_Certificates).
+3. Make sure the private key for the application is installed on your machine. See how to [create or install a certificate](https://docs.microsoft.com/en-us/healthvault/concepts/connectivity/creating-key-pairs).
 4. Build and run the solution.
     * This should automatically restore the HealthVault.NET NuGet package, and all other NuGet packages required by the project.
 

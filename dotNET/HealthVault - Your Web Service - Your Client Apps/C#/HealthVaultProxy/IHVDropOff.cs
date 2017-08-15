@@ -16,7 +16,7 @@ namespace HealthVaultProxy
     [ServiceContract]
     public interface IHVDropOff
     {
-        // NOTE:  Only a subset of HV API functionality represented here.   See http://msdn.microsoft.com/en-us/library/dd724590.aspx.
+        // NOTE:  Only a subset of HV API functionality represented here.   See https://docs.microsoft.com/en-us/dotnet/api/microsoft.health.package.connectpackage?view=healthvaultnet-2.64.20508.1.
         [OperationContract]
         PreAllocatePackageIdResponse PreAllocatePackageId(string token);
 
