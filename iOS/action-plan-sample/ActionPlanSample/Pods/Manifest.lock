@@ -1,0 +1,22 @@
+PODS:
+  - HealthVault/Core (3.0-preview)
+
+DEPENDENCIES:
+  - HealthVault/Core (from `https://github.com/Microsoft/healthvault-ios-sdk.git`, branch `microsoft/develop`)
+
+EXTERNAL SOURCES:
+  HealthVault:
+    :branch: microsoft/develop
+    :git: https://github.com/Microsoft/healthvault-ios-sdk.git
+
+CHECKOUT OPTIONS:
+  HealthVault:
+    :commit: 15796d05fd31b5c70c7183a3ad3b2763ecf91209
+    :git: https://github.com/Microsoft/healthvault-ios-sdk.git
+
+SPEC CHECKSUMS:
+  HealthVault: a4a94fb2f61ad9d8d6ceb9b046171c1c137bd6c1
+
+PODFILE CHECKSUM: dcc84ea5cc540982bf585450b5fe9438f0405d80
+
+COCOAPODS: 1.2.1

@@ -1,0 +1,6 @@
+framework module HealthVault {
+  umbrella header "HealthVault-umbrella.h"
+
+  export *
+  module * { export * }
+}
