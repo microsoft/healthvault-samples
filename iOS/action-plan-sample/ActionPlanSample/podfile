@@ -1,0 +1,13 @@
+platform :ios, '10.0'
+
+use_frameworks!
+
+target 'ActionPlanSample' do
+   platform :ios, '10.0'
+   pod 'HealthVault/Core', :git => 'https://github.com/Microsoft/healthvault-ios-sdk.git', :branch => 'microsoft/develop'
+    
+   target 'ActionPlanSampleTests' do
+      platform :ios, '10.0'
+      inherit! :search_paths
+   end
+end

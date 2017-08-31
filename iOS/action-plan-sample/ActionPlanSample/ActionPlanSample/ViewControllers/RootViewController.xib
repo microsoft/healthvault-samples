@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RootViewController" customModule="ActionPlanSample" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="iN0-l3-epB" id="8vQ-s1-XYt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hero-image" translatesAutoresizingMaskIntoConstraints="NO" id="wHf-30-O0e">
+                    <rect key="frame" x="0.0" y="64" width="414" height="252"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="wHf-30-O0e" secondAttribute="height" multiplier="23:14" id="1C6-EY-lST"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preview a sample plan to see how Action Plans work." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mY5-qe-xsG">
+                    <rect key="frame" x="20" y="336" width="374" height="43"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ki7-5L-EWJ">
+                    <rect key="frame" x="20" y="676" width="374" height="40"/>
+                    <color key="backgroundColor" red="0.0" green="0.47058823529411764" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="oVg-mC-iuW"/>
+                    </constraints>
+                    <state key="normal" title="Create a sample plan">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="generateSampleButtonPressedWithSender:" destination="-1" eventType="touchUpInside" id="aAq-p9-PL7"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="wHf-30-O0e" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="8ZI-5X-emo"/>
+                <constraint firstAttribute="bottom" secondItem="Ki7-5L-EWJ" secondAttribute="bottom" constant="20" id="8v3-Dt-eHF"/>
+                <constraint firstItem="wHf-30-O0e" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="EEH-ug-D5k"/>
+                <constraint firstItem="Ki7-5L-EWJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="GWX-u1-Dhz"/>
+                <constraint firstItem="mY5-qe-xsG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="GYc-l9-kzo"/>
+                <constraint firstAttribute="trailing" secondItem="mY5-qe-xsG" secondAttribute="trailing" constant="20" id="Jq7-xY-k95"/>
+                <constraint firstAttribute="trailing" secondItem="Ki7-5L-EWJ" secondAttribute="trailing" constant="20" id="SyN-Ji-amM"/>
+                <constraint firstAttribute="trailing" secondItem="wHf-30-O0e" secondAttribute="trailing" id="nNR-nB-T4r"/>
+                <constraint firstItem="mY5-qe-xsG" firstAttribute="top" secondItem="wHf-30-O0e" secondAttribute="bottom" constant="20" id="x93-rn-PkL"/>
+            </constraints>
+            <point key="canvasLocation" x="33" y="54"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="hero-image" width="736" height="447"/>
+    </resources>
+</document>
