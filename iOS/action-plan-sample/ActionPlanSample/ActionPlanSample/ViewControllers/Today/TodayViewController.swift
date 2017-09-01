@@ -304,7 +304,8 @@ class TodayViewController: BaseViewController, UITableViewDataSource, UITableVie
             {
                 tableCells.append(contentsOf: self.cellsForTimelineTask(task: task, date: Date()))
             }
-            
+        }
+        
             tableCells.sort(by:
                 { (cellData1, cellData2) -> Bool in
                     if let date1 = cellData1.sortDate, let date2 = cellData2.sortDate
@@ -316,7 +317,6 @@ class TodayViewController: BaseViewController, UITableViewDataSource, UITableVie
                         return false
                     }
             })
-        }
         
         // Process tasks to add additional properties to table data
         if let tasks = taskInstanceResult?.tasks

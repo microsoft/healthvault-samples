@@ -110,20 +110,13 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
     ///
     /// - Parameter taskId: The identifier of the task
     /// - Parameter date: The time to use for tracking
-    private func trackTask(_ taskId: String, date: Date)
+    private func trackTask(_ taskId: String, date: Date, completion: @escaping () -> Void)
     {
         guard let remoteMonitoringClient = HVConnection.currentConnection?.remoteMonitoringClient() else
         {
             self.showAlertWithError(error: nil, defaultMessage: "HealthVault connection is not set")
+            completion()
             return
-        }
-        
-        var backgroundTask = UIBackgroundTaskInvalid
-        backgroundTask = UIApplication.shared.beginBackgroundTask
-            {
-                // End if background task is expiring
-                print("TrackTask timed out")
-                UIApplication.shared.endBackgroundTask(backgroundTask)
         }
         
         let occurrence = MHVTaskTrackingOccurrence()
@@ -135,7 +128,7 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
                 
                 defer
                 {
-                    UIApplication.shared.endBackgroundTask(backgroundTask)
+                    completion()
                 }
                 
                 guard error == nil else
@@ -170,7 +163,7 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
             if response.actionIdentifier == logNowActionIdentifier
             {
                 // Log Now
-                self.trackTask(taskId, date: Date())
+                self.trackTask(taskId, date: Date(), completion: completionHandler)
             }
             else if response.actionIdentifier == logOnTimeActionIdentifier
             {
@@ -186,25 +179,26 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
                     
                     if let trackDate = Calendar.current.date(from: dateComponents)
                     {
-                        self.trackTask(taskId, date: trackDate)
+                        self.trackTask(taskId, date: trackDate, completion: completionHandler)
                     }
                     else
                     {
                         self.showAlertWithError(error: nil, defaultMessage: "Time to track the task could not be calculated")
+                        completionHandler()
                     }
                 }
                 else
                 {
                     self.showAlertWithError(error: nil, defaultMessage: "Time to track the task was not set")
+                    completionHandler()
                 }
             }
         }
         else
         {
             self.showAlertWithError(error: nil, defaultMessage: "TaskId was not found on the notification response")
+            completionHandler()
         }
-        
-        completionHandler()
     }
     
     // MARK: - Error Alert
