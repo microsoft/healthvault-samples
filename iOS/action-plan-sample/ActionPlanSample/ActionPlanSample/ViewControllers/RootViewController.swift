@@ -29,6 +29,10 @@ class RootViewController : BaseViewController
 {
     private static let objectiveId = "1c71ced0-3f55-4a66-a8c9-189836304bb1"
     
+    private let noMoreCaffieneTaskKey = "cd6a9a3f-1746-4b7d-8bad-4e988a0978fd"
+    private let windDownForBedTaskKey = "f7d40787-e018-441e-b9ed-93a42f9a1c80"
+    private let consistentBedtimeTaskKey = "69df998a-854c-43a1-8655-e37a33127d9e"
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -140,7 +144,10 @@ class RootViewController : BaseViewController
         noMoreCaffeineTask.frequencyTaskCompletionMetrics = self.newDailyTaskCompletionMetrics(occurenceCount: 1)
         
         // Set the time the task should be completed
-        noMoreCaffeineTask.schedules = [self.newEveryDaySchedule(hours: 14, minutes: 0, shouldRemind: false)];
+        noMoreCaffeineTask.schedules = [self.newEveryDaySchedule(hours: 14, minutes: 0, shouldRemind: false)]
+        
+        // Set the taskKey to uniquely identify this task across all users
+        noMoreCaffeineTask.taskKey = noMoreCaffieneTaskKey
         
         return noMoreCaffeineTask
     }
@@ -164,7 +171,10 @@ class RootViewController : BaseViewController
         windDownForBedTask.frequencyTaskCompletionMetrics = self.newWeeklyTaskCompletionMetrics(occurenceCount: 7)
         
         // Set the time the task should be completed
-        windDownForBedTask.schedules = [self.newEveryDaySchedule(hours: 21, minutes: 30, shouldRemind: true)];
+        windDownForBedTask.schedules = [self.newEveryDaySchedule(hours: 21, minutes: 30, shouldRemind: true)]
+        
+        // Set the taskKey to uniquely identify this task across all users
+        windDownForBedTask.taskKey = windDownForBedTaskKey
         
         return windDownForBedTask
     }
@@ -189,7 +199,10 @@ class RootViewController : BaseViewController
         consistentBedtimeTask.frequencyTaskCompletionMetrics = self.newDailyTaskCompletionMetrics(occurenceCount: 1)
         
         // Set the time the task should be completed
-        consistentBedtimeTask.schedules = [self.newEveryDaySchedule(hours: 22, minutes: 0, shouldRemind: true)];
+        consistentBedtimeTask.schedules = [self.newEveryDaySchedule(hours: 22, minutes: 0, shouldRemind: true)]
+        
+        // Set the taskKey to uniquely identify this task across all users
+        consistentBedtimeTask.taskKey = consistentBedtimeTaskKey
         
         return consistentBedtimeTask
     }

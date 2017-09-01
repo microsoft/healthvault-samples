@@ -39,8 +39,7 @@ class ReminderManagerFactory
             return manager
         }
         
-        manager = ReminderManager.init(dataSource: ReminderHandler.shared,
-                                       notificationDelegate: ReminderHandler.shared)
+        manager = ReminderManager.init(dataSource: ReminderHandler.shared)
         
         return manager
     }

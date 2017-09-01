@@ -25,7 +25,6 @@ import UserNotifications
 class ReminderManager: NSObject
 {
     private var dataSource: ReminderManagerDataSource
-    private var notificationDelegate: UNUserNotificationCenterDelegate
 
     private let notificationCenter = UNUserNotificationCenter.current()
     private var isAuthorized = false
@@ -51,11 +50,9 @@ class ReminderManager: NSObject
     
     // MARK: - Initialization & setup
 
-    init(dataSource: ReminderManagerDataSource,
-         notificationDelegate: UNUserNotificationCenterDelegate)
+    init(dataSource: ReminderManagerDataSource)
     {
         self.dataSource = dataSource
-        self.notificationDelegate = notificationDelegate
 
         super.init()
         
@@ -80,8 +77,6 @@ class ReminderManager: NSObject
             print("Notifications Authorized: \(authorized)")
             
             self.isAuthorized = authorized
-            
-            self.notificationCenter.delegate = self.notificationDelegate
             
             if authorized
             {
