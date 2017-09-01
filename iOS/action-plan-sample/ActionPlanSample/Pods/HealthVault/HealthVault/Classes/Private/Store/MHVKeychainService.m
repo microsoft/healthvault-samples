@@ -161,6 +161,7 @@ static NSString *const kAppReinstallCheck = @"AppReinstallCheck";
     }
     
     [update setObject:data forKey:(__bridge id)kSecValueData];
+    [update setObject:(__bridge id)kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly forKey:(id) kSecAttrAccessible];
     
     OSStatus error = 0;
     if ([self dataExistsForKey:key])

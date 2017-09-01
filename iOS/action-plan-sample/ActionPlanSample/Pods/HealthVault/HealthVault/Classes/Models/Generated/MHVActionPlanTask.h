@@ -51,6 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MHVActionPlanTask : MHVModelBase
 
+/* The task key a provider sets and maintains for a user's created task [optional]
+ */
+@property(strong,nonatomic,nullable) NSString* taskKey;
 /* The friendly name of the task 
  */
 @property(strong,nonatomic) NSString* name;

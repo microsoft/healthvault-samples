@@ -57,6 +57,7 @@
             @"endDate": @"endDate",
             @"organizationId": @"organizationId",
             @"organizationName": @"organizationName",
+            @"taskKey": @"taskKey",
             @"name": @"name",
             @"shortDescription": @"shortDescription",
             @"longDescription": @"longDescription",

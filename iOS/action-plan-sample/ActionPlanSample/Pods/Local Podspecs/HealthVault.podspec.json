@@ -1,6 +1,6 @@
 {
   "name": "HealthVault",
-  "version": "3.0-preview",
+  "version": "3.0-preview.2",
   "summary": "An iOS framework you can use to build applications that leverage the Microsoft HealthVault platform",
   "description": "The healthvault-ios-sdk framework simplifies developing apps that use the Microsoft HealthVault platform. It handles authenticating users, managing credentials, serializing data types and much more.",
   "homepage": "https://github.com/Microsoft/healthvault-ios-sdk",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/Microsoft/healthvault-ios-sdk.git",
-    "tag": "3.0-preview"
+    "tag": "3.0-preview.2"
   },
   "platforms": {
     "ios": "8.0"
@@ -30,10 +30,7 @@
     "MobileCoreServices",
     "SystemConfiguration"
   ],
-  "default_subspecs": [
-    "Core",
-    "CachingSupport"
-  ],
+  "default_subspecs": "CachingSupport",
   "subspecs": [
     {
       "name": "Core",
@@ -45,7 +42,7 @@
       "name": "CachingSupport",
       "resources": "HealthVault/Assets/MHVThingCacheDatabase.xcdatamodeld",
       "preserve_paths": "HealthVault/Assets/MHVThingCacheDatabase.xcdatamodeld",
-      "source_files": "HealthVault/Classes/Caching/**/*.{h,m}",
+      "source_files": "HealthVault/Classes/**/*.{h,m}",
       "private_header_files": "**/Private/**/*.h",
       "xcconfig": {
         "GCC_PREPROCESSOR_DEFINITIONS": "THING_CACHE=1"
@@ -61,7 +58,6 @@
       "name": "Tests",
       "source_files": "HealthVault/Classes/**/*.{h,m,xcdatamodeld}",
       "resources": "HealthVault/Assets/**/*",
-      "private_header_files": "none",
       "xcconfig": {
         "GCC_PREPROCESSOR_DEFINITIONS": "THING_CACHE=1"
       },

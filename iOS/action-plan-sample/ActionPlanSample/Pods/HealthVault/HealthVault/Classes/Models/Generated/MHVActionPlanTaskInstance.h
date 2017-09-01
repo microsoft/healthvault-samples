@@ -77,6 +77,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* The name of the organization that owns this task. Read-only [optional]
  */
 @property(strong,nonatomic,nullable) NSString* organizationName;
+/* The task key a provider sets and maintains for a user's created task [optional]
+ */
+@property(strong,nonatomic,nullable) NSString* taskKey;
 /* The friendly name of the task 
  */
 @property(strong,nonatomic) NSString* name;
