@@ -16,7 +16,7 @@
     <IncludeFolder>.</IncludeFolder>
   </Component>
     <Component Exclude="List exceptions here to not be scanned, that have been included above">    
-    <ExcludeFolder>\.gitignore</ExcludeFolder>
-    <ExcludeFolder>\GeoPol.xml</ExcludeFolder>
+    <ExcludeFolder>.gitignore</ExcludeFolder>
+    <ExcludeFolder>GeoPol.xml</ExcludeFolder>
   </Component>
 </GeoPol_Folders>
