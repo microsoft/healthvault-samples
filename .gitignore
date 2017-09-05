@@ -257,3 +257,11 @@ paket-files/
 
 # Gradle
 .gradle/
+
+# Xcode
+.DS_Store
+xcuserdata
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+!iOS/**/*.pch

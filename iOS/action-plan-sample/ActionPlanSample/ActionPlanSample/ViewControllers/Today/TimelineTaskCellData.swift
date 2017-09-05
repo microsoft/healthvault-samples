@@ -190,6 +190,7 @@ class TimelineTaskCellData: NSObject
         self.occurrenceCount = 1
         self.occurrenceIdentifiers.append(identifier)
         self.isOutOfWindow = true
+        self.sortDate = date
     }
 
     /// Compare the Timeline to the Schedule
