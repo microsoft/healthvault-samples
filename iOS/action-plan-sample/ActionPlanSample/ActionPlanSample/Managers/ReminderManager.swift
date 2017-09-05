@@ -25,13 +25,14 @@ import UserNotifications
 class ReminderManager: NSObject
 {
     private var dataSource: ReminderManagerDataSource
-    private var notificationDelegate: UNUserNotificationCenterDelegate
-
+    
     private let notificationCenter = UNUserNotificationCenter.current()
     private var isAuthorized = false
     private var isUpdatingReminders = false
     private var isUpdatingRemindersLock = NSObject()
-        
+    
+    static let reminderIdentifierKey = "ReminderIdentifier"
+    
     private let dayOfWeekMap = [MHVScheduleScheduledDaysEnum.mhvSunday() : 1,
                                 MHVScheduleScheduledDaysEnum.mhvMonday() : 2,
                                 MHVScheduleScheduledDaysEnum.mhvTuesday() : 3,
@@ -50,13 +51,11 @@ class ReminderManager: NSObject
                                      MHVScheduleReminderStateEnum.mhvBefore8Hours() :  480]
     
     // MARK: - Initialization & setup
-
-    init(dataSource: ReminderManagerDataSource,
-         notificationDelegate: UNUserNotificationCenterDelegate)
+    
+    init(dataSource: ReminderManagerDataSource)
     {
         self.dataSource = dataSource
-        self.notificationDelegate = notificationDelegate
-
+        
         super.init()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateReminders), name: Constants.TasksChangedNotification, object: nil)
@@ -80,8 +79,6 @@ class ReminderManager: NSObject
             print("Notifications Authorized: \(authorized)")
             
             self.isAuthorized = authorized
-            
-            self.notificationCenter.delegate = self.notificationDelegate
             
             if authorized
             {
@@ -127,7 +124,7 @@ class ReminderManager: NSObject
     }
     
     // MARK: - HealthVault
-
+    
     /// Get the list of current Action Plan tasks from the data source and update the scheduled reminders
     public func updateReminders()
     {
@@ -188,7 +185,7 @@ class ReminderManager: NSObject
     }
     
     // Match existing notifications with task reminders to add/remove notifications
-    private func updateNotifications(notifications: [UNNotificationRequest], tasks: [MHVActionPlanTaskInstance]?, completion: @escaping () -> Void)
+    private func updateNotifications(notifications: [UNNotificationRequest], tasks: [MHVActionPlanTaskInstance], completion: @escaping () -> Void)
     {
         // Updating can occur on a background queue
         DispatchQueue.global().async
@@ -208,89 +205,140 @@ class ReminderManager: NSObject
                     notificationMap[notificationRequest.identifier] = notificationRequest
                 })
                 
-                var addNotifications = [UNNotificationRequest]()
-                
-                // 2. Loop through tasks -> schedules -> scheduledDays
-                //    Iterate through each task
-                tasks!.forEach({ (task) in
-                    
-                    guard let schedules = task.schedules,
-                          let taskIdentifier = task.identifier else
-                    {
-                        return
-                    }
-                    
-                    // Iterate through each schedule on the task
-                    schedules.forEach({ (schedule) in
-                        
-                        if schedule.reminderState == MHVScheduleReminderStateEnum.mhvOff() ||
-                           schedule.reminderState == MHVScheduleReminderStateEnum.mhvUnknown()
-                        {
-                            return
-                        }
-                        
-                        guard let scheduledDays = schedule.scheduledDays,
-                              let scheduledTime = schedule.scheduledTime else
-                        {
-                            return
-                        }
-                        
-                        // Iterate through each scheduledDay on the schedule
-                        scheduledDays.forEach({ (dayEnum) in
-                            
-                            // Build an identifier for the combination of taskId, time, dayEnum, and reminderState
-                            let taskScheduleId = ".\(taskIdentifier)--\(dayEnum.stringValue)--\(scheduledTime.toString())--\(schedule.reminderState.stringValue)"
-                            
-                            if notificationMap[taskScheduleId] != nil
-                            {
-                                // Already scheduled this task's reminder, don't need to change it.
-                                // Remove from map to determine leftover obsolete reminders at the end
-                                notificationMap[taskScheduleId] = nil
-                            }
-                            else
-                            {
-                                if let content = self.dataSource.notificationContent(task: task, schedule: schedule, dayEnum: dayEnum)
-                                {
-                                    // Not found, build notification request for the day/time combination
-                                    var components = DateComponents()
-                                    components.weekday = self.dayOfWeekMap[dayEnum]
-                                    components.hour = Int(scheduledTime.hour)
-                                    components.minute = Int(scheduledTime.minute)
-                                    
-                                    components = self.offsetDateComponentsForReminder(components: components, reminderState: schedule.reminderState)
-                                    
-                                    let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
-                                
-                                    addNotifications.append(UNNotificationRequest.init(identifier: taskScheduleId,
-                                                                                       content: content,
-                                                                                       trigger: trigger))
-                                }
-                            }
-                        })
-                    })
-                })
+                // 2. Build array of notification requests
+                let addNotifications = self.buildNotificationRequests(tasks: tasks)
                 
                 // 3. Add new notifications
-                print("\(addNotifications.count) notifications to be added")
-                addNotifications.forEach({ (notificationRequest) in
-                    
-                    self.notificationCenter.add(notificationRequest)
-                    { (error: Error?) in
-                        
-                        if error != nil
-                        {
-                            print("Error adding notification: \(error!.localizedDescription)")
+                print("\(addNotifications.count) notifications")
+                
+                for notificationRequest in addNotifications
+                {
+                    if notificationMap[notificationRequest.identifier] != nil
+                    {
+                        // Already scheduled, remove from the mapping since it is current
+                        notificationMap[notificationRequest.identifier] = nil
+                    }
+                    else
+                    {
+                        // Add the notification
+                        self.notificationCenter.add(notificationRequest)
+                        { (error: Error?) in
+                            
+                            if error != nil
+                            {
+                                print("Error adding notification: \(error!.localizedDescription)")
+                            }
                         }
                     }
-                })
+                }
                 
                 // 4. Remove any old obsolete notifications (tasks that were deleted, etc)
                 print("\(notificationMap.keys.count) notifications to be removed")
                 self.notificationCenter.removePendingNotificationRequests(withIdentifiers: Array(notificationMap.keys))
-
+                
                 // Done, perform completion handler
                 completion()
         }
+    }
+    
+    /// Build notification request array from tasks
+    ///
+    /// - Parameter tasks: The tasks for generating notifications
+    /// - Returns: Array of Notification Requests
+    private func buildNotificationRequests(tasks: [MHVActionPlanTaskInstance]) -> [UNNotificationRequest]
+    {
+        let dateToRemindersMap = buildDateToRemindersMap(tasks: tasks)
+        
+        var notificationRequests = [UNNotificationRequest]()
+        
+        for (dateComponent, reminderItems) in dateToRemindersMap
+        {
+            let contentArray = self.dataSource.notificationContent(reminderItems: reminderItems) ?? []
+            
+            for content in contentArray
+            {
+                guard let identifier = content.userInfo[ReminderManager.reminderIdentifierKey] as? String else
+                {
+                    print("reminderIdentifierKey is not set in UNNotificationContent.userInfo dictionary")
+                    continue
+                }
+                
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent,
+                                                            repeats: true)
+                
+                notificationRequests.append(UNNotificationRequest.init(identifier: identifier,
+                                                                       content: content,
+                                                                       trigger: trigger))
+            }
+        }
+        
+        return notificationRequests
+    }
+    
+    /// This creates a mapping from a DateComponent to an array of reminders that would occur for that day/time combination
+    ///
+    /// - Parameter tasks: Array of tasks
+    /// - Returns: Dictionary mapping the date components to the array of reminders
+    private func buildDateToRemindersMap(tasks: [MHVActionPlanTaskInstance]) -> [DateComponents : [ReminderItem]]
+    {
+        var dateToRemindersMap = [DateComponents : [ReminderItem]]()
+        
+        for task in tasks
+        {
+            guard let taskSchedules = task.schedules, task.identifier != nil else
+            {
+                continue
+            }
+            
+            for schedule in taskSchedules
+            {
+                guard let scheduledDays = schedule.scheduledDays,
+                    let scheduledTime = schedule.scheduledTime else
+                {
+                    continue
+                }
+                
+                if schedule.reminderState == MHVScheduleReminderStateEnum.mhvUnknown() ||
+                    schedule.reminderState == MHVScheduleReminderStateEnum.mhvOff()
+                {
+                    continue
+                }
+                
+                for dayEnum in scheduledDays
+                {
+                    if dayEnum == MHVScheduleScheduledDaysEnum.mhvUnknown()
+                    {
+                        continue
+                    }
+                    
+                    // Need to use reminder time by day; so 8AM task with on time reminder, and 8:30AM task with 30-minutes-before reminder are consolidated
+                    // Adds schedules separately for each individual day for Everyday case, in case more than one reminder on Tuesday at 8AM but not other days
+                    let days = dayEnum == MHVScheduleScheduledDaysEnum.mhvEveryday() ? Array(self.dayOfWeekMap.keys) : [dayEnum]
+                    
+                    for day in days
+                    {
+                        var components = DateComponents()
+                        components.weekday = self.dayOfWeekMap[day]
+                        components.hour = Int(scheduledTime.hour)
+                        components.minute = Int(scheduledTime.minute)
+                        
+                        components = self.offsetDateComponentsForReminder(components: components, reminderState: schedule.reminderState)
+                        
+                        if dateToRemindersMap[components] == nil
+                        {
+                            dateToRemindersMap[components] = []
+                        }
+                        
+                        if let reminderItem = ReminderItem(task: task, schedule: schedule, dayEnum: day)
+                        {
+                            dateToRemindersMap[components]?.append(reminderItem)
+                        }
+                    }
+                }
+            }
+        }
+        
+        return dateToRemindersMap
     }
     
     // Offset a date component by the reminderState to get the adjusted reminder time

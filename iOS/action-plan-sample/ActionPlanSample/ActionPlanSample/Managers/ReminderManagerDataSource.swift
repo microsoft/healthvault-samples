@@ -22,6 +22,36 @@ import Foundation
 import HealthVault
 import UserNotifications
 
+struct ReminderItem
+{
+    let task: MHVActionPlanTaskInstance
+    let taskIdentifier: String
+    let scheduledTime: MHVTime
+    let dayEnum: MHVScheduleScheduledDaysEnum
+    let identifier: String
+    
+    init?(task: MHVActionPlanTaskInstance, schedule: MHVSchedule, dayEnum: MHVScheduleScheduledDaysEnum)
+    {
+        if let taskIdentifier = task.identifier,
+            let scheduledTime = schedule.scheduledTime,
+            let timeString = schedule.scheduledTime?.toString(),
+            let dayString = dayEnum.stringValue,
+            let reminderStateString = schedule.reminderState.stringValue
+        {
+            self.task = task
+            self.taskIdentifier = taskIdentifier
+            self.scheduledTime = scheduledTime
+            self.dayEnum = dayEnum
+
+            self.identifier = "\(taskIdentifier)--\(timeString)--\(dayString)--\(reminderStateString)"
+        }
+        else
+        {
+            return nil
+        }
+    }
+}
+
 protocol ReminderManagerDataSource
 {
     /// Return a set of UNNotificationCategory objects for the notifications
@@ -33,12 +63,13 @@ protocol ReminderManagerDataSource
     ///             returning nil or an empty array to the completion handler with no error will remove all notifications
     func tasksForReminders(completion: @escaping ([MHVActionPlanTaskInstance]?, Error?) -> Void)
     
-    /// Return the UNNotificationContent to use for a task, schedule for that task, and dayEnum for that schedule
+    /// Generate an array of UNNotificationContent based on reminderItems.
+    /// The reminderItems array will contain reminders that all occur at the same time.
+    /// They may be merged into 1 notification, shown as N individual notifications, or a mix
     ///
-    /// - Parameter task: The task for this notification content
-    /// - Parameter schedule: The schedule in the task.schedules for this content
-    /// - Parameter dayEnum: The dayEnum in the schedule for this content
-    /// - Returns: The custom content
-    func notificationContent(task: MHVActionPlanTaskInstance, schedule: MHVSchedule, dayEnum: MHVScheduleScheduledDaysEnum) -> UNNotificationContent?
+    /// - Parameter reminderItems: Array of structs with details about the task reminders
+    /// - Returns: The custom content for notifications based on the reminders.
+    /// - Note: The UNNotificationContent.userInfo dictionaries must contain a value for the ReminderManager.reminderIdentifierKey key
+    func notificationContent(reminderItems: [ReminderItem]) -> [UNNotificationContent]?
 }
 

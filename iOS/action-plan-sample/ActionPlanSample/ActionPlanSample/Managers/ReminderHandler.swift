@@ -26,11 +26,10 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
 {
     /// Shared ReminderHandler instance to use
     static let shared = ReminderHandler()
-
+    
     private let taskIdKey = "taskId"
     private let hourKey = "hour"
     private let minuteKey = "minute"
-    private let logOnTimeActionIdentifier = "LogOnTime"
     private let logNowActionIdentifier = "LogNow"
     private let categoryIdentifier = "Reminder"
     
@@ -42,38 +41,72 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
         let logNow = UNNotificationAction.init(identifier: self.logNowActionIdentifier,
                                                title: "Log Now",
                                                options: [])
-        let logOnTime = UNNotificationAction.init(identifier: self.logOnTimeActionIdentifier,
-                                                  title: "Log On Time",
-                                                  options: [])
         
         // Add reminder notification category, with "Log" button actions
         let category = UNNotificationCategory(identifier: self.categoryIdentifier,
-                                              actions: [logNow, logOnTime],
+                                              actions: [logNow],
                                               intentIdentifiers: [],
                                               options: [])
         
         return [category]
     }
     
-    /// Return the UNNotificationContent to use for a task, schedule for that task, and dayEnum for that schedule
-    func notificationContent(task: MHVActionPlanTaskInstance, schedule: MHVSchedule, dayEnum: MHVScheduleScheduledDaysEnum) -> UNNotificationContent?
+    /// Generate an array of UNNotificationContent based on reminderItems.
+    /// If 1 reminder, it is shown with the task name; if > 1 then they are merged into one
+    ///
+    /// - Parameter reminderItems: Array of structs with details about the task reminders
+    /// - Returns: The custom content for notifications based on the reminders.
+    /// - Note: The UNNotificationContent.userInfo dictionaries must contain a value for the ReminderManager.reminderIdentifierKey key
+    func notificationContent(reminderItems: [ReminderItem]) -> [UNNotificationContent]?
     {
-        guard let taskIdentifier = task.identifier,
-            let scheduledTime = schedule.scheduledTime else
+        if reminderItems.count == 0
         {
             return nil
         }
         
+        // If only one reminder
+        if reminderItems.count == 1
+        {
+            if let content = notificationContent(reminderItem: reminderItems.first!)
+            {
+                return [content]
+            }
+            return nil
+        }
+        
+        // Multiple reminders at the same time.
+        // Create identifier by combining all the identifiers
+        let taskIdentifiers = reminderItems.map({ $0.identifier }).joined(separator: ",")
+        
+        // Create content to show the count of tasks
         let content = UNMutableNotificationContent()
         content.title = "Reminder"
-        content.body = task.name
+        content.body = "You have \(reminderItems.count) tasks"
+        content.sound = UNNotificationSound.default()
+        
+        content.userInfo = [ReminderManager.reminderIdentifierKey : taskIdentifiers]
+        
+        return [content]
+    }
+    
+    /// Return the UNNotificationContent to use when only one reminder is needed for a day/time
+    ///
+    /// - Parameter reminderItem: Struct with details about the reminder that will be shown
+    /// - Returns: The custom content
+    private func notificationContent(reminderItem: ReminderItem) -> UNNotificationContent?
+    {
+        // For 1 task, it shows the name and can be logged
+        let content = UNMutableNotificationContent()
+        content.title = "Reminder"
+        content.body = reminderItem.task.name
         content.sound = UNNotificationSound.default()
         content.categoryIdentifier = self.categoryIdentifier
         
-        content.userInfo = [self.taskIdKey : taskIdentifier,
-                            self.hourKey : scheduledTime.hour,
-                            self.minuteKey : scheduledTime.minute]
-
+        content.userInfo = [ReminderManager.reminderIdentifierKey : reminderItem.identifier,
+                            self.taskIdKey : reminderItem.taskIdentifier,
+                            self.hourKey : reminderItem.scheduledTime.hour,
+                            self.minuteKey : reminderItem.scheduledTime.minute]
+        
         return content
     }
     
@@ -110,20 +143,13 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
     ///
     /// - Parameter taskId: The identifier of the task
     /// - Parameter date: The time to use for tracking
-    private func trackTask(_ taskId: String, date: Date)
+    private func trackTask(_ taskId: String, date: Date, completion: @escaping () -> Void)
     {
         guard let remoteMonitoringClient = HVConnection.currentConnection?.remoteMonitoringClient() else
         {
             self.showAlertWithError(error: nil, defaultMessage: "HealthVault connection is not set")
+            completion()
             return
-        }
-        
-        var backgroundTask = UIBackgroundTaskInvalid
-        backgroundTask = UIApplication.shared.beginBackgroundTask
-            {
-                // End if background task is expiring
-                print("TrackTask timed out")
-                UIApplication.shared.endBackgroundTask(backgroundTask)
         }
         
         let occurrence = MHVTaskTrackingOccurrence()
@@ -135,7 +161,7 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
                 
                 defer
                 {
-                    UIApplication.shared.endBackgroundTask(backgroundTask)
+                    completion()
                 }
                 
                 guard error == nil else
@@ -145,7 +171,7 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
                 }
                 
                 print("Tracked Task for \(taskId)")
-
+                
                 NotificationCenter.default.post(name: Constants.TaskTrackedNotification, object: taskId)
         })
     }
@@ -166,44 +192,15 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
         if let taskId = response.notification.request.content.userInfo[self.taskIdKey] as? String
         {
             print("Received Notification Action Identifier \(response.actionIdentifier)")
-
+            
             if response.actionIdentifier == logNowActionIdentifier
             {
                 // Log Now
-                self.trackTask(taskId, date: Date())
-            }
-            else if response.actionIdentifier == logOnTimeActionIdentifier
-            {
-                // Log On Time, use hour/minute from task with the date of the notification they are responding
-                // So "Log On Time" for a reminder shown yesterday will log for yesterday's date
-                if let hour = response.notification.request.content.userInfo[self.hourKey] as? Int,
-                    let minute = response.notification.request.content.userInfo[self.minuteKey] as? Int
-                {
-                    var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .timeZone],
-                                                                         from: response.notification.date)
-                    dateComponents.hour = hour
-                    dateComponents.minute = minute
-                    
-                    if let trackDate = Calendar.current.date(from: dateComponents)
-                    {
-                        self.trackTask(taskId, date: trackDate)
-                    }
-                    else
-                    {
-                        self.showAlertWithError(error: nil, defaultMessage: "Time to track the task could not be calculated")
-                    }
-                }
-                else
-                {
-                    self.showAlertWithError(error: nil, defaultMessage: "Time to track the task was not set")
-                }
+                self.trackTask(taskId, date: Date(), completion: completionHandler)
+                return
             }
         }
-        else
-        {
-            self.showAlertWithError(error: nil, defaultMessage: "TaskId was not found on the notification response")
-        }
-        
+
         completionHandler()
     }
     
@@ -213,14 +210,14 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
                             defaultMessage: String)
     {
         print("Error alert: \(defaultMessage)")
-
+        
         var message = error?.localizedDescription
         
         if (message == nil)
         {
             message = defaultMessage
         }
-
+        
         // show error and/or retry
         let alert = UIAlertController.init(title: "Action Plan Error",
                                            message: message,
@@ -228,7 +225,7 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
         
         let alertActionOK = UIAlertAction(title: "OK", style: .default, handler:nil)
         alert.addAction(alertActionOK)
-    
+        
         // If app is in the background, UIAlertController will not be visible until app is opened; schedule a reminder so the error appears now
         if UIApplication.shared.applicationState == .background
         {
