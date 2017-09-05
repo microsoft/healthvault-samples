@@ -25,7 +25,7 @@ import UserNotifications
 class ReminderManager: NSObject
 {
     private var dataSource: ReminderManagerDataSource
-    
+
     private let notificationCenter = UNUserNotificationCenter.current()
     private var isAuthorized = false
     private var isUpdatingReminders = false
@@ -51,11 +51,11 @@ class ReminderManager: NSObject
                                      MHVScheduleReminderStateEnum.mhvBefore8Hours() :  480]
     
     // MARK: - Initialization & setup
-    
+
     init(dataSource: ReminderManagerDataSource)
     {
         self.dataSource = dataSource
-        
+
         super.init()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateReminders), name: Constants.TasksChangedNotification, object: nil)

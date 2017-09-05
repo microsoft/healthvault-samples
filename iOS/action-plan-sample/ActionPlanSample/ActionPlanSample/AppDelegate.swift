@@ -20,6 +20,7 @@
 
 import UIKit
 import HealthKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,6 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let observers = healthKitManager.allObservers
             healthKitManager.start(observers: observers)
         }
+        
+        // Set UserNotificationCenter delegate in the application did finish launching so the app can handle if it was launched from a "Log" notification action
+        UNUserNotificationCenter.current().delegate = ReminderHandler.shared
         
         // Create the root view controller and add it to the window
         window = UIWindow(frame: UIScreen.main.bounds)
