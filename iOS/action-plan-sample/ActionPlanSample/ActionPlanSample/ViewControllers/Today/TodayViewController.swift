@@ -376,45 +376,46 @@ class TodayViewController: BaseViewController, UITableViewDataSource, UITableVie
             {
                 for schedule in schedules
                 {
-                    //Scheduled tasks get one cell per schedule item
                     if snapshot.completionMetrics?.completionType == MHVTimelineSnapshotCompletionMetricsCompletionTypeEnum.mhvScheduled()
                     {
+                        // Scheduled tasks get one cell per schedule item
                         cells.append(TimelineTaskCellData(task: task, schedules: [schedule]))
-                    }
-                    
-                    if let occurrences = schedule.occurrences
-                    {
-                        // Check for adding a cell for each out-of-window occurrence
-                        for occurrence in occurrences
+                        
+                        // Plus cells for out-of-window occurrences
+                        if let occurrences = schedule.occurrences
                         {
-                            if let occurrenceDate = occurrence.localDateTime?.date,
-                                let inWindow = occurrence.inWindow,
-                                let identifier = occurrence.identifier,
-                                inWindow.boolValue == false
+                            // Check for adding a cell for each out-of-window occurrence
+                            for occurrence in occurrences
                             {
-                                // Include out-of-window occurrences that are not found in the occurrenceIdentifiers
-                                // On a task with multiple schedules, 8:00AM and 5:00PM, tracking at 8:00AM would give an in-window
-                                // occurrence for the 8am, but also an out-of-window occurrence for the 5pm.
-                                if !occurrenceIdentifiers.contains(identifier)
+                                if let occurrenceDate = occurrence.localDateTime?.date,
+                                    let inWindow = occurrence.inWindow,
+                                    let identifier = occurrence.identifier,
+                                    inWindow.boolValue == false
                                 {
-                                    let newSchedule = schedule.copy() as! MHVTimelineSchedule
-                                    newSchedule.occurrences = [occurrence]
-                                    
-                                    // Out-of-window occurrences are set to 1 required occurrences, so doesn't show "X/Y" UI & get checkmark
-                                    let newTask = task.copy() as! MHVTimelineTask
-                                    if let _ = newTask.timelineSnapshots?.first?.completionMetrics?.requiredNumberOfOccurrences
+                                    // Include out-of-window occurrences that are not found in the occurrenceIdentifiers
+                                    // On a task with multiple schedules, 8:00AM and 5:00PM, tracking at 8:00AM would give an in-window
+                                    // occurrence for the 8am, but also an out-of-window occurrence for the 5pm.
+                                    if !occurrenceIdentifiers.contains(identifier)
                                     {
-                                        newTask.timelineSnapshots?.first?.completionMetrics?.requiredNumberOfOccurrences = 1
+                                        let newSchedule = schedule.copy() as! MHVTimelineSchedule
+                                        newSchedule.occurrences = [occurrence]
+                                        
+                                        // Out-of-window occurrences are set to 1 required occurrences, so doesn't show "X/Y" UI & get checkmark
+                                        let newTask = task.copy() as! MHVTimelineTask
+                                        if let _ = newTask.timelineSnapshots?.first?.completionMetrics?.requiredNumberOfOccurrences
+                                        {
+                                            newTask.timelineSnapshots?.first?.completionMetrics?.requiredNumberOfOccurrences = 1
+                                        }
+                                        
+                                        let cell = TimelineTaskCellData(task: newTask, schedules: [schedule])
+                                        
+                                        cell.setOutOfWindowOccurrence(occurrenceDate, identifier: identifier)
+                                        cells.append(cell)
+                                        
+                                        // Add to the array, so logging a task at 1:00PM for the 8:00AM and 5:00PM example
+                                        // only shows one out-of-window occurrence in the UI & not for both
+                                        occurrenceIdentifiers.append(identifier)
                                     }
-                                    
-                                    let cell = TimelineTaskCellData(task: newTask, schedules: [schedule])
-                                    
-                                    cell.setOutOfWindowOccurrence(occurrenceDate, identifier: identifier)
-                                    cells.append(cell)
-                                    
-                                    // Add to the array, so logging a task at 1:00PM for the 8:00AM and 5:00PM example
-                                    // only shows one out-of-window occurrence in the UI & not for both
-                                    occurrenceIdentifiers.append(identifier)
                                 }
                             }
                         }

@@ -84,7 +84,8 @@ class TimelineTaskCellData: NSObject
                 {
                     for occurrence in occurrences
                     {
-                        if let inWindow = occurrence.inWindow, inWindow.boolValue == true
+                        if let inWindow = occurrence.inWindow,
+                            inWindow.boolValue == true || snapshot.completionMetrics?.completionType == MHVTimelineSnapshotCompletionMetricsCompletionTypeEnum.mhvFrequency()
                         {
                             self.occurrenceCount += 1
 
