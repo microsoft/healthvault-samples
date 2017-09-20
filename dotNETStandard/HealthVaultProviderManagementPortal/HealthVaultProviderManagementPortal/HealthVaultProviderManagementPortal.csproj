@@ -57,14 +57,17 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.HealthVault, Version=1.66.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.1.66.20714.1-preview\lib\netstandard1.4\Microsoft.HealthVault.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault, Version=1.70.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.1.70.20830.5-preview\lib\netstandard1.4\Microsoft.HealthVault.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.HealthVault.RestApi, Version=1.66.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.1.66.20714.1-preview\lib\netstandard1.4\Microsoft.HealthVault.RestApi.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault.RestApi, Version=1.70.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.1.70.20830.5-preview\lib\netstandard1.4\Microsoft.HealthVault.RestApi.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.HealthVault.Web, Version=1.66.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.HealthVault.Web.1.66.20714.1-preview\lib\net461\Microsoft.HealthVault.Web.dll</HintPath>
+    <Reference Include="Microsoft.HealthVault.Web, Version=1.70.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.HealthVault.Web.1.70.20830.5-preview\lib\net461\Microsoft.HealthVault.Web.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.8\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
