@@ -10,7 +10,7 @@
 @using HealthVaultProviderManagementPortal.Helpers
 @using HealthVaultProviderManagementPortal.Models.Enums
 @using Microsoft.HealthVault.RestApi.Generated.Models
-@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanTaskInstanceV2
+@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanTaskInstance
 
 @{
     ViewBag.Title = "Edit Task";
@@ -177,7 +177,7 @@
     </div>
 }
 
-@helper ScheduleDayCheckbox(ScheduleV2 schedule, string name, string idBase, ActionPlanScheduleDay day)
+@helper ScheduleDayCheckbox(Schedule schedule, string name, string idBase, ActionPlanScheduleDay day)
 {
     <div class="checkbox-inline no-padding-top">
         <label for="@(idBase + "_" + day)" class="control-label">

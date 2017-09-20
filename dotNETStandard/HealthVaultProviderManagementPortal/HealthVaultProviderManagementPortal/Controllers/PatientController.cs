@@ -74,7 +74,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [HttpGet]
         public async Task<ActionResult> TaskOccurrence(Guid personId, Guid recordId, Guid taskId)
         {
-            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.ActionPlanTasks.GetByIdAsync(taskId.ToString()), personId, recordId);
+            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.ActionPlanTasks.GetByIdAsync(taskId), personId, recordId);
             return View(response);
         }
 
