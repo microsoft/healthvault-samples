@@ -95,6 +95,11 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
         private async Task<TimelineResponse> GetTimeline(Guid personId, Guid recordId, DateTime startDate, DateTime? endDate, DateTimeZone timeZone)
         {
+            if (timeZone == null)
+            {
+                throw new ArgumentNullException(nameof(timeZone));
+            }
+
             var restHealthVaultUrl = WebConfigurationManager.AppSettings.Get("HV_RestHealthServiceUrl"); //TODO: use built in SDK function to retreive config settings when available
 
             // Construct URL
@@ -105,7 +110,8 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
             var queryParameters = new List<string>
             {
-                $"startDate={startDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}"
+                $"startDate={startDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}",
+                $"timeZone={timeZone.Id}"
             };
 
             if (endDate != null)
@@ -113,15 +119,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 queryParameters.Add($"endDate={endDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}");
             }
 
-            if (timeZone != null)
-            {
-                queryParameters.Add($"timeZone={timeZone.Id}");
-            }
-
-            if (queryParameters.Count > 0)
-            {
-                uriBuilder.Query = string.Join("&", queryParameters);
-            }
+            uriBuilder.Query = string.Join("&", queryParameters);
 
             var responseContent = await ExecuteRestRequest(personId, recordId, uriBuilder.Uri, HttpMethod.Get, ApiVersion);
 
