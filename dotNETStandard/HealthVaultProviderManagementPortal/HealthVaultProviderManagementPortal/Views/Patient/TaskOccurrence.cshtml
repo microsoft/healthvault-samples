@@ -18,8 +18,8 @@
 
 @using (Html.BeginForm("TaskOccurrence", "Patient", FormMethod.Post))
 {
-    @Html.Hidden("personID", Request.Params["personId"])
-    @Html.Hidden("recordID", Request.Params["recordID"])
+    @Html.Hidden("personId", Request.Params["personId"])
+    @Html.Hidden("recordId", Request.Params["recordId"])
     @Html.Hidden("startDate", Request.Params["startDate"])
     @Html.Hidden("endDate", Request.Params["endDate"])
     @Html.Hidden("taskId", Model.Id)

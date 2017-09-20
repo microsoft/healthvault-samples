@@ -20,8 +20,8 @@
 @using (Html.BeginForm("Plan", "ActionPlan"))
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("personID", Request.Params["personId"])
-    @Html.Hidden("recordID", Request.Params["recordID"])
+    @Html.Hidden("personId", Request.Params["personId"])
+    @Html.Hidden("recordId", Request.Params["recordId"])
     @Html.HiddenFor(model => model.Id)
 
     <h2>Plan</h2>
