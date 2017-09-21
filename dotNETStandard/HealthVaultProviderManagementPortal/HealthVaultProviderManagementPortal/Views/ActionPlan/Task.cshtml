@@ -10,7 +10,7 @@
 @using HealthVaultProviderManagementPortal.Helpers
 @using HealthVaultProviderManagementPortal.Models.Enums
 @using Microsoft.HealthVault.RestApi.Generated.Models
-@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanTaskInstanceV2
+@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanTaskInstance
 
 @{
     ViewBag.Title = "Edit Task";
@@ -20,7 +20,7 @@
 @using (Html.BeginForm("Task", "ActionPlan"))
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("personID", Request.Params["personId"])
+    @Html.Hidden("personId", Request.Params["personId"])
     @Html.Hidden("recordId", Request.Params["recordId"])
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.AssociatedPlanId)
@@ -57,6 +57,11 @@
             <div class="col-md-3 slim-col">
                 @Html.LabelFor(model => model.TaskType, htmlAttributes: new { @class = "control-label" })
                 @Html.DropDownListFor(model => model.TaskType, SelectListHelper.FromEnum<ActionPlanTaskType>(Model.TaskType), htmlAttributes: new { @class = "form-control" })
+            </div>
+            
+            <div class="col-md-3 slim-col">
+                @Html.LabelFor(model => model.TaskKey, htmlAttributes: new { @class = "control-label" })
+                @Html.EditorFor(model => model.TaskKey, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
@@ -177,7 +182,7 @@
     </div>
 }
 
-@helper ScheduleDayCheckbox(ScheduleV2 schedule, string name, string idBase, ActionPlanScheduleDay day)
+@helper ScheduleDayCheckbox(Schedule schedule, string name, string idBase, ActionPlanScheduleDay day)
 {
     <div class="checkbox-inline no-padding-top">
         <label for="@(idBase + "_" + day)" class="control-label">

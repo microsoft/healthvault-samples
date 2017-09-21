@@ -51,7 +51,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 return View();
             }
 
-            var timeline = await GetTimeline(personId, recordId, startDate.Value, endDate);
+            var timeline = await GetTimeline(personId, recordId, startDate.Value, endDate, DateTimeZoneProviders.Tzdb.GetSystemDefault());
 
             var timelineEntries = new List<TimelineEntryViewModel>();
             foreach (var task in timeline.Tasks)
@@ -74,7 +74,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [HttpGet]
         public async Task<ActionResult> TaskOccurrence(Guid personId, Guid recordId, Guid taskId)
         {
-            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.ActionPlanTasks.GetByIdAsync(taskId.ToString()), personId, recordId);
+            var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.ActionPlanTasks.GetByIdAsync(taskId), personId, recordId);
             return View(response);
         }
 
@@ -93,8 +93,13 @@ namespace HealthVaultProviderManagementPortal.Controllers
             return RedirectToAction("Index", routeValues);
         }
 
-        private async Task<TimelineResponse> GetTimeline(Guid personId, Guid recordId, DateTime startDate, DateTime? endDate)
+        private async Task<TimelineResponse> GetTimeline(Guid personId, Guid recordId, DateTime startDate, DateTime? endDate, DateTimeZone timeZone)
         {
+            if (timeZone == null)
+            {
+                throw new ArgumentNullException(nameof(timeZone));
+            }
+
             var restHealthVaultUrl = WebConfigurationManager.AppSettings.Get("HV_RestHealthServiceUrl"); //TODO: use built in SDK function to retreive config settings when available
 
             // Construct URL
@@ -105,7 +110,8 @@ namespace HealthVaultProviderManagementPortal.Controllers
 
             var queryParameters = new List<string>
             {
-                $"startDate={startDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}"
+                $"startDate={startDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}",
+                $"timeZone={timeZone.Id}"
             };
 
             if (endDate != null)
@@ -113,10 +119,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                 queryParameters.Add($"endDate={endDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)}");
             }
 
-            if (queryParameters.Count > 0)
-            {
-                uriBuilder.Query = string.Join("&", queryParameters);
-            }
+            uriBuilder.Query = string.Join("&", queryParameters);
 
             var responseContent = await ExecuteRestRequest(personId, recordId, uriBuilder.Uri, HttpMethod.Get, ApiVersion);
 
@@ -174,7 +177,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
                             // Add any out-of-window task occurrences for scheduled tasks to show on the timeline
                             schedule.Occurrences?
                                 .Where(o => !o.InWindow && snapshot.CompletionMetrics.CompletionType == ActionPlanTaskCompletionType.Scheduled)
-                                .ToList().ForEach(occurrence => AddOccurrence(timelineEntries, occurrence, task)); 
+                                .ToList().ForEach(occurrence => AddOccurrence(timelineEntries, occurrence, task));
                         }
                     }
                 }

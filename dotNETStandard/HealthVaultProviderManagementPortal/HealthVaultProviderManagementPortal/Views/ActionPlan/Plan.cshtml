@@ -10,7 +10,7 @@
 @using HealthVaultProviderManagementPortal.Helpers
 @using HealthVaultProviderManagementPortal.Models.Enums
 @using System.Runtime
-@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanInstanceV2
+@model Microsoft.HealthVault.RestApi.Generated.Models.ActionPlanInstance
 
 @{
     ViewBag.Title = "Edit plan";
@@ -20,8 +20,8 @@
 @using (Html.BeginForm("Plan", "ActionPlan"))
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("personID", Request.Params["personId"])
-    @Html.Hidden("recordID", Request.Params["recordID"])
+    @Html.Hidden("personId", Request.Params["personId"])
+    @Html.Hidden("recordId", Request.Params["recordId"])
     @Html.HiddenFor(model => model.Id)
 
     <h2>Plan</h2>

@@ -53,7 +53,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         {
             if (id.HasValue && id.Value != Guid.Empty)
             {
-                var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetByIdAsync(id.ToString()), personId, recordId);
+                var response = await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.GetByIdAsync(id.Value), personId, recordId);
                 return View(response);
             }
 
@@ -113,7 +113,7 @@ namespace HealthVaultProviderManagementPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveGoal(Guid id, Guid personId, Guid recordId)
         {
-            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.DeleteAsync(id.ToString()), personId, recordId);
+            await ExecuteMicrosoftHealthVaultRestApiAsync(api => api.Goals.DeleteAsync(id), personId, recordId);
             return RedirectToAction("Index", new { personId = personId, recordId = recordId });
         }
 

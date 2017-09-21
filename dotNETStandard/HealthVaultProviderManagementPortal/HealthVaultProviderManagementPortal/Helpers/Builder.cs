@@ -21,7 +21,7 @@ namespace HealthVaultProviderManagementPortal.Helpers
         /// <summary>
         /// Creates a sample action plan object.
         /// </summary>
-        public static ActionPlanV2 CreateSleepActionPlan()
+        public static ActionPlan CreateSleepActionPlan()
         {
             var objective = CreateSleepObjective();
 
@@ -30,7 +30,7 @@ namespace HealthVaultProviderManagementPortal.Helpers
             var scheduledTask = CreateSleepScheduledActionPlanTask(objective.Id);
             var frequencyTask = CreateSleepFrequencyActionPlanTask(objective.Id);
 
-            var plan = new ActionPlanV2
+            var plan = new ActionPlan
             {
                 Name = "Sleep better",
                 Description = "Improve the quantity and quality of your sleep.",
@@ -38,7 +38,7 @@ namespace HealthVaultProviderManagementPortal.Helpers
                 ThumbnailImageUrl = "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE10omP?ver=59cf",
                 Category = ActionPlanCategory.Sleep.ToString(),
                 Objectives = new Collection<Objective> {objective},
-                AssociatedTasks = new Collection<ActionPlanTaskV2> {scheduledTask, frequencyTask}
+                AssociatedTasks = new Collection<ActionPlanTask> {scheduledTask, frequencyTask}
             };
 
             return plan;
@@ -51,7 +51,7 @@ namespace HealthVaultProviderManagementPortal.Helpers
         {
             var objective = new Objective
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid(),
                 Name = "Get more sleep",
                 Description = "Work on habits that help you maximize how much you sleep you get.",
                 State = ActionPlanObjectiveStatus.Active.ToString(),
@@ -65,9 +65,9 @@ namespace HealthVaultProviderManagementPortal.Helpers
         /// <summary>
         /// Creates a sample schedule based task associated with the specified objective.
         /// </summary>
-        public static ActionPlanTaskV2 CreateSleepScheduledActionPlanTask(string objectiveId, Guid planId = default(Guid))
+        public static ActionPlanTask CreateSleepScheduledActionPlanTask(Guid objectiveId, Guid planId = default(Guid))
         {
-            var task = new ActionPlanTaskV2
+            var task = new ActionPlanTask
             {
                 Name = "Time to wake up",
                 ShortDescription = "Set a consistent wake time to help regulate your body's internal clock.",
@@ -76,16 +76,16 @@ namespace HealthVaultProviderManagementPortal.Helpers
                 ThumbnailImageUrl = "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1s2KS?ver=0ad8",
                 TaskType = ActionPlanTaskType.Other.ToString(),
                 SignupName = "Set a consistent wake time",
-                AssociatedObjectiveIds = new Collection<string> { objectiveId.ToString() },
-                AssociatedPlanId = planId.ToString(), // Only needs to be set if adding as task after the plan
+                AssociatedObjectiveIds = new Collection<Guid?> { objectiveId },
+                AssociatedPlanId = planId, // Only needs to be set if adding as task after the plan
                 TrackingPolicy = new ActionPlanTrackingPolicy
                 {
                     IsAutoTrackable = false
                 },
                 CompletionType = ActionPlanTaskCompletionType.Scheduled.ToString(),
-                Schedules = new List<ScheduleV2>
+                Schedules = new List<Schedule>
                 {
-                    new ScheduleV2
+                    new Schedule
                     {
                         ReminderState = ActionPlanReminderState.Off.ToString(),
                         ScheduledDays = new Collection<string> { ActionPlanScheduleDay.Everyday.ToString() },
@@ -104,9 +104,9 @@ namespace HealthVaultProviderManagementPortal.Helpers
         /// <summary>
         /// Creates a sample frequency based task associated with the specified objective.
         /// </summary>
-        public static ActionPlanTaskV2 CreateSleepFrequencyActionPlanTask(string objectiveId, Guid planId = default(Guid))
+        public static ActionPlanTask CreateSleepFrequencyActionPlanTask(Guid? objectiveId, Guid planId = default(Guid))
         {
-            var task = new ActionPlanTaskV2
+            var task = new ActionPlanTask
             {
                 Name = "Measure your blood pressure",
                 ShortDescription = "Measure your blood pressure - the goal is to have your systolic between 80-120 and diastolic between 60-80 mmHg",
@@ -115,8 +115,8 @@ namespace HealthVaultProviderManagementPortal.Helpers
                 ThumbnailImageUrl = "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1s2KS?ver=0ad8",
                 TaskType = ActionPlanTaskType.BloodPressure.ToString(),
                 SignupName = "Measure your blood pressure",
-                AssociatedObjectiveIds = new Collection<string> { objectiveId },
-                AssociatedPlanId = planId.ToString(), // Only needs to be set if adding as task after the plan
+                AssociatedObjectiveIds = new Collection<Guid?> { objectiveId },
+                AssociatedPlanId = planId, // Only needs to be set if adding as task after the plan
                 TrackingPolicy = new ActionPlanTrackingPolicy
                 {
                     IsAutoTrackable = true,
@@ -133,15 +133,15 @@ namespace HealthVaultProviderManagementPortal.Helpers
                     }
                 },
                 CompletionType = ActionPlanTaskCompletionType.Frequency.ToString(),
-                Schedules = new List<ScheduleV2>
+                Schedules = new List<Schedule>
                 {
-                    new ScheduleV2
+                    new Schedule
                     {
                         ReminderState = ActionPlanReminderState.Off.ToString(),
                         ScheduledDays = new Collection<string> { ActionPlanScheduleDay.Everyday.ToString() }
                     }
                 },
-                FrequencyTaskCompletionMetrics = new ActionPlanFrequencyTaskCompletionMetricsV2()
+                FrequencyTaskCompletionMetrics = new ActionPlanFrequencyTaskCompletionMetrics()
                 {
                     OccurrenceCount = 1,
                     WindowType = ActionPlanScheduleRecurrenceType.Daily.ToString()
@@ -179,11 +179,11 @@ namespace HealthVaultProviderManagementPortal.Helpers
 
         #region Weight ActionPlan
 
-        public static ActionPlanV2 CreateWeightActionPlan()
+        public static ActionPlan CreateWeightActionPlan()
         {         
             var objective = new Objective
             {
-                Id = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid(),
                 Name = "Manage your weight",
                 Description = "Manage your weight better by measuring daily. ",
                 State = ActionPlanObjectiveStatus.Active.ToString(),
@@ -195,7 +195,7 @@ namespace HealthVaultProviderManagementPortal.Helpers
             // You can also create tasks in a separate call after the action plan is created.
             var task = CreateDailyWeightMeasurementActionPlanTask(objective.Id);
 
-            var plan = new ActionPlanV2
+            var plan = new ActionPlan
             {
                 Name = "Track your weight",
                 Description = "Daily weight tracking can help you be more conscious of what you eat. ",
@@ -203,7 +203,7 @@ namespace HealthVaultProviderManagementPortal.Helpers
                 ThumbnailImageUrl = "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW6fN6?ver=6479",
                 Category = ActionPlanCategory.Health.ToString(),
                 Objectives = new Collection<Objective> {objective},
-                AssociatedTasks = new Collection<ActionPlanTaskV2> {task}
+                AssociatedTasks = new Collection<ActionPlanTask> {task}
             };
 
             return plan;
@@ -212,9 +212,9 @@ namespace HealthVaultProviderManagementPortal.Helpers
         /// <summary>
         /// Creates a sample frequency based task associated with the specified objective.
         /// </summary>
-        public static ActionPlanTaskV2 CreateDailyWeightMeasurementActionPlanTask(string objectiveId, Guid planId = default(Guid))
+        public static ActionPlanTask CreateDailyWeightMeasurementActionPlanTask(Guid? objectiveId, Guid planId = default(Guid))
         {
-            var task = new ActionPlanTaskV2
+            var task = new ActionPlanTask
             {
                 Name = "Measure your weight",
                 ShortDescription = "Measure your weight daily",
@@ -223,8 +223,8 @@ namespace HealthVaultProviderManagementPortal.Helpers
                 ThumbnailImageUrl = "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW6fN6?ver=6479",
                 TaskType = ActionPlanTaskType.Other.ToString(),
                 SignupName = "Measure your weight",
-                AssociatedObjectiveIds = new Collection<string> { objectiveId },
-                AssociatedPlanId = planId.ToString(), // Only needs to be set if adding as task after the plan
+                AssociatedObjectiveIds = new Collection<Guid?> { objectiveId },
+                AssociatedPlanId = planId, // Only needs to be set if adding as task after the plan
                 TrackingPolicy = new ActionPlanTrackingPolicy
                 {
                     IsAutoTrackable = true,
@@ -241,15 +241,15 @@ namespace HealthVaultProviderManagementPortal.Helpers
                     }
                 },
                 CompletionType = ActionPlanTaskCompletionType.Frequency.ToString(),
-                Schedules = new List<ScheduleV2>
+                Schedules = new List<Schedule>
                 {
-                    new ScheduleV2
+                    new Schedule
                     {
                         ReminderState = ActionPlanReminderState.Off.ToString(),
                         ScheduledDays = new Collection<string> { ActionPlanScheduleDay.Everyday.ToString() }
                     }
                 },
-                FrequencyTaskCompletionMetrics = new ActionPlanFrequencyTaskCompletionMetricsV2()
+                FrequencyTaskCompletionMetrics = new ActionPlanFrequencyTaskCompletionMetrics()
                 {
                     OccurrenceCount = 1,
                     WindowType = ActionPlanScheduleRecurrenceType.Daily.ToString()

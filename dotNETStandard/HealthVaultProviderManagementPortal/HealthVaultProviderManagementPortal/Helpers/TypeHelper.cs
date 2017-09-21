@@ -13,9 +13,9 @@ namespace HealthVaultProviderManagementPortal.Helpers
 {
     public static class TypeHelper
     {
-        public static ActionPlanTaskV2 AsActionPlanTaskV2(this ActionPlanTaskInstanceV2 instance)
+        public static ActionPlanTask AsActionPlanTaskV2(this ActionPlanTaskInstance instance)
         {
-            return JsonConvert.DeserializeObject<ActionPlanTaskV2>(JsonConvert.SerializeObject(instance));
+            return JsonConvert.DeserializeObject<ActionPlanTask>(JsonConvert.SerializeObject(instance));
         }
 
         public static ActionPlanTrackingPolicy AsActionPlanTrackingPolicy(this string instance)

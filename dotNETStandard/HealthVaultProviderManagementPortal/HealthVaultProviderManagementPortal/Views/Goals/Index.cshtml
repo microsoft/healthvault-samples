@@ -18,8 +18,8 @@
 @using (Html.BeginForm("CreateGoal", "Goals"))
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("personID", Request.Params["personId"])
-    @Html.Hidden("recordID", Request.Params["recordID"])
+    @Html.Hidden("personId", Request.Params["personId"])
+    @Html.Hidden("recordId", Request.Params["recordId"])
 
     <div class="form-horizontal">
         <div class="form-group">

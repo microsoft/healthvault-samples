@@ -51,5 +51,11 @@ namespace HealthVaultProviderManagementPortal.Helpers
             var restApi = await CreateMicrosoftHealthVaultRestApiAsync(personId, recordId);
             return await restApiDelegate(restApi);
         }
+
+        public static async Task ExecuteMicrosoftHealthVaultRestApiAsync(Func<IMicrosoftHealthVaultRestApi, Task> restApiDelegate, Guid personId, Guid recordId)
+        {
+            var restApi = await CreateMicrosoftHealthVaultRestApiAsync(personId, recordId);
+            await restApiDelegate(restApi);
+        }
     }
 }
