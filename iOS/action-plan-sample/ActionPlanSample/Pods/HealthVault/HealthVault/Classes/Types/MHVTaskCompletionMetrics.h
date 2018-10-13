@@ -17,13 +17,13 @@
 
 #import "MHVType.h"
 #import "MHVPositiveInt.h"
-#import "MHVTaskRecurrenceTypeEnum.h"
-#import "MHVTaskCompletionTypeEnum.h"
+#import "MHVTimelineSnapshotCompletionMetrics.h"
+#import "MHVActionPlanTask.h"
 
 @interface MHVTaskCompletionMetrics : MHVType
 
-@property (readwrite, nonatomic, strong) MHVTaskRecurrenceTypeEnum *recurrenceType;
-@property (readwrite, nonatomic, strong) MHVTaskCompletionTypeEnum *completionType;
+@property (readwrite, nonatomic, strong) MHVTimelineSnapshotCompletionMetricsRecurrenceTypeEnum *recurrenceType;
+@property (readwrite, nonatomic, strong) MHVActionPlanTaskCompletionTypeEnum *completionType;
 @property (readwrite, nonatomic, strong) MHVPositiveInt *occurrenceCount;
 
 @end

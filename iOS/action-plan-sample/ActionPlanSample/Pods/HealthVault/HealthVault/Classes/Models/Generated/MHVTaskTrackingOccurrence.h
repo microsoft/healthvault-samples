@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MHVTaskTrackingOccurrence : MHVModelBase
 
-/* Gets or sets the Id of the task tracking occurrence [optional]
+/* Gets or sets the Id of the task tracking occurrence  TODO: keeger - S70 - Change TaskTrackingOccurrence ID to Guid once the DTO is updated [optional]
  */
 @property(strong,nonatomic,nullable) NSString* identifier;
 /* Gets or sets the Id of the task [optional]

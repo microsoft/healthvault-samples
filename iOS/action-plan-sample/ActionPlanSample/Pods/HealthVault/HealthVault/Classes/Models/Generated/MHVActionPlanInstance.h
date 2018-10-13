@@ -55,12 +55,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MHVActionPlanInstance : MHVModelBase
 
-/* The ID of the plan instance [optional]
+/* The ID of the plan instance 
  */
-@property(strong,nonatomic,nullable) NSString* identifier;
-/* The status of the plan [optional]
+@property(strong,nonatomic) NSString* identifier;
+/* The status of the plan 
  */
-@property(strong,nonatomic,nullable) MHVActionPlanInstanceStatusEnum* status;
+@property(strong,nonatomic) MHVActionPlanInstanceStatusEnum* status;
 /* The ID of the organization that manages this plan. Read-only [optional]
  */
 @property(strong,nonatomic,nullable) NSString* organizationId;

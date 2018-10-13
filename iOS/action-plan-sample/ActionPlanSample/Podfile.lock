@@ -1,5 +1,5 @@
 PODS:
-  - HealthVault/Core (3.0-preview.2)
+  - HealthVault/Core (3.0-preview.5)
 
 DEPENDENCIES:
   - HealthVault/Core (from `https://github.com/Microsoft/healthvault-ios-sdk.git`, branch `microsoft/develop`)
@@ -11,12 +11,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   HealthVault:
-    :commit: 704767c6af16f4b1155d32b05bb4146e5738a5ef
+    :commit: 37d3e97b5a246cc76858c85d460f672cdc90399c
     :git: https://github.com/Microsoft/healthvault-ios-sdk.git
 
 SPEC CHECKSUMS:
-  HealthVault: 11b385b859fff5fd5b126605174627f75d1892fd
+  HealthVault: 7769453ba55849e8360625284fdc87764464841b
 
 PODFILE CHECKSUM: dcc84ea5cc540982bf585450b5fe9438f0405d80
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.5.3

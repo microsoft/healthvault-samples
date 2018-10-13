@@ -45,8 +45,8 @@ static NSString *const c_element_completion_end_time = @"completion-end-time";
 - (void)deserialize:(XReader *)reader
 {
     self.trackingTime = [reader readElement:c_element_tracking_time asClass:[MHVDateTime class]];
-    self.trackingType = [[MHVTaskTrackingTypeEnum alloc] initWithString:[reader readStringElement:c_element_tracking_type]];
-    self.trackingStatus = [[MHVTaskTrackingStatusEnum alloc] initWithString:[reader readStringElement:c_element_tracking_status]];
+    self.trackingType = [[MHVActionPlanTaskTrackingTrackingTypeEnum alloc] initWithString:[reader readStringElement:c_element_tracking_type]];
+    self.trackingStatus = [[MHVActionPlanTaskTrackingTrackingStatusEnum alloc] initWithString:[reader readStringElement:c_element_tracking_status]];
     self.occurrenceStartTime = [reader readElement:c_element_occurrence_start_time asClass:[MHVDateTime class]];
     self.occurrenceEndTime = [reader readElement:c_element_occurrence_end_time asClass:[MHVDateTime class]];
     self.completionStartTime = [reader readElement:c_element_completion_start_time asClass:[MHVDateTime class]];

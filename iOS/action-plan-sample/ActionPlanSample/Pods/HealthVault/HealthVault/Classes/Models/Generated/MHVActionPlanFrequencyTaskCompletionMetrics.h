@@ -44,9 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MHVActionPlanFrequencyTaskCompletionMetrics : MHVModelBase
 
-/* The window in which the occurrences must be completed [optional]
+/* The window in which the occurrences must be completed 
  */
-@property(strong,nonatomic,nullable) MHVActionPlanFrequencyTaskCompletionMetricsWindowTypeEnum* windowType;
+@property(strong,nonatomic) MHVActionPlanFrequencyTaskCompletionMetricsWindowTypeEnum* windowType;
 /* The number of times the Task has to be completed [optional]
  */
 @property(strong,nonatomic,nullable) NSNumber* occurrenceCount;

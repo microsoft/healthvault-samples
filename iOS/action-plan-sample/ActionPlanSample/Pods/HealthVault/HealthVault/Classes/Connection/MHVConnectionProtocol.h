@@ -52,6 +52,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nullable) MHVPersonInfo *personInfo;
 
 /**
+ The authentication state for the current session. YES if the session is authenticated.
+ */
+@property (nonatomic, assign, readonly) BOOL isAuthenticated;
+
+/**
  Makes Web request call to HealthVault service.
 
  @param operation The operation to execute.  Either MHVMethod or MHVRestRequest.

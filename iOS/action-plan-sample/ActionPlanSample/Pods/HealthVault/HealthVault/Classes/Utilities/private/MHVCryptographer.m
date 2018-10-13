@@ -26,7 +26,7 @@
 - (NSString *)computeSha256Hash: (NSString *)data
 {
     const char *chars = [data cStringUsingEncoding: NSUTF8StringEncoding];
-    NSData *keyData = [NSData dataWithBytes: chars length: strlen(chars)];
+    NSData *keyData = [NSData dataWithBytes: chars length: [data lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
     
     uint8_t digest[CC_SHA256_DIGEST_LENGTH] = {0};
     CC_SHA256(keyData.bytes, (uint)keyData.length, digest);
@@ -45,7 +45,7 @@
     
     unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
     
-    CCHmac(kCCHmacAlgSHA256, cKey, len, cData, strlen(cData), cHMAC);
+    CCHmac(kCCHmacAlgSHA256, cKey, len, cData, [data lengthOfBytesUsingEncoding:NSUTF8StringEncoding], cHMAC);
     
     NSData *hmac = [[NSData alloc] initWithBytes: cHMAC length: sizeof(cHMAC)];
     

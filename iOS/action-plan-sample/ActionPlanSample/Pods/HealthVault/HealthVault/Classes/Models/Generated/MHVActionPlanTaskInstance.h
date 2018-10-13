@@ -59,12 +59,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MHVActionPlanTaskInstance : MHVModelBase
 
-/* The Id of the task instance [optional]
+/* The Id of the task instance 
  */
-@property(strong,nonatomic,nullable) NSString* identifier;
-/* The status of the task [optional]
+@property(strong,nonatomic) NSString* identifier;
+/* The status of the task 
  */
-@property(strong,nonatomic,nullable) MHVActionPlanTaskInstanceStatusEnum* status;
+@property(strong,nonatomic) MHVActionPlanTaskInstanceStatusEnum* status;
 /* The date that the task was started. Read-only [optional]
  */
 @property(strong,nonatomic,nullable) NSDate* startDate;
@@ -104,9 +104,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* The text shown during task signup. [optional]
  */
 @property(strong,nonatomic,nullable) NSString* signupName;
-/* The ID of the associated plan. This is not needed when adding a task as part of a new plan 
+/* The ID of the associated plan. This is not needed when adding a task as part of a new plan [optional]
  */
-@property(strong,nonatomic) NSString* associatedPlanId;
+@property(strong,nonatomic,nullable) NSString* associatedPlanId;
 /* The list of objective IDs the task is associated with 
  */
 @property(strong,nonatomic) NSArray<NSString*>* associatedObjectiveIds;

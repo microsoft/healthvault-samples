@@ -45,8 +45,8 @@ static NSString *const c_element_adherence_window_in_minutes = @"adherence-windo
 {
     self.startDateTime = [reader readElement:c_element_start_date_time asClass:[MHVDateTime class]];
     self.endDateTime = [reader readElement:c_element_end_date_time asClass:[MHVDateTime class]];
-    self.scheduleType = [[MHVTaskScheduleTypeEnum alloc] initWithString:[reader readStringElement:c_element_schedule_type]];
-    self.recurrenceType = [[MHVTaskRecurrenceTypeEnum alloc] initWithString:[reader readStringElement:c_element_recurrence_type]];
+    self.scheduleType = [[MHVTimelineScheduleTypeEnum alloc] initWithString:[reader readStringElement:c_element_schedule_type]];
+    self.recurrenceType = [[MHVTimelineSnapshotCompletionMetricsRecurrenceTypeEnum alloc] initWithString:[reader readStringElement:c_element_recurrence_type]];
     self.groupId = [reader readElement:c_element_group_id asClass:[MHVStringNZNW class]];
     self.multiple = [reader readElement:c_element_multiple asClass:[MHVStringNZNW class]];
     self.minutesToRemindBefore = [reader readElement:c_element_minutes_to_remind_before asClass:[MHVNonNegativeDouble class]];
