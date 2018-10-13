@@ -161,7 +161,7 @@ class TimelineTaskCellData: NSObject
                     }
                 }
                 
-                self.requiredNumberOfOccurrences = completionMetrics.requiredNumberOfOccurrences != nil ? Int(completionMetrics.requiredNumberOfOccurrences!) : 1
+                self.requiredNumberOfOccurrences = completionMetrics.requiredNumberOfOccurrences != nil ? Int(truncating: completionMetrics.requiredNumberOfOccurrences!) : 1
             }
         }
     }

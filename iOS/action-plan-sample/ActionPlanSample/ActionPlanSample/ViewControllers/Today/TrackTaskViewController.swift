@@ -58,7 +58,7 @@ class TrackTaskViewController: BaseViewController
     public func setTaskInstance(taskInstance: MHVActionPlanTaskInstance)
     {
         title = taskInstance.name
-        taskId = taskInstance.identifier!
+        taskId = taskInstance.identifier
 
         taskDescription = taskInstance.shortDescription
 

@@ -29,7 +29,7 @@ class HealthDataStatusViewController: BaseViewController, RightBarButtonProtocol
 {
     @IBOutlet var tableView: UITableView!
     
-    var rightBarButtonSystemItem : UIBarButtonSystemItem?
+    var rightBarButtonSystemItem : UIBarButtonItem.SystemItem?
     {
         get
         {
@@ -38,7 +38,7 @@ class HealthDataStatusViewController: BaseViewController, RightBarButtonProtocol
                 return nil
             }
             
-            return UIBarButtonSystemItem.add
+            return UIBarButtonItem.SystemItem.add
         }
     }
     
@@ -54,14 +54,14 @@ class HealthDataStatusViewController: BaseViewController, RightBarButtonProtocol
     {
         super.viewDidLoad()
         
-        self.refreshControl.addTarget(self, action: #selector(refreshObservers), for: UIControlEvents.valueChanged)
+        self.refreshControl.addTarget(self, action: #selector(refreshObservers), for: UIControl.Event.valueChanged)
         self.tableView.addSubview(self.refreshControl)
-        self.tableView.contentInset = UIEdgeInsetsMake(-44, 0, 0, 0)
+        self.tableView.contentInset = UIEdgeInsets(top: -44, left: 0, bottom: 0, right: 0)
         
         self.loadData()
     }
     
-    func refreshObservers()
+    @objc func refreshObservers()
     {
         if (self.activeObservers.count < 1)
         {
@@ -128,7 +128,7 @@ class HealthDataStatusViewController: BaseViewController, RightBarButtonProtocol
     
     // MARK: - HealthKit
     
-    private func fetchLastSamples(completion: @escaping (Void) -> Void)
+    private func fetchLastSamples(completion: @escaping () -> Void)
     {
         if (self.activeObservers.count < 1)
         {

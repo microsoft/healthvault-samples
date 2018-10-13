@@ -294,7 +294,7 @@ class RootViewController : BaseViewController
         })
     }
     
-    func signOutButtonPressed()
+    @objc func signOutButtonPressed()
     {
         HVConnection.signOut(presentingViewController: self, completion:
             {

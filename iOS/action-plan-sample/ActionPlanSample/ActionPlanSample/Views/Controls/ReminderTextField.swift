@@ -34,7 +34,7 @@ class ReminderTextField: PickerTextField
     }
     
     private var date = Date()
-    private var updateIsOn: (Void) -> Void = {_ in }
+    private var updateIsOn: () -> Void = { }
     private let offsets = [(text:"Off", value:nil),
                            (text:"", value:0),
                            (text:"5 minutes before ", value:-300),
@@ -47,7 +47,7 @@ class ReminderTextField: PickerTextField
                            (text:"8 hours before ", value:-28800)
                            ]
     
-    public func setDate(date: Date, offset: Int?, scheduleIndex: Int, updateIsOn:@escaping (Void) -> Void)
+    public func setDate(date: Date, offset: Int?, scheduleIndex: Int, updateIsOn:@escaping () -> Void)
     {
         self.date = date
         self.offset = offset

@@ -34,7 +34,7 @@ class PickerTableViewCell: UITableViewCell {
         
         if (selected)
         {
-            NotificationCenter.default.addObserver(self, selector: #selector(disableTextField), name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(disableTextField), name: UITextField.textDidEndEditingNotification, object: nil)
             
             self.textEntryfield.isUserInteractionEnabled = true
             
@@ -45,7 +45,7 @@ class PickerTableViewCell: UITableViewCell {
         }
     }
     
-    func disableTextField()
+    @objc func disableTextField()
     {
         NotificationCenter.default.removeObserver(self)
         self.textEntryfield.isUserInteractionEnabled = false

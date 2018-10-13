@@ -26,7 +26,7 @@ import UIKit
 
 protocol RightBarButtonProtocol
 {
-    var rightBarButtonSystemItem: UIBarButtonSystemItem? { get }
+    var rightBarButtonSystemItem: UIBarButtonItem.SystemItem? { get }
     
     func rightBarButtonAction()
 }
