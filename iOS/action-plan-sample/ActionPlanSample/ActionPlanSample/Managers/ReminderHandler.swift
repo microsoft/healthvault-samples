@@ -82,7 +82,7 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
         let content = UNMutableNotificationContent()
         content.title = "Reminder"
         content.body = "You have \(reminderItems.count) tasks"
-        content.sound = UNNotificationSound.default()
+        content.sound = UNNotificationSound.default
         
         content.userInfo = [ReminderManager.reminderIdentifierKey : taskIdentifiers]
         
@@ -99,7 +99,7 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
         let content = UNMutableNotificationContent()
         content.title = "Reminder"
         content.body = reminderItem.task.name
-        content.sound = UNNotificationSound.default()
+        content.sound = UNNotificationSound.default
         content.categoryIdentifier = self.categoryIdentifier
         
         content.userInfo = [ReminderManager.reminderIdentifierKey : reminderItem.identifier,
@@ -122,7 +122,7 @@ class ReminderHandler: NSObject, ReminderManagerDataSource, UNUserNotificationCe
             return
         }
         
-        remoteMonitoringClient.actionPlanTasksGet(withActionPlanTaskStatus: MHVPlanStatusEnum.mhvInProgress(),
+        remoteMonitoringClient.actionPlanTasksGet(withActionPlanTaskStatus: MHVActionPlanTaskInstanceStatusEnum.mhvInProgress(),
                                                   completion:
             { (taskInstance: MHVActionPlanTasksResponseActionPlanTaskInstance_?, error: Error?) in
                 

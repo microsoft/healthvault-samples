@@ -53,9 +53,9 @@ class ManageHabitsViewContoller: BaseViewController, UITableViewDataSource, UITa
     {
         super.viewDidLoad()
         
-        self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         self.tableView.addSubview(self.refreshControl)
-        self.tableView.contentInset = UIEdgeInsetsMake(-44, 0, 0, 0)
+        self.tableView.contentInset = UIEdgeInsets(top: -44, left: 0, bottom: 0, right: 0)
         
         if (self.didDeferUpdate)
         {
@@ -63,7 +63,7 @@ class ManageHabitsViewContoller: BaseViewController, UITableViewDataSource, UITa
         }
     }
     
-    func refresh()
+    @objc func refresh()
     {
         loadActionPlans(shouldShowWorking: false)
     }

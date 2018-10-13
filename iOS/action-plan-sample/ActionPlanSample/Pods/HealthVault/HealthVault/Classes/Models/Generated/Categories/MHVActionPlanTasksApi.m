@@ -30,11 +30,8 @@
 #import "MHVActionPlanTasksApi.h"
 #import "MHVActionPlanTask.h"
 #import "MHVActionPlanTaskInstance.h"
-#import "MHVActionPlanTaskTrackingResponseActionPlanTaskTracking_.h"
 #import "MHVActionPlanTasksResponseActionPlanTaskInstance_.h"
 #import "MHVErrorResponse.h"
-#import "MHVTrackingValidation.h"
-#import "MHVPlanStatusEnum.h"
 
 
 @implementation MHVRemoteMonitoringClient (MHVActionPlanTasksApi)
@@ -132,7 +129,7 @@ NSInteger kMHVActionPlanTasksApiMissingParamErrorCode = 234513;
 /// 
 ///  @param actionPlanTaskStatus An optional status used to filter the results. (optional)
 /// 
-- (void)actionPlanTasksGetWithActionPlanTaskStatus:(MHVPlanStatusEnum* _Nullable)actionPlanTaskStatus
+- (void)actionPlanTasksGetWithActionPlanTaskStatus:(MHVActionPlanTaskInstanceStatusEnum* _Nullable)actionPlanTaskStatus
     completion:(void(^_Nonnull)(MHVActionPlanTasksResponseActionPlanTaskInstance_* _Nullable output, NSError* _Nullable error))completion
 {
     NSMutableString* resourcePath = [NSMutableString stringWithFormat:@"/ActionPlanTasks"];
@@ -278,47 +275,6 @@ NSInteger kMHVActionPlanTasksApiMissingParamErrorCode = 234513;
                      queryParams:queryParams
                             body:bodyParam
                      resultClass:[MHVActionPlanTaskInstance class]
-                      completion:completion];
-}
-
-///
-/// Validate tracking for an action plan task
-/// 
-///  @param trackingValidation The tracking validation information. 
-/// 
-- (void)actionPlanTasksValidateTrackingWithTrackingValidation:(MHVTrackingValidation* _Nonnull)trackingValidation
-    completion:(void(^_Nonnull)(MHVActionPlanTaskTrackingResponseActionPlanTaskTracking_* _Nullable output, NSError* _Nullable error))completion
-{
-    // verify the required parameter 'trackingValidation' is set
-    if (trackingValidation == nil)
-    {
-        NSParameterAssert(trackingValidation);
-        if(completion)
-        {
-            NSDictionary * userInfo = @{NSLocalizedDescriptionKey : [NSString stringWithFormat:NSLocalizedString(@"Missing required parameter '%@'", nil),@"trackingValidation"] };
-            NSError* error = [NSError errorWithDomain:kMHVActionPlanTasksApiErrorDomain code:kMHVActionPlanTasksApiMissingParamErrorCode userInfo:userInfo];
-            completion(nil, error);
-        }
-
-        return;
-    }
-
-    NSMutableString* resourcePath = [NSMutableString stringWithFormat:@"/ActionPlanTasks/ValidateTracking"];
-
-    NSMutableDictionary *pathParams = [[NSMutableDictionary alloc] init];
-
-    NSMutableDictionary* queryParams = [[NSMutableDictionary alloc] init];
-
-    NSData *bodyParam = nil;
-    NSString *json = [MHVJsonSerializer serialize:trackingValidation];
-    bodyParam = [json dataUsingEncoding:NSUTF8StringEncoding];
-
-    [self requestWithPath:resourcePath
-                      httpMethod:@"POST"
-                      pathParams:pathParams
-                     queryParams:queryParams
-                            body:bodyParam
-                     resultClass:[MHVActionPlanTaskTrackingResponseActionPlanTaskTracking_ class]
                       completion:completion];
 }
 

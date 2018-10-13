@@ -83,6 +83,7 @@ static NSInteger kInternalServerError = 500;
 
 @dynamic sessionCredential;
 @dynamic personInfo;
+@dynamic isAuthenticated;
 @synthesize cacheConfiguration = _cacheConfiguration;
 
 - (instancetype)initWithConfiguration:(MHVConfiguration *)configuration

@@ -19,7 +19,7 @@
 #import "MHVModelBase.h"
 #import <objc/runtime.h>
 #import "MHVStringExtensions.h"
-#import "MHVDynamicEnum.h"
+#import "MHVEnum.h"
 #import "MHVJsonSerializer.h"
 #import "NSDictionary+DataModel.h"
 #import "NSArray+Utils.h"
@@ -577,7 +577,7 @@ Class classFromProperty(objc_property_t property);
                     {
                         id value = [aDecoder decodeObjectForKey:propertyName];
                         Class propertyClass = classFromProperty(properties[i]);
-                        if ([propertyClass isSubclassOfClass:[MHVDynamicEnum class]] && ![[value class] isSubclassOfClass:[MHVDynamicEnum class]])
+                        if ([propertyClass isSubclassOfClass:[MHVEnum class]] && ![[value class] isSubclassOfClass:[MHVEnum class]])
                         {
                             if ([value isKindOfClass:[NSNumber class]]) {
                                 value = [[propertyClass alloc] initWithInteger:((NSNumber*)value).integerValue];
@@ -654,7 +654,7 @@ Class classFromProperty(objc_property_t property);
             free(readOnly);
             NSString *propertyName = [NSString stringWithUTF8String:property_getName(properties[i])];
             char *type = property_copyAttributeValue(properties[i], "T");
-            if(strlen(type) > 0 && type[0] == '@')
+            if(type && type[0] == '@')
             {
                 id objectToEncode = [self valueForKey:propertyName];
                 if([objectToEncode conformsToProtocol:@protocol(NSCoding)])

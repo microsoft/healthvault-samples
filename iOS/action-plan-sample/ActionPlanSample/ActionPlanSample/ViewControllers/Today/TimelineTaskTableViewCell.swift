@@ -38,7 +38,7 @@ class TimelineTaskTableViewCell: UITableViewCell
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var noAlarmIcon: UIImageView!
     
-    var cellData: TimelineTaskCellData?
+    @objc var cellData: TimelineTaskCellData?
     weak var delegate: TimelineTaskTableViewCellDelegate?
 
     deinit

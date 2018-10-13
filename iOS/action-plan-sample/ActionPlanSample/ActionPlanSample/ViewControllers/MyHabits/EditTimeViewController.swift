@@ -75,7 +75,7 @@ class EditTimeViewController: BaseViewController, UITableViewDataSource, UITable
     {
         super.viewDidLoad()
 
-        self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
+        self.tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
     }
 
     public func setTaskInstance(taskInstance: MHVActionPlanTaskInstance?, index: Int, isReminder: Bool)

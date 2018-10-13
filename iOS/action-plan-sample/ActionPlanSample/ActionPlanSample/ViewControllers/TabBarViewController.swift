@@ -54,7 +54,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate
         self.tabBarController(self, didSelect: todayViewController!)
     }
     
-    func signOutButtonPressed()
+    @objc func signOutButtonPressed()
     {
         HVConnection.signOut(presentingViewController: self, completion:
         {
@@ -70,7 +70,7 @@ class TabBarViewController: UITabBarController, UITabBarControllerDelegate
                 {
                     self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: item,
                                                                                   target: viewController,
-                                                                                  action: Selector(("rightBarButtonAction")))
+                                                                                  action: #selector(TodayViewController.rightBarButtonAction))
                 }
                 else
                 {

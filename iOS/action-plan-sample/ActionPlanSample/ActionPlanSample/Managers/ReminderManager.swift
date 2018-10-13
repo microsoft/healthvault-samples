@@ -105,7 +105,7 @@ class ReminderManager: NSObject
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = message
-        content.sound = UNNotificationSound.default()
+        content.sound = UNNotificationSound.default
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
         
@@ -126,7 +126,7 @@ class ReminderManager: NSObject
     // MARK: - HealthVault
     
     /// Get the list of current Action Plan tasks from the data source and update the scheduled reminders
-    public func updateReminders()
+    @objc public func updateReminders()
     {
         if !isAuthorized
         {
@@ -285,7 +285,7 @@ class ReminderManager: NSObject
         
         for task in tasks
         {
-            guard let taskSchedules = task.schedules, task.identifier != nil else
+            guard let taskSchedules = task.schedules else
             {
                 continue
             }

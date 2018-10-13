@@ -373,5 +373,24 @@ static const xmlChar *x_element_millis = XMLSTRINGCONST("f");
     return types;
 }
 
+- (BOOL)isEqual:(id)object
+{
+    // Base class implements isEqual, but does not work correctly for MHVTime
+    if (![object isKindOfClass:[MHVTime class]])
+    {
+        return NO;
+    }
+    
+    MHVTime *time = (MHVTime *)object;
+    
+    return self.hour == time.hour && self.minute == time.minute && self.second == time.second && self.millisecond == time.millisecond;
+}
+
+- (NSUInteger)hash
+{
+    // Convert to millisecond for hash value
+    return self.hour * 3600000 + self.minute * 60000 + (self.hasSecond ? self.second * 1000 : 0) + (self.hasMillisecond ? self.millisecond : 0);
+}
+
 @end
 

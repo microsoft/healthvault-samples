@@ -81,8 +81,8 @@ class EditHabitViewController: BaseViewController, UITableViewDataSource, UITabl
         self.navigationItem.leftBarButtonItems = [backSpace, backButton];
         
         // Add a table view controller so the table view will scroll content that could be covered by the picker views
-        self.addChildViewController(self.tableViewController)
-        self.tableViewController.didMove(toParentViewController: self)
+        self.addChild(self.tableViewController)
+        self.tableViewController.didMove(toParent: self)
         self.tableViewController.tableView = self.tableView
     }
     
@@ -479,7 +479,7 @@ class EditHabitViewController: BaseViewController, UITableViewDataSource, UITabl
             {
                 if let type = self.windowTypeMap[windowType]
                 {
-                    cell.setOccurrenceCount(occurrenceCount: Int(occurrenceCount), windowType: type)
+                    cell.setOccurrenceCount(occurrenceCount: Int(truncating: occurrenceCount), windowType: type)
                 }
             }
             return cell
@@ -529,7 +529,7 @@ class EditHabitViewController: BaseViewController, UITableViewDataSource, UITabl
     }
     
     // Support for deleting schedules
-    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
     {
         if (indexPath.section == 1)
         {
@@ -658,7 +658,7 @@ class EditHabitViewController: BaseViewController, UITableViewDataSource, UITabl
         self.navigationItem.leftBarButtonItems?[1].isEnabled = true
     }
     
-    func backButtonPressed()
+    @objc func backButtonPressed()
     {
         // No changes have been made - Just navigate back
         if (self.taskInstance == self.originalTaskInstance)

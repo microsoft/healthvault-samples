@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         // Start the HealthKitManager observers in the application did finish launching so the app can handle query results if launched from an observer query.
         if let healthKitManager = HealthKitManagerFactory.healthKitManager()

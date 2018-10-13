@@ -29,7 +29,7 @@ struct HVConnection
     public static let currentConnection: MHVSodaConnectionProtocol? = MHVConnectionFactory.current().getOrCreateSodaConnection(with: ActionPlanConfiguration.configuration())
     
     // Signs the current user out of the application
-    public static func signOut(presentingViewController: UIViewController!, completion:((Void) -> Void)?)
+    public static func signOut(presentingViewController: UIViewController!, completion:(() -> Void)?)
     {
         let alert = UIAlertController.init(title: "Sign out",
                                            message: "Would you like to sign out?",

@@ -17,8 +17,7 @@
 // limitations under the License.
 
 #import "MHVThing.h"
-#import "MHVTaskTrackingTypeEnum.h"
-#import "MHVTaskTrackingStatusEnum.h"
+#import "MHVActionPlanTaskTracking.h"
 
 @interface MHVTaskTrackingEntry : MHVThingDataTyped
 
@@ -29,11 +28,11 @@
 //
 // (Required) The method by which the tracking entry was triggered.
 //
-@property (readwrite, nonatomic, strong) MHVTaskTrackingTypeEnum *trackingType;
+@property (readwrite, nonatomic, strong) MHVActionPlanTaskTrackingTrackingTypeEnum *trackingType;
 //
 // (Required) The task adherence or completion status represented by this tracking entry.
 //
-@property (readwrite, nonatomic, strong) MHVTaskTrackingStatusEnum *trackingStatus;
+@property (readwrite, nonatomic, strong) MHVActionPlanTaskTrackingTrackingStatusEnum *trackingStatus;
 //
 // (Optional) When the occurrence window began.
 //

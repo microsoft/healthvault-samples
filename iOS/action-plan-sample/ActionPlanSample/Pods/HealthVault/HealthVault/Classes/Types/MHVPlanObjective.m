@@ -40,7 +40,7 @@ static NSString *const c_element_outcomes = @"outcomes";
     self.identifier = [[NSUUID alloc] initWithUUIDString:[reader readStringElement:c_element_id]];
     self.name = [reader readElement:c_element_name asClass:[MHVStringNZNW class]];
     self.descriptionText = [reader readElement:c_element_description asClass:[MHVStringNZNW class]];
-    self.state = [[MHVPlanObjectiveStateEnum alloc] initWithString:[reader readStringElement:c_element_state]];
+    self.state = [[MHVObjectiveStateEnum alloc] initWithString:[reader readStringElement:c_element_state]];
     self.outcomes = [reader readElement:c_element_outcomes asClass:[MHVPlanOutcomeList class]];
 }
 

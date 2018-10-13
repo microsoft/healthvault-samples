@@ -40,8 +40,8 @@ static NSString *const c_element_objectives = @"objectives";
 {
     self.name = [reader readElement:c_element_name asClass:[MHVStringNZNW class]];
     self.descriptionText = [reader readElement:c_element_description asClass:[MHVStringNZNW class]];
-    self.status = [[MHVPlanStatusEnum alloc] initWithString:[reader readStringElement:c_element_status]];
-    self.category = [[MHVPlanCategoryEnum alloc] initWithString:[reader readStringElement:c_element_category]];
+    self.status = [[MHVActionPlanInstanceStatusEnum alloc] initWithString:[reader readStringElement:c_element_status]];
+    self.category = [[MHVActionPlanCategoryEnum alloc] initWithString:[reader readStringElement:c_element_category]];
     self.objectives = [reader readElement:c_element_objectives asClass:[MHVPlanObjectiveList class]];
 }
 

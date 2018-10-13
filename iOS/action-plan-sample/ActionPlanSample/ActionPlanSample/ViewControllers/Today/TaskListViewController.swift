@@ -34,7 +34,7 @@ class TaskListViewController: BaseViewController, UITableViewDataSource, UITable
         
         loadData(showWorkingIndicator: true)
 
-        self.tableView.contentInset = UIEdgeInsets.init(top: 28, left: 0, bottom: 28, right: 0)
+        self.tableView.contentInset = UIEdgeInsets(top: 28, left: 0, bottom: 28, right: 0)
     }
 
     // MARK: - HealthVault
@@ -55,7 +55,7 @@ class TaskListViewController: BaseViewController, UITableViewDataSource, UITable
             showWorking()
         }
         
-        remoteMonitoringClient.actionPlanTasksGet(withActionPlanTaskStatus: MHVPlanStatusEnum.mhvInProgress(),
+        remoteMonitoringClient.actionPlanTasksGet(withActionPlanTaskStatus: MHVActionPlanTaskInstanceStatusEnum.mhvInProgress(),
                                                   completion:
             { (taskInstance, error) in
                 

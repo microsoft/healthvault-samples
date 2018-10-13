@@ -46,7 +46,7 @@ class HealthDataManagementViewController: BaseViewController, UITableViewDataSou
         let backButton = UIBarButtonItem.init(image: #imageLiteral(resourceName: "back-icon"), style: .plain, target: self, action: #selector(backButtonPressed))
         self.navigationItem.leftBarButtonItems = [backSpace, backButton];
         
-        self.tableView.contentInset = UIEdgeInsetsMake(-44, 0, 0, 0)
+        self.tableView.contentInset = UIEdgeInsets(top: -44, left: 0, bottom: 0, right: 0)
         self.loadData()
     }
     
@@ -270,14 +270,14 @@ class HealthDataManagementViewController: BaseViewController, UITableViewDataSou
     
     // MARK: - Actions
     
-    func doneButtonPressed()
+    @objc func doneButtonPressed()
     {
         // Start the observer before navigating back.
         self.observer?.start()
         self.navigateBack()
     }
     
-    func backButtonPressed()
+    @objc func backButtonPressed()
     {
         self.navigateBack()
     }

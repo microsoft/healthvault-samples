@@ -97,6 +97,14 @@ static NSString *const kBlankUUID = @"00000000-0000-0000-0000-000000000000";
     return self.applicationCreationInfo.appInstanceId;
 }
 
+- (BOOL)isAuthenticated
+{
+    return (self.serviceInstance &&
+            self.applicationCreationInfo &&
+            self.sessionCredential &&
+            self.personInfo);
+}
+
 - (void)authenticateWithViewController:(UIViewController *_Nullable)viewController
                             completion:(void(^_Nullable)(NSError *_Nullable error))completion;
 {
@@ -109,10 +117,7 @@ static NSString *const kBlankUUID = @"00000000-0000-0000-0000-000000000000";
                        
         [self setConnectionPropertiesFromKeychain];
         
-        if (self.serviceInstance &&
-            self.applicationCreationInfo &&
-            self.sessionCredential &&
-            self.personInfo)
+        if (self.isAuthenticated)
         {
             // The user is already authenticated
             [self finishAuthWithError:nil completion:completion];
@@ -213,10 +218,7 @@ static NSString *const kBlankUUID = @"00000000-0000-0000-0000-000000000000";
             return;
         }
         
-        if (self.serviceInstance &&
-            self.applicationCreationInfo &&
-            self.sessionCredential &&
-            self.personInfo)
+        if (self.isAuthenticated)
         {
             [self removeAuthRecords:self.personInfo.records completion:^(NSError * _Nullable error)
             {

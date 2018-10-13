@@ -78,9 +78,9 @@ NS_ASSUME_NONNULL_BEGIN
 /* The text shown during task signup. [optional]
  */
 @property(strong,nonatomic,nullable) NSString* signupName;
-/* The ID of the associated plan. This is not needed when adding a task as part of a new plan 
+/* The ID of the associated plan. This is not needed when adding a task as part of a new plan [optional]
  */
-@property(strong,nonatomic) NSString* associatedPlanId;
+@property(strong,nonatomic,nullable) NSString* associatedPlanId;
 /* The list of objective IDs the task is associated with 
  */
 @property(strong,nonatomic) NSArray<NSString*>* associatedObjectiveIds;

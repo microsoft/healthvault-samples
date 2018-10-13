@@ -75,7 +75,7 @@ class BaseViewController: UIViewController
     func showAlertWithError(error: Error?,
                             defaultMessage: String?,
                             includeCancel: Bool,
-                            retryAction: ((Void) -> Void)?)
+                            retryAction: (() -> Void)?)
     {
         var message = error?.localizedDescription
         

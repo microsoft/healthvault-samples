@@ -32,14 +32,13 @@ struct ReminderItem
     
     init?(task: MHVActionPlanTaskInstance, schedule: MHVSchedule, dayEnum: MHVScheduleScheduledDaysEnum)
     {
-        if let taskIdentifier = task.identifier,
-            let scheduledTime = schedule.scheduledTime,
+        if let scheduledTime = schedule.scheduledTime,
             let timeString = schedule.scheduledTime?.toString(),
             let dayString = dayEnum.stringValue,
             let reminderStateString = schedule.reminderState.stringValue
         {
             self.task = task
-            self.taskIdentifier = taskIdentifier
+            self.taskIdentifier = task.identifier
             self.scheduledTime = scheduledTime
             self.dayEnum = dayEnum
 

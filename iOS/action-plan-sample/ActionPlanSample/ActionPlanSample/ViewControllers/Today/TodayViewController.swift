@@ -26,7 +26,7 @@ class TodayViewController: BaseViewController, UITableViewDataSource, UITableVie
 {
     @IBOutlet var tableView: UITableView!
     
-    var rightBarButtonSystemItem: UIBarButtonSystemItem? { get { return UIBarButtonSystemItem.add } }
+    var rightBarButtonSystemItem: UIBarButtonItem.SystemItem? { get { return UIBarButtonItem.SystemItem.add } }
     
     private var connection = HVConnection.currentConnection
     private var tableContents = [TimelineTaskCellData]()
@@ -45,10 +45,10 @@ class TodayViewController: BaseViewController, UITableViewDataSource, UITableVie
         
         // Do any additional setup after loading the view.
         
-        self.refreshControl.addTarget(self, action: #selector(refreshNow), for: UIControlEvents.valueChanged)
+        self.refreshControl.addTarget(self, action: #selector(refreshNow), for: UIControl.Event.valueChanged)
         self.tableView.addSubview(self.refreshControl)
         
-        self.tableView.contentInset = UIEdgeInsets.init(top: 28, left: 0, bottom: 28, right: 0)
+        self.tableView.contentInset = UIEdgeInsets(top: 28, left: 0, bottom: 28, right: 0)
         
         loadData(showWorkingIndicator: true)
         
@@ -141,7 +141,7 @@ class TodayViewController: BaseViewController, UITableViewDataSource, UITableVie
         
         // In parallel with timeline, load all the action plan tasks
         loadingDispatchGroup.enter()
-        remoteMonitoringClient.actionPlanTasksGet(withActionPlanTaskStatus: MHVPlanStatusEnum.mhvInProgress(),
+        remoteMonitoringClient.actionPlanTasksGet(withActionPlanTaskStatus: MHVActionPlanTaskInstanceStatusEnum.mhvInProgress(),
                                                   completion:
             { (taskInstance: MHVActionPlanTasksResponseActionPlanTaskInstance_?, error: Error?) in
                 
@@ -515,7 +515,7 @@ class TodayViewController: BaseViewController, UITableViewDataSource, UITableVie
         return tableContents[indexPath.row].occurrenceIdentifiers.count == 1
     }
     
-    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
     {
         self.deleteTaskTracking(cellData: tableContents[indexPath.row])
     }

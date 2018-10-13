@@ -32,7 +32,7 @@ static NSString *const c_element_type = @"type";
 - (void)deserialize:(XReader *)reader
 {
     self.name = [reader readElement:c_element_name asClass:[MHVStringNZNW class]];
-    self.type = [[MHVPlanOutcomeTypeEnum alloc] initWithString:[reader readStringElement:c_element_type]];
+    self.type = [[MHVObjectiveOutcomeTypeEnum alloc] initWithString:[reader readStringElement:c_element_type]];
 }
 
 @end

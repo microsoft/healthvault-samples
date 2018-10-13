@@ -32,8 +32,8 @@ static NSString *const c_element_occurrence_count = @"occurrence-count";
 
 - (void)deserialize:(XReader *)reader
 {
-    self.recurrenceType = [[MHVTaskRecurrenceTypeEnum alloc] initWithString:[reader readStringElement:c_element_recurrence_type]];
-    self.completionType =  [[MHVTaskCompletionTypeEnum alloc] initWithString:[reader readStringElement:c_element_completion_type]];
+    self.recurrenceType = [[MHVTimelineSnapshotCompletionMetricsRecurrenceTypeEnum alloc] initWithString:[reader readStringElement:c_element_recurrence_type]];
+    self.completionType =  [[MHVActionPlanTaskCompletionTypeEnum alloc] initWithString:[reader readStringElement:c_element_completion_type]];
     self.occurrenceCount = [reader readElement:c_element_occurrence_count asClass:[MHVPositiveInt class]];
 }
 
