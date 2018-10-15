@@ -1,6 +1,0 @@
-framework module Pods_ActionPlanSample {
-  umbrella header "Pods-ActionPlanSample-umbrella.h"
-
-  export *
-  module * { export * }
-}
